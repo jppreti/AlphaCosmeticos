@@ -1,11 +1,11 @@
 package br.com.compdevbooks.alphacosmetics.dao;
 
+import java.util.List;
+
 import br.com.compdevbooks.alphacosmetics.vo.ClienteVO;
 
-public interface IClienteDAO {
-
-	void save(ClienteVO vo);
-	ClienteVO getClienteVO(Long id);
-	void delete(ClienteVO vo);
+public interface IClienteDAO extends IDAO<ClienteVO>{
+		
+	List<ClienteVO> getByNome(String nome);
 	
 }
