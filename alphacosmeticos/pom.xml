@@ -29,7 +29,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>gui.javafx.TesteFXML</mainClass>
+					<mainClass>br.com.compdevbooks.alphacosmetics.gui.javafx.FrmCliente</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
