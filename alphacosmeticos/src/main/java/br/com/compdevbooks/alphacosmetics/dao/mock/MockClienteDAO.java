@@ -42,7 +42,7 @@ public class MockClienteDAO implements IClienteDAO {
 	@Override
 	public ClienteEntity getById(Long id) {
 		for (ClienteEntity vo : clientes)
-			if (vo.getIdCliente().equals(id))
+			if (vo.getId().equals(id))
 				return vo;
 		return null;
 	}

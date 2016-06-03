@@ -1,27 +1,29 @@
 package br.com.compdevbooks.alphacosmetics.entity;
 
-public class ClienteEntity {
+import br.com.compdevbooks.alphacosmetics.entity.exception.ClienteException;
 
-	private Long idCliente;
+public class ClienteEntity implements IEntity<ClienteException> {
+
+	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
 
 	public ClienteEntity() {	}
 	
-	public ClienteEntity(Long idCliente, String nome, String email, String telefone) {
+	public ClienteEntity(Long id, String nome, String email, String telefone) {
 		super();
-		this.idCliente = idCliente;
+		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+	public Long getId() {
+		return id;
 	}
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getNome() {
 		return nome;
@@ -65,6 +67,12 @@ public class ClienteEntity {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
+	}
+
+	@Override
+	public ClienteException validar() {
+
+		return null;
 	}
 	
 }
