@@ -28,7 +28,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Formulário de Manutenção de Clientes");
         primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
+        primaryStage.setHeight(660);
         
         Scene scene = new Scene(frmCliente);
         primaryStage.setScene(scene);

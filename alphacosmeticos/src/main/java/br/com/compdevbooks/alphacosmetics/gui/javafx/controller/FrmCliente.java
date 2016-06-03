@@ -7,6 +7,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -88,37 +90,57 @@ public class FrmCliente {
 
     @FXML
     void btnNovo_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Cadastrando novo cliente.");
+    	habilitarEdicao(true);
     }
 
     @FXML
     void btnConfirmar_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Cliente salvo com sucesso.");    	
+    	habilitarEdicao(false);
     }
 
     @FXML
     void btnAlterar_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Alterando dados do cliente.");
+    	habilitarEdicao(true);
     }
 
     @FXML
     void btnCancelar_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Edição cancelada.");
+    	habilitarEdicao(false);
     }
 
     @FXML
     void btnExcluir_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Cliente excluído com sucesso.");
     }
 
     @FXML
-    void txtPesqNome_onKeyPressed(ActionEvent event) {
-
+    void txtPesqNome_onKeyPressed(KeyEvent event) {
+    	if (event.getCode() == KeyCode.ENTER)
+    		btnProcurar.fire();
     }
 
     @FXML
     void btnProcurar_onAction(ActionEvent event) {
-
+    	lblStatus.setText("Buscando " + txtPesqNome.getText());
     }
 
+    void habilitarEdicao(boolean sim) {
+    	if (sim) {
+    		btnNovo.setDisable(sim);
+    		btnConfirmar.setDisable(!sim);
+    		btnAlterar.setDisable(sim);
+    		btnCancelar.setDisable(!sim);
+    		btnExcluir.setDisable(sim);
+    	} else {
+    		btnNovo.setDisable(!sim);
+    		btnConfirmar.setDisable(sim);
+    		btnAlterar.setDisable(!sim);
+    		btnCancelar.setDisable(sim);
+    		btnExcluir.setDisable(!sim);    		
+    	}
+    }
 }
