@@ -2,10 +2,10 @@ package br.com.compdevbooks.alphacosmetics.dao;
 
 import java.util.List;
 
-import br.com.compdevbooks.alphacosmetics.vo.ClienteVO;
+import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
 
-public interface IClienteDAO extends IDAO<ClienteVO>{
+public interface IClienteDAO extends IDAO<ClienteEntity>{
 		
-	List<ClienteVO> getByNome(String nome);
+	List<ClienteEntity> getByNome(String nome);
 	
 }

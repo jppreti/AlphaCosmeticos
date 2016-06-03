@@ -1,9 +1,9 @@
 package br.com.compdevbooks.alphacosmetics.dao;
 
-public interface IDAO<VO> {
+public interface IDAO<ENTITY> {
 
-	void save(VO vo);
-	void delete(VO vo);
-	VO getById(Long id);
+	void save(ENTITY vo);
+	void delete(ENTITY vo);
+	ENTITY getById(Long id);
 	
 }

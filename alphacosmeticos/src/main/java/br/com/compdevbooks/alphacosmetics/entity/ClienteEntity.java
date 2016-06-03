@@ -1,15 +1,15 @@
-package br.com.compdevbooks.alphacosmetics.vo;
+package br.com.compdevbooks.alphacosmetics.entity;
 
-public class ClienteVO {
+public class ClienteEntity {
 
 	private Long idCliente;
 	private String nome;
 	private String email;
 	private String telefone;
 
-	public ClienteVO() {	}
+	public ClienteEntity() {	}
 	
-	public ClienteVO(Long idCliente, String nome, String email, String telefone) {
+	public ClienteEntity(Long idCliente, String nome, String email, String telefone) {
 		super();
 		this.idCliente = idCliente;
 		this.nome = nome;
@@ -58,7 +58,7 @@ public class ClienteVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClienteVO other = (ClienteVO) obj;
+		ClienteEntity other = (ClienteEntity) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
