@@ -78,7 +78,7 @@ public class ClienteEntity implements IEntity<ClienteException> {
 			msg.append("Nome deve possuir entre 5 e 60 caracteres!\n");
 		if (email==null || email.trim().length()==0)
 			msg.append("E-mail é de preenchimento obrigatório!\n");
-		if (email.indexOf('@')==-1)
+		if (email!=null && email.indexOf('@')==-1)
 			msg.append("E-mail inválido!\n");
 		if (telefone!=null && telefone.trim().length()>0)
 			if (!telefone.matches("[0-9]{10}"))
