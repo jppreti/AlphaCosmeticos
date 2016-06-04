@@ -76,7 +76,7 @@
                            <children>
                               <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" maxHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <TextField fx:id="txtNome" prefWidth="350.0" />
+                                    <TextField fx:id="txtNome" disable="true" prefWidth="350.0" />
                                  </children>
                               </FlowPane>
                               <Label fx:id="lblCodigo" text="Código:" />
@@ -86,12 +86,12 @@
                               <Label fx:id="lblCodigoValue" GridPane.columnIndex="1" />
                               <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <TextField fx:id="txtEmail" prefWidth="300.0" />
+                                    <TextField fx:id="txtEmail" disable="true" prefWidth="300.0" />
                                  </children>
                               </FlowPane>
                               <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <TextField fx:id="txtTelefone" prefWidth="100.0" />
+                                    <TextField fx:id="txtTelefone" disable="true" prefWidth="100.0" />
                                  </children>
                               </FlowPane>
                            </children>

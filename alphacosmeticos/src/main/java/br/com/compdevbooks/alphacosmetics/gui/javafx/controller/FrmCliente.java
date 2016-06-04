@@ -157,6 +157,7 @@ public class FrmCliente {
 		lblStatus.setText("Cadastrando novo cliente.");
 		habilitarEdicao(true);
 		tbpCliente.getSelectionModel().select(tabEdicao);
+		limparFormulario();
 	}
 
 	@FXML
@@ -168,20 +169,20 @@ public class FrmCliente {
 		ClienteException exc = ent.validar();
 		if (exc == null) {
 			lblStatus.setText("Cliente salvo com sucesso.");
+			habilitarEdicao(false);
 		}
 		else {
 			lblStatus.setText("Dados do cliente encontram-se inconsistentes.");
 			lblMensagem.setText(exc.getMessage());
 			stkDialog.getChildren().add(vbxDialog);
 		}
-
-		habilitarEdicao(false);
 	}
 
 	@FXML
 	void btnAlterar_onAction(ActionEvent event) {
 		lblStatus.setText("Alterando dados do cliente.");
 		habilitarEdicao(true);
+		tbpCliente.getSelectionModel().select(tabEdicao);
 	}
 
 	@FXML
@@ -225,24 +226,27 @@ public class FrmCliente {
 			txtNome.setText(ent.getNome());
 			txtEmail.setText(ent.getEmail());
 			txtTelefone.setText(ent.getTelefone());
+			habilitarEdicao(false);
 		}
 		if (event.getClickCount()>2)
 			tbpCliente.getSelectionModel().select(tabEdicao);
     }
 	
 	void habilitarEdicao(boolean sim) {
-		if (sim) {
 			btnNovo.setDisable(sim);
 			btnConfirmar.setDisable((!sim));
 			btnAlterar.setDisable(sim);
 			btnCancelar.setDisable((!sim));
 			btnExcluir.setDisable(sim);
-		} else {
-			btnNovo.setDisable((!sim));
-			btnConfirmar.setDisable(sim);
-			btnAlterar.setDisable((!sim));
-			btnCancelar.setDisable(sim);
-			btnExcluir.setDisable((!sim));
-		}
+			
+			txtNome.setDisable(!sim);
+			txtEmail.setDisable(!sim);
+			txtTelefone.setDisable(!sim);
+	}
+	
+	private void limparFormulario() {
+		txtNome.setText("");
+		txtEmail.setText("");
+		txtTelefone.setText("");
 	}
 }
