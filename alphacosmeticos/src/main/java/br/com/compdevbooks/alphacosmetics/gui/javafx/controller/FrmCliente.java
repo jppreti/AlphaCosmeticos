@@ -105,11 +105,20 @@ public class FrmCliente {
 	void btnNovo_onAction(ActionEvent event) {
 		lblStatus.setText("Cadastrando novo cliente.");
 		habilitarEdicao(true);
+		tbpCliente.getSelectionModel().select(tabEdicao);
 	}
 
 	@FXML
 	void btnConfirmar_onAction(ActionEvent event) {
-		lblStatus.setText("Cliente salvo com sucesso.");
+		ClienteEntity ent = new ClienteEntity();
+		ent.setNome(txtNome.getText());
+		ent.setEmail(txtEmail.getText());
+		ent.setTelefone(txtTelefone.getText());
+		if (ent.validar()==null)
+			lblStatus.setText("Cliente salvo com sucesso.");
+		else
+			lblStatus.setText("Dados do cliente encontram-se inconsistentes.");
+		
 		habilitarEdicao(false);
 	}
 

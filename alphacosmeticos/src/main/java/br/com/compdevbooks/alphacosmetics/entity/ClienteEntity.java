@@ -71,8 +71,20 @@ public class ClienteEntity implements IEntity<ClienteException> {
 
 	@Override
 	public ClienteException validar() {
-
-		return null;
+		StringBuilder msg = new StringBuilder();
+		if (nome==null || nome.trim().length()==0)
+			msg.append("Nome é de preenchimento obrigatório!\n");
+		if (nome!=null && (nome.trim().length()<5 || nome.trim().length()>60))
+			msg.append("Nome deve possuir entre 5 e 60 caracteres!\n");
+		if (email==null || email.trim().length()==0)
+			msg.append("E-mail é de preenchimento obrigatório!\n");
+		if (email.indexOf('@')==-1)
+			msg.append("E-mail inválido!\n");
+		if (telefone!=null && telefone.trim().length()>0)
+			if (!telefone.matches("[0-9]{2}[0-9]{8}"))
+			msg.append("Telefone inválido!\n");		
+		
+		return new ClienteException(msg.toString());
 	}
 	
 }
