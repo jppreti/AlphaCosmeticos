@@ -81,10 +81,13 @@ public class ClienteEntity implements IEntity<ClienteException> {
 		if (email.indexOf('@')==-1)
 			msg.append("E-mail inválido!\n");
 		if (telefone!=null && telefone.trim().length()>0)
-			if (!telefone.matches("[0-9]{2}[0-9]{8}"))
+			if (!telefone.matches("[0-9]{10}"))
 			msg.append("Telefone inválido!\n");		
 		
-		return new ClienteException(msg.toString());
+		if (msg.length()>0 )
+			return new ClienteException(msg.toString());
+		else
+			return null;
 	}
 	
 }
