@@ -11,6 +11,7 @@ public class JPADAOFactory implements DAOFactory {
 
 	private static JPADAOFactory factory = null;
 	private EntityManagerFactory emFactory;
+	private EntityManager em;
 	
 	private JPADAOFactory() {
 		emFactory = Persistence.createEntityManagerFactory("jpa-alphacosmetics");
@@ -23,7 +24,9 @@ public class JPADAOFactory implements DAOFactory {
 	}
 	
 	public EntityManager getEntityManager() {
-		return emFactory.createEntityManager();
+		if (isSessionClosed())
+			em = emFactory.createEntityManager(); 
+		return em;
 	}
 	
 	public void close() {
@@ -33,6 +36,16 @@ public class JPADAOFactory implements DAOFactory {
 	@Override
 	public IClienteDAO getClienteDAO() {
 		return JPAClienteDAO.getInstance(getEntityManager());
+	}
+
+	@Override
+	public boolean isSessionClosed() {
+		return (em==null || !em.isOpen());
+	}
+
+	@Override
+	public void closeSession() {
+		em.close();
 	}
 
 }

@@ -18,4 +18,7 @@ public interface DAOFactory {
 		}
 	}
 	
+	public abstract boolean isSessionClosed();
+	public abstract void closeSession();
+	
 }
