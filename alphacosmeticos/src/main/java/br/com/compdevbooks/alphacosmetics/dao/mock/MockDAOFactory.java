@@ -17,7 +17,7 @@ public class MockDAOFactory implements DAOFactory {
 	public IClienteDAO getClienteDAO() {
 		return MockClienteDAO.getInstance();
 	}
-
+/*
 	@Override
 	public boolean isSessionClosed() {
 		return false;
@@ -27,5 +27,5 @@ public class MockDAOFactory implements DAOFactory {
 	public void closeSession() {
 		
 	}
-
+*/
 }

@@ -2,30 +2,30 @@ package br.com.compdevbooks.alphacosmetics.dao.jpa;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
-import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
 
 public class JPAClienteDAO implements IClienteDAO {
 		
 	private static JPAClienteDAO singleton = null;
+	
+	@Inject
 	private EntityManager em;
 	
-	private JPAClienteDAO(){	}
+	public JPAClienteDAO(){	}
 	
-	public static JPAClienteDAO getInstance(EntityManager em) {
+	public static JPAClienteDAO getInstance() {
 		if (singleton == null)
 			singleton = new JPAClienteDAO();
 		
-		singleton.em = em;
+		//singleton.em = em;
 		return singleton;
 	}
 	

@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+    	
         BorderPane frmCliente = null;
         
         try{
