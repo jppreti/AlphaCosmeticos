@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmCliente;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -33,6 +35,12 @@ public class Main extends Application {
         Scene scene = new Scene(frmCliente);
         primaryStage.setScene(scene);
 
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override public void handle(WindowEvent t) {
+                System.exit(0);
+            }
+        });        
+        
         primaryStage.show();
     }
 }
