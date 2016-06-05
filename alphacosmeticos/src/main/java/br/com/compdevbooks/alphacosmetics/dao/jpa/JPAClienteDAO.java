@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
 
@@ -52,9 +54,9 @@ public class JPAClienteDAO implements IClienteDAO {
 		 CriteriaQuery<ClienteEntity> q = cb.createQuery(ClienteEntity.class);
 		 Root<ClienteEntity> cliente = q.from(ClienteEntity.class);
 		 q.select(cliente);
-		 ParameterExpression<String> p = cb.parameter(String.class);
+		 ParameterExpression<String> p = cb.parameter(String.class,"pnome");
 		 q.where(cb.like(cliente.get("nome"), p));
-		 return em.createQuery(q).getResultList();
+		 return em.createQuery(q).setParameter("pnome", nome).getResultList();
 	}
 
 }
