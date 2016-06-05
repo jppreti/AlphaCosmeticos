@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.dao;
 
+import br.com.compdevbooks.alphacosmetics.dao.jpa.JPADAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.mock.MockDAOFactory;
 
 public interface DAOFactory {
@@ -11,7 +12,7 @@ public interface DAOFactory {
 		case MOCK:
 			return MockDAOFactory.getInstance();
 		case JPA:
-			return null;
+			return JPADAOFactory.getInstance();
 		default:
 			return null;
 		}
