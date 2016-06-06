@@ -9,6 +9,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class FrmPrincipal {
 
@@ -50,6 +51,18 @@ public class FrmPrincipal {
             ioe.printStackTrace();
         }    	
     }
+    
+    @FXML
+    void mniSobre_onAction(ActionEvent event) {
+        VBox frmSobre = null;
+        
+        try{
+            frmSobre = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui//FrmSobre.fxml"));
+            bdpPrincipal.setCenter(frmSobre);
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }    	
+    }    
 
     @FXML
     void mniSair_onAction(ActionEvent event) {

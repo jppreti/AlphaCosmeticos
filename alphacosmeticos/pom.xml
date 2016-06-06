@@ -37,7 +37,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>br.com.compdevbooks.alphacosmetics.gui.javafx.FrmCliente</mainClass>
+					<mainClass>br.com.compdevbooks.alphacosmetics.gui.javafx.Main</mainClass>
 				</configuration>
 			</plugin>
 

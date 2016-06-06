@@ -4,7 +4,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane fx:id="bdpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal">
    <top>
       <MenuBar fx:id="mnbPrincipal" BorderPane.alignment="CENTER">
@@ -21,7 +20,7 @@
           </Menu>
           <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="_Ajuda">
             <items>
-              <MenuItem fx:id="mniSobre" mnemonicParsing="false" text="Sobre" />
+              <MenuItem fx:id="mniSobre" mnemonicParsing="false" onAction="#mniSobre_onAction" text="Sobre" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="mniSair" mnemonicParsing="false" onAction="#mniSair_onAction" text="Sair" />
             </items>
