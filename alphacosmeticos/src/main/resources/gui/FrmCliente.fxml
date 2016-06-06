@@ -57,7 +57,15 @@
               <tabs>
                 <Tab fx:id="tabClientes" text="Clientes">
                      <content>
-                        <TableView fx:id="tblClientes" onMouseClicked="#tblClientes_mouseClicked" prefHeight="200.0" prefWidth="200.0" />
+                        <TableView fx:id="tblClientes" onMouseClicked="#tblClientes_mouseClicked" prefHeight="200.0" prefWidth="200.0">
+                           <contextMenu>
+                              <ContextMenu fx:id="ctxMenu">
+                                <items>
+                                  <MenuItem fx:id="mniEditar" mnemonicParsing="false" onAction="#mniEditar_onAction" text="Editar" />
+                                    <MenuItem fx:id="mniExcluir" mnemonicParsing="false" onAction="#mniExcluir_onAction" text="Excluir" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></TableView>
                      </content>
                   </Tab>
                 <Tab fx:id="tabEdicao" text="Edição">

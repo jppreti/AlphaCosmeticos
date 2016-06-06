@@ -2,7 +2,9 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -115,10 +117,19 @@ public class FrmCliente {
 	@FXML
 	private Button btnNovo;
 
+	@FXML
+	private ContextMenu ctxMenu;
+
+	@FXML
+	private MenuItem mniEditar;
+
+	@FXML
+	private MenuItem mniExcluir;
+
 	IClienteDAO dao = DAOFactory.getDAOFactory(DAOFactoryEnum.MOCK).getClienteDAO();
 
 	@FXML
-    void initialize() {
+	void initialize() {
 		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome");
 		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
@@ -134,12 +145,13 @@ public class FrmCliente {
 		});
 
 		TableColumn<ClienteEntity, String> tbcTelefone = new TableColumn<ClienteEntity, String>("Telefone");
-		tbcTelefone.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
-				return new ReadOnlyObjectWrapper<String>(c.getValue().getTelefone());
-			}
-		});
-		
+		tbcTelefone
+				.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+					public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+						return new ReadOnlyObjectWrapper<String>(c.getValue().getTelefone());
+					}
+				});
+
 		tbcNome.setMinWidth(300);
 		tbcEmail.setMinWidth(300);
 		tbcTelefone.setMinWidth(100);
@@ -151,7 +163,7 @@ public class FrmCliente {
 		stkDialog.getChildren().remove(vbxDialog);
 		txtPesqNome.requestFocus();
 	}
-	
+
 	@FXML
 	void btnNovo_onAction(ActionEvent event) {
 		lblStatus.setText("Cadastrando novo cliente.");
@@ -170,8 +182,7 @@ public class FrmCliente {
 		if (exc == null) {
 			lblStatus.setText("Cliente salvo com sucesso.");
 			habilitarEdicao(false);
-		}
-		else {
+		} else {
 			lblStatus.setText("Dados do cliente encontram-se inconsistentes.");
 			lblMensagem.setText(exc.getMessage());
 			stkDialog.getChildren().add(vbxDialog);
@@ -220,30 +231,40 @@ public class FrmCliente {
 	}
 
 	@FXML
-    void tblClientes_mouseClicked(MouseEvent event) {
+	void tblClientes_mouseClicked(MouseEvent event) {
 		ClienteEntity ent = tblClientes.getSelectionModel().getSelectedItem();
-		if (ent!=null) {
+		if (ent != null) {
 			txtNome.setText(ent.getNome());
 			txtEmail.setText(ent.getEmail());
 			txtTelefone.setText(ent.getTelefone());
 			habilitarEdicao(false);
 		}
-		if (event.getClickCount()>2)
+		if (event.getClickCount() > 2)
 			tbpCliente.getSelectionModel().select(tabEdicao);
-    }
-	
-	void habilitarEdicao(boolean sim) {
-			btnNovo.setDisable(sim);
-			btnConfirmar.setDisable((!sim));
-			btnAlterar.setDisable(sim);
-			btnCancelar.setDisable((!sim));
-			btnExcluir.setDisable(sim);
-			
-			txtNome.setDisable(!sim);
-			txtEmail.setDisable(!sim);
-			txtTelefone.setDisable(!sim);
 	}
 	
+	@FXML
+    void mniEditar_onAction(ActionEvent event) {
+		btnAlterar.fire();
+    }
+
+    @FXML
+    void mniExcluir_onAction(ActionEvent event) {
+    	btnExcluir.fire();
+    }	
+
+	void habilitarEdicao(boolean sim) {
+		btnNovo.setDisable(sim);
+		btnConfirmar.setDisable((!sim));
+		btnAlterar.setDisable(sim);
+		btnCancelar.setDisable((!sim));
+		btnExcluir.setDisable(sim);
+
+		txtNome.setDisable(!sim);
+		txtEmail.setDisable(!sim);
+		txtTelefone.setDisable(!sim);
+	}
+
 	private void limparFormulario() {
 		txtNome.setText("");
 		txtEmail.setText("");
