@@ -2,7 +2,6 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx;
 
 import java.io.IOException;
 
-import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmCliente;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 import javafx.application.Application;
 import javafx.event.EventHandler;

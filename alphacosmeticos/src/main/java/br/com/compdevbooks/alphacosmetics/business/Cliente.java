@@ -7,7 +7,7 @@ import br.com.compdevbooks.alphacosmetics.entity.exception.ClienteException;
 
 public class Cliente extends ABusiness<ClienteEntity, ClienteException, IClienteDAO> {
 
-	public Cliente(IDAO dao) {
+	public Cliente(IDAO<ClienteEntity> dao) {
 		super(dao);
 	}
 

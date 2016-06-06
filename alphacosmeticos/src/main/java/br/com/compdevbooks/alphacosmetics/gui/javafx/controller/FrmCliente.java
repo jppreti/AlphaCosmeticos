@@ -122,21 +122,21 @@ public class FrmCliente {
 		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome");
 		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
-				return new ReadOnlyObjectWrapper(c.getValue().getNome());
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
 			}
 		});
 
 		TableColumn<ClienteEntity, String> tbcEmail = new TableColumn<ClienteEntity, String>("E-mail");
 		tbcEmail.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
-				return new ReadOnlyObjectWrapper(c.getValue().getEmail());
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEmail());
 			}
 		});
 
 		TableColumn<ClienteEntity, String> tbcTelefone = new TableColumn<ClienteEntity, String>("Telefone");
 		tbcTelefone.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
-				return new ReadOnlyObjectWrapper(c.getValue().getTelefone());
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getTelefone());
 			}
 		});
 		
