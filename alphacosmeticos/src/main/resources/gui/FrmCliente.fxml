@@ -25,11 +25,26 @@
          <children>
             <HBox fx:id="hbxEditButtons" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#btnNovo_onAction" text="Novo" />
-                  <Button fx:id="btnConfirmar" disable="true" mnemonicParsing="false" onAction="#btnConfirmar_onAction" text="Confirmar" />
-                  <Button fx:id="btnAlterar" disable="true" mnemonicParsing="false" onAction="#btnAlterar_onAction" text="Alterar" />
-                  <Button fx:id="btnCancelar" disable="true" mnemonicParsing="false" onAction="#btnCancelar_onAction" text="Cancelar" />
-                  <Button fx:id="btnExcluir" disable="true" mnemonicParsing="false" onAction="#btnExcluir_onAction" text="Excluir" />
+                  <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#btnNovo_onAction" text="Novo">
+                     <tooltip>
+                        <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                     </tooltip></Button>
+                  <Button fx:id="btnConfirmar" disable="true" mnemonicParsing="false" onAction="#btnConfirmar_onAction" text="Confirmar">
+                     <tooltip>
+                        <Tooltip text="Realiza a inclusão de um novo cliente ou a alteração dos dados de um cliente já existente." wrapText="true" />
+                     </tooltip></Button>
+                  <Button fx:id="btnAlterar" disable="true" mnemonicParsing="false" onAction="#btnAlterar_onAction" text="Alterar">
+                     <tooltip>
+                        <Tooltip text="Abre o formulário de edição já preenchido com os dados do cliente selecionado na tabela." />
+                     </tooltip></Button>
+                  <Button fx:id="btnCancelar" disable="true" mnemonicParsing="false" onAction="#btnCancelar_onAction" text="Cancelar">
+                     <tooltip>
+                        <Tooltip text="Cancela a operação (Novo ou Alterar) em aberto." wrapText="true" />
+                     </tooltip></Button>
+                  <Button fx:id="btnExcluir" disable="true" mnemonicParsing="false" onAction="#btnExcluir_onAction" text="Excluir">
+                     <tooltip>
+                        <Tooltip text="Exclui o cliente que estiver selecionado na tabela." wrapText="true" />
+                     </tooltip></Button>
                </children>
             </HBox>
             <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER">
