@@ -3,6 +3,7 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx;
 import java.io.IOException;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmCliente;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,19 +21,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
     	
-        BorderPane frmCliente = null;
+        BorderPane frmPrincipal = null;
         
         try{
-            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui//FrmCliente.fxml"));
+            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui//FrmPrincipal.fxml"));
         }catch (IOException ioe){
             ioe.printStackTrace();
         }
 
-        primaryStage.setTitle("Formulário de Manutenção de Clientes");
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(660);
+        primaryStage.setTitle("Alphacosmetics System");
+        primaryStage.setWidth(1024);
+        primaryStage.setHeight(768);
         
-        Scene scene = new Scene(frmCliente);
+        Scene scene = new Scene(frmPrincipal);
         primaryStage.setScene(scene);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
