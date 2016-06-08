@@ -20,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import br.com.compdevbooks.alphacosmetics.business.Cliente;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
@@ -126,7 +127,7 @@ public class FrmCliente {
 	@FXML
 	private MenuItem mniExcluir;
 
-	IClienteDAO dao = DAOFactory.getDAOFactory(DAOFactoryEnum.MOCK).getClienteDAO();
+	Cliente cliente = new Cliente(DAOFactory.getDAOFactory(DAOFactoryEnum.JPA).getClienteDAO()); 
 
 	@FXML
 	void initialize() {
@@ -178,7 +179,7 @@ public class FrmCliente {
 		ent.setNome(txtNome.getText());
 		ent.setEmail(txtEmail.getText());
 		ent.setTelefone(txtTelefone.getText());
-		ClienteException exc = ent.validar();
+		ClienteException exc = cliente.save(ent);
 		if (exc == null) {
 			lblStatus.setText("Cliente salvo com sucesso.");
 			habilitarEdicao(false);
@@ -216,7 +217,7 @@ public class FrmCliente {
 	@FXML
 	void btnProcurar_onAction(ActionEvent event) {
 		final ObservableList<ClienteEntity> produtos = FXCollections
-				.observableArrayList(dao.getByNome(txtPesqNome.getText()));
+				.observableArrayList(cliente.getByNome(txtPesqNome.getText()));
 
 		tblClientes.setItems(produtos);
 

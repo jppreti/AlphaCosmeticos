@@ -15,7 +15,7 @@ public abstract class ABusiness<ENTITY,EXCEPTION,DAO> implements IBusiness<ENTIT
 	public EXCEPTION save(ENTITY entity) {
 		@SuppressWarnings("unchecked")
 		EXCEPTION exc = (EXCEPTION) ((IEntity<EXCEPTION>)entity).validar();
-		if (exc==null)
+		if (exc!=null)
 			return exc;
 		dao.save(entity);
 		return null;

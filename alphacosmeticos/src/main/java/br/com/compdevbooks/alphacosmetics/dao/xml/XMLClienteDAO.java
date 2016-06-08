@@ -104,7 +104,7 @@ public class XMLClienteDAO implements IClienteDAO {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(XMLClienteDAO.class.getClassLoader().getResource("xml/entity/ClienteEntity.xml").getFile());
-		System.out.println(DAOFactory.getDAOFactory(DAOFactoryEnum.XML).getClienteDAO().getById(1L).getNome());
+		//System.out.println(XMLClienteDAO.class.getClassLoader().getResource("xml/entity/ClienteEntity.xml").getFile());
+		System.out.println(DAOFactory.getDAOFactory(DAOFactoryEnum.JPA).getClienteDAO().getById(2L).getNome());
 	}
 }
