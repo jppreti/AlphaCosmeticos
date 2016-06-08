@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://compdevbooks.com.br/alphacosmetics" xmlns:tns="http://compdevbooks.com.br/alphacosmetics" elementFormDefault="qualified">
+
+    <simpleType name="telefone">
+    	<restriction base="string">
+    		<pattern value="[0-9]{2}[0-9]{4}[0-9]{4}" />
+    	</restriction>
+    </simpleType>    
+
+    <simpleType name="email">
+    	<restriction base="string">
+    		<pattern value="[a-z]+[@][a-z]+[.][a-z]+" />
+    	</restriction>
+    </simpleType>    
+
+    <complexType name="ClienteEntity">
+    	<sequence>
+    		<element name="nome" type="string" />
+    		<element name="email" type="tns:email" />
+    		<element name="telefone" type="tns:telefone" />
+    	</sequence>
+    	<attribute name="id" type="positiveInteger" use="required" />    	
+    </complexType>
+
+</schema>
