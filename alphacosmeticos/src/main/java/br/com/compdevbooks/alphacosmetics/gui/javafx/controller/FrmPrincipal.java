@@ -1,6 +1,7 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,9 +56,8 @@ public class FrmPrincipal {
     @FXML
     void mniSobre_onAction(ActionEvent event) {
         VBox frmSobre = null;
-        
         try{
-            frmSobre = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui//FrmSobre.fxml"));
+            frmSobre = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui//FrmSobre.fxml"),ResourceBundle.getBundle("gui/i18N"));
             bdpPrincipal.setCenter(frmSobre);
         }catch (IOException ioe){
             ioe.printStackTrace();
