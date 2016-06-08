@@ -31,7 +31,8 @@ public class MockClienteDAO implements IClienteDAO {
 	
 	@Override
 	public void save(ClienteEntity entity) {
-		clientes.add(entity);
+		if (clientes.indexOf(entity)<0)
+			clientes.add(entity);
 	}
 
 	@Override
