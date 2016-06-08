@@ -142,7 +142,7 @@ public class FrmCliente {
 	private ButtonType bttNao = new ButtonType("Não", ButtonData.CANCEL_CLOSE);
 	private Dialog<ButtonType> dlgConfirmacao = new Dialog<>();
 
-	Cliente cliente = new Cliente(DAOFactory.getDAOFactory(DAOFactoryEnum.MOCK).getClienteDAO());
+	Cliente cliente = new Cliente(DAOFactory.getDAOFactory().getClienteDAO());
 	private boolean novo = true;
 
 	@FXML
