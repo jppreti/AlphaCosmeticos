@@ -5,4 +5,9 @@
     <dev:email>jppreti@gmail.com</dev:email>
     <dev:telefone>6511112222</dev:telefone>
   </ent:ClienteEntity>
+  <ent:ClienteEntity id="2">
+    <dev:nome>RAFAELA</dev:nome>
+    <dev:email>rafaela@gmail.com</dev:email>
+    <dev:telefone>6522223333</dev:telefone>
+  </ent:ClienteEntity>  
 </ent:clientes>
