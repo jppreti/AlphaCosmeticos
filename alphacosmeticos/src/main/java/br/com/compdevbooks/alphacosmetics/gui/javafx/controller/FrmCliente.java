@@ -25,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import br.com.compdevbooks.alphacosmetics.business.Cliente;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
@@ -40,6 +41,9 @@ import javafx.event.ActionEvent;
 
 public class FrmCliente {
 
+	@FXML
+	private ResourceBundle resources;
+	
 	@FXML
 	private Button btnConfirmar;
 

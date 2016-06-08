@@ -46,7 +46,7 @@ public class FrmPrincipal {
         BorderPane frmCliente = null;
         
         try{
-            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui//FrmCliente.fxml"));
+            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui//FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N"));
             bdpPrincipal.setCenter(frmCliente);
         }catch (IOException ioe){
             ioe.printStackTrace();
