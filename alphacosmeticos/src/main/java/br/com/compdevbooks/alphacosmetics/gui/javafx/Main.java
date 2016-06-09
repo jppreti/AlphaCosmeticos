@@ -1,6 +1,7 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
     public static void main(String[] args) {
+    	//Locale.setDefault(Locale.ENGLISH);
         Application.launch(Main.class, args);
     }
 
