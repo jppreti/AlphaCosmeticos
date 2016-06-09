@@ -2,7 +2,10 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
@@ -20,6 +23,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import br.com.compdevbooks.alphacosmetics.business.Cliente;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
@@ -34,6 +41,9 @@ import javafx.event.ActionEvent;
 
 public class FrmCliente {
 
+	@FXML
+	private ResourceBundle resources;
+	
 	@FXML
 	private Button btnConfirmar;
 
@@ -127,7 +137,17 @@ public class FrmCliente {
 	@FXML
 	private MenuItem mniExcluir;
 
-	Cliente cliente = new Cliente(DAOFactory.getDAOFactory(DAOFactoryEnum.JPA).getClienteDAO()); 
+	// Para a caixa de diálogo de avisos
+	private ButtonType bttOk = new ButtonType("OK", ButtonData.OK_DONE);
+	private Dialog<String> dlgMensagem = new Dialog<>();
+
+	// Para a caixa de diálogo de confirmação
+	private ButtonType bttSim = new ButtonType("Sim", ButtonData.OK_DONE);
+	private ButtonType bttNao = new ButtonType("Não", ButtonData.CANCEL_CLOSE);
+	private Dialog<ButtonType> dlgConfirmacao = new Dialog<>();
+
+	Cliente cliente = new Cliente(DAOFactory.getDAOFactory().getClienteDAO());
+	private boolean novo = true;
 
 	@FXML
 	void initialize() {
@@ -162,6 +182,11 @@ public class FrmCliente {
 		tblClientes.getColumns().add(tbcTelefone);
 
 		stkDialog.getChildren().remove(vbxDialog);
+
+		dlgMensagem.getDialogPane().getButtonTypes().add(bttOk);
+		dlgConfirmacao.getDialogPane().getButtonTypes().add(bttSim);
+		dlgConfirmacao.getDialogPane().getButtonTypes().add(bttNao);
+
 		txtPesqNome.requestFocus();
 	}
 
@@ -171,11 +196,16 @@ public class FrmCliente {
 		habilitarEdicao(true);
 		tbpCliente.getSelectionModel().select(tabEdicao);
 		limparFormulario();
+		novo = true;
 	}
 
 	@FXML
 	void btnConfirmar_onAction(ActionEvent event) {
-		ClienteEntity ent = new ClienteEntity();
+		ClienteEntity ent;
+		if (novo)
+			ent = new ClienteEntity();
+		else
+			ent = tblClientes.getSelectionModel().getSelectedItem();
 		ent.setNome(txtNome.getText());
 		ent.setEmail(txtEmail.getText());
 		ent.setTelefone(txtTelefone.getText());
@@ -192,9 +222,16 @@ public class FrmCliente {
 
 	@FXML
 	void btnAlterar_onAction(ActionEvent event) {
-		lblStatus.setText("Alterando dados do cliente.");
-		habilitarEdicao(true);
-		tbpCliente.getSelectionModel().select(tabEdicao);
+		if (tblClientes.getSelectionModel().getSelectedIndex() >= 0) {
+			lblStatus.setText("Alterando dados do cliente.");
+			habilitarEdicao(true);
+			tbpCliente.getSelectionModel().select(tabEdicao);
+			novo = false;
+		} else {
+			dlgMensagem.setTitle("ERRO DE SELEÇÃO");
+			dlgMensagem.setContentText("É preciso selecionar um cliente da tabela para poder realizar alteração.");
+			dlgMensagem.showAndWait();
+		}
 	}
 
 	@FXML
@@ -205,7 +242,20 @@ public class FrmCliente {
 
 	@FXML
 	void btnExcluir_onAction(ActionEvent event) {
-		lblStatus.setText("Cliente excluído com sucesso.");
+		if (tblClientes.getSelectionModel().getSelectedIndex() >= 0) {
+			dlgConfirmacao.setTitle("CONFIRMAÇÃO");
+			dlgConfirmacao.setContentText("Tem certeza que deseja excluir?\nEsta operação não poderá ser desfeita.");
+			Optional<ButtonType> result = dlgConfirmacao.showAndWait();
+			if (result.isPresent() && result.get() == bttSim) {
+				cliente.delete(tblClientes.getSelectionModel().getSelectedItem());
+				btnProcurar.fire();
+				lblStatus.setText("Cliente excluído com sucesso.");
+			}
+		} else {
+			dlgMensagem.setTitle("ERRO DE SELEÇÃO");
+			dlgMensagem.setContentText("É preciso selecionar um cliente da tabela para poder realizar a exclusão.");
+			dlgMensagem.showAndWait();
+		}
 	}
 
 	@FXML
@@ -243,16 +293,16 @@ public class FrmCliente {
 		if (event.getClickCount() > 2)
 			tbpCliente.getSelectionModel().select(tabEdicao);
 	}
-	
-	@FXML
-    void mniEditar_onAction(ActionEvent event) {
-		btnAlterar.fire();
-    }
 
-    @FXML
-    void mniExcluir_onAction(ActionEvent event) {
-    	btnExcluir.fire();
-    }	
+	@FXML
+	void mniEditar_onAction(ActionEvent event) {
+		btnAlterar.fire();
+	}
+
+	@FXML
+	void mniExcluir_onAction(ActionEvent event) {
+		btnExcluir.fire();
+	}
 
 	void habilitarEdicao(boolean sim) {
 		btnNovo.setDisable(sim);
