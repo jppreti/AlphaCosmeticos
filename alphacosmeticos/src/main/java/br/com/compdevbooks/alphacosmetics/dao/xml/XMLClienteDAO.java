@@ -51,7 +51,22 @@ public class XMLClienteDAO implements IClienteDAO {
 
 	@Override
 	public void save(ClienteEntity entity) {
-
+		if (entity.getId()==null || entity.getId()<0) {
+			
+		} else {
+			NodeList nList = doc.getElementsByTagName("ent:ClienteEntity");
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node nNode = nList.item(temp);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					if (eElement.getAttribute("id").equals(entity.getId())) {
+						eElement.getElementsByTagName("dev:nome").item(0).getChildNodes().item(0).setNodeValue(entity.getNome());
+						eElement.getElementsByTagName("dev:email").item(0).getChildNodes().item(0).setNodeValue(entity.getEmail());
+						eElement.getElementsByTagName("dev:telefone").item(0).getChildNodes().item(0).setNodeValue(entity.getTelefone());
+					}
+				}
+			}			
+		}
 	}
 
 	@Override
