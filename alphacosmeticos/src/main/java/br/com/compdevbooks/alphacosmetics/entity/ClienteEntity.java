@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import br.com.compdevbooks.alphacosmetics.entity.exception.ClienteException;
 
-@Entity
+//@Entity
 @Table(name="cliente")
 public class ClienteEntity implements IEntity<ClienteException> {
 	
