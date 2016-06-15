@@ -1,6 +1,8 @@
 package br.com.compdevbooks.alphacosmetics.entity;
 
-public interface IEntity<EXCEPTION> {
+import java.io.Serializable;
+
+public interface IEntity<EXCEPTION> extends Serializable {
 	
 	Long getId();
 	EXCEPTION validar();
