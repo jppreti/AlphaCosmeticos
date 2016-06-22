@@ -24,8 +24,17 @@ public class CategoriaEntity implements IEntity {
     private float percPromocao;
     @Column(precision = 5, scale = 2, nullable = false)
     private float percComissao;
+    private CategoriaEntity superCategoria;
 
-    public String getNome() {
+    public CategoriaEntity getSuperCategoria() {
+		return superCategoria;
+	}
+
+	public void setSuperCategoria(CategoriaEntity superCategoria) {
+		this.superCategoria = superCategoria;
+	}
+
+	public String getNome() {
         return nome;
     }
 
