@@ -10,7 +10,9 @@
 			<title>Clientes</title>
 		</head>
 		<body>
-			<table>
+			<h1 style="text-align:center;">Relação de Clientes</h1>
+			<center>
+			<table border="1" width="600px">
 				<tr>
 					<th>Nome</th>
 					<th>Email</th>
@@ -24,6 +26,7 @@
 				</tr>
 				</xsl:for-each>
 			</table>
+			</center>
 		</body>
 	</html>
 
