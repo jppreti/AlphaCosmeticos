@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://compdevbooks.com.br/alphacosmetics" xmlns:tns="http://compdevbooks.com.br/alphacosmetics" elementFormDefault="qualified">
+<schema
+xmlns="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://compdevbooks.com.br/alphacosmetics"
+xmlns:tns="http://compdevbooks.com.br/alphacosmetics"
+elementFormDefault="qualified">
 
     <simpleType name="telefone">
     	<restriction base="string">
