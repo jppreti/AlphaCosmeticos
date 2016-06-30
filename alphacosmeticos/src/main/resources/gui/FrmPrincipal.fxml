@@ -11,21 +11,52 @@
          <children>
             <MenuBar fx:id="mnbPrincipal">
               <menus>
-                <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="_Cadastro">
+                <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="%_menu.cadastro">
                   <items>
-                    <MenuItem fx:id="mniCliente" mnemonicParsing="false" onAction="#mniCliente_onAction" text="Cliente" />
-                  </items>
-                </Menu>
-                <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="_Operações">
-                  <items>
-                    <MenuItem fx:id="mniVenda" mnemonicParsing="false" text="Venda" />
-                  </items>
-                </Menu>
-                <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="_Ajuda">
-                  <items>
-                    <MenuItem fx:id="mniSobre" mnemonicParsing="false" onAction="#mniSobre_onAction" text="Sobre" />
+                    <MenuItem fx:id="mniCadPessoa" mnemonicParsing="false" onAction="#mniCliente_onAction" text="%cadastro.pessoas" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniSair" mnemonicParsing="false" onAction="#mniSair_onAction" text="Sair" />
+                        <MenuItem fx:id="mniCadProduto" mnemonicParsing="false" text="%cadastro.produtos" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="mnuProduto" mnemonicParsing="false" text="%_menu.produtos">
+                    <items>
+                      <MenuItem fx:id="mniProdCatalogo" mnemonicParsing="false" text="%produtos.catalogo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniProdEstoque" mnemonicParsing="false" text="%produtos.estoque" />
+                    </items>
+                  </Menu>
+                <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="%_menu.operacoes">
+                  <items>
+                        <MenuItem fx:id="mniOpCompra" mnemonicParsing="false" text="%operacoes.compra" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem fx:id="mniOpmni" mnemonicParsing="false" text="%operacoes.venda" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="mnuAnalisePedido" mnemonicParsing="false" text="%_menu.analisePedido">
+                    <items>
+                      <MenuItem fx:id="mniPedCompra" mnemonicParsing="false" text="%analisePedido.compra" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniPedVenda" mnemonicParsing="false" text="%analisePedido.venda" />
+                    </items>
+                  </Menu>
+                  <Menu fx:id="mnuFinanceiro" mnemonicParsing="false" text="%_menu.financeiro">
+                    <items>
+                        <MenuItem fx:id="mniFinComissao" mnemonicParsing="false" text="%financeiro.comissao" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem fx:id="mniFinContaPagar" mnemonicParsing="false" text="%financeiro.contasPagar" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniFinContaReceber" mnemonicParsing="false" text="%financeiro.contasReceber" />
+                    </items>
+                  </Menu>
+                <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="%_menu.ajuda">
+                  <items>
+                    <MenuItem fx:id="mniAjudaSobre" mnemonicParsing="false" onAction="#mniSobre_onAction" text="%ajuda.sobre" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniAjudaDesenvolvedores" mnemonicParsing="false" text="%ajuda.desenvolvedores" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniAjudaLicenca" mnemonicParsing="false" text="%ajuda.licenca" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniAjudaSair" mnemonicParsing="false" onAction="#mniSair_onAction" text="%ajuda.sair" />
                   </items>
                 </Menu>
               </menus>
