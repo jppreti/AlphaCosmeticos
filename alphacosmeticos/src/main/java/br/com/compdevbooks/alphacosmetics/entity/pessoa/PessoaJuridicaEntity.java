@@ -22,8 +22,8 @@ public class PessoaJuridicaEntity extends PessoaEntity {
 
     }
 
-    public PessoaJuridicaEntity(String razao, String fantasia, String CNPJ, String inscricao) {
-        this.nome = razao;
+    public PessoaJuridicaEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {
+        super(id, razao);
         this.CNPJ = CNPJ;
         this.inscricao = inscricao;
         this.fantasia = fantasia;

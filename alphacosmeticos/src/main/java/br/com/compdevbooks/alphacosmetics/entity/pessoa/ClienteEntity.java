@@ -15,8 +15,8 @@ public class ClienteEntity extends PessoaJuridicaEntity {
     public ClienteEntity() {
     }
 
-    public ClienteEntity(String razao, String fantasia, String CNPJ, String inscricao) {
-        super(razao, fantasia, CNPJ, inscricao);
+    public ClienteEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {
+        super(id,razao, fantasia, CNPJ, inscricao);
     }
 
     public VendedorEntity getVendedorVO() {

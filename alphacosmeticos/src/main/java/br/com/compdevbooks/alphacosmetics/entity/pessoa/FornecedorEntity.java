@@ -20,8 +20,9 @@ public class FornecedorEntity extends PessoaJuridicaEntity {
         this.listaProdutos = new HashSet();
     }
 
-    public FornecedorEntity(String razao, String fantasia, String CNPJ, String inscricao) {
-        super(razao, fantasia, CNPJ, inscricao);
+    public FornecedorEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao, Set<ProdutoVO> lista) {
+        super(id, razao, fantasia, CNPJ, inscricao);
+        this.listaProdutos=lista;
     }
 
     public Set<ProdutoVO> getListaProdutos() {
