@@ -25,6 +25,15 @@ public class CategoriaEntity implements IEntity {
     @Column(precision = 5, scale = 2, nullable = false)
     private float percComissao;
     private CategoriaEntity superCategoria;
+    
+    public CategoriaEntity(Long id, String nome, float mar, float pro, float com, CategoriaEntity supercat){
+        this.Id=id;
+        this.nome=nome;
+        this.margemLucro=mar;
+        this.percPromocao=pro;
+        this.percComissao=com;
+        this.superCategoria=supercat;
+    }
 
     public CategoriaEntity getSuperCategoria() {
 		return superCategoria;

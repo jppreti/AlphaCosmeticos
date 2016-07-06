@@ -58,6 +58,15 @@ public class CompraEntity implements IEntity {
     public CompraEntity() {
         this.listaItens = new HashSet();
     }
+    public CompraEntity(Long Id, Date data, FornecedorEntity fornecedor, PagamentoEntity pagamento,SituacaoCompraEnum sit, Set<ItemCompraEntity> lista){
+        super();
+        this.Id=Id;
+        this.dataLancamento=data;
+        this.fornecedorVO=fornecedor;
+        this.pagamentoVO=pagamento;
+        this.situacao=sit;
+        this.listaItens=lista;
+    }
 
     public Long getId() {
         return Id;

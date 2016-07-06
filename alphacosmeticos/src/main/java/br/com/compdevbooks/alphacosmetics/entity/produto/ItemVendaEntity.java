@@ -31,6 +31,14 @@ public class ItemVendaEntity implements IEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
     private ProdutoVO produtoVO;
+    
+    public ItemVendaEntity(Long id, int qtde, float pro, float com, ProdutoVO produto){
+        this.Id=id;
+        this.quantidade=qtde;
+        this.percPromocao=pro;
+        this.percComissao=com;
+        this.produtoVO=produto;
+    }
 
     public Long getId() {
         return Id;

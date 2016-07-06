@@ -58,6 +58,14 @@ public class VendaEntity implements IEntity {
     public VendaEntity() {
         this.listaItens = new HashSet();
     }
+    public VendaEntity(Long id, Date lancamento, SituacaoVendaEnum sit,Set<ItemVendaEntity> lista){
+        super();
+        this.Id=id;
+        this.dataLancamento=lancamento;
+        this.situacao=sit;  
+        this.listaItens=lista;
+    }
+    
 
     public Long getId() {
         return Id;
