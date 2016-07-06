@@ -1,4 +1,4 @@
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.cadastro;
 
 import java.util.ArrayList;
 import java.util.List;

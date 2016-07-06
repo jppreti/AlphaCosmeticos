@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.dao.mock;
 
+import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 

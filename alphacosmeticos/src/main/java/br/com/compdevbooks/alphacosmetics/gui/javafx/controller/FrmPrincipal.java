@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
 import java.io.IOException;
 import java.util.ResourceBundle;
 

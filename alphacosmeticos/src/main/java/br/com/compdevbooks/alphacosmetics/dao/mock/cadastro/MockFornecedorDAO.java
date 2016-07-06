@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.cadastro;
 
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
 import java.util.ArrayList;

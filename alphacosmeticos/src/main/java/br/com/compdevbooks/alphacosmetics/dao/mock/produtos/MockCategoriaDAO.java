@@ -3,17 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.produtos;
 
 import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Josiel
- */
 public class MockCategoriaDAO implements ICategoriaDAO {
     private static List<CategoriaEntity> categorias= new ArrayList();
     static {

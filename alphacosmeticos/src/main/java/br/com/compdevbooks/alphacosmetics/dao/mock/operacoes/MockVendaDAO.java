@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.operacoes;
 
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;

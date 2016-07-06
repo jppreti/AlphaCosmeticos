@@ -1,4 +1,4 @@
-package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
+package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

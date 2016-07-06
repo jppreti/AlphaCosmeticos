@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.produtos;
 
+import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockCategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.business.Categoria;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;

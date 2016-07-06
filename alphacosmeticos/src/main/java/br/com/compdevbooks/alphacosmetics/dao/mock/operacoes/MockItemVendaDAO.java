@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.compdevbooks.alphacosmetics.dao.mock;
+package br.com.compdevbooks.alphacosmetics.dao.mock.operacoes;
 
 import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +19,9 @@ import java.util.List;
 public class MockItemVendaDAO implements IItemVendaDAO {
     private static List<ItemVendaEntity> itens= new ArrayList();
     private static MockProdutoDAO produto = new MockProdutoDAO();
+    private Date dataVenda;
+    private Date dataPagamento;
+    private float ValorVenda;
     
     static {
         itens.add(new ItemVendaEntity((long) 1, 10, (float) 5.0,(float) 5.0, produto.getById((long) 1)));
