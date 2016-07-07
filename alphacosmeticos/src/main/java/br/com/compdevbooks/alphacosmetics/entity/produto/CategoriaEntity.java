@@ -26,6 +26,8 @@ public class CategoriaEntity implements IEntity {
     private float percComissao;
     private CategoriaEntity superCategoria;
     
+    public CategoriaEntity(){}
+    
     public CategoriaEntity(Long id, String nome, float mar, float pro, float com, CategoriaEntity supercat){
         this.Id=id;
         this.nome=nome;

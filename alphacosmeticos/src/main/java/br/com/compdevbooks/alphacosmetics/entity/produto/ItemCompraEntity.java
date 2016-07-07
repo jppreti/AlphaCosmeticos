@@ -29,6 +29,8 @@ public class ItemCompraEntity implements IEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
     private ProdutoVO produtoVO;
     
+    public ItemCompraEntity(){}
+    
     public ItemCompraEntity(Long id, int qtdePedida,ProdutoVO produto){
         this.Id=id;
         this.quantidadePedida=qtdePedida;
