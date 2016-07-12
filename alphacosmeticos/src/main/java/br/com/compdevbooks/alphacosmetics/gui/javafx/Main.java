@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,17 +24,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+       
         BorderPane frmPrincipal = null;
         
         try{
-            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui//FrmPrincipal.fxml"));
-        }catch (IOException ioe){
-            ioe.printStackTrace();
+            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            //frmPrincipal= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+        }catch( Exception ex ){
+            System.out.println("Exception on FXMLLoader.load()");
+            System.out.println( ex.getMessage() );   //-- Doesn't show in stack dump
         }
 
         primaryStage.setTitle("Alphacosmetics System");
-        primaryStage.setWidth(1024);
-        primaryStage.setHeight(768);
+       // primaryStage.setWidth(1024);
+        //primaryStage.setHeight(768);
         
         Scene scene = new Scene(frmPrincipal);
         primaryStage.setScene(scene);

@@ -5,7 +5,7 @@ import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 
 public abstract class ABusiness<ENTITY,EXCEPTION,DAO> implements IBusiness<ENTITY,EXCEPTION>{
 
-	IDAO<ENTITY> dao;
+	public IDAO<ENTITY> dao;
 	
 	public ABusiness(IDAO<ENTITY> dao) {
 		this.dao = dao;

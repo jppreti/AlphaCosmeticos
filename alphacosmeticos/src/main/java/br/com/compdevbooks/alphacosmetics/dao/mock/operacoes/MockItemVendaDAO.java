@@ -23,10 +23,19 @@ public class MockItemVendaDAO implements IItemVendaDAO {
     private Date dataPagamento;
     private float ValorVenda;
     
+    private static MockItemVendaDAO singlenton;
+    
+    public MockItemVendaDAO(){ }
+    
+    public static MockItemVendaDAO getInstace(){
+        if(singlenton==null)
+            return singlenton =new MockItemVendaDAO();
+        return singlenton;
+    }
     static {
         itens.add(new ItemVendaEntity((long) 1, 10, (float) 5.0,(float) 5.0, produto.getById((long) 1)));
-        itens.add(new ItemVendaEntity((long) 1, 25, (float) 5.0,(float) 5.0, produto.getById((long) 2)));
-        itens.add(new ItemVendaEntity((long) 1, 15, (float) 5.0,(float) 5.0, produto.getById((long) 3)));
+        itens.add(new ItemVendaEntity((long) 2, 25, (float) 5.0,(float) 5.0, produto.getById((long) 2)));
+        itens.add(new ItemVendaEntity((long) 3, 15, (float) 5.0,(float) 5.0, produto.getById((long) 3)));
         
         
     }

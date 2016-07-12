@@ -53,10 +53,11 @@ public class ProdutoVO implements IEntity {
             joinColumns = {@JoinColumn(name = "produto")}, 
             inverseJoinColumns = {@JoinColumn(name = "fornecedor")})
     private Set<FornecedorEntity> listaFornecedores;
+    
     public ProdutoVO(){
         listaFornecedores= new HashSet();//verificar
     }
-    public ProdutoVO(Long Id, String nome,float mar, float pro, float com, float compra,float venda,CategoriaEntity cate, FornecedorEntity fornecedor ){
+    public ProdutoVO(Long Id, String nome,float mar, float pro, float com, float compra,float venda,CategoriaEntity cate ){//FornecedorEntity fornecedor ){
      super();
      this.Id=Id;
      this.nome=nome;
@@ -66,7 +67,7 @@ public class ProdutoVO implements IEntity {
      this.valorCompra=compra;
      this.valorVenda=venda;
      this.categoriaVO=cate;
-     this.listaFornecedores.add(fornecedor);
+     //this.listaFornecedores.add(fornecedor);
     }
 
     public String getNome() {

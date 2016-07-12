@@ -11,6 +11,8 @@ import br.com.compdevbooks.alphacosmetics.dao.xml.XMLDAOFactory;
 public interface DAOFactory {
 
 	public abstract IClienteDAO getClienteDAO();
+        public abstract IVendaDAO getVendaDAO();
+        public abstract IItemVendaDAO getItemVendaDAO();
 
 	public static Properties props = new Properties();
 

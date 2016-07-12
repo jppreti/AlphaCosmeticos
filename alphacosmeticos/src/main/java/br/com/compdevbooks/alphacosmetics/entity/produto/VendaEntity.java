@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
-import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
 
 @Entity
 @Table(name = "venda")
@@ -48,7 +48,7 @@ public class VendaEntity implements IEntity {
     
     @OneToMany(fetch = FetchType.LAZY)
     private Set<ItemVendaEntity> listaItens;
-    
+    //alterar depois;
     @ManyToOne(fetch = FetchType.EAGER)
     private ClienteEntity clienteVO;
     

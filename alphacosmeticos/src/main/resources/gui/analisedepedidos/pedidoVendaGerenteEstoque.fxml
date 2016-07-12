@@ -63,7 +63,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <Label fx:id="lblPesqCompra" text="%abel.compra" GridPane.columnIndex="3">
+                  <Label fx:id="lblPesqCompra" text="%label.compra" GridPane.columnIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -83,7 +83,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" prefHeight="25.0" prefWidth="68.0" text="%button.search" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                  <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" prefHeight="25.0" prefWidth="68.0" text="%button.procurar" GridPane.columnIndex="7" GridPane.rowIndex="1">
                      <opaqueInsets>
                         <Insets left="10.0" />
                      </opaqueInsets>
@@ -102,7 +102,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tblVenda" prefHeight="520.0" prefWidth="504.0">
+            <TableView fx:id="tblVenda" onMouseClicked="#tblVenda_OnMouseClicked" prefHeight="520.0" prefWidth="504.0">
               <columns>
                 <TableColumn fx:id="clmVendaID" prefWidth="247.0" text="%column.id" />
                 <TableColumn fx:id="clmVendaSituacao" prefWidth="126.0" text="%column.situacao" />
@@ -145,7 +145,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="lblCPF" text="%label.cpfkey.unspecified" GridPane.rowIndex="2">
+                        <Label fx:id="lblCPF" text="%label.cnpj" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -155,17 +155,17 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="lblID" text="%label.identifiação" GridPane.rowIndex="4">
+                        <Label fx:id="lblID" text="%label.identificacao" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="lblDtLancamento" text="%label.dtLançamento" GridPane.rowIndex="5">
+                        <Label fx:id="lblDtLancamento" text="%label.dtLancamento" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="lblDtAprovacao" text="%label.dtAprovação" GridPane.rowIndex="6">
+                        <Label fx:id="lblDtAprovacao" text="%label.dtAprovacao" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -201,13 +201,13 @@
                   <TableView fx:id="tblItemVenda" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmtemVendaProduto" prefWidth="335.0" text="%column.produto" />
-                      <TableColumn fx:id="clmtemVendaQtdePedida" prefWidth="73.0" text="%column.qtdPedida" />
-                        <TableColumn fx:id="clmtemVendaQtdeEstoque" prefWidth="80.33331298828125" text="%column.qtdEstoque" />
+                      <TableColumn fx:id="clmtemVendaQtdePedida" prefWidth="73.0" text="%column.qtdePedida" />
+                        <TableColumn fx:id="clmtemVendaQtdeEstoque" prefWidth="80.33331298828125" text="%column.qtdeEstoque" />
                     </columns>
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblFormaPagamento" text="%abel.formaPagamento" />
+                        <Label fx:id="lblFormaPagamento" text="%label.formaPagamento" />
                         <TextField fx:id="txtFormaPagamento" prefHeight="25.0" prefWidth="334.0">
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -233,7 +233,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="39.0" text="%button.sair">
+                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="45.0" text="%button.sair">
                            <HBox.margin>
                               <Insets left="80.0" />
                            </HBox.margin>

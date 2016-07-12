@@ -8,6 +8,7 @@ package br.com.compdevbooks.alphacosmetics.dao.mock.produtos;
 import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockCategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.business.Categoria;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
 import java.util.ArrayList;
@@ -20,12 +21,13 @@ import java.util.List;
 public class MockProdutoDAO implements IProdutoDAO {
     private static List<ProdutoVO> produtos= new ArrayList<>();
     private static MockCategoriaDAO cat= new MockCategoriaDAO();
+    private static MockFornecedorDAO fornecedor;
     
   
    static {
-        produtos.add(new ProdutoVO((long) 1,"One Million",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 1),null));
-        produtos.add(new ProdutoVO((long) 2,"Vermelho",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2),null));
-        produtos.add(new ProdutoVO((long) 3,"head shoulder",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2),null));
+        produtos.add(new ProdutoVO((long) 1,"One Million",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 1)));
+        produtos.add(new ProdutoVO((long) 2,"Vermelho",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2)));
+        produtos.add(new ProdutoVO((long) 3,"head shoulder",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2)));
        //verificar 
         
     }   

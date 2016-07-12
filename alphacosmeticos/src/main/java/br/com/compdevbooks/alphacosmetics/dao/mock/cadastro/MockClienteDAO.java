@@ -11,16 +11,16 @@ public class MockClienteDAO implements IClienteDAO {
 	private static List<ClienteEntity> clientes = new ArrayList<>();
 	
 	static {
-		clientes.add(new ClienteEntity(1L,"JOAO PAULO","jppreti@gmail.com","6581232323"));
-		clientes.add(new ClienteEntity(1L,"MARIA CRISTINA","mariac@terra.com.br","6612345678"));
-		clientes.add(new ClienteEntity(1L,"JOSE PEDRO","jose.pedro@microsoft.com","8343214321"));
-		clientes.add(new ClienteEntity(1L,"ANA PAULA","anapaula@hotmail.com","1122223333"));
-		clientes.add(new ClienteEntity(1L,"CRISTIANE","cristiane@ifmt.edu.br","2167891234"));
+		clientes.add(new ClienteEntity((long)1,"JOAO PAULO","jppreti@gmail.com","6581232323"));
+		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","mariac@terra.com.br","6612345678"));
+		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","jose.pedro@microsoft.com","8343214321"));
+		clientes.add(new ClienteEntity((long)4,"ANA PAULA","anapaula@hotmail.com","1122223333"));
+		clientes.add(new ClienteEntity((long)5,"CRISTIANE","cristiane@ifmt.edu.br","2167891234"));
 	}
 	
 	private static MockClienteDAO singleton = null;
 	
-	private MockClienteDAO(){	}
+	public MockClienteDAO(){	}
 	
 	public static MockClienteDAO getInstance() {
 		if (singleton == null)

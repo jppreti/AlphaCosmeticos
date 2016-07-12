@@ -41,28 +41,28 @@
                      </padding>
                      <children>
                         <TextField fx:id="txtPesqNome" onKeyPressed="#txtPesqNome_onKeyPressed" promptText="%text.nome" GridPane.columnSpan="3" />
-                        <TextField fx:id="txtPesqCPF" onKeyPressed="#txtCPF_onKeyPressed" promptText="%text.cpf" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPesqCNPJ" onKeyPressed="#txtCPF_onKeyPressed" promptText="%text.cnpj" GridPane.rowIndex="1" />
                         <TextField fx:id="txtPesqTelefone" onKeyPressed="#txtTelefone_onKeyPressed" promptText="%text.telefone" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="txtPesqDatLancamento" onKeyPressed="#txtDtLancamento_onKeyPressed" promptText="%text.DtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <TextField fx:id="txtPesqDatLancamento" onKeyPressed="#txtDtLancamento_onKeyPressed" promptText="%text.dtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </TextField>
                         <FlowPane alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
-                              <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" text="%button.search" />
+                              <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" text="%button.procurar" />
                            </children>
                         </FlowPane>
                      </children>
                   </GridPane>
-                  <TableView fx:id="tblPedidoVenda" prefHeight="448.0" prefWidth="521.0">
+                  <TableView fx:id="tblPedidoVenda" onMouseClicked="#tblPedidoVenda_onMouseClick" prefHeight="448.0" prefWidth="521.0">
                     <columns>
-                      <TableColumn fx:id="clmPedidoVendaID" prefWidth="376.33333587646484" text="%column.ID" />
-                      <TableColumn fx:id="clmPedidoVendaDtLancamento" prefWidth="149.66666412353516" text="%column.DtLancamento" />
+                      <TableColumn fx:id="clmPedidoVendaID" prefWidth="376.33333587646484" text="%column.id" />
+                      <TableColumn fx:id="clmPedidoVendaDtLancamento" prefWidth="149.66666412353516" text="%column.dtLancamento" />
                     </columns>
                      <padding>
                         <Insets bottom="10.0" />
@@ -94,7 +94,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="lblCliente" text="%label.Cliente">
+                        <Label fx:id="lblCliente" text="%label.cliente">
                            <padding>
                               <Insets bottom="3.0" />
                            </padding>
@@ -104,7 +104,7 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="lblCPF" text="%label.cpf" GridPane.rowIndex="2">
+                        <Label fx:id="lblCNPJ" text="%label.cnpj" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -125,7 +125,7 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtCPF" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="txtCNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -172,7 +172,7 @@
                               <Insets bottom="3.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="lblID" text="%label.ID" GridPane.rowIndex="1">
+                        <Label fx:id="lblID" text="%label.id" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -182,7 +182,7 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="lblDtLancamento" prefHeight="17.0" prefWidth="568.0" text="%label.DtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label fx:id="lblDtLancamento" prefHeight="17.0" prefWidth="568.0" text="%label.dtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
@@ -246,7 +246,7 @@
                         <Button fx:id="btnAutorizar" mnemonicParsing="false" onAction="#btnAutorizar_onAction" onKeyPressed="#btnAutorizar_onKeyPressed" text="%button.autorizarCredito" GridPane.rowIndex="2" />
                         <FlowPane alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
-                              <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" text="%button.Sair" />
+                              <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" text="%button.sair" />
                            </children>
                         </FlowPane>
                      </children>

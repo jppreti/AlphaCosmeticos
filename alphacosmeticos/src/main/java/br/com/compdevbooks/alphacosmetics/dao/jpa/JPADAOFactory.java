@@ -12,6 +12,10 @@ import org.jboss.weld.environment.se.WeldContainer;
 
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockVendaDAO;
 
 public class JPADAOFactory implements DAOFactory {
 
@@ -51,4 +55,10 @@ public class JPADAOFactory implements DAOFactory {
 	public void closeEntityManager(@Disposes EntityManager em){
 		em.close();
 	}
+        public IVendaDAO getVendaDAO(){
+            return null;
+        }
+        public IItemVendaDAO getItemVendaDAO(){
+            return null;
+        }
 }

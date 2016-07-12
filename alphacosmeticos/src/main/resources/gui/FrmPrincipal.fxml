@@ -11,35 +11,35 @@
          <children>
             <MenuBar fx:id="mnbPrincipal">
               <menus>
-                <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="%_menu.cadastro">
+                <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="%menu.cadastro">
                   <items>
                     <MenuItem fx:id="mniCadPessoa" mnemonicParsing="false" onAction="#mniCliente_onAction" text="%cadastro.pessoas" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="mniCadProduto" mnemonicParsing="false" text="%cadastro.produtos" />
                   </items>
                 </Menu>
-                  <Menu fx:id="mnuProduto" mnemonicParsing="false" text="%_menu.produtos">
+                  <Menu fx:id="mnuProduto" mnemonicParsing="false" text="%menu.produtos">
                     <items>
                       <MenuItem fx:id="mniProdCatalogo" mnemonicParsing="false" text="%produtos.catalogo" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="mniProdEstoque" mnemonicParsing="false" text="%produtos.estoque" />
                     </items>
                   </Menu>
-                <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="%_menu.operacoes">
+                <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="%menu.operacoes">
                   <items>
                         <MenuItem fx:id="mniOpCompra" mnemonicParsing="false" text="%operacoes.compra" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="mniOpmni" mnemonicParsing="false" text="%operacoes.venda" />
                   </items>
                 </Menu>
-                  <Menu fx:id="mnuAnalisePedido" mnemonicParsing="false" text="%_menu.analisePedido">
+                  <Menu fx:id="mnuAnalisePedido" mnemonicParsing="false" text="%menu.analisePedido">
                     <items>
                       <MenuItem fx:id="mniPedCompra" mnemonicParsing="false" text="%analisePedido.compra" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniPedVenda" mnemonicParsing="false" text="%analisePedido.venda" />
+                        <MenuItem fx:id="mniPedVenda" mnemonicParsing="false" onAction="#mniPedidoVenda_onAction" text="%analisePedido.venda" />
                     </items>
                   </Menu>
-                  <Menu fx:id="mnuFinanceiro" mnemonicParsing="false" text="%_menu.financeiro">
+                  <Menu fx:id="mnuFinanceiro" mnemonicParsing="false" text="%menu.financeiro">
                     <items>
                         <MenuItem fx:id="mniFinComissao" mnemonicParsing="false" text="%financeiro.comissao" />
                         <SeparatorMenuItem mnemonicParsing="false" />
@@ -48,7 +48,7 @@
                         <MenuItem fx:id="mniFinContaReceber" mnemonicParsing="false" text="%financeiro.contasReceber" />
                     </items>
                   </Menu>
-                <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="%_menu.ajuda">
+                <Menu fx:id="mnuAjuda" mnemonicParsing="false" text="%menu.ajuda">
                   <items>
                     <MenuItem fx:id="mniAjudaSobre" mnemonicParsing="false" onAction="#mniSobre_onAction" text="%ajuda.sobre" />
                         <SeparatorMenuItem mnemonicParsing="false" />
