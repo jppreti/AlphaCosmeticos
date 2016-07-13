@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -188,55 +189,76 @@ public class MockVendaDAO implements IVendaDAO {
         
                 // Caso o usuário selecionar apenas a data inicial
                 if(DataInicial != null && DataFinal == null){
-                    
+
                     for(VendaEntity vo: vendas){
                         
+                        Set<ParcelaPagamentoEntity> parcela = new HashSet<>();
+                        parcela = vo.getPagamentoVO().getListaParcelas();
                         
+                        Iterator it = parcela.iterator();
                         
-                        // Verificar o retorno da data de lançamento
-                      // for(vo.getPagamentoVO().get: pagamentos){
-                   
-                   //   for(ParcelaPagamentoEntity parcelas: )
-                      //vo.getPagamentoVO().getListaParcelas()
-                      
-                      
-                        /*
-                        
-                        ------------------------------------------------------------
-                        
-                        */
-                        
+                        while(it.hasNext()){
+                            
+                            ParcelaPagamentoEntity parc = (ParcelaPagamentoEntity)it.next();
+                            
+                            if(parc.getDataVencimento().compareTo(DataInicial)== -1)reg.add(vo);
+                            if(parc.getDataVencimento().compareTo(DataInicial)== 0)reg.add(vo);
+
                            }
-                        
-                         
+ 
                      }
                     return reg;
                 }
                 if(DataInicial == null && DataFinal != null){
                     for(VendaEntity vo: vendas){
                         // Verifica se o usuário passou apenas a data final e deixou em branco a data inicial
-                        if(vo.getDataLancamento().compareTo(DataFinal)== 1){
+                       Set<ParcelaPagamentoEntity> parcela = new HashSet<>();
+                        parcela = vo.getPagamentoVO().getListaParcelas();
+                        
+                        Iterator it = parcela.iterator();
+                        
+                        while(it.hasNext()){
+                            
+                            ParcelaPagamentoEntity parc = (ParcelaPagamentoEntity)it.next();
+                            
+                            if(parc.getDataVencimento().compareTo(DataFinal)== 1)reg.add(vo);
+                            if(parc.getDataVencimento().compareTo(DataInicial)== 0)reg.add(vo);
 
-                            reg.add(vo);
-                        }
+                           }
+ 
+                     }
                     }
                     return reg;
                 }
                 if(DataInicial != null && DataFinal != null){
                     for(VendaEntity vo: vendas){
                         // Verifica se o usuário passou os dois parametro de data para o filtro
-                        if(vo.getDataLancamento().compareTo(DataInicial)== -1 && vo.getDataLancamento().compareTo(DataFinal)==1)reg.add(vo);
-                        if(vo.getDataLancamento().compareTo(DataInicial)==0)reg.add(vo); 
-                        if(vo.getDataLancamento().compareTo(DataFinal)==0)reg.add(vo);
+                        Set<ParcelaPagamentoEntity> parcela = new HashSet<>();
+                        parcela = vo.getPagamentoVO().getListaParcelas();
+                        
+                        Iterator it = parcela.iterator();
+                        
+                        while(it.hasNext()){
+                            
+                            ParcelaPagamentoEntity parc = (ParcelaPagamentoEntity)it.next();
+                            
+                            if(parc.getDataVencimento().compareTo(DataInicial)== -1 && parc.getDataVencimento().compareTo(DataFinal)== 1 )reg.add(vo);
+                            if(parc.getDataVencimento().compareTo(DataInicial)== 0)reg.add(vo);
+                            if(parc.getDataVencimento().compareTo(DataFinal)== 0)reg.add(vo);
+
+                           }
+ 
+                        }
+                       return reg;
                     }
-                    return reg;
+                     return reg;
                 }
-        }
-        return reg;
+        
+    
     }
     
     
     
 
     
-}
+
