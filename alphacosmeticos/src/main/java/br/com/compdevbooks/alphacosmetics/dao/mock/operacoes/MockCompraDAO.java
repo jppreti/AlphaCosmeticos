@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -84,6 +85,20 @@ public class MockCompraDAO implements ICompraDAO {
         for(CompraEntity vo:compras)
             if(vo.getId().equals(id))
                 return vo;
+        return null;
+    }
+    @Override
+    public CompraEntity pegaCompra(ItemCompraEntity item){
+        for(CompraEntity vo : compras){
+            Iterator<ItemCompraEntity> i= vo.getListaItens().iterator();
+            ItemCompraEntity it=null;
+            while(i.hasNext()){
+                it=i.next();
+                if(it.getId().equals(item.getId()))
+                    return vo;
+            }
+            
+        }
         return null;
     }
 

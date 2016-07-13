@@ -47,4 +47,12 @@ public class MockCategoriaDAO implements ICategoriaDAO {
        return null;
     }
     
+    public CategoriaEntity getByNome(String nome){
+        for (CategoriaEntity vo: categorias){
+            if (vo.getNome().equals(nome)){
+                return vo;
+            }
+        }
+        return null;
+    }
 }

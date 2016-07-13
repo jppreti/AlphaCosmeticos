@@ -30,11 +30,11 @@ public class ItemVendaEntity implements IEntity {
     private float percComissao;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
-    private ProdutoVO produtoVO;
+    private ProdutoEntity produtoVO;
     
     public ItemVendaEntity(){}
     
-    public ItemVendaEntity(Long id, int qtde, float pro, float com, ProdutoVO produto){
+    public ItemVendaEntity(Long id, int qtde, float pro, float com, ProdutoEntity produto){
         this.Id=id;
         this.quantidade=qtde;
         this.percPromocao=pro;
@@ -58,11 +58,11 @@ public class ItemVendaEntity implements IEntity {
         this.quantidade = quantidade;
     }
 
-    public ProdutoVO getProdutoVO() {
+    public ProdutoEntity getProdutoVO() {
         return produtoVO;
     }
 
-    public void setProdutoVO(ProdutoVO produtoVO) {
+    public void setProdutoVO(ProdutoEntity produtoVO) {
         this.produtoVO = produtoVO;
     }
 

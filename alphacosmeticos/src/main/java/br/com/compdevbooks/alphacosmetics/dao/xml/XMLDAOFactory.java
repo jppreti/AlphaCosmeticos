@@ -2,7 +2,10 @@ package br.com.compdevbooks.alphacosmetics.dao.xml;
 
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockVendaDAO;
@@ -25,6 +28,16 @@ public class XMLDAOFactory  implements DAOFactory {
             return null;
         }
         public IItemVendaDAO getItemVendaDAO(){
+            return null;
+        }
+        public IProdutoDAO getProdutoDAO(){
+            return null;
+        }
+        
+        public ICompraDAO getCompraDAO() {
+            return null;
+        }
+        public IItemCompraDAO getItemCompraDAO(){
             return null;
         }
 /*

@@ -21,10 +21,18 @@ public class MockItemCompraDAO implements IItemCompraDAO {
     
     static {
         lista.add(new ItemCompraEntity((long) 1, 10, produto.getById((long) 1)));
-        lista.add(new ItemCompraEntity((long) 2, 10, produto.getById((long) 2)));
-        lista.add(new ItemCompraEntity((long) 3, 10, produto.getById((long) 3)));
+        lista.add(new ItemCompraEntity((long) 2, 20, produto.getById((long) 2)));
+        lista.add(new ItemCompraEntity((long) 3, 15, produto.getById((long) 3)));
     }
-
+    
+    private static MockItemCompraDAO singleton;
+    
+    public static MockItemCompraDAO getInstance(){
+        if(singleton==null)
+               singleton= new MockItemCompraDAO();
+        return singleton;
+    }
+    
     @Override
     public void save(ItemCompraEntity entity) {
        if(lista.indexOf(entity)<0)
@@ -44,4 +52,16 @@ public class MockItemCompraDAO implements IItemCompraDAO {
         return null;
     }
     
+    @Override
+    public List<ItemCompraEntity> buscarTodosItemCompra() {
+        return lista;
+    }
+    
+    public List<ItemCompraEntity> buscarPorProduto(Long id){
+        List<ItemCompraEntity> temp= new ArrayList();
+        for(ItemCompraEntity vo: lista)
+            if(vo.getProdutoVO().getId().equals(id))
+                temp.add(vo);
+        return temp;
+    }
 }

@@ -8,7 +8,7 @@ package br.com.compdevbooks.alphacosmetics.dao.mock.cadastro;
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class MockFornecedorDAO implements IFornecedorDAO {
     private static List<FornecedorEntity> lista= new ArrayList();
     private static MockProdutoDAO produto= new MockProdutoDAO();
-    private static Set<ProdutoVO> listaProduto;
+    private static Set<ProdutoEntity> listaProduto;
     
     static{
         listaProduto = new HashSet();

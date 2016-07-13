@@ -12,8 +12,11 @@ public interface DAOFactory {
 
 	public abstract IClienteDAO getClienteDAO();
         public abstract IVendaDAO getVendaDAO();
+        public abstract ICompraDAO getCompraDAO();
         public abstract IItemVendaDAO getItemVendaDAO();
-
+        public abstract IItemCompraDAO getItemCompraDAO();
+        public abstract IProdutoDAO getProdutoDAO();
+        
 	public static Properties props = new Properties();
 
 	public static DAOFactory getDAOFactory() {

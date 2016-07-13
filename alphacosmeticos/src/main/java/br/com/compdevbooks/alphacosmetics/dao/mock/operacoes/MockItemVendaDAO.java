@@ -59,5 +59,15 @@ public class MockItemVendaDAO implements IItemVendaDAO {
        return null;
     }
     
+    public List<ItemVendaEntity> buscarTodosItemVendas() {
+        return itens;
+    }
     
+    public List<ItemVendaEntity> buscarPorProduto(Long id){
+        List<ItemVendaEntity> temp= new ArrayList();
+        for(ItemVendaEntity vo: itens)
+            if(vo.getProdutoVO().getId().equals(id))
+                temp.add(vo);
+        return temp;
+    }
 }

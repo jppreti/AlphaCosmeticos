@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque">
+<BorderPane fx:id="bdpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque">
    <top>
       <VBox prefHeight="119.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,7 @@
       </VBox>
    </top>
    <center>
-      <TabPane prefHeight="681.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tbpEstoque" prefHeight="681.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="tabEstoque" text="%tab.estoque">
                <content>
@@ -54,7 +54,7 @@
                               </TextField>
                               <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisa_onKeyPressed" text="%button.search" />
+                                    <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisa_onKeyPressed" text="%button.procurar" />
                                  </children>
                               </FlowPane>
                            </children>
@@ -62,15 +62,18 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </GridPane>
-                        <TableView fx:id="tblProduto" prefHeight="416.0" prefWidth="1024.0">
+                        <TableView fx:id="tblProduto" onMouseClicked="#tblProduto_onMouseClicked" prefHeight="416.0" prefWidth="1024.0">
                           <columns>
-                            <TableColumn fx:id="clmProdutoProduto" prefWidth="226.6666717529297" text="%column.produto" />
-                            <TableColumn fx:id="clmProdutoQtdeEstoque" prefWidth="129.3333282470703" text="%column.qtdeEstoque" />
-                              <TableColumn fx:id="clmProdutoQtdeReservada" prefWidth="125.66665649414062" text="%column.qtdeReservada" />
-                              <TableColumn fx:id="clmProdutoQtdeEsperada" prefWidth="141.0" text="%column.qtdeEsperada" />
-                              <TableColumn fx:id="clmProdutoCategoria" prefWidth="233.0" text="%column.categoria" />
-                              <TableColumn fx:id="clmProdutoFornecedor" prefWidth="170.0" text="%column.fornecedor" />
+                            <TableColumn fx:id="clmProdutoProduto" prefWidth="256.6666717529297" text="%column.produto" />
+                            <TableColumn fx:id="clmProdutoQtdeEstoque" prefWidth="128.0" text="%column.qtdeEstoque" />
+                              <TableColumn fx:id="clmProdutoQtdeReservada" prefWidth="124.0" text="%column.qtdeReservada" />
+                              <TableColumn fx:id="clmProdutoQtdeEsperada" prefWidth="137.99996948242188" text="%column.qtdeEsperada" />
+                              <TableColumn fx:id="clmProdutoCategoria" minWidth="0.0" prefWidth="156.66668701171875" text="%column.categoria" />
+                              <TableColumn fx:id="clmProdutoFornecedor" prefWidth="181.66668701171875" text="%column.fornecedor" />
                           </columns>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
                         </TableView>
                      </children>
                   </VBox>
@@ -94,37 +97,37 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="lblNome" text="\%label.name">
+                              <Label fx:id="lblNome" text="%label.nome">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblCategoria" text="\%label.categoria" GridPane.rowIndex="1">
+                              <Label fx:id="lblCategoria" text="%label.categoria" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblMargemLucro" text="\%label.margemLucro" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <Label fx:id="lblMargemLucro" text="%label.margemLucro" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblPercPromo" text="\%label.percPromo" GridPane.rowIndex="2">
+                              <Label fx:id="lblPercPromo" text="%label.percPromo" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblPercComi" text="\%label.percComi" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <Label fx:id="lblPercComi" text="%label.percComi" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="lblValorVenda" text="\%label.valorVenda" GridPane.rowIndex="3">
+                              <Label fx:id="lblValorVenda" text="%label.valorVenda" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="10.0" />
                                  </padding>
                               </Label>
-                              <Label fx:id="lblValorCompra" text="\%label.valorCompra" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <Label fx:id="lblValorCompra" text="%label.valorCompra" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
@@ -178,7 +181,7 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Button fx:id="btnCompra" mnemonicParsing="false" onAction="#btnCompra_onAction" onKeyPressed="#btnCompra_onKeyPressed" prefHeight="30.0" prefWidth="100.0" text="%button.novaCompra" />
-                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="30.0" prefWidth="70.0" text="%%button.sair">
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="30.0" prefWidth="70.0" text="%button.sair">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>

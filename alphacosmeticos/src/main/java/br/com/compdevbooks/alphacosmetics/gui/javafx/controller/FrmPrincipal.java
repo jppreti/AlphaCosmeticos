@@ -3,6 +3,7 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
@@ -44,6 +45,17 @@ public class FrmPrincipal {
     @FXML
     private Menu mnuAjuda;
 
+    @FXML
+    void mniProdEstoque_onAction(ActionEvent event) {
+        BorderPane frmEstoque=null;
+        try{
+            frmEstoque = FXMLLoader.load(FrmEstoque.class.getClassLoader().getResource("gui//produto//estoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmEstoque);
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }  
+    }
+    
     @FXML
     void mniCliente_onAction(ActionEvent event) {
       /*  BorderPane frmCliente = null;

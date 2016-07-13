@@ -27,11 +27,11 @@ public class ItemCompraEntity implements IEntity {
     private int quantidadeFornecida;
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
-    private ProdutoVO produtoVO;
+    private ProdutoEntity produtoVO;
     
     public ItemCompraEntity(){}
     
-    public ItemCompraEntity(Long id, int qtdePedida,ProdutoVO produto){
+    public ItemCompraEntity(Long id, int qtdePedida,ProdutoEntity produto){
         this.Id=id;
         this.quantidadePedida=qtdePedida;
         this.produtoVO=produto;
@@ -61,11 +61,11 @@ public class ItemCompraEntity implements IEntity {
         this.quantidadeFornecida = quantidadeFornecida;
     }
 
-    public ProdutoVO getProdutoVO() {
+    public ProdutoEntity getProdutoVO() {
         return produtoVO;
     }
 
-    public void setProdutoVO(ProdutoVO produtoVO) {
+    public void setProdutoVO(ProdutoEntity produtoVO) {
         this.produtoVO = produtoVO;
     }
     

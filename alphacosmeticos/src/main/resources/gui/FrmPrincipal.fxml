@@ -22,7 +22,7 @@
                     <items>
                       <MenuItem fx:id="mniProdCatalogo" mnemonicParsing="false" text="%produtos.catalogo" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniProdEstoque" mnemonicParsing="false" text="%produtos.estoque" />
+                        <MenuItem fx:id="mniProdEstoque" mnemonicParsing="false" onAction="#mniProdEstoque_onAction" text="%produtos.estoque" />
                     </items>
                   </Menu>
                 <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="%menu.operacoes">

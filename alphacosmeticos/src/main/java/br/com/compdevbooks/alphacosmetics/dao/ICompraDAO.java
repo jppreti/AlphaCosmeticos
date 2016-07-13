@@ -7,6 +7,7 @@ package br.com.compdevbooks.alphacosmetics.dao;
 
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ import java.util.List;
  */
 public interface ICompraDAO extends IDAO<CompraEntity> {
     List<CompraEntity> buscar(FornecedorEntity fornecedor, CompraEntity compra);
+    public CompraEntity pegaCompra(ItemCompraEntity item);
 }

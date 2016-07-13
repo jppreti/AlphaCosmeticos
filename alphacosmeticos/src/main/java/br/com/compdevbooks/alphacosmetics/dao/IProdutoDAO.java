@@ -5,12 +5,13 @@
  */
 package br.com.compdevbooks.alphacosmetics.dao;
 
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
+import java.util.List;
 
 /**
  *
  * @author Josiel
  */
-public interface IProdutoDAO extends IDAO<ProdutoVO> {
-    
+public interface IProdutoDAO extends IDAO<ProdutoEntity> {
+    List<ProdutoEntity> buscarTodosProdutos();
 }

@@ -7,29 +7,29 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 
 @Entity
 @Table(name = "fornecedor")
 public class FornecedorEntity extends PessoaJuridicaEntity {
 
     @ManyToMany(mappedBy = "listaFornecedores", fetch = FetchType.LAZY)
-    private Set<ProdutoVO> listaProdutos;
+    private Set<ProdutoEntity> listaProdutos;
 
     public FornecedorEntity() {
         this.listaProdutos = new HashSet();
     }
 
-    public FornecedorEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao, Set<ProdutoVO> lista) {
+    public FornecedorEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao, Set<ProdutoEntity> lista) {
         super(id, razao, fantasia, CNPJ, inscricao);
         this.listaProdutos=lista;
     }
 
-    public Set<ProdutoVO> getListaProdutos() {
+    public Set<ProdutoEntity> getListaProdutos() {
         return listaProdutos;
     }
 
-    public void setListaProdutos(Set<ProdutoVO> listaProdutos) {
+    public void setListaProdutos(Set<ProdutoEntity> listaProdutos) {
         this.listaProdutos = listaProdutos;
     }
 

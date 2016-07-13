@@ -10,7 +10,8 @@ import br.com.compdevbooks.alphacosmetics.business.Categoria;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +20,15 @@ import java.util.List;
  * @author Josiel
  */
 public class MockProdutoDAO implements IProdutoDAO {
-    private static List<ProdutoVO> produtos= new ArrayList<>();
+    private static List<ProdutoEntity> produtos= new ArrayList<>();
     private static MockCategoriaDAO cat= new MockCategoriaDAO();
-    private static MockFornecedorDAO fornecedor;
+    private static MockFornecedorDAO fornecedor=new MockFornecedorDAO();
     
   
    static {
-        produtos.add(new ProdutoVO((long) 1,"One Million",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 1)));
-        produtos.add(new ProdutoVO((long) 2,"Vermelho",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2)));
-        produtos.add(new ProdutoVO((long) 3,"head shoulder",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2)));
+        produtos.add(new ProdutoEntity((long) 1,"One Million",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 1),30, fornecedor.getById((long) 1)));
+        produtos.add(new ProdutoEntity((long) 2,"Vermelho",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 2),40, fornecedor.getById((long) 2)));
+        produtos.add(new ProdutoEntity((long) 3,"head shoulder",(float)10.0,(float)5.0,(float)2.0, (float) 4.0,(float) 8.0,cat.getById((long) 3),50, fornecedor.getById((long) 3)));
        //verificar 
         
     }   
@@ -42,23 +43,24 @@ public class MockProdutoDAO implements IProdutoDAO {
         return singleton;
     }
     @Override
-    public void save(ProdutoVO entity) {
+    public void save(ProdutoEntity entity) {
         if(produtos.indexOf(entity)<0)
             produtos.add(entity);
     }
 
     @Override
-    public void delete(ProdutoVO entity) {
+    public void delete(ProdutoEntity entity) {
       produtos.remove(entity);
     }
 
     @Override
-    public ProdutoVO getById(Long id) {
-        for(ProdutoVO vo: produtos)
+    public ProdutoEntity getById(Long id) {
+        for(ProdutoEntity vo: produtos)
             if(vo.getId().equals(id))
                 return vo;
-        return null;
-            
+        return null;  
     }
-    
+    public  List<ProdutoEntity> buscarTodosProdutos(){
+        return produtos;
+    }
 }

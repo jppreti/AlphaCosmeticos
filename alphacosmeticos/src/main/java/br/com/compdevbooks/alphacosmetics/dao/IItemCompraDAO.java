@@ -6,11 +6,14 @@
 package br.com.compdevbooks.alphacosmetics.dao;
 
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
+import java.util.List;
 
 /**
  *
  * @author Josiel
  */
 public interface IItemCompraDAO extends IDAO<ItemCompraEntity> {
+    public List<ItemCompraEntity> buscarTodosItemCompra();
     
+    public List<ItemCompraEntity> buscarPorProduto(Long id);
 }

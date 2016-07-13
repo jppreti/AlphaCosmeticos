@@ -11,7 +11,7 @@ import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import java.util.List;
@@ -103,7 +103,7 @@ public class FrmPedidoVendaGerenteEstoque {
     private TableColumn<ItemCompraEntity, Float> clmtemVendaQtdeEstoque;
 
     @FXML
-    private TableColumn<ProdutoVO, String> clmtemVendaProduto;
+    private TableColumn<ProdutoEntity, String> clmtemVendaProduto;
 
     @FXML
     private Label lblPesqCompra;

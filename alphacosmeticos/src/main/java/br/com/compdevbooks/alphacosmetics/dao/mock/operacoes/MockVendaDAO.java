@@ -163,6 +163,20 @@ public class MockVendaDAO implements IVendaDAO {
         return temp;
     }
     
+    @Override
+    public VendaEntity pegaVenda(ItemVendaEntity item){
+        for(VendaEntity vo : vendas){
+            Iterator<ItemVendaEntity> i= vo.getListaItens().iterator();
+            ItemVendaEntity it=null;
+            while(i.hasNext()){
+                it=i.next();
+                if(it.getId().equals(item.getId()))
+                    return vo;
+            }
+            
+        }
+        return null;
+    }
     public List<VendaEntity> BuscarPorData(Date DataInicial,Date DataFinal,String TipoBusca){
         
         ArrayList<VendaEntity> reg = new ArrayList<>();

@@ -10,7 +10,7 @@ import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.endereco.TelefoneEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
-import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.MaskFieldUtil;
@@ -292,8 +292,7 @@ public class FrmPedidoVendaGerenteVendas {
 
     }
     
-    private void completarPedidoVenda(List<VendaEntity> lista){ 
-        this.clmPedidoVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
+    private void completarPedidoVenda(List<VendaEntity> lista){        this.clmPedidoVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamento"));
         this.clmPedidoVendaID.setCellValueFactory(new PropertyValueFactory<>("Id")); 
         this.tblPedidoVenda.setItems(FXCollections.observableArrayList(lista));
     }
@@ -340,6 +339,6 @@ public class FrmPedidoVendaGerenteVendas {
         List<VendaEntity> lis= Venda.buscarGerenteVenda(cliente,venda);
         this.completarPedidoVenda(lis);
     }
-    
+
 }
 

@@ -6,6 +6,7 @@ import java.util.Locale;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -21,7 +22,7 @@ public class Main extends Application {
     	//Locale.setDefault(Locale.ENGLISH);
         Application.launch(Main.class, args);
     }
-
+    
     @Override
     public void start(Stage primaryStage) {
        
@@ -50,4 +51,6 @@ public class Main extends Application {
         
         primaryStage.show();
     }
+    
+    
 }
