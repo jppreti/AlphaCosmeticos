@@ -8,7 +8,7 @@ package br.com.compdevbooks.alphacosmetics.dao.mock.operacoes;
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.SituacaoPagamentoEnum;
@@ -162,9 +162,15 @@ public class MockVendaDAO implements IVendaDAO {
     public List<VendaEntity> getByFormaPagamento(PagamentoEntity pagamento){
 	List<VendaEntity> temp= new ArrayList();
         for(VendaEntity vo: vendas){
-		if(vo.getPagamentoVO().getTipoPagamento().equals(pagamento.getTipoPagamento())){
-                   temp.add(vo);
-                }
+               Set<ParcelaPagamentoEntity> parc = new HashSet<>();
+               parc = vo.getPagamentoVO().getListaParcelas();
+               Iterator it =parc.iterator();
+               while(it.hasNext()){
+                   ParcelaPagamentoEntity parcela = (ParcelaPagamentoEntity) it.next();
+                   //if(parcela.getDocumentoPagamento().){
+                   
+                   //}
+               }
 	}
         return temp;
     }
@@ -189,6 +195,28 @@ public class MockVendaDAO implements IVendaDAO {
         return total;
     }
     
+    public float getByVencidos30(){
+        List<VendaEntity> temp = new ArrayList();
+        float total=0;
+        Date DataAtual = new Date();
+        DataAtual.setDate(DataAtual.getDate()+30);
+        for(VendaEntity vo: vendas){
+            if(vo.getPagamentoVO().getSituPagamento().equals(ATRASADO)){
+               Set<ParcelaPagamentoEntity> parc = new HashSet<>();
+               parc = vo.getPagamentoVO().getListaParcelas();
+               Iterator it =parc.iterator();
+               while(it.hasNext()){
+                   ParcelaPagamentoEntity parcela = (ParcelaPagamentoEntity) it.next();
+                   if(parcela.getDataVencimento().before(DataAtual)){
+                       total += parcela.getValorTotalPago();
+                   }
+               }
+            }
+        }
+        return total;
+    }
+    
+    
     public float getByEmAberto(){
          List<VendaEntity> temp = new ArrayList();
         float total=0;
@@ -209,4 +237,29 @@ public class MockVendaDAO implements IVendaDAO {
         }
         return total;
     }
+    
+    public VendaEntity getByCNPJ(ClienteEntity cliente){
+        
+        for(VendaEntity vo : vendas){
+            if(vo.getClienteVO().getCNPJ().contains(cliente.getCNPJ())){
+                return vo;
+            }
+            
+        }
+        return null;
+    }
+    
+    public List<VendaEntity> getByNome(ClienteEntity cliente){
+        List<VendaEntity> temp = new ArrayList();
+        for(VendaEntity vo : vendas){
+            if(vo.getClienteVO().getNome().toUpperCase().contains(cliente.getNome().toUpperCase())){
+                temp.add(vo);
+            }
+            
+        }
+        return temp;
+    }
+
+ 
+    
 }

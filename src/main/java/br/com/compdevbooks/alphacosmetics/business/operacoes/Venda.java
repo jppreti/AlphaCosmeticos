@@ -8,8 +8,8 @@ package br.com.compdevbooks.alphacosmetics.business.operacoes;
 import br.com.compdevbooks.alphacosmetics.business.ABusiness;
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
-//import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+//import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import java.util.List;
 
