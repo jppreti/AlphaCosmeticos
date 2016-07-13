@@ -7,7 +7,7 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedido
 
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
@@ -279,11 +279,7 @@ public class FrmPedidoVendaGerenteVendas {
         else
             cliente.setNome(this.txtPesqNome.getText());
         
-        if(this.txtPesqTelefone.getText()==null)
-            cliente.setTelefone("");
-        else
-            cliente.setTelefone(txtPesqTelefone.getText());
-        
+      
         List<VendaEntity> lis= Venda.buscarGerenteVenda(cliente);
         this.completarPedidoVenda(lis);
          
