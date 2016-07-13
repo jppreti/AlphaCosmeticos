@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas">
+   <top>
+      <VBox alignment="CENTER" prefHeight="89.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblPedidoVenda" text="%label.pedidoVenda">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="520.0" prefWidth="536.0">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <padding>
+                        <Insets left="10.0" right="1.0" />
+                     </padding>
+                     <children>
+                        <TextField fx:id="txtPesqNome" onKeyPressed="#txtPesqNome_onKeyPressed" promptText="%text.nome" GridPane.columnSpan="3" />
+                        <TextField fx:id="txtPesqCNPJ" onKeyPressed="#txtCPF_onKeyPressed" promptText="%text.cnpj" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtPesqTelefone" onKeyPressed="#txtTelefone_onKeyPressed" promptText="%text.telefone" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="txtPesqDatLancamento" onKeyPressed="#txtDtLancamento_onKeyPressed" promptText="%text.dtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <FlowPane alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" text="%button.procurar" />
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </GridPane>
+                  <TableView fx:id="tblPedidoVenda" onMouseClicked="#tblPedidoVenda_onMouseClick" prefHeight="448.0" prefWidth="521.0">
+                    <columns>
+                      <TableColumn fx:id="clmPedidoVendaID" prefWidth="376.33333587646484" text="%column.id" />
+                      <TableColumn fx:id="clmPedidoVendaDtLancamento" prefWidth="149.66666412353516" text="%column.dtLancamento" />
+                    </columns>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                  </TableView>
+               </children>
+               <opaqueInsets>
+                  <Insets left="10.0" right="10.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" right="5.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="520.0" prefWidth="488.0">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblCliente" text="%label.cliente">
+                           <padding>
+                              <Insets bottom="3.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblNome" text="%label.nome" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblCNPJ" text="%label.cnpj" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblTelefone" text="%label.telefone" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="txtCNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="txtTelefone" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </GridPane>
+                  <TableView fx:id="tblHistorico" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="clmHistoricoPedido" prefWidth="190.33331298828125" text="%column.pedido" />
+                      <TableColumn fx:id="clmHistoricoQtdePedida" prefWidth="84.66668701171875" text="%column.qtdePedida" />
+                        <TableColumn fx:id="clmHistoricoValorTotal" prefWidth="93.0" text="%column.valorTotal" />
+                        <TableColumn fx:id="clmHistoricoSituacao" prefWidth="103.0" text="%column.situacao" />
+                    </columns>
+                  </TableView>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblVenda" text="%label.venda">
+                           <padding>
+                              <Insets bottom="3.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblID" text="%label.id" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblQtdeTotal" text="%label.qtdeTotal" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblDtLancamento" prefHeight="17.0" prefWidth="568.0" text="%label.dtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblValorTotal" text="%label.valorTotal" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="txtQtdeTotal" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="txtDtLancamento" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="txtValorTotal" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+                  <TableView fx:id="tblItemVenda" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="clmItemVendaProduto" prefWidth="324.3333740234375" text="%column.produto" />
+                      <TableColumn fx:id="clmItemVendaQtdePedida" prefWidth="152.0" text="%column.qtdePedida" />
+                    </columns>
+                  </TableView>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblFormaPagamento" text="%label.formaPagamento" />
+                        <TextField fx:id="txtFormaPagamento" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                        <Button fx:id="btnAutorizar" mnemonicParsing="false" onAction="#btnAutorizar_onAction" onKeyPressed="#btnAutorizar_onKeyPressed" text="%button.autorizarCredito" GridPane.rowIndex="2" />
+                        <FlowPane alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" text="%button.sair" />
+                           </children>
+                        </FlowPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

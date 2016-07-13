@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:dev="http://compdevbooks.com.br/alphacosmetics"
+targetNamespace="http://compdevbooks.com.br/alphacosmetics/ClienteEntity"
+xmlns:tns="http://compdevbooks.com.br/alphacosmetics/ClienteEntity"
+elementFormDefault="qualified">
+
+	<import schemaLocation="CompdevTypes.xsd"
+	namespace="http://compdevbooks.com.br/alphacosmetics" />
+	
+	<element name="clientes">
+		<complexType>
+			<sequence>
+				<element name="ClienteEntity"
+						type="dev:ClienteEntity"
+						maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>
