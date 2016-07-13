@@ -2,7 +2,7 @@ package br.com.compdevbooks.alphacosmetics.dao;
 
 import java.util.List;
 
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
 public interface IClienteDAO extends IDAO<ClienteEntity>{
 		

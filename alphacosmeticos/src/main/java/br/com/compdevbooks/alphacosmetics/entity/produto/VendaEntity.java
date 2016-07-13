@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
 @Entity
 @Table(name = "venda")

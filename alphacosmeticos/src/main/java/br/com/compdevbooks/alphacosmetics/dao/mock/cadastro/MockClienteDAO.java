@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
 public class MockClienteDAO implements IClienteDAO {
 	
 	private static List<ClienteEntity> clientes = new ArrayList<>();
-	
+	/*
 	static {
 		clientes.add(new ClienteEntity((long)1,"JOAO PAULO","jppreti@gmail.com","6581232323"));
 		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","mariac@terra.com.br","6612345678"));
@@ -17,7 +17,7 @@ public class MockClienteDAO implements IClienteDAO {
 		clientes.add(new ClienteEntity((long)4,"ANA PAULA","anapaula@hotmail.com","1122223333"));
 		clientes.add(new ClienteEntity((long)5,"CRISTIANE","cristiane@ifmt.edu.br","2167891234"));
 	}
-	
+	*/
 	private static MockClienteDAO singleton = null;
 	
 	public MockClienteDAO(){	}

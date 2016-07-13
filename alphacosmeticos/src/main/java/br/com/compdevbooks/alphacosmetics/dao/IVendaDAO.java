@@ -7,7 +7,7 @@ package br.com.compdevbooks.alphacosmetics.dao;
 
 //import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;

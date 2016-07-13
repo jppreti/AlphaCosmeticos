@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 
 public class XMLClienteDAO implements IClienteDAO {
@@ -59,11 +59,11 @@ public class XMLClienteDAO implements IClienteDAO {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					if (eElement.getAttribute("id").equals(entity.getId())) {
+					/*if (eElement.getAttribute("id").equals(entity.getId())) {
 						eElement.getElementsByTagName("dev:nome").item(0).getChildNodes().item(0).setNodeValue(entity.getNome());
 						eElement.getElementsByTagName("dev:email").item(0).getChildNodes().item(0).setNodeValue(entity.getEmail());
 						eElement.getElementsByTagName("dev:telefone").item(0).getChildNodes().item(0).setNodeValue(entity.getTelefone());
-					}
+					}*/
 				}
 			}			
 		}
@@ -81,6 +81,7 @@ public class XMLClienteDAO implements IClienteDAO {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
+                                /*
 				if (eElement.getAttribute("id").equals(id.toString())) {
 					ClienteEntity c = new ClienteEntity();
 					c.setId(Long.parseLong(eElement.getAttribute("id")));
@@ -88,7 +89,7 @@ public class XMLClienteDAO implements IClienteDAO {
 					c.setEmail(eElement.getElementsByTagName("dev:email").item(0).getChildNodes().item(0).getNodeValue());
 					c.setTelefone(eElement.getElementsByTagName("dev:telefone").item(0).getChildNodes().item(0).getNodeValue());
 					return c;
-				}
+				}*/
 			}
 		}
 
@@ -104,14 +105,14 @@ public class XMLClienteDAO implements IClienteDAO {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
-				if ((eElement.getElementsByTagName("dev:nome").item(0).getChildNodes().item(0).getNodeValue()).toUpperCase().indexOf(nome.toUpperCase()) >= 0) {
+				/*if ((eElement.getElementsByTagName("dev:nome").item(0).getChildNodes().item(0).getNodeValue()).toUpperCase().indexOf(nome.toUpperCase()) >= 0) {
 					ClienteEntity c = new ClienteEntity();
 					c.setId(Long.parseLong(eElement.getAttribute("id")));
 					c.setNome((eElement.getElementsByTagName("dev:nome").item(0).getChildNodes().item(0).getNodeValue()));
 					c.setEmail(eElement.getElementsByTagName("dev:email").item(0).getChildNodes().item(0).getNodeValue());
 					c.setTelefone(eElement.getElementsByTagName("dev:telefone").item(0).getChildNodes().item(0).getNodeValue());
 					resultado.add(c);
-				}
+				}*/
 			}
 		}
 

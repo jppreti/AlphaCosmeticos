@@ -10,7 +10,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
 public class JPAClienteDAO implements IClienteDAO {
 		

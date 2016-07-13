@@ -31,7 +31,7 @@ import br.com.compdevbooks.alphacosmetics.business.Cliente;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactoryEnum;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.exception.ClienteException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;

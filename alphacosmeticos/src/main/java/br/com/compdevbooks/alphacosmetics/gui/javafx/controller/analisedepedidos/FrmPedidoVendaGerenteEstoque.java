@@ -282,7 +282,7 @@ public class FrmPedidoVendaGerenteEstoque {
            
             this.txtID.setText(String.valueOf(venda.getId()));
             this.txtSituacao.setText(venda.getSituacao().toString());
-            this.txtTelefone.setText(venda.getClienteVO().getTelefone());
+            //this.txtTelefone.setText(venda.getClienteVO().getTelefone());
         } 
         this.completarItem();
          

@@ -7,7 +7,7 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedido
 
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
@@ -215,7 +215,7 @@ public class FrmPedidoVendaGerenteVendas {
             VendaEntity vendaTemp= tblPedidoVenda.getSelectionModel().getSelectedItem();
             this.txtNome.setText(vendaTemp.getClienteVO().getNome());
             this.txtNome.setEditable(false);
-            this.txtTelefone.setText(vendaTemp.getClienteVO().getTelefone());
+       //     this.txtTelefone.setText(vendaTemp.getClienteVO().getTelefone());
             this.txtTelefone.setEditable(false);
             completarHistoricoVenda(this.Venda.buscarVendasPorCliente(vendaTemp.getClienteVO()));
             completarItemVenda(vendaTemp.getListaItens());
@@ -278,12 +278,12 @@ public class FrmPedidoVendaGerenteVendas {
             cliente.setNome("");
         else
             cliente.setNome(this.txtPesqNome.getText());
-        
+     /*   
         if(this.txtPesqTelefone.getText()==null)
             cliente.setTelefone("");
         else
             cliente.setTelefone(txtPesqTelefone.getText());
-        
+        */
         List<VendaEntity> lis= Venda.buscarGerenteVenda(cliente);
         this.completarPedidoVenda(lis);
          
