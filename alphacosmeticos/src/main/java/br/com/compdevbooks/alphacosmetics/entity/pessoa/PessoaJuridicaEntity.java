@@ -19,7 +19,7 @@ public class PessoaJuridicaEntity extends PessoaEntity {
     private String fantasia;
 
     public PessoaJuridicaEntity() {
-
+        super();
     }
 
     public PessoaJuridicaEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {

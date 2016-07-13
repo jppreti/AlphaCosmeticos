@@ -148,7 +148,7 @@ public class FrmCliente {
 
 	Cliente cliente = new Cliente(DAOFactory.getDAOFactory().getClienteDAO());
 	private boolean novo = true;
-
+/*
 	@FXML
 	void initialize() {
 		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome");
@@ -189,7 +189,7 @@ public class FrmCliente {
 
 		txtPesqNome.requestFocus();
 	}
-
+*/
 	@FXML
 	void btnNovo_onAction(ActionEvent event) {
 		lblStatus.setText("Cadastrando novo cliente.");
@@ -207,8 +207,8 @@ public class FrmCliente {
 		else
 			ent = tblClientes.getSelectionModel().getSelectedItem();
 		ent.setNome(txtNome.getText());
-		ent.setEmail(txtEmail.getText());
-		ent.setTelefone(txtTelefone.getText());
+		//ent.setEmail(txtEmail.getText());
+		//ent.setTelefone(txtTelefone.getText());
 		ClienteException exc = cliente.save(ent);
 		if (exc == null) {
 			lblStatus.setText("Cliente salvo com sucesso.");
@@ -286,8 +286,8 @@ public class FrmCliente {
 		ClienteEntity ent = tblClientes.getSelectionModel().getSelectedItem();
 		if (ent != null) {
 			txtNome.setText(ent.getNome());
-			txtEmail.setText(ent.getEmail());
-			txtTelefone.setText(ent.getTelefone());
+		//	txtEmail.setText(ent.getEmail());
+		//	txtTelefone.setText(ent.getTelefone());
 			habilitarEdicao(false);
 		}
 		if (event.getClickCount() > 2)

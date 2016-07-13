@@ -13,6 +13,7 @@ public class ClienteEntity extends PessoaJuridicaEntity {
     private VendedorEntity vendedorVO;
     
     public ClienteEntity() {
+        super();
     }
 
     public ClienteEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {

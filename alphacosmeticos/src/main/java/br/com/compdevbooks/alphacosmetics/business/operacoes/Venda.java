@@ -28,8 +28,8 @@ public class Venda extends ABusiness<VendaEntity,Exception, IVendaDAO> {
     public List<VendaEntity> buscarGerenteEstoque(ClienteEntity cliente,VendaEntity venda){
         return ((IVendaDAO)dao).buscarGerenteEstoque(cliente, venda);
     }
-    public List<VendaEntity> buscarGerenteVenda(ClienteEntity cliente){
-        return ((IVendaDAO)dao).buscarGerenteVenda(cliente);
+    public List<VendaEntity> buscarGerenteVenda(ClienteEntity cliente, VendaEntity venda){
+        return ((IVendaDAO)dao).buscarGerenteVenda(cliente,venda);
     }
     public List<VendaEntity> buscarVendas(){
         return((IVendaDAO)dao).buscarVendas();

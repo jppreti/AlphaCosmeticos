@@ -11,11 +11,11 @@ public class MockClienteDAO implements IClienteDAO {
 	private static List<ClienteEntity> clientes = new ArrayList<>();
 	
 	static {
-		clientes.add(new ClienteEntity(1L,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000"));
-		clientes.add(new ClienteEntity(1L,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111"));
-		clientes.add(new ClienteEntity(1L,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222"));
-		clientes.add(new ClienteEntity(1L,"ANA PAULA","ANA PAULA","1122223333","875"));
-		clientes.add(new ClienteEntity(1L,"CRISTIANE SOUZA","CRISTIANE SOUZA","2167891234","9658"));
+		clientes.add(new ClienteEntity((long)1,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000"));
+		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111"));
+		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222"));
+		clientes.add(new ClienteEntity((long)4,"ANA PAULA","ANA PAULA","1122223333","875"));
+		clientes.add(new ClienteEntity((long)5,"CRISTIANE SOUZA","CRISTIANE SOUZA","2167891234","9658"));
                 
         }
 	

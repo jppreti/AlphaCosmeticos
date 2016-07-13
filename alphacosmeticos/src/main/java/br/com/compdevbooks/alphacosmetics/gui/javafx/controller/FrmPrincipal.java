@@ -46,14 +46,14 @@ public class FrmPrincipal {
 
     @FXML
     void mniCliente_onAction(ActionEvent event) {
-        BorderPane frmCliente = null;
+      /*  BorderPane frmCliente = null;
         
         try{
             frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCliente);
         }catch (IOException ioe){
             ioe.printStackTrace();
-        }    	
+        }*/    	
     }
     
     @FXML
@@ -87,8 +87,8 @@ public class FrmPrincipal {
         }catch (Exception ioe){
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
-        }*/
-        
+        }
+        */
                 
 
     }

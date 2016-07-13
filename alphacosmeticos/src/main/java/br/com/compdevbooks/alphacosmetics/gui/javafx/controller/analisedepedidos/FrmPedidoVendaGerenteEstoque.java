@@ -7,6 +7,8 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedido
 
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoVO;
@@ -27,7 +29,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.MaskFieldUtil;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 public class FrmPedidoVendaGerenteEstoque {
 
@@ -157,6 +168,10 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     private TableView<ItemVendaEntity> tblItemVenda;
+    
+    @FXML
+    private BorderPane bdpPrincipal;
+    
     private Venda venda= new Venda(DAOFactory.getDAOFactory().getVendaDAO());
    
     
@@ -164,7 +179,7 @@ public class FrmPedidoVendaGerenteEstoque {
     void initialize(){
         this.completarTableVenda(venda.buscarTodasVendas());
         ObservableList<SituacaoVendaEnum> combo=  FXCollections.observableArrayList(SituacaoVendaEnum.ANALISE ,SituacaoVendaEnum.APROVADA,SituacaoVendaEnum.ENVIADA,
-                SituacaoVendaEnum.PEDIDO,SituacaoVendaEnum.PROCESSADA,SituacaoVendaEnum.SEPARACAO);
+                SituacaoVendaEnum.PEDIDO,SituacaoVendaEnum.PROCESSADA,SituacaoVendaEnum.SEPARADA, SituacaoVendaEnum.RECUSADA);
         this.cmbPesqSituacao.setItems(combo);
         MaskFieldUtil.dateField(this.txtPesqDtLancamento);
         MaskFieldUtil.dateField(this.txtDtAprovacao);
@@ -181,8 +196,8 @@ public class FrmPedidoVendaGerenteEstoque {
     }
 
     @FXML
-    void btnAnalisar_onKeyPressed(ActionEvent event) {
-
+    void btnAnalisar_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
@@ -191,8 +206,8 @@ public class FrmPedidoVendaGerenteEstoque {
     }
 
     @FXML
-    void btnSeparar_onKeyPressed(ActionEvent event) {
-
+    void btnSeparar_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
@@ -201,69 +216,96 @@ public class FrmPedidoVendaGerenteEstoque {
     }
 
     @FXML
-    void btnFinalizar_onKeyPressed(ActionEvent event) {
-
+    void btnFinalizar_onKeyPressed(KeyEvent event) {
+            if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
     void btnRecusar_onAction(ActionEvent event) {
-
+        RecusarDialog();
+        this.completarTableVenda(venda.buscarTodasVendas());
     }
 
     @FXML
-    void btnRecusar_onKeyPressed(ActionEvent event) {
-
+    void btnRecusar_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER)
+            RecusarDialog();
+        this.completarTableVenda(venda.buscarTodasVendas());
+                
+    }
+    private void RecusarDialog(){
+        Alert caixa= new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType sim= new ButtonType("Sim");
+        ButtonType nao = new ButtonType("Não");
+        caixa.setTitle("AlphaComesticos");
+        caixa.setHeaderText("Recusar Pedido");
+        caixa.setContentText("Deseja recusar pedido?");
+        caixa.getButtonTypes().setAll(sim,nao);
+        
+        caixa.showAndWait().ifPresent(p->{ 
+            if(p==sim){
+              this.tblVenda.getSelectionModel().getSelectedItem().setSituacao(SituacaoVendaEnum.RECUSADA);
+                System.out.println("saida");
+            }
+            if(p==nao){}
+               
+            
+        });
+        //this.tblVenda.refresh();
+        
     }
 
     @FXML
     void btnSair_onAction(ActionEvent event) {
-            
+            this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML
-    void btnSair_onKeyPressed(ActionEvent event) {
-
+    void btnSair_onKeyPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER)
+            this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML
-    void txtPesqRazaoSocial_onKeyPressed(ActionEvent event) {
-
+    void txtPesqRazaoSocial_onKeyPressed(KeyEvent event) {
+            if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
-    void txtCNPJ_onKeyPressed(ActionEvent event) {
-
+    void txtCNPJ_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
-    void txtInscricao_onKeyPressed(ActionEvent event) {
-
+    void txtInscricao_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
-    void cmbPesqSituacao_onAction(ActionEvent event) {
-
+    void cmbPesqSituacao_onAction(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
     }
 
     @FXML
-    void txtDtLancamento_onKeyPressed(ActionEvent event) {
-
-    }
+    void txtDtLancamento_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){}
+    }   
 
     @FXML
     void btnPesquisar_onAction(ActionEvent event) {
-
+        pesquisar();
     }
 
     @FXML
-    void btnPesquisar_onKeyPressed(ActionEvent event) {
-
+    void btnPesquisar_onKeyPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER)
+            pesquisar();
     }
     
     private void completarTableVenda(List<VendaEntity> lista){
         this.clmVendaID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         this.clmVendaSituacao.setCellValueFactory(new PropertyValueFactory<>("situacao"));
-        this.clmVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamento"));
+        this.clmVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
         this.tblVenda.setItems(FXCollections.observableArrayList(lista));
     }
      @FXML
@@ -283,6 +325,7 @@ public class FrmPedidoVendaGerenteEstoque {
             this.txtID.setText(String.valueOf(venda.getId()));
             this.txtSituacao.setText(venda.getSituacao().toString());
             //this.txtTelefone.setText(venda.getClienteVO().getTelefone());
+            this.txtCPF.setText(venda.getClienteVO().getCNPJ());
         } 
         this.completarItem();
          
@@ -303,6 +346,40 @@ public class FrmPedidoVendaGerenteEstoque {
         
         Set<ItemVendaEntity> lista= this.tblVenda.getSelectionModel().getSelectedItem().getListaItens();
         this.tblItemVenda.setItems(FXCollections.observableArrayList(lista));
+        
+    }
+    private void getPainelPrincipal(Node node){
+        Node aux= node.getParent();
+        while(!(aux instanceof  BorderPane))
+            aux =node.getParent();
+        ((BorderPane) aux).setCenter(null);
+        
+    }
+    private void pesquisar(){
+        ClienteEntity cliente= new ClienteEntity();
+        VendaEntity venda= new VendaEntity();
+        
+        System.out.println(this.txtPesqCNPJ.getText());
+        cliente.setCNPJ(this.txtPesqCNPJ.getText());
+        
+        System.out.println(this.txtPesqRazaoSocial.getText());
+        cliente.setNome(this.txtPesqRazaoSocial.getText());
+        
+        System.out.println(this.txtPesqInscricao.getText());
+        cliente.setInscricao(this.txtPesqInscricao.getText());
+        System.out.println(this.cmbPesqSituacao.getSelectionModel().getSelectedItem());
+        venda.setSituacao(this.cmbPesqSituacao.getSelectionModel().getSelectedItem());
+        
+        try {
+                 System.out.println(this.txtPesqDtLancamento.getText().replaceAll("", "1"));
+             if(this.txtPesqDtLancamento.getText().equals(""))
+                 venda.setDataLancamento(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1111"));
+             else 
+                 venda.setDataLancamentoString(this.txtPesqDtLancamento.getText());
+                 
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmPedidoVendaGerenteVendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque">
+<BorderPane fx:id="bdpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque">
    <top>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +40,7 @@
                      </GridPane.margin>
                   </Rectangle>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebebeb67" height="104.0" stroke="BLACK" strokeType="INSIDE" width="478.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label fx:id="lblPesqFornecedor" text="%label.fornecedor">
+                  <Label fx:id="lblPesqFornecedor" text="%label.cliente">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -63,7 +63,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </HBox>
-                  <Label fx:id="lblPesqCompra" text="%label.compra" GridPane.columnIndex="3">
+                  <Label fx:id="lblPesqCompra" text="%label.venda" GridPane.columnIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

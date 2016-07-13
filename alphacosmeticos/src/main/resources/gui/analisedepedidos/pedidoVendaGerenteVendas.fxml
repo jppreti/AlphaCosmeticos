@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas">
+<BorderPane fx:id="bdpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas">
    <top>
       <VBox alignment="CENTER" prefHeight="89.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
@@ -40,13 +40,8 @@
                         <Insets left="10.0" right="1.0" />
                      </padding>
                      <children>
-                        <TextField fx:id="txtPesqNome" onKeyPressed="#txtPesqNome_onKeyPressed" promptText="%text.nome" GridPane.columnSpan="3" />
+                        <TextField fx:id="txtPesqNome" onKeyPressed="#txtPesqNome_onKeyPressed" promptText="%text.razaoSocial" GridPane.columnSpan="3" />
                         <TextField fx:id="txtPesqCNPJ" onKeyPressed="#txtCPF_onKeyPressed" promptText="%text.cnpj" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtPesqTelefone" onKeyPressed="#txtTelefone_onKeyPressed" promptText="%text.telefone" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </TextField>
                         <TextField fx:id="txtPesqDatLancamento" onKeyPressed="#txtDtLancamento_onKeyPressed" promptText="%text.dtLancamento" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
@@ -120,12 +115,12 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                        <TextField fx:id="txtNome" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtCNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="txtCNPJ" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -133,7 +128,7 @@
                               <Insets top="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtTelefone" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <TextField fx:id="txtTelefone" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
@@ -198,22 +193,22 @@
                               <Insets top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="txtID" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtQtdeTotal" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="txtQtdeTotal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <padding>
                               <Insets top="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtDtLancamento" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </TextField>
-                        <TextField fx:id="txtValorTotal" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <TextField fx:id="txtValorTotal" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2">
                            <padding>
                               <Insets top="5.0" />
                            </padding>

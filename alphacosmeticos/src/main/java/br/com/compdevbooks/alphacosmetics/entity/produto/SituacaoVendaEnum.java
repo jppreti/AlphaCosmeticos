@@ -5,6 +5,7 @@ public enum SituacaoVendaEnum {
     ANALISE,
     APROVADA,
     PROCESSADA,
-    SEPARACAO,
-    ENVIADA
+    SEPARADA,
+    ENVIADA,
+    RECUSADA
 }
