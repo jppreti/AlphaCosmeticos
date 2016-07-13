@@ -9,15 +9,16 @@ import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 public class MockClienteDAO implements IClienteDAO {
 	
 	private static List<ClienteEntity> clientes = new ArrayList<>();
-	/*
+	
 	static {
-		clientes.add(new ClienteEntity((long)1,"JOAO PAULO","jppreti@gmail.com","6581232323"));
-		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","mariac@terra.com.br","6612345678"));
-		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","jose.pedro@microsoft.com","8343214321"));
-		clientes.add(new ClienteEntity((long)4,"ANA PAULA","anapaula@hotmail.com","1122223333"));
-		clientes.add(new ClienteEntity((long)5,"CRISTIANE","cristiane@ifmt.edu.br","2167891234"));
-	}
-	*/
+		clientes.add(new ClienteEntity(1L,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000"));
+		clientes.add(new ClienteEntity(1L,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111"));
+		clientes.add(new ClienteEntity(1L,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222"));
+		clientes.add(new ClienteEntity(1L,"ANA PAULA","ANA PAULA","1122223333","875"));
+		clientes.add(new ClienteEntity(1L,"CRISTIANE SOUZA","CRISTIANE SOUZA","2167891234","9658"));
+                
+        }
+	
 	private static MockClienteDAO singleton = null;
 	
 	public MockClienteDAO(){	}
@@ -56,5 +57,19 @@ public class MockClienteDAO implements IClienteDAO {
 				resultado.add(vo);		
 		return resultado;
 	}
+        
+     
+        
+        public List<ClienteEntity> getByCNPJ(String CNPJ) {
+            ArrayList<ClienteEntity> resultado = new ArrayList<>();
+            for (ClienteEntity vo : clientes){
+                if (vo.getCNPJ().contains(CNPJ)){
+                    resultado.add(vo);
+                }
+						
+            }
+			
+		return resultado;  
+    }
 
 }
