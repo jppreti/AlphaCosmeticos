@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 
 public class FrmComissao {
-    @FXML
+     @FXML
     private Tab tabRelatorio;
 
     @FXML
@@ -130,6 +130,5 @@ public class FrmComissao {
     void btnPagarComissao_onAction(ActionEvent event) {
 
     }
-
 
 }

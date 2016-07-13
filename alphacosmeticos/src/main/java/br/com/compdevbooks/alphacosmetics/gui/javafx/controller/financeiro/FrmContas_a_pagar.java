@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 public class FrmContas_a_pagar {
     
-    @FXML
+     @FXML
     private TextField txtNomeRazaoSocial;
 
     @FXML
