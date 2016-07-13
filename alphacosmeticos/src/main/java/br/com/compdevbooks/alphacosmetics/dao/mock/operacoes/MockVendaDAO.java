@@ -10,6 +10,8 @@ import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
 //import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
@@ -144,6 +146,95 @@ public class MockVendaDAO implements IVendaDAO {
                 temp.add(vo);
         return temp;
     }
+    
+    public List<VendaEntity> BuscarPorData(Date DataInicial,Date DataFinal,String TipoBusca){
+        
+        ArrayList<VendaEntity> reg = new ArrayList<>();
+        
+        
+        if(TipoBusca.equals("Lançamento")){
+            
+        
+                // Caso o usuário selecionar apenas a data inicial
+                if(DataInicial != null && DataFinal == null){
+                    for(VendaEntity vo: vendas){
+                        // Verificar o retorno da data de lançamento
+                       if(vo.getDataLancamento().compareTo(DataInicial)== -1)reg.add(vo);
+                        if(vo.getDataLancamento().compareTo(DataInicial)== 0)reg.add(vo);
+
+                     }
+                    return reg;
+                }
+                if(DataInicial == null && DataFinal != null){
+                    for(VendaEntity vo: vendas){
+                        // Verifica se o usuário passou apenas a data final e deixou em branco a data inicial
+                        if(vo.getDataLancamento().compareTo(DataFinal)== 1)reg.add(vo);
+                        if(vo.getDataLancamento().compareTo(DataFinal)== 0)reg.add(vo);
+                    }
+                    return reg;
+                }
+                if(DataInicial != null && DataFinal != null){
+                    for(VendaEntity vo: vendas){
+                        // Verifica se o usuário passou os dois parametro de data para o filtro
+                        if(vo.getDataLancamento().compareTo(DataInicial)== -1 && vo.getDataLancamento().compareTo(DataFinal)==1)reg.add(vo);
+                        if(vo.getDataLancamento().compareTo(DataInicial)==0)reg.add(vo); 
+                        if(vo.getDataLancamento().compareTo(DataFinal)==0)reg.add(vo);
+                    }
+                    return reg;
+                }
+        }  
+                if(TipoBusca.equals("Vencimento")){
+            
+        
+                // Caso o usuário selecionar apenas a data inicial
+                if(DataInicial != null && DataFinal == null){
+                    
+                    for(VendaEntity vo: vendas){
+                        
+                        
+                        
+                        // Verificar o retorno da data de lançamento
+                      // for(vo.getPagamentoVO().get: pagamentos){
+                   
+                   //   for(ParcelaPagamentoEntity parcelas: )
+                      //vo.getPagamentoVO().getListaParcelas()
+                      
+                      
+                        /*
+                        
+                        ------------------------------------------------------------
+                        
+                        */
+                        
+                           }
+                        
+                         
+                     }
+                    return reg;
+                }
+                if(DataInicial == null && DataFinal != null){
+                    for(VendaEntity vo: vendas){
+                        // Verifica se o usuário passou apenas a data final e deixou em branco a data inicial
+                        if(vo.getDataLancamento().compareTo(DataFinal)== 1){
+
+                            reg.add(vo);
+                        }
+                    }
+                    return reg;
+                }
+                if(DataInicial != null && DataFinal != null){
+                    for(VendaEntity vo: vendas){
+                        // Verifica se o usuário passou os dois parametro de data para o filtro
+                        if(vo.getDataLancamento().compareTo(DataInicial)== -1 && vo.getDataLancamento().compareTo(DataFinal)==1)reg.add(vo);
+                        if(vo.getDataLancamento().compareTo(DataInicial)==0)reg.add(vo); 
+                        if(vo.getDataLancamento().compareTo(DataFinal)==0)reg.add(vo);
+                    }
+                    return reg;
+                }
+        }
+        return reg;
+    }
+    
     
     
 
