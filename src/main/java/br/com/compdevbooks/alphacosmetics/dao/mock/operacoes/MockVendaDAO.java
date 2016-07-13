@@ -8,6 +8,8 @@ package br.com.compdevbooks.alphacosmetics.dao.mock.operacoes;
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.ChequeEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.DocumentoPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
@@ -158,21 +160,21 @@ public class MockVendaDAO implements IVendaDAO {
 	}
         return temp;
     }
-    //obs: rever forma pagamento
-    public List<VendaEntity> getByFormaPagamento(PagamentoEntity pagamento){
-	List<VendaEntity> temp= new ArrayList();
-        for(VendaEntity vo: vendas){
+   
+    public List<VendaEntity> getByFormaPagamento(DocumentoPagamentoEntity DocumentoPagamento){
+	List<VendaEntity> temp = new ArrayList();
+         for(VendaEntity vo: vendas){
                Set<ParcelaPagamentoEntity> parc = new HashSet<>();
                parc = vo.getPagamentoVO().getListaParcelas();
-               Iterator it =parc.iterator();
+               Iterator it = parc.iterator();
                while(it.hasNext()){
-                   ParcelaPagamentoEntity parcela = (ParcelaPagamentoEntity) it.next();
-                   //if(parcela.getDocumentoPagamento().){
-                   
-                   //}
+                    ParcelaPagamentoEntity parcela = (ParcelaPagamentoEntity) it.next();
+                    if(parcela.getDocumentoPagamento() instanceof ChequeEntity){
+                        temp.add(vo);
+                    }
                }
-	}
-        return temp;
+            
+         }return temp;
     }
     
     public float getByVencidos(){

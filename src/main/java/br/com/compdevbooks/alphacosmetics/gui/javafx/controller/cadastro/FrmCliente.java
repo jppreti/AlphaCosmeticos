@@ -209,7 +209,8 @@ public class FrmCliente {
 		ent.setNome(txtNome.getText());
 		ent.setEmail(txtEmail.getText());
 		ent.setTelefone(txtTelefone.getText());
-		ClienteException exc = cliente.save(ent);
+		
+                ClienteException exc = cliente.save(ent);
 		if (exc == null) {
 			lblStatus.setText("Cliente salvo com sucesso.");
 			habilitarEdicao(false);
@@ -247,7 +248,7 @@ public class FrmCliente {
 			dlgConfirmacao.setContentText("Tem certeza que deseja excluir?\nEsta operação não poderá ser desfeita.");
 			Optional<ButtonType> result = dlgConfirmacao.showAndWait();
 			if (result.isPresent() && result.get() == bttSim) {
-				cliente.delete(tblClientes.getSelectionModel().getSelectedItem());
+				//cliente.delete(tblClientes.getSelectionModel().getSelectedItem());
 				btnProcurar.fire();
 				lblStatus.setText("Cliente excluído com sucesso.");
 			}
@@ -264,6 +265,7 @@ public class FrmCliente {
 			btnProcurar.fire();
 	}
 
+        
 	@FXML
 	void btnProcurar_onAction(ActionEvent event) {
 		final ObservableList<ClienteEntity> produtos = FXCollections
