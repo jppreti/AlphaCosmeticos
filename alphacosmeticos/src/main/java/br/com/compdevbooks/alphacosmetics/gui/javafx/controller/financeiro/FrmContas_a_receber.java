@@ -34,13 +34,7 @@ public class FrmContas_a_receber {
     private Label lblTotalVencidos30;
 
     @FXML
-    private Label txtLancamento;
-
-    @FXML
     private Label lblSituacao;
-
-    @FXML
-    private Label txtCliente;
 
     @FXML
     private GridPane grpVisualizar;
@@ -55,6 +49,9 @@ public class FrmContas_a_receber {
     private TextField txtTotalVencido30Valor;
 
     @FXML
+    private Label lblVencimento;
+
+    @FXML
     private Button btnBaixarTitulos;
 
     @FXML
@@ -62,9 +59,6 @@ public class FrmContas_a_receber {
 
     @FXML
     private ComboBox<?> cmbFormaPgto;
-
-    @FXML
-    private RadioButton rdbTodos;
 
     @FXML
     private TableColumn<?, ?> clmCliente;
@@ -76,16 +70,13 @@ public class FrmContas_a_receber {
     private Label lblVencimentoValor;
 
     @FXML
-    private Label txtVencimento;
-
-    @FXML
     private Label lblStatus;
 
     @FXML
-    private TableColumn<?, ?> clmDtLancamento;
+    private Label lblLancamento;
 
     @FXML
-    private Label txtTipoDocumento;
+    private TableColumn<?, ?> clmDtLancamento;
 
     @FXML
     private Label lblTotalEmAberto;
@@ -109,7 +100,7 @@ public class FrmContas_a_receber {
     private Tab tabTitulos;
 
     @FXML
-    private RadioButton rdbPromotor;
+    private Label lblTipoDocumento;
 
     @FXML
     private Label lblLancamentoValor;
@@ -118,10 +109,13 @@ public class FrmContas_a_receber {
     private Label lblNumTituloValor;
 
     @FXML
-    private RadioButton rdbFornecedor;
+    private TextField txtCpfCnpj;
 
     @FXML
-    private TextField txtCpfCnpj;
+    private Label lblNumTitulo;
+
+    @FXML
+    private Label lblNumPedido;
 
     @FXML
     private Button btnProcurar;
@@ -130,10 +124,10 @@ public class FrmContas_a_receber {
     private Tab tabVisualizar;
 
     @FXML
-    private Label txtNumTitulo;
+    private Label lblCliente;
 
     @FXML
-    private Label txtNumPedido;
+    private Label lblNumParcelas;
 
     @FXML
     private TextField txtTotalEmAbertoValor;
@@ -160,10 +154,10 @@ public class FrmContas_a_receber {
     private TableColumn<?, ?> clmDtVencimento;
 
     @FXML
-    private TableColumn<?, ?> clmSituacao;
+    private Label lblValor;
 
     @FXML
-    private Label txtValor;
+    private TableColumn<?, ?> clmSituacao;
 
     @FXML
     private DatePicker dtpInicial;
