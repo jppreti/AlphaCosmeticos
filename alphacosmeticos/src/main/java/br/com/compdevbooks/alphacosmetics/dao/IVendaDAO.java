@@ -24,4 +24,5 @@ public interface IVendaDAO extends IDAO<VendaEntity> {
     List<VendaEntity> buscarVendasPorCliente(ClienteEntity cliente);
     List<VendaEntity> buscarGerenteEstoque(ClienteEntity cliente,VendaEntity venda);
     List<VendaEntity> buscarGerenteVenda(ClienteEntity cliente,VendaEntity venda);
+    VendaEntity pegaVenda(ItemVendaEntity item);
 }

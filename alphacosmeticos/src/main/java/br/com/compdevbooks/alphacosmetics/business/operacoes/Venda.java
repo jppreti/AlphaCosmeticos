@@ -10,8 +10,8 @@ import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
 
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
-//import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
-import br.com.compdevbooks.alphacosmetics.entity.ClienteEntity;
+
+
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
