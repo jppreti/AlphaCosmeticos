@@ -1,8 +1,10 @@
 package br.com.compdevbooks.alphacosmetics.dao.xml;
 
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
@@ -38,6 +40,12 @@ public class XMLDAOFactory  implements DAOFactory {
             return null;
         }
         public IItemCompraDAO getItemCompraDAO(){
+            return null;
+        }
+        public ICategoriaDAO getCategoriaDAO(){
+            return null;
+        }
+        public IFornecedorDAO getFornecedorDAO(){
             return null;
         }
 /*

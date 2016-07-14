@@ -38,6 +38,17 @@ public class MockFornecedorDAO implements IFornecedorDAO {
         lista.add(new FornecedorEntity((long) 3,"Nome 3","Fantasia 3","002","003",listaProduto ));
     }
     
+    private static MockFornecedorDAO singleton = null;
+	
+	public MockFornecedorDAO(){	}
+	
+    
+    public static MockFornecedorDAO getInstance() {
+		if (singleton == null)
+			singleton = new MockFornecedorDAO();
+		
+		return singleton;
+	}
 
     @Override
     public void save(FornecedorEntity entity) {
@@ -58,4 +69,16 @@ public class MockFornecedorDAO implements IFornecedorDAO {
        return null;
     }
     
+    @Override
+    public FornecedorEntity getByNome(String nome) {
+       for(FornecedorEntity vo: lista)
+           if(vo.getFantasia().equals(nome))
+               return vo;
+       return null;
+    }
+    
+    @Override
+    public List<FornecedorEntity> buscarTodosFornecedores(){
+        return lista;
+    }
 }

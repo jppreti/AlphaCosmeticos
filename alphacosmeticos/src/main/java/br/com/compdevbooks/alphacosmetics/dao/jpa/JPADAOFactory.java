@@ -11,14 +11,15 @@ import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
-import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemVendaDAO;
-import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockVendaDAO;
+
 
 public class JPADAOFactory implements DAOFactory {
 
@@ -71,6 +72,12 @@ public class JPADAOFactory implements DAOFactory {
             return null;
         }
         public IItemCompraDAO getItemCompraDAO() {
+            return null;
+        }
+        public ICategoriaDAO getCategoriaDAO(){
+            return null;
+        }
+        public  IFornecedorDAO getFornecedorDAO(){
             return null;
         }
 }

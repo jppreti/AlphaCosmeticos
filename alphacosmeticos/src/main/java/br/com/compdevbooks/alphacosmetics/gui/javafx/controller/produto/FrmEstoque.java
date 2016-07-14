@@ -6,11 +6,14 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto;
 
 import br.com.compdevbooks.alphacosmetics.business.Categoria;
+import br.com.compdevbooks.alphacosmetics.business.Fornecedor;
 import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.ItemCompra;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.ItemVenda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockCategoriaDAO;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaEstoque;
@@ -18,6 +21,7 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -95,7 +99,7 @@ public class FrmEstoque {
     private Label lblValorVenda;
 
     @FXML
-    private ComboBox<?> cmbCategoria;
+    private ComboBox<String> cmbCategoria;
 
     @FXML
     private TextField txtEstoque;
@@ -136,6 +140,8 @@ public class FrmEstoque {
     private Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
     private ItemVenda itemVenda = new ItemVenda(DAOFactory.getDAOFactory().getItemVendaDAO());
     private ItemCompra itemCompra = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
+    private Categoria categoria = new Categoria(DAOFactory.getDAOFactory().getCategoriaDAO());
+    private Fornecedor fornecedor = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
     
     @FXML
     private void initialize() {
@@ -145,6 +151,19 @@ public class FrmEstoque {
             lista.add(new TabelaTelaEstoque(vo));
         }
         this.completarProdutos(lista);
+        
+        
+            ObservableList<String> ob = FXCollections.observableArrayList();
+            
+            for(CategoriaEntity cat: categoria.buscarTodasCategorias()){
+                ob.add(cat.getNome());
+            }
+            
+            
+            
+            
+        this.cmbCategoria.setItems(ob);
+        
     }
     
     private void completarProdutos(List<TabelaTelaEstoque> lista){ 
@@ -281,6 +300,7 @@ public class FrmEstoque {
     private void objetoBuscar(){
         ProdutoEntity produ = new ProdutoEntity();
         MockCategoriaDAO cat=new MockCategoriaDAO();
+        TabelaTelaEstoque aux;
         
         
         if (this.txtProduto.getText()==null){
@@ -298,8 +318,22 @@ public class FrmEstoque {
         }
         
         
-        List<ProdutoEntity> listProdutos;
-        listProdutos = produto.buscarTodos();
+        if (this.txtFornecedor.getText()==null){
+            produ.setFornecedor(null);
+        }else{
+         produ.setFornecedor(fornecedor.getByNome(txtFornecedor.getText()));
+        }
+        
+        if (this.txtEstoque.getText()==null){
+            produ.setQuantidade(0);
+        }else{
+         produ.setQuantidade(Integer.parseInt(txtEstoque.getText()));
+        }
+        
+        // corrigir daqui pra baixo;
+        aux = new TabelaTelaEstoque(produ);
+        List<TabelaTelaEstoque> listProdutos = null;
+        listProdutos.add(aux);
         //this.completarPedidoVenda(listProdutos);
     }
 }

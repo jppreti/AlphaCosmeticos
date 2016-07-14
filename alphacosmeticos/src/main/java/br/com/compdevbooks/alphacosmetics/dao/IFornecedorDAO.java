@@ -6,11 +6,13 @@
 package br.com.compdevbooks.alphacosmetics.dao;
 
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
+import java.util.List;
 
 /**
  *
  * @author Josiel
  */
 public interface IFornecedorDAO extends IDAO<FornecedorEntity> {
-    
+    public FornecedorEntity getByNome(String nome);
+    public List<FornecedorEntity> buscarTodosFornecedores();
 }

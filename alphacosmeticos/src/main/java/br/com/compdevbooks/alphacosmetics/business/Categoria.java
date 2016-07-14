@@ -8,6 +8,7 @@ package br.com.compdevbooks.alphacosmetics.business;
 import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
+import java.util.List;
 
 /**
  *
@@ -23,4 +24,7 @@ public class Categoria extends ABusiness<CategoriaEntity, Exception,ICategoriaDA
         return ((ICategoriaDAO) dao).getById(id);
     }
     
+    public List<CategoriaEntity> buscarTodasCategorias(){
+        return ((ICategoriaDAO) dao).buscarTodasCategorias();
+    }
 }

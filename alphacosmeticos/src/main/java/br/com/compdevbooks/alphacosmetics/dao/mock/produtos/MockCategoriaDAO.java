@@ -55,4 +55,11 @@ public class MockCategoriaDAO implements ICategoriaDAO {
         }
         return null;
     }
+    
+    public List<CategoriaEntity> buscarTodasCategorias() {
+        return categorias;
+    }
+
+    
+    
 }

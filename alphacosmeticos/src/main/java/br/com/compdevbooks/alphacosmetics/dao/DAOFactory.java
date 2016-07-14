@@ -16,6 +16,8 @@ public interface DAOFactory {
         public abstract IItemVendaDAO getItemVendaDAO();
         public abstract IItemCompraDAO getItemCompraDAO();
         public abstract IProdutoDAO getProdutoDAO();
+        public abstract ICategoriaDAO getCategoriaDAO();
+        public abstract IFornecedorDAO getFornecedorDAO();
         
 	public static Properties props = new Properties();
 
