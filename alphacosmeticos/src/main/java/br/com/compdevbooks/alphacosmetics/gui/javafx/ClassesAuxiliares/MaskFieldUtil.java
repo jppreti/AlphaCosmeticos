@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.com.compdevbooks.alphacosmetics.gui.javafx;
+package br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -13,10 +13,11 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
-import br.com.compdevbooks.alphacosmetics.gui.javafx.MaskFieldUtil;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.MaskFieldUtil;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 
 import java.util.Date;
@@ -231,7 +232,9 @@ public class FrmPedidoVendaGerenteVendas {
         
         caixa.showAndWait().ifPresent(p->{ 
             if(p==sim){
-              this.tblPedidoVenda.getSelectionModel().getSelectedItem().setSituacao(SituacaoVendaEnum.ANALISE);
+              this.tblPedidoVenda.getSelectionModel().getSelectedItem().setSituacao(SituacaoVendaEnum.APROVADA);
+              Date data= new Date();
+              this.tblPedidoVenda.getSelectionModel().getSelectedItem().setDataAprovacao(data);
             }
             if(p==nao){
                 this.tblPedidoVenda.getSelectionModel().getSelectedItem().setSituacao(SituacaoVendaEnum.RECUSADA);
@@ -292,7 +295,8 @@ public class FrmPedidoVendaGerenteVendas {
 
     }
     
-    private void completarPedidoVenda(List<VendaEntity> lista){        this.clmPedidoVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamento"));
+    private void completarPedidoVenda(List<VendaEntity> lista){       
+        this.clmPedidoVendaDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
         this.clmPedidoVendaID.setCellValueFactory(new PropertyValueFactory<>("Id")); 
         this.tblPedidoVenda.setItems(FXCollections.observableArrayList(lista));
     }

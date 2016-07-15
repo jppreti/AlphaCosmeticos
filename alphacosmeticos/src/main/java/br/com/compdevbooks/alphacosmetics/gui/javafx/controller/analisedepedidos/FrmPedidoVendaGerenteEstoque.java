@@ -28,11 +28,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import br.com.compdevbooks.alphacosmetics.gui.javafx.MaskFieldUtil;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.MaskFieldUtil;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -177,6 +180,7 @@ public class FrmPedidoVendaGerenteEstoque {
     
     @FXML
     void initialize(){
+        NavegarObjetos.setPedidoGerenteEstoque(bdpPrincipal);
         this.completarTableVenda(venda.buscarTodasVendas());
         ObservableList<SituacaoVendaEnum> combo=  FXCollections.observableArrayList(SituacaoVendaEnum.ANALISE ,SituacaoVendaEnum.APROVADA,SituacaoVendaEnum.ENVIADA,
                 SituacaoVendaEnum.PEDIDO,SituacaoVendaEnum.PROCESSADA,SituacaoVendaEnum.SEPARADA, SituacaoVendaEnum.RECUSADA);
@@ -192,12 +196,41 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnAnalisar_onAction(ActionEvent event) {
-
+        BorderPane frmAnalisarEstoque=null;
+        NavegarObjetos.setVenda(this.tblVenda.getSelectionModel().getSelectedItem());
+        if(NavegarObjetos.getVenda()!=null){
+        try{
+            frmAnalisarEstoque= FXMLLoader.load(FrmPedidoVendaAnaliseEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaAnaliseEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmAnalisarEstoque);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+        
+        }else{
+            SelecionarVenda();
+        }
     }
+
+    
 
     @FXML
     void btnAnalisar_onKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER){}
+        if(event.getCode()==KeyCode.ENTER){
+        BorderPane frmAnalisarEstoque=null;
+        NavegarObjetos.setVenda(this.tblVenda.getSelectionModel().getSelectedItem());
+        if(NavegarObjetos.getVenda()!=null){
+        try{
+            frmAnalisarEstoque= FXMLLoader.load(FrmPedidoVendaAnaliseEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaAnaliseEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmAnalisarEstoque);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+        }
+        }else{
+            SelecionarVenda();
+        }
     }
 
     @FXML
@@ -212,12 +245,19 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {
-
+        
     }
 
     @FXML
     void btnFinalizar_onKeyPressed(KeyEvent event) {
             if(event.getCode()==KeyCode.ENTER){}
+    }
+    private void SelecionarVenda(){
+        Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
+            dialogoErro.setTitle("Alpha Cosmetico");
+            //dialogoErro.setHeaderText("Erro");
+            dialogoErro.setContentText("Selecione um pedido de venda");
+            dialogoErro.showAndWait();
     }
 
     @FXML
@@ -237,7 +277,7 @@ public class FrmPedidoVendaGerenteEstoque {
         Alert caixa= new Alert(Alert.AlertType.CONFIRMATION);
         ButtonType sim= new ButtonType("Sim");
         ButtonType nao = new ButtonType("Não");
-        caixa.setTitle("AlphaComesticos");
+        caixa.setTitle("Alpha Cosmeticos");
         caixa.setHeaderText("Recusar Pedido");
         caixa.setContentText("Deseja recusar pedido?");
         caixa.getButtonTypes().setAll(sim,nao);
@@ -257,13 +297,15 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnSair_onAction(ActionEvent event) {
-            this.getPainelPrincipal(this.bdpPrincipal);
+           ((BorderPane) NavegarObjetos.getPai()).setCenter(null);
+            //this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML
     void btnSair_onKeyPressed(KeyEvent event) {
         if(event.getCode()== KeyCode.ENTER)
-            this.getPainelPrincipal(this.bdpPrincipal);
+            ((BorderPane) NavegarObjetos.getPai()).setCenter(null);
+           // this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML

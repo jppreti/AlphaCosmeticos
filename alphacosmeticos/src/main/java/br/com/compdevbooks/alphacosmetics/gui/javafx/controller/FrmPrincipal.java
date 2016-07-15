@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
@@ -44,6 +45,11 @@ public class FrmPrincipal {
 
     @FXML
     private Menu mnuAjuda;
+    
+    @FXML
+    void initialize(){
+        NavegarObjetos.setPai(bdpPrincipal);
+    }
 
     @FXML
     void mniProdEstoque_onAction(ActionEvent event) {
@@ -80,7 +86,7 @@ public class FrmPrincipal {
     }    
     @FXML
     void mniPedidoVenda_onAction(ActionEvent event) {
-        
+        /*
         BorderPane frmPedidoVendaGerenteVenda= null;
         try{
             frmPedidoVendaGerenteVenda= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -91,7 +97,7 @@ public class FrmPrincipal {
         }
         //controle de acesso
         
-        /*
+        */
         BorderPane frmPedidoVendaGerenteEstoque=null;
         try{
             frmPedidoVendaGerenteEstoque= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -100,7 +106,7 @@ public class FrmPrincipal {
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
-        */
+        
                 
 
     }
