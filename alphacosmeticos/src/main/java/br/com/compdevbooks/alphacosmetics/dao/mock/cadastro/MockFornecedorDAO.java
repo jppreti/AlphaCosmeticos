@@ -72,7 +72,7 @@ public class MockFornecedorDAO implements IFornecedorDAO {
     @Override
     public FornecedorEntity getByNome(String nome) {
        for(FornecedorEntity vo: lista)
-           if(vo.getFantasia().equals(nome))
+           if(vo.getFantasia().toUpperCase().contains(nome.toUpperCase()))
                return vo;
        return null;
     }

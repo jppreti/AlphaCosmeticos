@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaAnaliseEstoque;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaFinalizacao;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque;
@@ -30,7 +32,7 @@ public class Main extends Application {
         
         try{
             frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
-            //frmPrincipal= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            //frmPrincipal= FXMLLoader.load(FrmPedidoVendaFinalizacao.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaFinalizacao.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
         }catch( Exception ex ){
             System.out.println("Exception on FXMLLoader.load()");
             System.out.println( ex.getMessage() );   //-- Doesn't show in stack dump

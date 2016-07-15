@@ -5,12 +5,18 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos;
 
+import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 public class FrmPedidoVendaFinalizacao {
 
@@ -69,12 +75,22 @@ public class FrmPedidoVendaFinalizacao {
     private TableView<?> tblItemVenda;
 
     @FXML
+    private BorderPane bdpPrincipal;
+    
+    Venda venda = new Venda(DAOFactory.getDAOFactory().getVendaDAO());
+    
+    public void initialize(){
+        
+    
+    }
+    
+    @FXML
     void btnSair_onAction(ActionEvent event) {
 
     }
 
     @FXML
-    void btnSair_onKeyPressed(ActionEvent event) {
+    void btnSair_onKeyPressed(KeyEvent event) {
 
     }
 
@@ -84,7 +100,7 @@ public class FrmPedidoVendaFinalizacao {
     }
 
     @FXML
-    void btnFinalizar_onKeyPressed(ActionEvent event) {
+    void btnFinalizar_onKeyPressed(KeyEvent event) {
 
     }
 
@@ -94,14 +110,9 @@ public class FrmPedidoVendaFinalizacao {
     }
 
     @FXML
-    void btnRecusar_onKeyPressed(ActionEvent event) {
+    void btnRecusar_onKeyPressed(KeyEvent event) {
 
     }
-
-    @FXML
-    void eb0303(ActionEvent event) {
-
-    }
-
+    
 }
 

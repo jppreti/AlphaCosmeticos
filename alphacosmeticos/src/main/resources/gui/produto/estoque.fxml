@@ -42,12 +42,7 @@
                            <children>
                               <TextField fx:id="txtProduto" onKeyPressed="#txtProduto_onKeyPressed" promptText="%text.produto" />
                               <ComboBox fx:id="cmbCategoria" onAction="#cmbCategoria_onAction" prefHeight="25.0" prefWidth="493.0" promptText="%combo.categoria" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtFornecedor" onKeyPressed="#txtFornecedor_onKeyPressed" promptText="%text.fornecedor" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <TextField fx:id="txtEstoque" onKeyPressed="#txtQtdeEstoque_onKeyPressed" prefHeight="25.0" prefWidth="395.0" promptText="%text.qtdeEstoque" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TextField fx:id="txtEstoque" onKeyPressed="#txtQtdeEstoque_onKeyPressed" prefHeight="25.0" prefWidth="360.0" promptText="%text.qtdeEstoque" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets left="10.0" right="150.0" />
                                  </GridPane.margin>
@@ -57,6 +52,14 @@
                                     <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisa_onKeyPressed" text="%button.procurar" />
                                  </children>
                               </FlowPane>
+                              <ComboBox fx:id="cmbFornecedor" onAction="#cmbFornecedor_onAction" prefHeight="25.0" prefWidth="518.0" promptText="%combo.fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </ComboBox>
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />

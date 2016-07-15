@@ -64,7 +64,29 @@ public class MockProdutoDAO implements IProdutoDAO {
         return produtos;
     }
     
-    
-    
-    
+    public List<ProdutoEntity> buscarProdutos(ProdutoEntity pro){
+        ArrayList<ProdutoEntity> buscado = new ArrayList<>();
+        int x;
+        
+        for (ProdutoEntity vo: produtos){
+            x=0;
+            if (pro.getNome().equals("") || vo.getNome().toUpperCase().contains(pro.getNome().toUpperCase())){
+                x++;
+            } 
+            if (pro.getCategoria()==null || pro.getCategoria().getId().equals(vo.getCategoria().getId())){
+                x++;
+            }
+            if (pro.getFornecedor()==null || pro.getFornecedor().getId().equals(vo.getFornecedor().getId())){
+                x++;
+            }
+            if (pro.getQuantidade()==0 || pro.getQuantidade()<=vo.getQuantidade()){
+                x++;
+            }
+            
+            if(x==4){
+                buscado.add(vo);
+            }
+        }
+        return buscado;
+    }    
 }

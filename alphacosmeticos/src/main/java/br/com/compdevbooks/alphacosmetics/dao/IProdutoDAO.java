@@ -13,5 +13,7 @@ import java.util.List;
  * @author Josiel
  */
 public interface IProdutoDAO extends IDAO<ProdutoEntity> {
-    List<ProdutoEntity> buscarTodosProdutos();
+    public List<ProdutoEntity> buscarTodosProdutos();
+
+    public List<ProdutoEntity> buscarProdutos(ProdutoEntity pro);
 }

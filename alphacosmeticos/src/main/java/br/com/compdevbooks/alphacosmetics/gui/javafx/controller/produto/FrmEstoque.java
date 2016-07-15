@@ -42,8 +42,8 @@ import javafx.scene.layout.BorderPane;
 public class FrmEstoque {
     
     @FXML
-    private TextField txtFornecedor;
-
+    private ComboBox<String> cmbFornecedor;
+    
     @FXML
     private TextField txtPercComi;
 
@@ -152,18 +152,17 @@ public class FrmEstoque {
         }
         this.completarProdutos(lista);
         
-        
-            ObservableList<String> ob = FXCollections.observableArrayList();
-            
-            for(CategoriaEntity cat: categoria.buscarTodasCategorias()){
-                ob.add(cat.getNome());
-            }
-            
-            
-            
-            
+        ObservableList<String> ob = FXCollections.observableArrayList();
+        for(CategoriaEntity cat: categoria.buscarTodasCategorias()){
+            ob.add(cat.getNome());
+        }
         this.cmbCategoria.setItems(ob);
-        
+  
+        ObservableList<String> cd = FXCollections.observableArrayList();
+        for(FornecedorEntity forn: fornecedor.buscarTodosFornecedores()){
+            cd.add(forn.getFantasia());
+        }
+        this.cmbFornecedor.setItems(cd);
     }
     
     private void completarProdutos(List<TabelaTelaEstoque> lista){ 
@@ -176,6 +175,7 @@ public class FrmEstoque {
         this.tblProduto.setItems(FXCollections.observableArrayList(lista));
        
     }
+    
     
     
     @FXML
@@ -215,13 +215,7 @@ public class FrmEstoque {
 
     @FXML
     void cmbCategoria_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtFornecedor_onKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER)
-             this.objetoBuscar();
+        this.objetoBuscar();
     }
     
     @FXML
@@ -253,17 +247,18 @@ public class FrmEstoque {
 
     @FXML
     void btnPesquisar_onAction(ActionEvent event) {
-
+        this.objetoBuscar();
     }
 
     @FXML
     void btnPesquisa_onKeyPressed(KeyEvent event) {
-
+        if (event.getCode() == KeyCode.ENTER)
+            this.objetoBuscar();
     }
 
     @FXML
     void txtNome_onKeyPressed(KeyEvent event) {
-
+        
     }
 
     @FXML
@@ -296,14 +291,17 @@ public class FrmEstoque {
 
     }
 
+    @FXML
+    void cmbFornecedor_onAction(ActionEvent event) {
+        this.objetoBuscar();
+    }
     
     private void objetoBuscar(){
         ProdutoEntity produ = new ProdutoEntity();
-        MockCategoriaDAO cat=new MockCategoriaDAO();
         TabelaTelaEstoque aux;
         
         
-        if (this.txtProduto.getText()==null){
+        if (this.txtProduto.getText()==""){
             produ.setNome("");
         }else{
          produ.setNome(txtProduto.getText());
@@ -311,29 +309,33 @@ public class FrmEstoque {
         
         
         if (this.cmbCategoria.getValue()!=null){
-            produ.setCategoria(cat.getByNome(cmbCategoria.getSelectionModel().getSelectedItem().toString()));
-            
+            produ.setCategoria(categoria.getByNome(cmbCategoria.getSelectionModel().getSelectedItem().toString()));
         }else{
             produ.setCategoria(null);
         }
         
         
-        if (this.txtFornecedor.getText()==null){
-            produ.setFornecedor(null);
+        if (this.cmbFornecedor.getValue()!=null){
+            produ.setFornecedor(fornecedor.getByNome(cmbFornecedor.getSelectionModel().getSelectedItem().toString()));
         }else{
-         produ.setFornecedor(fornecedor.getByNome(txtFornecedor.getText()));
+         produ.setFornecedor(null);
         }
         
-        if (this.txtEstoque.getText()==null){
+        if ("".equals(this.txtEstoque.getText())){
             produ.setQuantidade(0);
         }else{
          produ.setQuantidade(Integer.parseInt(txtEstoque.getText()));
         }
         
-        // corrigir daqui pra baixo;
-        aux = new TabelaTelaEstoque(produ);
-        List<TabelaTelaEstoque> listProdutos = null;
-        listProdutos.add(aux);
-        //this.completarPedidoVenda(listProdutos);
+        List<ProdutoEntity> listaP = null;
+        listaP = produto.buscarProdutos(produ);
+        
+        List<TabelaTelaEstoque> listProdutos = new ArrayList<>();
+        
+        for(ProdutoEntity vo: listaP){
+            aux = new TabelaTelaEstoque(vo);
+            listProdutos.add(aux);
+        }
+        this.completarProdutos(listProdutos);
     }
 }

@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaFinalizacao">
+<BorderPane fx:id="bdpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaFinalizacao">
    <top>
       <FlowPane alignment="CENTER" prefHeight="73.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="%label.pedidoVendaFinalizacao">
+            <Label text="%label.pedidoVendaFinalizar">
                <font>
                   <Font size="18.0" />
                </font>
@@ -175,7 +175,7 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <children>
-                        <Label text="%abel.dtEnvio" />
+                        <Label text="%label.dtEnvio" />
                      </children>
                      <GridPane.margin>
                         <Insets right="10.0" />

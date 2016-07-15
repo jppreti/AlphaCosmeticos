@@ -49,7 +49,7 @@ public class MockCategoriaDAO implements ICategoriaDAO {
     
     public CategoriaEntity getByNome(String nome){
         for (CategoriaEntity vo: categorias){
-            if (vo.getNome().equals(nome)){
+            if (vo.getNome().toUpperCase().contains(nome.toUpperCase())){
                 return vo;
             }
         }

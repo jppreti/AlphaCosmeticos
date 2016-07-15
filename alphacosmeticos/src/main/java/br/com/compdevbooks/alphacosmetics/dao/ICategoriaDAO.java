@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface ICategoriaDAO extends IDAO<CategoriaEntity> {
     public List<CategoriaEntity> buscarTodasCategorias();
+    public CategoriaEntity getByNome(String nome);
 }
