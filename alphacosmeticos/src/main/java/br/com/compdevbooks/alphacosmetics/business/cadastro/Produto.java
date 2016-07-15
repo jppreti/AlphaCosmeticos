@@ -16,5 +16,9 @@ public class Produto extends ABusiness<ProdutoEntity, Exception, IProdutoDAO>{
     public List<ProdutoEntity> buscarTodos(){
         return ((IProdutoDAO)dao).buscarTodosProdutos();
     }
+        
+    public List<ProdutoEntity> buscarProdutos(ProdutoEntity pro){
+        return ((IProdutoDAO)dao).buscarProdutos(pro);
+    }
     
 }

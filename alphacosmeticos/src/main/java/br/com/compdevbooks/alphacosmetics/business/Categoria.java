@@ -27,4 +27,8 @@ public class Categoria extends ABusiness<CategoriaEntity, Exception,ICategoriaDA
     public List<CategoriaEntity> buscarTodasCategorias(){
         return ((ICategoriaDAO) dao).buscarTodasCategorias();
     }
+    
+    public CategoriaEntity getByNome(String nome){
+        return ((ICategoriaDAO)dao).getByNome(nome);
+    }
 }

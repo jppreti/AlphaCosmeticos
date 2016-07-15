@@ -27,7 +27,7 @@ public class Fornecedor extends ABusiness<FornecedorEntity, Exception, IForneced
         return ((IFornecedorDAO) dao).getById(id); 
     }
     
-    public List<FornecedorEntity> buscarTodasCategorias(){
+    public List<FornecedorEntity> buscarTodosFornecedores(){
         return ((IFornecedorDAO) dao).buscarTodosFornecedores();
     }
     

@@ -93,7 +93,7 @@
             <TableView fx:id="tblItemVenda" prefHeight="342.0" prefWidth="984.0">
               <columns>
                 <TableColumn fx:id="clmItemVendaID" prefWidth="75.0" text="%column.id" />
-                <TableColumn fx:id="clmItemVendaProduto" prefWidth="429.66664123535156" text="%colum.produto" />
+                <TableColumn fx:id="clmItemVendaProduto" prefWidth="429.66664123535156" text="%column.produto" />
                   <TableColumn fx:id="clmItemVendaQtdePedida" prefWidth="95.33335876464844" text="%column.qtdePedida" />
                   <TableColumn fx:id="clmItemVendaQtdeEstoque" prefWidth="88.33331298828125" text="%column.qtdeEstoque" />
                   <TableColumn fx:id="clmItemVendaQtdeReservada" prefWidth="106.0" text="%column.qtdeReservada" />
