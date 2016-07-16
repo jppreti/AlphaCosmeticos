@@ -108,7 +108,7 @@ public class FrmPedidoVendaAnaliseEstoque {
         
         this.txtIDVenda.setText(String.valueOf(venda.getId()));
         this.txtValorTotal.setText(String.valueOf(venda.getValorTotal()));
-        this.txtDtLancamento.setText(new SimpleDateFormat("dd/MM/yyyy").format(venda.getDataLancamento()));
+        
         System.out.println(venda.getId());
         Iterator<ItemVendaEntity> interator= venda.getListaItens().iterator();
         ItemVendaEntity item;
@@ -208,7 +208,7 @@ public class FrmPedidoVendaAnaliseEstoque {
         
         caixa.showAndWait().ifPresent(p->{ 
             if(p==sim){
-              venda.setSituacao(SituacaoVendaEnum.ANALISE);
+              venda.setSituacao(SituacaoVendaEnum.RECUSADA);
                 System.out.println("saida");
                 chamarPai();
             }

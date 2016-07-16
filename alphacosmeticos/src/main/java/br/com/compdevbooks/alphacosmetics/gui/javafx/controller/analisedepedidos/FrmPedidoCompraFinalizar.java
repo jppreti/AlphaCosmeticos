@@ -5,13 +5,21 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos;
 
+import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
+import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 public class FrmPedidoCompraFinalizar {
 
@@ -80,16 +88,7 @@ public class FrmPedidoCompraFinalizar {
 
     @FXML
     private Label lblPedidoCompraFinalizar;
-
-    @FXML
-    void btnSair_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnSair_onKeyPressed(ActionEvent event) {
-
-    }
+       
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {

@@ -235,7 +235,7 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnSeparar_onAction(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -245,7 +245,19 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {
-        
+        BorderPane frmFinalizar=null;
+        NavegarObjetos.setVenda(this.tblVenda.getSelectionModel().getSelectedItem());
+        if(NavegarObjetos.getVenda()!=null){
+        try{
+            frmFinalizar= FXMLLoader.load(FrmPedidoVendaFinalizacao.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaFinalizacao.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmFinalizar);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+        }else{
+            SelecionarVenda();
+        }
     }
 
     @FXML
