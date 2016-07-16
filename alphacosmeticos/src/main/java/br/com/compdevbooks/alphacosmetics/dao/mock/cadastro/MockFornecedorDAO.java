@@ -6,7 +6,9 @@
 package br.com.compdevbooks.alphacosmetics.dao.mock.cadastro;
 
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockBairroDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockProdutoDAO;
+import br.com.compdevbooks.alphacosmetics.entity.endereco.EnderecoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import java.util.ArrayList;
@@ -21,21 +23,23 @@ import java.util.Set;
 public class MockFornecedorDAO implements IFornecedorDAO {
     private static List<FornecedorEntity> lista= new ArrayList();
     private static MockProdutoDAO produto= new MockProdutoDAO();
+
+    private static MockBairroDAO bairro = new MockBairroDAO();
     private static Set<ProdutoEntity> listaProduto;
-    
+    private static EnderecoEntity endereco= new EnderecoEntity("Rua das araras",332,"1029,68638-000", bairro.getById((long) 2));
     static{
         listaProduto = new HashSet();
         listaProduto.add(produto.getById((long)1));
         listaProduto.add(produto.getById((long)2));
-        lista.add(new FornecedorEntity((long) 1,"Nome 1","Fantasia 1","000","001",listaProduto ));
+        lista.add(new FornecedorEntity((long) 1,"Nome 1","Fantasia 1","000","001",listaProduto , endereco));
         listaProduto = new HashSet();
         listaProduto.add(produto.getById((long)1));
         listaProduto.add(produto.getById((long)3));
-        lista.add(new FornecedorEntity((long) 2,"Nome 2","Fantasia 3","001","002",listaProduto ));
+        lista.add(new FornecedorEntity((long) 2,"Nome 2","Fantasia 3","001","002",listaProduto ,endereco));
         listaProduto = new HashSet();
         listaProduto.add(produto.getById((long)2));
         listaProduto.add(produto.getById((long)3));
-        lista.add(new FornecedorEntity((long) 3,"Nome 3","Fantasia 3","002","003",listaProduto ));
+        lista.add(new FornecedorEntity((long) 3,"Nome 3","Fantasia 3","002","003",listaProduto, endereco));
     }
     
     private static MockFornecedorDAO singleton = null;

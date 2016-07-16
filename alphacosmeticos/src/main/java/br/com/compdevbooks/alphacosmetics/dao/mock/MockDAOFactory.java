@@ -2,15 +2,23 @@ package br.com.compdevbooks.alphacosmetics.dao.mock;
 
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.dao.IBairroDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.ICidadeDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IEstadoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IItemVendaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IProdutoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IVendaDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IVendedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockFornecedorDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockVendedorDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockBairroDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockCidadeDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockEstadoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemVendaDAO;
@@ -57,6 +65,19 @@ public class MockDAOFactory implements DAOFactory {
         public  IFornecedorDAO getFornecedorDAO(){
             return MockFornecedorDAO.getInstance();
         }
+        public IEstadoDAO getEstadoDAO(){
+            return MockEstadoDAO.getInstace();
+        }
+        public ICidadeDAO getCidadeDAO() {
+            return MockCidadeDAO.getInstace();
+        }
+        public IVendedorDAO getVendedorDAO(){
+            return MockVendedorDAO.getInstance();
+        }
+        public IBairroDAO getBairroDAO(){
+            return MockBairroDAO.getInstace();
+        }
+      
 /*
 	@Override
 	public boolean isSessionClosed() {

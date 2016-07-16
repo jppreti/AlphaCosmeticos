@@ -28,7 +28,8 @@ public class EstadoEntity implements IEntity{
         this.nome = "";
     }
 
-    public EstadoEntity(String uf, String nome) {
+    public EstadoEntity(Long id,String uf, String nome) {
+        this.id=id;
         this.UF = uf;
         this.nome = nome;
     }

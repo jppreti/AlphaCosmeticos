@@ -44,9 +44,10 @@ public abstract class PessoaEntity implements IEntity {
         this.listaFone = new HashSet();
     }
 
-    public PessoaEntity(Long id,String nome) {
+    public PessoaEntity(Long id,String nome,EnderecoEntity endereco) {
         this.nome = nome;
         this.id=id;
+        this.enderecoVO=endereco;
     }
 
     @Override

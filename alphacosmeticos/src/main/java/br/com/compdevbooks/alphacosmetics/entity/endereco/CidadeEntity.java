@@ -30,7 +30,8 @@ public class CidadeEntity implements IEntity {
 
     }
 
-    public CidadeEntity(String nome, EstadoEntity estado) {
+    public CidadeEntity(Long id, String nome, EstadoEntity estado) {
+        this.id = id;
         this.estadoVO = estado;
         this.nome = nome;
     }

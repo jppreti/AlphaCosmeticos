@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.entity.pessoa;
 
+import br.com.compdevbooks.alphacosmetics.entity.endereco.EnderecoEntity;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -16,8 +17,8 @@ public class ClienteEntity extends PessoaJuridicaEntity {
         super();
     }
 
-    public ClienteEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {
-        super(id,razao, fantasia, CNPJ, inscricao);
+    public ClienteEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao, EnderecoEntity endereco) {
+        super(id,razao, fantasia, CNPJ, inscricao, endereco);
     }
 
     public VendedorEntity getVendedorVO() {

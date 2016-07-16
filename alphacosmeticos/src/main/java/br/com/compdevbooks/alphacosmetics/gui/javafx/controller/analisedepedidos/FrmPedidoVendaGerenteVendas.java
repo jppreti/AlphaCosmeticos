@@ -270,9 +270,7 @@ public class FrmPedidoVendaGerenteVendas {
             this.txtQtdeTotal.setText(String.valueOf(vendaTemp.getQtdeTotal()));
             this.txtDtLancamento.setText(vendaTemp.getDataLancamentoString());
             this.txtCNPJ.setText(vendaTemp.getClienteVO().getCNPJ());
-           
-            
-           
+ 
     }
 
 

@@ -1,5 +1,7 @@
 package br.com.compdevbooks.alphacosmetics.entity.pessoa;
 
+import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockCidadeDAO;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -24,9 +26,12 @@ public class VendedorEntity extends PessoaFisicaEntity {
         this.listaClientes = new HashSet();
     }
 
-    public VendedorEntity(String nome, String CPF, String RG) {
-        super(nome, CPF, RG);
+    public VendedorEntity(long id, String nome, String CPF, String RG, Set<CidadeEntity>cidades, Set<ClienteEntity> clientes) {    
+        super(id, nome, CPF, RG);
+        this.listaMunicipios = cidades;
+        this.listaClientes = clientes;
     }
+
 
     public Set<CidadeEntity> getListaMunicipios() {
         return listaMunicipios;

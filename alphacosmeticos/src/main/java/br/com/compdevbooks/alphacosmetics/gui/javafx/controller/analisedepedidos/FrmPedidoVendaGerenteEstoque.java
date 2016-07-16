@@ -255,6 +255,7 @@ public class FrmPedidoVendaGerenteEstoque {
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
+        
         }else{
             SelecionarVenda();
         }

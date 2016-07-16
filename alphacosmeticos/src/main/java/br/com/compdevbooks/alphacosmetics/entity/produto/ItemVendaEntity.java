@@ -62,6 +62,9 @@ public class ItemVendaEntity implements IEntity {
         return produtoVO;
     }
 
+    public String getNomeProduto (){
+        return produtoVO.getNome();
+    }
     public void setProdutoVO(ProdutoEntity produtoVO) {
         this.produtoVO = produtoVO;
     }

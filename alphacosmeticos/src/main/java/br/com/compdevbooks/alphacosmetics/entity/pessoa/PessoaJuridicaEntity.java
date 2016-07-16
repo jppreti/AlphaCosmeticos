@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.entity.pessoa;
 
+import br.com.compdevbooks.alphacosmetics.entity.endereco.EnderecoEntity;
 import java.util.regex.Pattern;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +23,8 @@ public class PessoaJuridicaEntity extends PessoaEntity {
         super();
     }
 
-    public PessoaJuridicaEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao) {
-        super(id, razao);
+    public PessoaJuridicaEntity(Long id,String razao, String fantasia, String CNPJ, String inscricao,EnderecoEntity endereco) {
+        super(id, razao,endereco);
         this.CNPJ = CNPJ;
         this.inscricao = inscricao;
         this.fantasia = fantasia;

@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface IVendedorDAO extends IDAO<VendedorEntity>{
     List<VendedorEntity> getByNome(String nome);
+    List<VendedorEntity> buscarTodosVendedores ();
+    VendedorEntity getById(Long x);
 }

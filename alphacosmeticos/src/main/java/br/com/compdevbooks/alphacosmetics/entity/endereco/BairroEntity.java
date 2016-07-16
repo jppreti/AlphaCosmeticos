@@ -30,7 +30,8 @@ public class BairroEntity implements IEntity {
        
     }
 
-    public BairroEntity(String nome, CidadeEntity cidadeVO) {
+    public BairroEntity(long id, String nome, CidadeEntity cidadeVO) {
+        this.id=id;
         this.cidadeVO = cidadeVO;
         this.nome = nome;
     }

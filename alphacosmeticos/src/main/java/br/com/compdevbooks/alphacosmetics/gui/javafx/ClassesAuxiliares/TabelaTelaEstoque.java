@@ -44,15 +44,15 @@ public class TabelaTelaEstoque {
     public String getNome(){
         return produto.getNome();
     }
-    public float getQuantidade(){
+    public Long getQuantidade(){
         return produto.getQuantidade();
     }
     public String getCategoria(){
         return produto.getNomeCategoria();
     }
     
-    public Float getQuantidadeEsperada(){
-        float soma=0;
+    public Long getQuantidadeEsperada(){
+        long soma=0;
         CompraEntity compraTemp=null;
         listaItemCompra= itemCompra.buscarPorProduto(produto.getId());
         for (ItemCompraEntity vo:listaItemCompra){
@@ -63,8 +63,8 @@ public class TabelaTelaEstoque {
         return soma;
     }
     
-    public Float getQuantidadeReservada(){
-        float soma=0;
+    public Long getQuantidadeReservada(){
+        long soma=0;
         VendaEntity vendaTemp = null;
         listaItemVenda=itemVenda.buscarPorProduto(produto.getId());
         for (ItemVendaEntity vo: listaItemVenda){

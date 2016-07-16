@@ -32,8 +32,8 @@ public class Main extends Application {
         BorderPane frmPrincipal = null;
         
         try{
-            //frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
-            frmPrincipal= FXMLLoader.load(FrmPedidoVendaSeparar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaSeparar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            //frmPrincipal= FXMLLoader.load(FrmPedidoVendaSeparar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaSeparar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
         }catch( Exception ex ){
             System.out.println("Exception on FXMLLoader.load()");
             System.out.println( ex.getMessage() );   //-- Doesn't show in stack dump

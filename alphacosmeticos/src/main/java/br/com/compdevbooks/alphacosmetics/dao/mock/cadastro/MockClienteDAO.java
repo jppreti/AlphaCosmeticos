@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockBairroDAO;
+import br.com.compdevbooks.alphacosmetics.entity.endereco.EnderecoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 
 public class MockClienteDAO implements IClienteDAO {
 	
 	private static List<ClienteEntity> clientes = new ArrayList<>();
-	
+        private static MockBairroDAO bairro = new MockBairroDAO();
 	static {
-		clientes.add(new ClienteEntity((long)1,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000"));
-		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111"));
-		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222"));
-		clientes.add(new ClienteEntity((long)4,"ANA PAULA","ANA PAULA","1122223333","875"));
-		clientes.add(new ClienteEntity((long)5,"CRISTIANE SOUZA","CRISTIANE SOUZA","2167891234","9658"));
+		clientes.add(new ClienteEntity((long)1,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
+		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
+		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222",new EnderecoEntity("Rua Coronel Escolastico",237,"323,83874-740",bairro.getById((long) 3))));
+		clientes.add(new ClienteEntity((long)4,"ANA PAULA","ANA PAULA","1122223333","875",new EnderecoEntity("Rua Coronel Escolastico",237,"323,83874-740",bairro.getById((long) 3))));
+		clientes.add(new ClienteEntity((long)5,"CRISTIANE SOUZA","CRISTIANE SOUZA","2167891234","9658",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
                 
         }
 	

@@ -19,7 +19,8 @@ public class PessoaFisicaEntity extends PessoaEntity {
 
     }
 
-    public PessoaFisicaEntity(String nome, String CPF, String RG) {
+    public PessoaFisicaEntity(long id,String nome, String CPF, String RG) {
+        this.id=id;
         this.nome = nome;
         this.CPF = CPF;
         this.RG = RG;

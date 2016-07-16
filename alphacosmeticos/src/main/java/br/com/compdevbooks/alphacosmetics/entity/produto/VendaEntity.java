@@ -92,7 +92,11 @@ public class VendaEntity implements IEntity {
     public Date getDataAprovacao() {
         return dataAprovacao;
     }
-
+    
+    public String getDataAprovacaoString(){
+        return new SimpleDateFormat("dd/MM/yyyy").format(dataAprovacao);
+    }
+    
     public void setDataAprovacao(Date dataAprovacao) {
         this.dataAprovacao = dataAprovacao;
     }
@@ -100,7 +104,10 @@ public class VendaEntity implements IEntity {
     public Date getDataRecebimento() {
         return dataRecebimento;
     }
-
+    public String getDataRecebimString(){
+        return new SimpleDateFormat("dd/MM/yyyy").format(dataRecebimento);
+    }
+        
     public void setDataRecebimento(Date dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
     }

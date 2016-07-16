@@ -108,7 +108,7 @@ public class FrmEstoque {
     private Button btnPesquisar;
 
     @FXML
-    private TableColumn<TabelaTelaEstoque, Float> clmProdutoQtdeReservada;
+    private TableColumn<TabelaTelaEstoque, Long> clmProdutoQtdeReservada;
 
     @FXML
     private TextField txtValorVenda;
@@ -120,7 +120,7 @@ public class FrmEstoque {
     private Label lblValorCompra;
 
     @FXML
-    private TableColumn<TabelaTelaEstoque, Float> clmProdutoQtdeEsperada;
+    private TableColumn<TabelaTelaEstoque, Long> clmProdutoQtdeEsperada;
 
     @FXML
     private Label lblPercPromo;
