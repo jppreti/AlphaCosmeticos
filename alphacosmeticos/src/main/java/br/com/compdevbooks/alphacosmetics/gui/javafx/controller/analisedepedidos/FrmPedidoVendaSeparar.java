@@ -14,6 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 public class FrmPedidoVendaSeparar {
 
@@ -101,7 +102,7 @@ public class FrmPedidoVendaSeparar {
     }
 
     @FXML
-    void btnSair_onKeyPressed(ActionEvent event) {
+    void btnSair_onKeyPressed(KeyEvent event) {
 
     }
 
@@ -136,7 +137,7 @@ public class FrmPedidoVendaSeparar {
     }
 
     @FXML
-    void btnConfirmar_onKeyPressed(ActionEvent event) {
+    void btnConfirmar_onKeyPressed(KeyEvent event) {
 
     }
 
@@ -146,7 +147,7 @@ public class FrmPedidoVendaSeparar {
     }
 
     @FXML
-    void btnCancelar_onKeyPressed(ActionEvent event) {
+    void btnCancelar_onKeyPressed(KeyEvent event) {
 
     }
 

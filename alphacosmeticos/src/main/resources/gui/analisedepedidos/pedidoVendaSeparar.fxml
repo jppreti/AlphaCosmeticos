@@ -77,10 +77,10 @@
                   <TextField fx:id="txtIDVenda" GridPane.columnIndex="1" />
                   <TextField fx:id="txtNomeVendedor" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                   <TextField fx:id="txtDtEntrega" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="rdbProx60Dias" mnemonicParsing="false" onAction="#rdbProx60Dias_onAction" text="%radio.prox60dias" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <RadioButton fx:id="rdbProx30Dias" mnemonicParsing="false" onAction="#rdbProx30Dias_onAction" text="%radio.prox30dias" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <RadioButton fx:id="rdbProx10Dias" mnemonicParsing="false" onAction="#rdbProx10Dias_onAction" text="%radio.prox10dias" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <RadioButton fx:id="rdbProxSemana" mnemonicParsing="false" onAction="#rdbProxSemana_onAction" text="%radio.proxSemana" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="rdbProx60Dias" mnemonicParsing="false" onAction="#rdbProx60Dias_onAction" text="%rdb.prox60dias" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="rdbProx30Dias" mnemonicParsing="false" onAction="#rdbProx30Dias_onAction" text="%rdb.prox30dias" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="rdbProx10Dias" mnemonicParsing="false" onAction="#rdbProx10Dias_onAction" text="%rdb.prox10dias" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="rdbProxSemana" mnemonicParsing="false" onAction="#rdbProxSemana_onAction" text="%rdb.proxSemana" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -135,7 +135,7 @@
                         <Insets right="40.0" />
                      </FlowPane.margin>
                   </Button>
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#btnCancelar_onAction" onKeyPressed="#btnCancelar_onKeyPressed" text="%button.cancel" textFill="#fc0707">
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#btnCancelar_onAction" onKeyPressed="#btnCancelar_onKeyPressed" text="%button.cancelar" textFill="#fc0707">
                      <FlowPane.margin>
                         <Insets left="40.0" />
                      </FlowPane.margin>
