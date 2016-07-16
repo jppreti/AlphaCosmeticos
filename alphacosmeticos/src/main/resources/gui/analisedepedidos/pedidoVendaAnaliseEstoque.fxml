@@ -46,25 +46,28 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="lblNomeVendedor" text="%label.nomeVendedor" />
+                        <Label fx:id="lblNomeVendedor" text="%label.nomeVendedor">
+                           <FlowPane.margin>
+                              <Insets right="10.0" />
+                           </FlowPane.margin></Label>
                      </children>
                   </FlowPane>
-                  <TextField fx:id="txtIDVenda" GridPane.columnIndex="2">
+                  <TextField fx:id="txtIDVenda" editable="false" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="txtNomeVendedor" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <TextField fx:id="txtNomeVendedor" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="txtDtLancamento" GridPane.columnIndex="4">
+                  <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets right="30.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="txtValorTotal" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                  <TextField fx:id="txtValorTotal" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="30.0" />
                      </GridPane.margin>
