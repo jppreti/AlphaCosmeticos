@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="Cliente.xsl" type="text/xsl"?>
+<ent:clientes xmlns:dev="http://compdevbooks.com.br/alphacosmetics"
+xmlns:ent="http://compdevbooks.com.br/alphacosmetics/ClienteEntity"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://compdevbooks.com.br/alphacosmetics/ClienteEntity ClienteEntity.xsd">
+
+  <ent:ClienteEntity id="1">
+    <dev:nome>JOAO PAULO</dev:nome>
+    <dev:email>jppreti@gmail.com</dev:email>
+    <dev:telefone>6511112222</dev:telefone>
+  </ent:ClienteEntity>
+  <ent:ClienteEntity id="2">
+    <dev:nome>RAFAELA</dev:nome>
+    <dev:email>rafaela@gmail.com</dev:email>
+    <dev:telefone>6522223333</dev:telefone>
+  </ent:ClienteEntity>  
+</ent:clientes>

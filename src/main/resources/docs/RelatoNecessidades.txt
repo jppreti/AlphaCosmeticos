@@ -1,0 +1,73 @@
+﻿Relatos de Necessidade do Cliente
+
+Neste documento são apresentadas as necessidades do sistema de gestão de compra e vendas de produtos da empresa Alpha. Esse documento foi produzido a partir de reuniões com os interessados no sistema, principalmente com os gerentes de estoque e gerentes de venda.
+
+A empresa Alpha atua no ramo de vendas de cosméticos por meio catálogos impressos, usados pelos promotores de venda nas visitas que realizam aos clientes.
+
+É necessário ter uma lista de todos os produtos comercializados pela empresa, com informações que vão do código de identificação, descrição, percentual de margem de lucro, percentual de promoção, percentual de comissão, valor de venda, quantidade atual em estoque, quantidade mínima em estoque, quantidade máxima em estoque e quantidade reservada em pedidos, etc.
+
+É preciso categorizar os produtos do catálogo, agrupando-os em categorias como: shampoo, condicionador, creme para cabelos, creme para pele, esmaltes, maquiagem, etc. As categorias devem possuir informações que são usadas por todos os produtos relacionados, como: percentual de margem de lucro, percentual de promoção, percentual de comissão, valor de venda, etc.
+
+A empresa possui uma lista de promotores de venda que trabalham em regiões pré-definidas e não sobrepostas, divulgando e vendendo os produtos. As regiões de cobertura dos promotores de venda são estabelecidas por meio de uma lista de municípios. Cada promotor de venda possui uma lista de clientes atendidos por ele nos municípios que ele atende.
+
+As vendas realizadas para um cliente geram comissões para o promotor de venda ao qual ele está vinculado, mesmo que a venda não seja fruto de uma visita do promotor de venda. Assim, se um cliente realizar uma compra por meio de um canal de telefone, ou página da Web, ou qualquer outro meio, será gerado um valor de comissão ao promotor de venda vinculado ao cliente em questão.
+
+O percentual de comissão é estabelecido no produto ou na categoria do produto. Sendo que a precedência é para o que está configurado no produto, caso não esteja, então será considerado o percentual da categoria do produto.
+
+Para executar as vendas são necessários os seguintes dados dos clientes: razão social, nome fantasia, CNPJ, inscrição estadual, endereço completo, município e UF. O cliente adquire os produtos através de pedidos enviados pelos promotores de vendas ou passados via e-mail para o setor de vendas.
+
+Quando os pedidos chegam à empresa, por meio dos promotores ou por e-mail, eles são avaliados primeiramente pelo gerente de estoque, para avaliar a disponibilidade de tais produtos em estoque, depois pelo gerente de venda, que analisa as condições do cliente. Nesse momento o pedido passa por duas situações: análise preliminar de estoque e análise de crédito do cliente, respectivamente.
+
+Após análise do pedido pelo gerente de vendas, o pedido terá sua situação alterada para aprovado ou cancelado, conforme resultado da análise.
+
+Os pedidos aprovados, pelo gerente de vendas, são novamente avaliados pelo gerente de estoque, que faz uma programação da data de entrega para cada pedido.
+
+Quando chega a data prevista de entrega do pedido, o gerente de estoque, processa cada um deles. Essa ação executa a baixa definitiva do estoque de cada produto e muda o estado do pedido para processado. A baixa definitiva significa retirar a quantidade vendida do estoque do produto e retirar a quantidade vendida do estoque reservado para pedidos em análise.
+
+Quando um pedido é cancelado as quantidades pedidas de cada produto devem ser removidas das quantidades de estoque reservadas para pedidos.
+
+O pagamento dos pedidos pode ser realizado de várias maneiras:
+	À vista: em parcela única de boleto bancário, cheque, cartão de crédito ou cartão de débito.
+	À vista: em parcelas combinadas com mais de uma forma de pagamento (boleto bancário, cheque, cartão de crédito ou cartão de débito). 
+	A prazo: em N parcelas de uma das formas de pagamento:  boleto bancário, cheque, cartão de crédito.
+	A prazo: em parcelas combinadas com mais de uma forma de pagamento (boleto bancário, cheque, cartão de crédito ou cartão de débito).
+
+O pagamento a vista terá a data de pagamento definida com a data de processamento do pedido, acrescido de dois dias úteis.
+
+O gerente de venda deve produzir relatórios de vendas, tais como: maiores compradores, vendas por município, vendas por promotor de venda, comissões por promotor. 
+
+O gerente de estoque sempre que necessário emite relatórios de produtos, de produtos abaixo do estoque crítico.
+
+Para repor seus estoques a Empresa X realiza compras em seus fornecedores por meio de pedidos de produtos enviados via e-mail. Cada pedido é enviado a um fornecedor e este contém uma lista de produtos e as respectivas quantidades desejadas.
+
+Os pedidos aos fornecedores são pagos a vista ou a prazo, sempre na modalidade de boleto bancário.
+
+As vendas a prazo realizadas para os clientes da Empresa X geram lançamentos de contas a receber.
+
+As compras a prazo realizadas junto aos fornecedores geram lançamentos de contas a pagar.
+
+Quando os produtos de um fornecedor chegam, deve ser realizado o lançamento da compra, normalmente por meio da nota fiscal dos produtos, onde devem ser fornecidos os dados do fornecedor, da nota e dos itens (produto e quantidade) que compõem a nota de entrada. Nessa etapa a entrada fica na situação de digitada.
+
+Após a digitação da entrada de mercadorias, ela será conferida. Esse procedimento atesta se os itens e quantidades digitadas conferem com os produtos físicos recebidos. Quando esse procedimento termina a entrada passa para a situação conferida.
+
+Quando a entrada estiver na situação conferida e os produtos forem liberados para o estoque, deve-se realizar o procedimento de processamento da entrada, que irá adicionar as quantidades recebidas dos itens aos respectivos estoques dos produtos.
+
+Não é necessário o controle de fluxo de caixa da Empresa X, haja visto que isso já é realizado pelo setor de contabilidade, que possui um sistema específico para essa atividade. Contudo, muitas informações do sistema de gestão de compra e venda servirão para alimentar o setor de contabilidade.
+
+As comissões pagas aos promotores de venda dependem dos prazos de pagamento das parcelas originadas com as vendas aos clientes. Por exemplo, se uma venda a um cliente totalizou R\$ 1.000,00 com uma comissão de R\$ 200,00 e o pagamento da venda programado em três parcelas (uma a vista de R\$ 500,00 e mais duas de R\$  250,00 com 30 e 60 dias), então será gerado os lançamentos de três pagamentos de comissão ao promotor de venda com os seguintes valores: uma parcela a vista de R\$ 100,00 e uma de R\$ 50,00 para 30 dias e a última de R\$ 50,00 para 60 dias.
+
+Os pagamentos de comissões são realizados semanalmente, por meio de relatório que apura e totaliza o montante que cada promotor de venda possui para a semana. Deve existir um processo que selecione os lançamentos de comissões para cada promotor de venda e mude a situação das comissões de lançadas para quitadas. Essa operação deve produzir um recibo para cada promotor de venda, para que seja impresso e assinado pelo respectivo promotor.
+
+Deseja-se que o sistema seja compatível com as plataformas de execução:
+	primeiramente em computadores do tipo desktop usados internamente na Empresa X para as atividades de lançamento de entrada de produtos, emissão de relatórios, lançamento de pedidos de clientes, controle de contas a pagar e receber, etc.
+	depois que os promotores de venda possam executar o sistema em notebooks em visitas aos clientes.
+	finalmente, que o sistema possa ser executado em computadores desktop, em notebooks e em dispositivos móveis, como tablets.
+
+É necessário ter um controle de quem pode acessar o sistema e o que cada um pode fazer no sistema.
+
+
+
+
+ 
+
+

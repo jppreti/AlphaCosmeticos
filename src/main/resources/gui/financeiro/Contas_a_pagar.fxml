@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="frmContasPagar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="538.0" minWidth="342.0" prefHeight="342.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar">
+   <top>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="697.0">
+               <children>
+                  <Label text="AlphaCosmeticos - Contas à pagar">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="336.0">
+               <children>
+                  <VBox prefHeight="153.0" prefWidth="442.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label text="%label.por" />
+                                    <ComboBox fx:id="cmbOpcaoPesquisa" prefHeight="25.0" prefWidth="122.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblDataInicial" text="%label.dtInicial" />
+                                    <DatePicker fx:id="dtpInicial" onKeyPressed="#dtpInicial_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblDataFinal" text="%label.dtFinal" />
+                                    <DatePicker fx:id="dtpFinal" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <RadioButton fx:id="rdbFornecedor" mnemonicParsing="false" onAction="#rdbFornecedor_onAction" text="%rdb.cliente">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbPromotor" mnemonicParsing="false" onAction="#rdbPromotor_onAction" text="%rdb.promotor">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbTodos" mnemonicParsing="false" onAction="#rdbTodos_onAction" text="%rdb.todos">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="txtCpfCnpj" onKeyPressed="#txtCpfCnpj_onKeyPressed" prefHeight="25.0" prefWidth="122.0" promptText="%text.cpfCnpj" />
+                              <TextField fx:id="txtNomeRazaoSocial" onKeyPressed="#txtNomeRazaoSocial_onKeyPressed" prefHeight="25.0" prefWidth="225.0" promptText="%text.nomeRazaoSocial">
+                                 <HBox.margin>
+                                    <Insets left="2.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="btnProcurar" mnemonicParsing="false" onAction="#btnProcurar_onAction" prefHeight="25.0" prefWidth="75.0" text="%button.procurar">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="44.0" prefWidth="697.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblSituacao" text="%label.situacao">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <RadioButton fx:id="rdbEmAberto" mnemonicParsing="false" onAction="#rdbEmAberto_onAction" text="%rdb.emAberto">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                              <RadioButton fx:id="rdbVencidos" mnemonicParsing="false" onAction="#rdbVencidos_onAction" text="%rdb.vencido">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbTodosTipoCliente" mnemonicParsing="false" onAction="#rdbTodosTipoCliente_onAction" text="%rdb.todos">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="lblFormaPagamento" text="%label.formaPgto" />
+                                    <ComboBox fx:id="cmbFormaPgto" prefWidth="150.0">
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" right="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="278.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblTotaisPeriodo" text="%label.totaisNoPeriodo">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00050a" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Label fx:id="lblTotalVencido30" text="%label.vencidos30" />
+                              <TextField fx:id="txTotalVencidos30Valor" disable="true" promptText="\$ 00,00">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0202" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Label fx:id="txtTotalVencidos" text="%label.vencidos" />
+                              <TextField fx:id="txtTotalVencidosValor" disable="true" promptText="\$ 00,00">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="29.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#28dd34" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Label fx:id="lblTotalEmAberto" text="%label.EmAberto" />
+                              <TextField fx:id="txtTotalEmAbertoValor" disable="true" promptText="\$ 00,00">
+                                 <HBox.margin>
+                                    <Insets left="21.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="tabDividas" text="%tab.dividas">
+               <content>
+                  <TableView onKeyPressed="#btnSair_onKeyPressed" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
+                      <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
+                        <TableColumn fx:id="clmNomeRazaoSocial" prefWidth="75.0" text="%column.nomeRazaoSocial" />
+                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%coumn.formaPgto" />
+                        <TableColumn fx:id="clmValor" prefWidth="75.0" text="%column.valor" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </content>
+          </Tab>
+          <Tab fx:id="tabRelatorioResumido" text="%tab.relatorio">
+               <content>
+                  <GridPane fx:id="grpRelatorioResumido" gridLinesVisible="true">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblDocumento" text="%label.cpfCnpj" />
+                        <Label fx:id="lblNomeRazaoSocial" text="%label.nomeRazaoSocial" GridPane.rowIndex="1" />
+                        <Label fx:id="lblVencimento" text="%label.vencimento" GridPane.rowIndex="2" />
+                        <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="4" />
+                        <Label fx:id="lblDocumentoValor" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblNomeRazaoSocialValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblVencimentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblDiaAtrasado" text="%label.diasDeAtraso" GridPane.rowIndex="3" />
+                        <Label fx:id="lblDiaAtrasadoValor" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+          </Tab>
+        </tabs>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+      </TabPane>
+   </center>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="139.0" prefWidth="838.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="260.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
+                           <children>
+                              <Label fx:id="lblDataPagamento" text="%label.dtPgto" />
+                              <DatePicker fx:id="dtpPagamento" prefHeight="25.0" prefWidth="147.0">
+                                 <HBox.margin>
+                                    <Insets left="29.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblValorPago" text="%label.valorPago" />
+                              <TextField fx:id="txtValorPago">
+                                 <HBox.margin>
+                                    <Insets left="23.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblValorAPagar" text="%label.valorApagar" />
+                              <TextField fx:id="txtValorAPagar">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblTotal" text="%label.total" />
+                              <TextField fx:id="txtTotal" prefHeight="25.0" prefWidth="144.0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="74.0" prefWidth="85.0">
+                     <children>
+                        <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" text="%button.baixarDivida">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="84.0" text="%button.sair" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="450.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="838.0">
+               <children>
+                  <Label fx:id="lblStatus" text="%label.status" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
