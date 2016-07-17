@@ -16,8 +16,5 @@ public class Cliente extends ABusiness<ClienteEntity, ClienteException, ICliente
 	public List<ClienteEntity> getByNome(String nome){
 		return ((IClienteDAO)dao).getByNome(nome);
 	}
-        public ClienteEntity nomeEspecifico(Long id){
-            return ((IClienteDAO)dao).getById(id);
-        }
 	
 }

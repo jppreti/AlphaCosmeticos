@@ -49,10 +49,7 @@
                               </TextField>
                               <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisa_onKeyPressed" text="%button.procurar">
-                                       <FlowPane.margin>
-                                          <Insets top="10.0" />
-                                       </FlowPane.margin></Button>
+                                    <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisa_onKeyPressed" text="%button.procurar" />
                                  </children>
                               </FlowPane>
                               <ComboBox fx:id="cmbFornecedor" onAction="#cmbFornecedor_onAction" prefHeight="25.0" prefWidth="518.0" promptText="%combo.fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="1">
