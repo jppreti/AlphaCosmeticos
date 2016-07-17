@@ -30,4 +30,8 @@ public class ItemCompra extends ABusiness<ItemCompraEntity,Exception, IItemCompr
     public List<ItemCompraEntity> buscarPorProduto(long id){
         return ((IItemCompraDAO)dao).buscarPorProduto(id);
     }
+    
+    public List<ItemCompraEntity> buscarItensCompra(ItemCompraEntity ic){
+        return ((IItemCompraDAO)dao).buscarItensCompra(ic);
+    }
 }

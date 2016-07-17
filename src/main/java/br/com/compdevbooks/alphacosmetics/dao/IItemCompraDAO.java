@@ -16,4 +16,6 @@ public interface IItemCompraDAO extends IDAO<ItemCompraEntity> {
     public List<ItemCompraEntity> buscarTodosItemCompra();
     
     public List<ItemCompraEntity> buscarPorProduto(Long id);
+
+    public List<ItemCompraEntity> buscarItensCompra(ItemCompraEntity ic);
 }

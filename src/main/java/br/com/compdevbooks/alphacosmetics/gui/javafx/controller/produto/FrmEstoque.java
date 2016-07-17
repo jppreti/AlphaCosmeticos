@@ -42,7 +42,7 @@ import javafx.scene.layout.BorderPane;
 public class FrmEstoque {
     
     @FXML
-    private ComboBox<String> cmbFornecedor;
+    private TextField txtFornecedor;
     
     @FXML
     private TextField txtPercComi;
@@ -157,12 +157,7 @@ public class FrmEstoque {
             ob.add(cat.getNome());
         }
         this.cmbCategoria.setItems(ob);
-  
-        ObservableList<String> cd = FXCollections.observableArrayList();
-        for(FornecedorEntity forn: fornecedor.buscarTodosFornecedores()){
-            cd.add(forn.getFantasia());
-        }
-        this.cmbFornecedor.setItems(cd);
+ 
     }
     
     private void completarProdutos(List<TabelaTelaEstoque> lista){ 
@@ -290,14 +285,16 @@ public class FrmEstoque {
     void txtValorCompra_onKeyPressed(KeyEvent event) {
 
     }
-
+    
     @FXML
-    void cmbFornecedor_onAction(ActionEvent event) {
-        this.objetoBuscar();
+    void txtFornecedor_onKeyPressed(KeyEvent event) {
+
     }
     
     private void objetoBuscar(){
         ProdutoEntity produ = new ProdutoEntity();
+        FornecedorEntity fornecedor = new FornecedorEntity();
+        produ.setFornecedor(fornecedor);
         TabelaTelaEstoque aux;
         
         
@@ -315,10 +312,10 @@ public class FrmEstoque {
         }
         
         
-        if (this.cmbFornecedor.getValue()!=null){
-            produ.setFornecedor(fornecedor.getByNome(cmbFornecedor.getSelectionModel().getSelectedItem().toString()));
+        if (this.txtFornecedor.getText()==""){
+            produ.getFornecedor().setFantasia("");
         }else{
-         produ.setFornecedor(null);
+            produ.getFornecedor().setFantasia(txtFornecedor.getText());
         }
         
         if ("".equals(this.txtEstoque.getText())){

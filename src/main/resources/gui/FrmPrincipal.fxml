@@ -27,7 +27,7 @@
                   </Menu>
                 <Menu fx:id="mnuOperacoes" mnemonicParsing="false" text="%menu.operacoes">
                   <items>
-                        <MenuItem fx:id="mniOpCompra" mnemonicParsing="false" text="%operacoes.compra" />
+                        <MenuItem fx:id="mniOpCompra" mnemonicParsing="false" onAction="#mniOpCompra_onAction" text="%operacoes.compra" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="mniOpmni" mnemonicParsing="false" text="%operacoes.venda" />
                   </items>
