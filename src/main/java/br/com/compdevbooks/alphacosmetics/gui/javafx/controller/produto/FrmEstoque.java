@@ -288,7 +288,8 @@ public class FrmEstoque {
     
     @FXML
     void txtFornecedor_onKeyPressed(KeyEvent event) {
-
+        if (event.getCode() == KeyCode.ENTER)
+             this.objetoBuscar();
     }
     
     private void objetoBuscar(){
