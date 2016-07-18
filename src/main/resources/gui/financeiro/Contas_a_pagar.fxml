@@ -200,7 +200,7 @@
         <tabs>
           <Tab fx:id="tabDividas" text="%tab.dividas">
                <content>
-                  <TableView onKeyPressed="#btnSair_onKeyPressed" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
                       <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />

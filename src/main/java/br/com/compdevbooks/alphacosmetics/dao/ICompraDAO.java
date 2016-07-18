@@ -17,4 +17,6 @@ import java.util.List;
 public interface ICompraDAO extends IDAO<CompraEntity> {
     List<CompraEntity> buscar(FornecedorEntity fornecedor, CompraEntity compra);
     public CompraEntity pegaCompra(ItemCompraEntity item);
+    List<CompraEntity> buscarTodasCompras();
+    
 }
