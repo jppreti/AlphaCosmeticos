@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Rectangle;
 
 public class FrmPedidoCompra {
 
@@ -30,9 +29,6 @@ public class FrmPedidoCompra {
 
     @FXML
     private TableColumn<?, ?> clmItemCompraQtde;
-
-    @FXML
-    private Rectangle lblFornecedor;
 
     @FXML
     private Button btnConferir;

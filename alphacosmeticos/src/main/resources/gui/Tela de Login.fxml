@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Login:" translateX="180.0" translateY="80.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label text="Senha:" translateX="180.0" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <TextFlow prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <TextField prefHeight="25.0" prefWidth="252.0" translateY="140.0" />
+                     </children>
+                  </TextFlow>
+                  <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <PasswordField prefHeight="25.0" prefWidth="251.0" translateY="60.0" />
+                     </children>
+                  </FlowPane>
+                  <Button mnemonicParsing="false" text="Acessar" translateX="193.0" translateY="-80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Sair" translateX="194.0" translateY="-45.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label prefHeight="71.0" prefWidth="390.0" text="Alpha Cosmético" translateX="190.0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label text="Perdeu a senha?" translateX="180.0" translateY="15.0" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Cadastrar" translateX="180.0" translateY="-25.0" GridPane.rowIndex="2" />
+                  <ImageView>
+                     <image>
+                        <Image url="@AlphaLine.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
