@@ -34,7 +34,7 @@
                 </Menu>
                   <Menu fx:id="mnuAnalisePedido" mnemonicParsing="false" text="%menu.analisePedido">
                     <items>
-                      <MenuItem fx:id="mniPedCompra" mnemonicParsing="false" text="%analisePedido.compra" />
+                      <MenuItem fx:id="mniPedCompra" mnemonicParsing="false" onAction="#mniPedCompra_onAction" text="%analisePedido.compra" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="mniPedVenda" mnemonicParsing="false" onAction="#mniPedidoVenda_onAction" text="%analisePedido.venda" />
                     </items>

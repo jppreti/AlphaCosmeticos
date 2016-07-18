@@ -80,7 +80,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" prefHeight="25.0" prefWidth="129.0" text="%button.search" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#btnPesquisar_onAction" onKeyPressed="#btnPesquisar_onKeyPressed" prefHeight="25.0" prefWidth="129.0" text="%button.procurar" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="30.0" right="20.0" />
                      </GridPane.margin>
@@ -95,9 +95,9 @@
          <children>
             <TableView fx:id="tblCompra" prefHeight="483.0" prefWidth="492.0">
               <columns>
-                <TableColumn fx:id="clmCompraID" prefWidth="249.6666717529297" text="\%column.ID" />
-                <TableColumn fx:id="clmCompraSituacao" prefWidth="118.33332824707031" text="\%column.Situacao" />
-                  <TableColumn fx:id="clmCompraDtLancamento" prefWidth="107.33331298828125" text="\%column.DtLancamento" />
+                <TableColumn fx:id="clmCompraID" prefWidth="249.6666717529297" text="%column.id" />
+                <TableColumn fx:id="clmCompraSituacao" prefWidth="118.33332824707031" text="%column.situacao" />
+                  <TableColumn fx:id="clmCompraDtLancamento" prefWidth="107.33331298828125" text="%column.dtLancamento" />
               </columns>
                <HBox.margin>
                   <Insets bottom="20.0" />
@@ -125,7 +125,7 @@
                      </VBox.margin>
                      <children>
                         <Label fx:id="lblFornecedor" text="%label.fornecedor" />
-                        <Label fx:id="lblRazaoSocial" text="%label.razaosocial" GridPane.rowIndex="1" />
+                        <Label fx:id="lblRazaoSocial" text="%label.razaoSocial" GridPane.rowIndex="1" />
                         <Label fx:id="lblCNPJ" text="%label.cnpj" GridPane.rowIndex="2" />
                         <Label fx:id="lblCompra" text="%label.compra" GridPane.rowIndex="3" />
                         <Label fx:id="lblIID" text="%label.identificacao" GridPane.rowIndex="4" />
@@ -168,7 +168,7 @@
                   </TableView>
                   <FlowPane prefHeight="48.0" prefWidth="509.0">
                      <children>
-                        <Label fx:id="lblFormaPagamento" text="%abel.formaPagamento">
+                        <Label fx:id="lblFormaPagamento" text="%label.formaPagamento">
                            <FlowPane.margin>
                               <Insets right="10.0" />
                            </FlowPane.margin>
@@ -196,7 +196,7 @@
                                     <Insets left="20.0" right="10.0" />
                                  </FlowPane.margin>
                               </Button>
-                              <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#btnCancelar_onAction" onKeyPressed="#btnnCancelar_onKeyPressed" prefHeight="25.0" prefWidth="96.0" text="%button.cancel" textFill="#f50505">
+                              <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#btnCancelar_onAction" onKeyPressed="#btnnCancelar_onKeyPressed" prefHeight="25.0" prefWidth="96.0" text="%button.cancelar" textFill="#f50505">
                                  <FlowPane.margin>
                                     <Insets left="20.0" />
                                  </FlowPane.margin>
