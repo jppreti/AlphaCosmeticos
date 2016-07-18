@@ -8,10 +8,6 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- *
- * @author Eduardo
- */
 public class TabelaTelaContasReceber {
 
 
@@ -26,9 +22,7 @@ public class TabelaTelaContasReceber {
     private float valor;
     private int parcela;
 
-    /**
-     * @return the dtLancamento
-     */
+    
     public String getDtLancamento() {
         return dtLancamento;
     }

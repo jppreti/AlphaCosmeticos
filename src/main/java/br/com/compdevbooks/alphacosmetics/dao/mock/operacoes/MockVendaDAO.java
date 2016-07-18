@@ -36,24 +36,20 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Josiel
- */
 public class MockVendaDAO implements IVendaDAO {
     private static  List<VendaEntity> vendas= new ArrayList<>();
     private static MockItemVendaDAO ItemVenda= new MockItemVendaDAO();
     private static Set<ItemVendaEntity> listaItem;
     private static Set<ParcelaPagamentoEntity> listaParcela = new HashSet();
     private static MockClienteDAO clienteDao= new MockClienteDAO();
-     private static Operadora AOperadora = new Operadora(DAOFactory.getDAOFactory().getOperadoraDAO());
+    private static Operadora AOperadora = new Operadora(DAOFactory.getDAOFactory().getOperadoraDAO());
     private static Banco ABanco = new Banco(DAOFactory.getDAOFactory().getBancoDAO());
     private static Cliente cliente = new Cliente(DAOFactory.getDAOFactory().getClienteDAO());
     
     static{
         try {
             
-           ClienteEntity clienteEntity = new ClienteEntity();
+            ClienteEntity clienteEntity = new ClienteEntity();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date data = formato.parse("16/07/2016");
             listaItem = new HashSet();
@@ -64,9 +60,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             PagamentoEntity pagamento = new PagamentoEntity();
-
             parcela.setDataVencimento(data, 1);
-
             CartaoCreditoEntity cartaoCredito = new CartaoCreditoEntity();
             cartaoCredito.setId((long) 1);
             cartaoCredito.setNumero("4922935883145378");
@@ -74,39 +68,24 @@ public class MockVendaDAO implements IVendaDAO {
             cartaoCredito.setOperadora(AOperadora.getOperadora("Visa"));
             parcela.setValorOriginal(100.00);
             parcela.setValorTotalPago(100.00);
-
             parcela.setDocumentoPagamento(cartaoCredito);
-
             listaParcela.add(parcela);
             
-            
-            
             parcela = new ParcelaPagamentoEntity();
-
             parcela.setDataVencimento(data, 2);
-
             ChequeEntity cheque = new ChequeEntity();
-
             cheque.setId((long) 1);
             cheque.setBancoVO(ABanco.getBancos("Banco do Brasil S.A."));
             cheque.setConta("34.123-8");
             cheque.setAgencia("0046-9");
-
             parcela.setValorOriginal(200.00);
             parcela.setValorTotalPago(200.00);
-
             parcela.setDocumentoPagamento(cheque);
-
-            
-            
-            
             listaParcela.add(parcela);
+            
             parcela = new ParcelaPagamentoEntity();
-
             parcela.setDataVencimento(data, 3);
-
             BoletoBancarioEntity boleto = new BoletoBancarioEntity();
-
             boleto.setBancoEmissorVO(ABanco.getBancos("Banco do Brasil S.A."));
             boleto.setId((long) 1);
             boleto.setAgencia("0046-9");

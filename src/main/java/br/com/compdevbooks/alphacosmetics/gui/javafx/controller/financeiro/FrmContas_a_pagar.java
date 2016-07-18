@@ -1,10 +1,17 @@
 
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro;
 
+import br.com.compdevbooks.alphacosmetics.business.operacoes.Compra;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasAPagar;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,7 +24,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -49,7 +58,7 @@ public class FrmContas_a_pagar {
     private TextField txtTotal;
 
     @FXML
-    private TableColumn<?, ?> clmNomeRazaoSocial;
+    private TableColumn< TabelaTelaContasAPagar, String> clmNomeRazaoSocial;
 
     @FXML
     private RadioButton rdbEmAberto;
@@ -73,7 +82,7 @@ public class FrmContas_a_pagar {
     private RadioButton rdbTodos;
 
     @FXML
-    private TableColumn<?, ?> clmValor;
+    private TableColumn< TabelaTelaContasAPagar, Float> clmValor;
 
     @FXML
     private TextField txtValorAPagar;
@@ -103,7 +112,7 @@ public class FrmContas_a_pagar {
     private Label lblTotalVencido30;
 
     @FXML
-    private TableColumn<?, ?> clmDtLancamento;
+    private TableColumn< TabelaTelaContasAPagar, String> clmDtLancamento;
 
     @FXML
     private Label lblDataInicial;
@@ -154,7 +163,7 @@ public class FrmContas_a_pagar {
     private Button btnBaixarDivida;
 
     @FXML
-    private TableColumn<?, ?> clmFormaPgto;
+    private TableColumn< TabelaTelaContasAPagar, String> clmFormaPgto;
 
     @FXML
     private RadioButton rdbTodosTipoCliente;
@@ -172,7 +181,7 @@ public class FrmContas_a_pagar {
     private Label lblDocumentoValor;
 
     @FXML
-    private TableColumn<?, ?> clmDtVencimento;
+    private TableColumn< TabelaTelaContasAPagar, String> clmDtVencimento;
 
     @FXML
     private Label lblValor;
@@ -186,27 +195,66 @@ public class FrmContas_a_pagar {
     @FXML
     private Label lblNomeRazaoSocialValor;
     
+    @FXML
+    private TableView<TabelaTelaContasAPagar> tblContas_a_pagar;
+    
+    private Compra compra = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
     
     @FXML
     void initialize(){
          ObservableList<String> ob = FXCollections.observableArrayList();
-             
-             ob.add("Dt Lançamento");
-              ob.add("Dt Vencimento");
-            cmbOpcaoPesquisa.setItems(ob);
-            cmbOpcaoPesquisa.setValue("Dt Lançamento");
+         List<CompraEntity> ListaCompra;
+         ListaCompra = compra.buscarTodasCompras();
+         System.out.println(ListaCompra.size());
+         
+         ob.add("Dt Lançamento");
+         ob.add("Dt Vencimento");
+         cmbOpcaoPesquisa.setItems(ob);
+         cmbOpcaoPesquisa.setValue("Dt Lançamento");
             
-            Date data = new Date();
-            LocalDate dtlocal = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            dtpFinal.setValue(dtlocal);
+         Date data = new Date();
+         LocalDate dtlocal = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+         dtpFinal.setValue(dtlocal);
             
-            rdbTodos.setSelected(true);
-            rdbTodosTipoCliente.setSelected(true);
+         rdbTodos.setSelected(true);
+         rdbTodosTipoCliente.setSelected(true);
             
-            cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
-             cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
+         cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
+         cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
+         completar(ListaCompra);
     }
 
+    public void completar(List<CompraEntity> lista){
+        ObservableList<TabelaTelaContasAPagar> listaFinal = FXCollections.observableArrayList();
+        this.clmDtLancamento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("dtLancamento"));
+        this.clmDtVencimento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("dtVencimento"));
+        this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("nome"));
+        this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("formaPgto"));
+        this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,Float>("valor"));
+        int cont =0;
+        
+        for(CompraEntity vo : lista){ 
+            System.out.println(vo.getPagamentoVO().getListaParcelas().size());
+            for(ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()){
+                cont++;       
+                System.out.println(parcPg.getDocumentoPagamento().getNome());
+                TabelaTelaContasAPagar tabela = new TabelaTelaContasAPagar();
+                          
+                tabela.setDtLancamento(vo.getDataLancamento());
+                tabela.setDtVencimento(parcPg.getDataVencimento());
+                tabela.setNome(vo.getNomeFornecedor());
+                tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
+                System.out.println(parcPg.getDocumentoPagamento().getNome());
+                tabela.setValor((float)parcPg.getValorTotalPago());
+            
+               listaFinal.add(tabela);
+            }
+            cont=0;
+           
+            
+        }
+        this.tblContas_a_pagar.setItems(listaFinal);
+    }
     @FXML
     void btnBaixarDivida_onAction(ActionEvent event) {
 

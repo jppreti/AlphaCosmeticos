@@ -1,6 +1,7 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -24,6 +25,7 @@ public class Main extends Application {
 
         try {
             frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            //frmPrincipal = FXMLLoader.load(FrmContas_a_pagar.class.getClassLoader().getResource("gui\\financeiro\\Contas_a_pagar.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
         } catch (Exception ex) {
             System.out.println("Exception on FXMLLoader.load()");
             System.out.println(ex.getMessage());   //-- Doesn't show in stack dump

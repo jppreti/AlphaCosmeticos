@@ -76,6 +76,9 @@ public class CompraEntity implements IEntity {
         this.Id = Id;
     }
 
+      public String getNomeFornecedor(){
+        return fornecedorVO.getNome();
+    }
     public Date getDataLancamento() {
         return dataLancamento;
     }
