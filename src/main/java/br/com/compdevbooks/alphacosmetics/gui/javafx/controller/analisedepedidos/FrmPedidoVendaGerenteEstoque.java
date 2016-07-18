@@ -235,12 +235,39 @@ public class FrmPedidoVendaGerenteEstoque {
 
     @FXML
     void btnSeparar_onAction(ActionEvent event) {
+        BorderPane frmVendaSeparar=null;
+        NavegarObjetos.setVenda(this.tblVenda.getSelectionModel().getSelectedItem());
+        if(NavegarObjetos.getVenda()!=null){
+        try{
+            frmVendaSeparar= FXMLLoader.load(FrmPedidoVendaSeparar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaSeparar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmVendaSeparar);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
         
+        }else{
+            SelecionarVenda();
+        }
     }
 
     @FXML
     void btnSeparar_onKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER){}
+        if(event.getCode()==KeyCode.ENTER){
+        BorderPane frmSeparar=null;
+        NavegarObjetos.setVenda(this.tblVenda.getSelectionModel().getSelectedItem());
+        if(NavegarObjetos.getVenda()!=null){
+        try{
+            frmSeparar= FXMLLoader.load(FrmPedidoVendaSeparar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaSeparar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmSeparar);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+        }
+        }else{
+            SelecionarVenda();
+        }
     }
 
     @FXML
