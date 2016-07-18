@@ -30,12 +30,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class FrmCompra {
 
     @FXML
     private Button btnConfirmar;
+    
+    @FXML
+    private Button btnMais;
+    
+    @FXML
+    private Button btnMenos;
 
     @FXML
     private TextField txtFornecedor;
@@ -211,6 +218,7 @@ public class FrmCompra {
     @FXML
     void btnAdicionarCarrinho_onAction(ActionEvent event) {
         if ("".equals(txtQtdePedir.getText()) || this.tblProduto.getSelectionModel().getSelectedItem() == null) {
+            this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
         } else {
             ProdutoEntity aux = this.tblProduto.getSelectionModel().getSelectedItem().getProduto();
             ItemCompraEntity aux2 = new ItemCompraEntity(Long.MIN_VALUE, Integer.parseInt(txtQtdePedir.getText()), aux);
@@ -226,6 +234,7 @@ public class FrmCompra {
                 listaCarrinho.add(aux2);
             }
             completarCarrinhoComLista();
+            this.lblMensagem.setText("Produto \""+aux2.getProdutoVO().getNome()+"\" adicionado ao carrinho.");
         }
     }
 
@@ -272,19 +281,58 @@ public class FrmCompra {
 
     @FXML
     void btnNovoProduto_onKeyPressed(KeyEvent event) {
-        //Chamar tela de Cadastro de Produto
+        this.btnNovoProduto.fire();
     }
-
+    
+    @FXML
+    void tblProduto_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.txtQtdePedir.requestFocus();
+        }
+    }
+        
+    @FXML
+    void tblProduto_onMouseClicked(MouseEvent event) {
+        if(event.getClickCount()>=2)
+           this.btnAdicionarCarrinho.fire();
+    }
+    
+    @FXML
+    void tblProdutoCarrinho_onKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnRemoverProduto.requestFocus();
+        }
+    }
+    
+    @FXML
+    void btnMais_onMouseClicked(MouseEvent event) {
+        int x = Integer.parseInt(this.txtQtdePedir.getText());
+        x++;
+        this.txtQtdePedir.setText(Integer.toString(x));
+    }
+    
+    @FXML
+    void btnMenos_onMouseClicked(MouseEvent event) {
+        int x = Integer.parseInt(this.txtQtdePedir.getText());
+        if(x>1)x--;
+        this.txtQtdePedir.setText(Integer.toString(x));
+    }
+    
     @FXML
     void btnRemover_onAction(ActionEvent event) {
-        listaCarrinho.remove(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getProduto());
-        this.completarCarrinhoComLista();
+        if (this.tblProdutoCarrinho.getSelectionModel().getSelectedItem() == null) {
+            this.lblMensagem.setText("Por Favor, selecione um item para remover do carrinho.");
+        } else {
+            ItemCompraEntity item = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getProduto();
+            listaCarrinho.remove(item);
+            this.completarCarrinhoComLista();
+            this.lblMensagem.setText("Produto \""+item.getProdutoVO().getNome()+"\" removido do carrinho.");
+        }
     }
 
     @FXML
     void btnRemover_onKeyPressed(KeyEvent event) {
-        listaCarrinho.remove(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getProduto());
-        this.completarCarrinhoComLista();
+        this.btnRemoverProduto.fire();
     }
 
     private Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
@@ -307,6 +355,10 @@ public class FrmCompra {
             ob.add(cat.getNome());
         }
         this.cmbCategoria.setItems(ob);
+        
+        this.txtQtdePedir.setText("1");
+        
+        this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
     }
 
     private void completarProdutos(List<TabelaTelaCompra> lista) {

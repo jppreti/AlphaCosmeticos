@@ -176,6 +176,18 @@ public class FrmPrincipal {
             ioe.printStackTrace();
         }
     }
+    
+    @FXML
+    void mniPedCompra_onAction(ActionEvent event){
+        BorderPane frmCompra=null;
+        try{
+            frmCompra= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmCompra);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+    }
 
     @FXML
     void mniSair_onAction(ActionEvent event) {
