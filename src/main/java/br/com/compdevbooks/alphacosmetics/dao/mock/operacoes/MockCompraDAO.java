@@ -234,6 +234,36 @@ public class MockCompraDAO implements ICompraDAO {
         }
         return null;
     }
+    
+    @Override
+    public List<CompraEntity> buscarPedidoCompra(FornecedorEntity f, CompraEntity c){
+        List<CompraEntity> res= new ArrayList();
+        int x=0;
+        for(CompraEntity vo: compras){
+            x=0;
+            if(vo.getFornecedorVO().getFantasia().toUpperCase().contains(f.getFantasia().toUpperCase()))
+                x++;
+            if(vo.getFornecedorVO().getInscricao().contains(f.getInscricao()))
+                x++;
+            if(vo.getFornecedorVO().getCNPJ().contains(f.getCNPJ()))
+                x++;
+            if(vo.getSituacao().equals(c.getSituacao()))
+                x++;
+            try {
+                if(0!=c.getDataLancamento().compareTo(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1111"))){
+                    if(vo.getDataLancamento().compareTo(c.getDataLancamento())==0)
+                        x++;
+                }else{
+                    x++;
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(MockCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(x==5)
+                res.add(vo);
+        }
+        return res;
+    }
 
     @Override
     public List<CompraEntity> buscar(FornecedorEntity fornecedor, CompraEntity compra) {

@@ -142,7 +142,7 @@ public class FrmPrincipal {
     }    
     @FXML
     void mniPedidoVenda_onAction(ActionEvent event) {
-        /*
+      /*
         BorderPane frmPedidoVendaGerenteVenda= null;
         try{
             frmPedidoVendaGerenteVenda= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -152,8 +152,9 @@ public class FrmPrincipal {
             ioe.printStackTrace();
         }
         //controle de acesso
-        
         */
+     
+        
         BorderPane frmPedidoVendaGerenteEstoque=null;
         try{
             frmPedidoVendaGerenteEstoque= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -184,6 +185,7 @@ public class FrmPrincipal {
         try{
             frmCompra= FXMLLoader.load(FrmPedidoCompra.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCompra);
+            NavegarObjetos.setPedidoCompra(frmCompra);
         }catch (Exception ioe){
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();

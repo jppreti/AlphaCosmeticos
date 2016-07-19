@@ -56,7 +56,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 2));
-            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDA, listaItem, cliente.nomeEspecifico(3l));
+            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.APROVADA, listaItem, cliente.nomeEspecifico(3l));
 
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             PagamentoEntity pagamento = new PagamentoEntity();
@@ -250,13 +250,17 @@ public class MockVendaDAO implements IVendaDAO {
     }
     @Override
     public  List<VendaEntity> buscarTodasVendas(){
-        return vendas;
+       List<VendaEntity> temp = new ArrayList();
+        for(VendaEntity vo: vendas)
+            if(!vo.getSituacao().equals(SituacaoVendaEnum.ANALISE))
+                temp.add(vo);
+        return temp;
     }
     @Override
     public List<VendaEntity> buscarVendas(){
         List<VendaEntity> temp = new ArrayList();
         for(VendaEntity vo: vendas)
-            if(vo.getSituacao().equals(SituacaoVendaEnum.PEDIDA))
+            if(vo.getSituacao().equals(SituacaoVendaEnum.ANALISE))
                 temp.add(vo);
         return temp;
     }

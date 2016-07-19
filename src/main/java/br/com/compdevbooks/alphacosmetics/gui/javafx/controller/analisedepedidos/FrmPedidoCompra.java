@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Observable;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -154,6 +156,8 @@ public class FrmPedidoCompra {
         this.cmbPesqSituacao.setItems(combo);
         this.cmbPesqSituacao.getSelectionModel().select(SituacaoCompraEnum.LANCADA);
         MaskFieldUtil.dateField(this.txtPesqDtLancamento);
+        this.btnConferir.setDisable(true);
+        this.btnFinalizar.setDisable(true);
     }
     private void completarCompra(List<CompraEntity> lista){
         this.clmCompraDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
@@ -161,29 +165,62 @@ public class FrmPedidoCompra {
         this.clmCompraSituacao.setCellValueFactory(new PropertyValueFactory<>("situacao"));
         this.tblCompra.setItems(FXCollections.observableArrayList(lista));
     }
+    private void setarBotao(CompraEntity compra){
+        if(compra.getSituacao().equals(SituacaoCompraEnum.LANCADA)){
+            this.btnConferir.setDisable(false);
+             this.btnFinalizar.setDisable(true);
+        }else if(compra.getSituacao().equals(SituacaoCompraEnum.RECEBIDA)){
+            this.btnConferir.setDisable(true);
+             this.btnFinalizar.setDisable(false);
+        }else if(compra.getSituacao().equals(SituacaoCompraEnum.PROCESSADA)){
+            this.btnConferir.setDisable(true);
+             this.btnFinalizar.setDisable(true);
+        }
+            
+    }
     @FXML
     void btnConferir_onAction(ActionEvent event) {
-
+            BorderPane frmCompra=null;
+        try{ 
+            NavegarObjetos.setCompra(this.tblCompra.getSelectionModel().getSelectedItem());
+            frmCompra= FXMLLoader.load(FrmPedidoCompraConfirmar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompraConfirmar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmCompra);
+            NavegarObjetos.setPedidoCompra(frmCompra);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
     }
 
     @FXML
-    void btnConferir_onKeyPressed(ActionEvent event) {
-
+    void btnConferir_onKeyPressed(KeyEvent event) {
+            if(event.getCode()==KeyCode.ENTER)
+               btnConferir.fire();
     }
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {
-
+        BorderPane frmCompra=null;
+        try{ 
+            NavegarObjetos.setCompra(this.tblCompra.getSelectionModel().getSelectedItem());
+            frmCompra= FXMLLoader.load(FrmPedidoCompraFinalizar.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompraFinalizar.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmCompra);
+            NavegarObjetos.setPedidoCompra(frmCompra);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
     }
 
     @FXML
-    void btnFinalizar_onKeyPressed(ActionEvent event) {
-
+    void btnFinalizar_onKeyPressed(KeyEvent event) {
+            if(event.getCode()==KeyCode.ENTER)
+                btnFinalizar.fire();
     }
 
     @FXML
     void btnCancelar_onAction(ActionEvent event) {
-
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(null);
     }
 
     @FXML
@@ -218,6 +255,7 @@ public class FrmPedidoCompra {
             this.txtDtRecebimento.setText(date.format(compraTemp.getDataRecebimento()));
         this.txtFormaPagamento.setText(compraTemp.getPagamentoVO().getTipoPagamento().toString());
         this.completarItem(compra.pegarItemCompra());
+        this.setarBotao(compraTemp);
         
     }
     private void completarItem(Set<ItemCompraEntity> lista){
@@ -292,6 +330,7 @@ public class FrmPedidoCompra {
         } catch (ParseException ex) {
             Logger.getLogger(FrmPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.completarCompra(this.compra.buscarPedidoCompra(fornecedor, compra));
         
     }
 
