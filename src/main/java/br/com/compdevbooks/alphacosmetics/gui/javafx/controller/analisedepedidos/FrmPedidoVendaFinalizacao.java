@@ -109,6 +109,7 @@ public class FrmPedidoVendaFinalizacao {
         this.clmID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
         this.clmQtdeVendida.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        
         this.tblItemVenda.setItems(FXCollections.observableArrayList(lista));
     }
     
