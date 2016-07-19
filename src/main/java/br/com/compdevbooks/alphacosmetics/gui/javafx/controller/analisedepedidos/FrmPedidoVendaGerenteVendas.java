@@ -219,6 +219,7 @@ public class FrmPedidoVendaGerenteVendas {
 
     @FXML
     void btnAutorizar_onAction(ActionEvent event) {
+       if(this.tblPedidoVenda.getSelectionModel().getSelectedItem()!=null) 
         this.Recusar();
     }
     private void Recusar(){
@@ -270,6 +271,7 @@ public class FrmPedidoVendaGerenteVendas {
             this.txtQtdeTotal.setText(String.valueOf(vendaTemp.getQtdeTotal()));
             this.txtDtLancamento.setText(vendaTemp.getDataLancamentoString());
             this.txtCNPJ.setText(vendaTemp.getClienteVO().getCNPJ());
+            this.txtFormaPagamento.setText(vendaTemp.getPagamentoVO().getTipoPagamento().toString());
  
     }
 

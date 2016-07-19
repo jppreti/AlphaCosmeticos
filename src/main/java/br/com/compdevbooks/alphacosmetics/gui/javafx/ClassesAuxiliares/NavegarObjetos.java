@@ -5,6 +5,7 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares;
 
+import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +17,23 @@ import javafx.scene.layout.BorderPane;
  * @author Josiel
  */
 public abstract class NavegarObjetos {
-    private static List<Node> pais= new ArrayList();
+    private static Node pais;
+    private static Node pedidoGerenteEstoque;
+    private static Node pedidoCompra;
     private static VendaEntity venda;
+    private static CompraEntity compra;
     
     public static void setPai(Node pai){
-        pais.add(0, pai);
+        pais=pai;
     }
     public static Node getPai(){
-        return pais.get(0);
+        return pais;
     }
     public static void setPedidoGerenteEstoque(Node g){
-        pais.add(1,g);
+        pedidoGerenteEstoque=g;
     }
     public static Node getPedidoGerenteEstoque(){
-        return pais.get(1);
+        return pedidoGerenteEstoque;
     }
     public static void setVenda(VendaEntity v){
         venda=v;
@@ -37,4 +41,17 @@ public abstract class NavegarObjetos {
     public static VendaEntity getVenda(){ 
         return venda;
     }
+    public static void setPedidoCompra(Node g){
+        pedidoCompra=g;
+    }
+    public static Node getPedidoCompra(){
+        return pedidoCompra;
+    }
+    public static void setCompra(CompraEntity c){
+        compra=c;
+    }
+    public static CompraEntity getCompra(){
+        return compra;
+    }
+    
 }
