@@ -65,8 +65,8 @@
                         </Label>
                      </children>
                   </FlowPane>
-                  <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtLogradouro" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtNome" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtLogradouro" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
                         <Label text="%label.bairro" />
@@ -91,9 +91,9 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </FlowPane>
-                  <TextField fx:id="txtCidade" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtCEP" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtBairro" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtCidade" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtCEP" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtBairro" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <FlowPane prefHeight="39.0" prefWidth="1024.0" />
@@ -142,9 +142,9 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </FlowPane>
-                  <TextField fx:id="txtIDVenda" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtNomeVendedor" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtValorTotal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtIDVenda" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtNomeVendedor" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtValorTotal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
                         <Label text="%label.dtLancamento" />
@@ -161,10 +161,10 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </FlowPane>
-                  <TextField fx:id="txtDtLancamento" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtQtdeTotal" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtDtAprovacao" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtDtEnvio" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtQtdeTotal" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtDtAprovacao" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtDtEnvio" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <children>
                         <Label text="%label.dtAprovacao" />

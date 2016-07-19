@@ -65,9 +65,9 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </FlowPane>
-                  <TextField fx:id="txtIDVenda" GridPane.columnIndex="1" />
-                  <TextField fx:id="txtNomeVendedor" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtDtEntrega" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtIDVenda" editable="false" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtNomeVendedor" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtDtEntrega" editable="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <RadioButton fx:id="rdbProx60Dias" mnemonicParsing="false" onAction="#rdbProx60Dias_onAction" text="%rdb.prox60dias" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <RadioButton fx:id="rdbProx30Dias" mnemonicParsing="false" onAction="#rdbProx30Dias_onAction" text="%rdb.prox30dias" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <RadioButton fx:id="rdbProx10Dias" mnemonicParsing="false" onAction="#rdbProx10Dias_onAction" text="%rdb.prox10dias" GridPane.columnIndex="4" GridPane.rowIndex="2" />
@@ -87,8 +87,8 @@
                         <Label fx:id="lblDtAprovacao" text="%label.dtAprovacao" />
                      </children>
                   </FlowPane>
-                  <TextField fx:id="txtDtLancamento" GridPane.columnIndex="3" />
-                  <TextField fx:id="txtDtAprovacao" GridPane.columnIndex="5" />
+                  <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="3" />
+                  <TextField fx:id="txtDtAprovacao" editable="false" GridPane.columnIndex="5" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <children>
                         <Label fx:id="lblDtEntrega" alignment="CENTER_RIGHT" text="%label.dtEntrega" />

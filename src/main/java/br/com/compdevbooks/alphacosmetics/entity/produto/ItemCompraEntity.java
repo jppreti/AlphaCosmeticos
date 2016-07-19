@@ -72,6 +72,9 @@ public class ItemCompraEntity implements IEntity {
     private float calcularSubtotal() {
         return this.quantidadePedida * this.produtoVO.getValorCompra();
     }
+    public String getNomeProduto(){
+        return this.produtoVO.getNome();
+    }
 
     @Override
     public String toString() {

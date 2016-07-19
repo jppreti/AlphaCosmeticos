@@ -1,12 +1,14 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller;
 
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmComissao;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_receber;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -140,7 +142,7 @@ public class FrmPrincipal {
     }    
     @FXML
     void mniPedidoVenda_onAction(ActionEvent event) {
-        /*
+      /*
         BorderPane frmPedidoVendaGerenteVenda= null;
         try{
             frmPedidoVendaGerenteVenda= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -150,8 +152,9 @@ public class FrmPrincipal {
             ioe.printStackTrace();
         }
         //controle de acesso
-        
         */
+     
+        
         BorderPane frmPedidoVendaGerenteEstoque=null;
         try{
             frmPedidoVendaGerenteEstoque= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -164,12 +167,11 @@ public class FrmPrincipal {
                 
 
     }
-    
-    @FXML
+       @FXML
     void mniOpCompra_onAction(ActionEvent event){
         BorderPane frmCompra=null;
         try{
-            frmCompra= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\operacoes\\compra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmCompra= FXMLLoader.load(FrmCompra.class.getClassLoader().getResource("gui/operacoes/compra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCompra);
         }catch (Exception ioe){
             System.out.println(ioe.getMessage());
@@ -181,14 +183,16 @@ public class FrmPrincipal {
     void mniPedCompra_onAction(ActionEvent event){
         BorderPane frmCompra=null;
         try{
-            frmCompra= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmCompra= FXMLLoader.load(FrmPedidoCompra.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCompra);
+            NavegarObjetos.setPedidoCompra(frmCompra);
         }catch (Exception ioe){
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
     }
 
+ 
     @FXML
     void mniSair_onAction(ActionEvent event) {
     	System.exit(0);

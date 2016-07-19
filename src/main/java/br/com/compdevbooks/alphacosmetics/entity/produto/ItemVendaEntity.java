@@ -88,6 +88,9 @@ public class ItemVendaEntity implements IEntity {
     private float calcularSubtotal() {
         return this.quantidade * this.produtoVO.getValorVenda();
     }
+    public float getQuantidadeEstoque(){
+        return produtoVO.getQuantidade();
+    }
 
     @Override
     public String toString() {

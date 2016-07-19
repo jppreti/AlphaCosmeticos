@@ -8,9 +8,11 @@ package br.com.compdevbooks.alphacosmetics.business.operacoes;
 import br.com.compdevbooks.alphacosmetics.business.ABusiness;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IDAO;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -29,6 +31,13 @@ public class Compra extends ABusiness<CompraEntity,Exception, ICompraDAO> {
     public List<CompraEntity> buscarTodasCompras(){
         return ((ICompraDAO)dao).buscarTodasCompras();
     }
+    public Set<ItemCompraEntity> pegarItemCompra(){
+        return ((ICompraDAO)dao).pegarItemCompra();
+    }
+    public List<CompraEntity> buscarPedidoCompra(FornecedorEntity f, CompraEntity c){
+        return ((ICompraDAO)dao).buscarPedidoCompra(f, c);
+    }
+            
     
     
 }
