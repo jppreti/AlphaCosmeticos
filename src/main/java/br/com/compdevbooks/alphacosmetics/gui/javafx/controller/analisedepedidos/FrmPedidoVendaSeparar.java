@@ -153,22 +153,26 @@ public class FrmPedidoVendaSeparar {
     
     @FXML
     void btnSair_onAction(ActionEvent event) {
-        getPai(this.bdpPrincipal);
+        chamarPai();
     }
 
     @FXML
     void btnSair_onKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER){
-            getPai(this.bdpPrincipal);
+            chamarPai();
         }
     }
     
-    private void getPai(Node node){
-        Node aux = node.getParent();
-        while(!(aux instanceof BorderPane)){
-            aux=node.getParent();
+    private void chamarPai(){
+        BorderPane frmPedidoVendaGerenteEstoque=null;
+        try{
+            frmPedidoVendaGerenteEstoque= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmPedidoVendaGerenteEstoque);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
         }
-        ((BorderPane)aux).setCenter(null);
+        NavegarObjetos.setVenda(null);
     }
     
     @FXML

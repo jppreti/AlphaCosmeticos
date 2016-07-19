@@ -55,7 +55,7 @@ public class MockCompraDAO implements ICompraDAO {
              lista.add(itemCompra.getById((long)1));
              lista.add(itemCompra.getById((long)2));
              CompraEntity temp;
-             temp = new CompraEntity( (long) 1, data, fornecedor.getById(1l), null, SituacaoCompraEnum.ENVIADA , lista);
+             temp = new CompraEntity( (long) 1, data, fornecedor.getById(1l), null, SituacaoCompraEnum.LANCADA , lista);
             
              ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
              PagamentoEntity pagamento = new PagamentoEntity();
@@ -114,7 +114,7 @@ public class MockCompraDAO implements ICompraDAO {
              lista= new HashSet();
              lista.add(itemCompra.getById((long)1));
              lista.add(itemCompra.getById((long)3));
-             temp = new CompraEntity( (long) 2, data, fornecedor.getById(2l), null, SituacaoCompraEnum.ENVIADA,lista );
+             temp = new CompraEntity( (long) 2, data, fornecedor.getById(2l), null, SituacaoCompraEnum.LANCADA,lista );
              
              pagamento = new PagamentoEntity();
              listaParcela = new HashSet();
@@ -252,6 +252,10 @@ public class MockCompraDAO implements ICompraDAO {
     @Override
     public List<CompraEntity> buscarTodasCompras() {
         return compras;
+    }
+    @Override
+    public Set<ItemCompraEntity> pegarItemCompra(){
+        return this.lista;
     }
     
     

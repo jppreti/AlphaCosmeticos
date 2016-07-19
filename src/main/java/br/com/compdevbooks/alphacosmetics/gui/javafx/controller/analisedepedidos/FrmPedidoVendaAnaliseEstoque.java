@@ -5,6 +5,10 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos;
 
+import br.com.compdevbooks.alphacosmetics.business.Vendedor;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.VendedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +102,7 @@ public class FrmPedidoVendaAnaliseEstoque {
     
     private VendaEntity venda;
     private List<TabelaAnaliseEstoque> lista;
-   
+   private Vendedor vendedor= new Vendedor(DAOFactory.getDAOFactory().getVendedorDAO());
     
     
     @FXML
@@ -106,8 +111,11 @@ public class FrmPedidoVendaAnaliseEstoque {
         lista= new ArrayList();
         MaskFieldUtil.dateField(this.txtDtLancamento);
         
+        this.txtDtLancamento.setText(venda.getDataLancamentoString());
         this.txtIDVenda.setText(String.valueOf(venda.getId()));
         this.txtValorTotal.setText(String.valueOf(venda.getValorTotal()));
+        this.txtNomeVendedor.setText(this.buscarVendedor().getNome());
+        
         
         System.out.println(venda.getId());
         Iterator<ItemVendaEntity> interator= venda.getListaItens().iterator();
@@ -216,7 +224,20 @@ public class FrmPedidoVendaAnaliseEstoque {
                
             
         });
-        
+    }
+    VendedorEntity buscarVendedor(){
+        List<VendedorEntity> vendedores = vendedor.buscarTodosVendedores();
+        Set<ClienteEntity> clientes;
+        for (VendedorEntity vov: vendedores){
+            clientes=vov.getListaClientes();
+            for(ClienteEntity cli: clientes){
+                if (cli.getId().equals(venda.getClienteVO().getId())){
+                    return vov;
+                }
+                    
+            }
+        }
+        return null;        
     }
    
 

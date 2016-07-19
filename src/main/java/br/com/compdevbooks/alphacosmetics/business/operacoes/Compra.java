@@ -11,6 +11,7 @@ import br.com.compdevbooks.alphacosmetics.dao.IDAO;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -28,6 +29,9 @@ public class Compra extends ABusiness<CompraEntity,Exception, ICompraDAO> {
     
     public List<CompraEntity> buscarTodasCompras(){
         return ((ICompraDAO)dao).buscarTodasCompras();
+    }
+    public Set<ItemCompraEntity> pegarItemCompra(){
+        return ((ICompraDAO)dao).pegarItemCompra();
     }
     
     

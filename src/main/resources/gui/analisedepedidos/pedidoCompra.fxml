@@ -93,7 +93,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tblCompra" prefHeight="483.0" prefWidth="492.0">
+            <TableView fx:id="tblCompra" onMouseClicked="#tblCompra_onMouseClicked" prefHeight="483.0" prefWidth="492.0">
               <columns>
                 <TableColumn fx:id="clmCompraID" prefWidth="249.6666717529297" text="%column.id" />
                 <TableColumn fx:id="clmCompraSituacao" prefWidth="118.33332824707031" text="%column.situacao" />
@@ -130,13 +130,13 @@
                         <Label fx:id="lblCompra" text="%label.compra" GridPane.rowIndex="3" />
                         <Label fx:id="lblIID" text="%label.identificacao" GridPane.rowIndex="4" />
                         <Label fx:id="lblDtLancamento" text="%label.dtLancamento" GridPane.rowIndex="5" />
-                        <TextField fx:id="txtRazaoSocial" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtCNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtInscricao" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtDtLancamento" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="txtSituacao" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtDtRecebimento" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <TextField fx:id="txtRazaoSocial" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtCNPJ" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtInscricao" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtID" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="txtSituacao" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtDtRecebimento" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                         <Label fx:id="lblInscricao" text="%label.inscricao" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="20.0" />
@@ -160,7 +160,7 @@
                   <TableView fx:id="tblItemCompra" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmItemCompraProduto" prefWidth="355.0" text="%column.produto" />
-                      <TableColumn fx:id="clmItemCompraQtde" prefWidth="113.0" text="%column.qtdeRecebida" />
+                      <TableColumn fx:id="clmItemCompraQtde" prefWidth="113.0" text="%column.qtdePedida" />
                     </columns>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
