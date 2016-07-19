@@ -41,12 +41,12 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <Label text="Perdeu a senha?" translateX="180.0" translateY="15.0" GridPane.rowIndex="2">
+                  <Label text="Perdeu a senha?" translateX="190.0" translateY="15.0" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="Cadastrar" translateX="180.0" translateY="-25.0" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" text="Cadastrar" translateX="190.0" translateY="-25.0" GridPane.rowIndex="2" />
                   <ImageView>
                      <image>
                         <Image url="@AlphaLine.png" />
