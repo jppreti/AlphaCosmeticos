@@ -61,9 +61,6 @@ public class FrmPedidoVendaSeparar {
     private Label lblDtLancamento;
 
     @FXML
-    private RadioButton rdbProx10Dias;
-
-    @FXML
     private Button btnCancelar;
 
     @FXML
@@ -72,14 +69,10 @@ public class FrmPedidoVendaSeparar {
     @FXML
     private TableColumn<ItemVendaEntity, Long> clmPedidoVendaID;
 
-    @FXML
-    private RadioButton rdbProxSemana;
 
     @FXML
     private TableView<ItemVendaEntity> tblPedidoVenda;
 
-    @FXML
-    private RadioButton rdbProx60Dias;
 
     @FXML
     private TableColumn<ItemVendaEntity, Long> clmPedidoVendaQtdeTotal;
@@ -113,9 +106,6 @@ public class FrmPedidoVendaSeparar {
 
     @FXML
     private Label lblPedidoVendaSeparacao;
-
-    @FXML
-    private RadioButton rdbProx30Dias;
 
     @FXML
     private BorderPane bdpPrincipal;

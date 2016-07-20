@@ -16,8 +16,6 @@ public class DocumentoPagamentoEntity implements IEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
     private String nome;
-    
-    
 
     public Long getId() {
         return Id;

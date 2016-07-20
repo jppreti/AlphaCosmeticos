@@ -19,7 +19,7 @@
       </VBox>
    </top>
    <center>
-      <TabPane prefHeight="629.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabPainel" prefHeight="629.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="tabProduto" text="%tab.produto">
                <content>
@@ -101,6 +101,11 @@
                               </FlowPane>
                               <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
+                                    <Button fx:id="btnNovoProduto" mnemonicParsing="false" onAction="#btnNovoProduto_onAction" onKeyPressed="#btnNovoProduto_onKeyPressed" text="%button.NovoProduto">
+                                       <FlowPane.margin>
+                                          <Insets right="10.0" />
+                                       </FlowPane.margin>
+                                    </Button>
                                     <Button fx:id="btnAdicionarCarrinho" mnemonicParsing="false" onAction="#btnAdicionarCarrinho_onAction" onKeyPressed="#btnAdicionarCarrinho_onKeyPressed" text="%button.addcarrinho">
                                        <FlowPane.margin>
                                           <Insets right="10.0" />
@@ -114,7 +119,7 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab fx:id="tabCarrinho" text="%tab.carrinho">
+            <Tab fx:id="tabCarrinho" disable="true" text="%tab.carrinho">
                <content>
                   <VBox prefHeight="559.0" prefWidth="1024.0">
                      <children>
@@ -170,12 +175,12 @@
                         </TableView>
                         <FlowPane alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="1024.0">
                            <children>
-                              <Button fx:id="btnNovoProduto" mnemonicParsing="false" onAction="#btnNovoProduto_onAction" onKeyPressed="#btnNovoProduto_onKeyPressed" text="%button.NovoProduto">
+                              <Button fx:id="btnRemoverProduto" mnemonicParsing="false" onAction="#btnRemover_onAction" onKeyPressed="#btnRemover_onKeyPressed" text="%button.remover">
                                  <FlowPane.margin>
                                     <Insets right="10.0" />
                                  </FlowPane.margin>
                               </Button>
-                              <Button fx:id="btnRemoverProduto" mnemonicParsing="false" onAction="#btnRemover_onAction" onKeyPressed="#btnRemover_onKeyPressed" text="%button.remover">
+                              <Button fx:id="btnFormadePagamento" mnemonicParsing="false" onAction="#btnFormadePagamento_onAction" onKeyPressed="#btnFormadePagamento_onKeyPressed" text="%button.formapagto">
                                  <FlowPane.margin>
                                     <Insets right="10.0" />
                                  </FlowPane.margin>
@@ -187,6 +192,53 @@
                         </FlowPane>
                      </children>
                   </VBox>
+               </content>
+            </Tab>
+            <Tab fx:id="tabFormaPagamento" disable="true" text="%tab.formaPagto">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <TableView fx:id="tblItemCompras" disable="true" prefHeight="513.0" prefWidth="445.0">
+                          <columns>
+                            <TableColumn fx:id="clmItemCompra" prefWidth="251.0" text="%column.itemcompra" />
+                              <TableColumn fx:id="clmFornecedor" prefWidth="193.0" text="%column.fornecedor" />
+                          </columns>
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="100.0" top="20.0" />
+                           </HBox.margin>
+                        </TableView>
+                        <VBox prefHeight="513.0" prefWidth="392.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                 <children>
+                                    <Label text="%label.formaPagamento" />
+                                    <ComboBox fx:id="cmbFormaPagamento" onAction="#cmbFormaPagamento_onAction" prefWidth="150.0" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label text="%label.numeroparcelas" />
+                                    <TextField fx:id="txtNumeroParcelas" disable="true" text="1" />
+                                    <Button fx:id="btnMenos_Parcelas" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMenos_Parcelas_onMouseClicked" prefWidth="25.0" text="-" />
+                                    <Button fx:id="btnMais_Parcelas" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMais_Parcelas_onMouseClicked" text="+" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                 <children>
+                                    <Label text="%label.valorTotal" />
+                                    <TextField fx:id="txtvalorTotal" disable="true" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </content>
             </Tab>
         </tabs>
@@ -203,7 +255,7 @@
                   <Insets right="100.0" />
                </padding>
             </Label>
-            <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#btnConfirmar_onAction" onKeyPressed="#btnConfirmar_onKeyPressed" text="%button.confirmar">
+            <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#btnConfirmar_onAction" onKeyPressed="#btnConfirmar_onKeyPressed" text="%button.confirmar" visible="false">
                <FlowPane.margin>
                   <Insets right="10.0" />
                </FlowPane.margin>

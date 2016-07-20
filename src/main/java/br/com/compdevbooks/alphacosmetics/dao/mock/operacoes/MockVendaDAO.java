@@ -56,7 +56,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 2));
-            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDA, listaItem, cliente.nomeEspecifico(4l));
+            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.APROVADA, listaItem, cliente.nomeEspecifico(4l));
           
               
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();

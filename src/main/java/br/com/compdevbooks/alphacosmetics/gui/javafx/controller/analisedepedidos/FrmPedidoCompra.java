@@ -244,7 +244,7 @@ public class FrmPedidoCompra {
      @FXML
     void tblCompra_onMouseClicked(MouseEvent event) {
         CompraEntity compraTemp= this.tblCompra.getSelectionModel().getSelectedItem();
-        this.txtRazaoSocial.setText(compraTemp.getNomeFornecedor());
+        this.txtRazaoSocial.setText(compraTemp.getFornecedorVO().getFantasia());
         this.txtCNPJ.setText(compraTemp.getFornecedorVO().getCNPJ());
         this.txtInscricao.setText(compraTemp.getFornecedorVO().getInscricao());
         this.txtID.setText(String.valueOf(compraTemp.getId()));
@@ -255,7 +255,7 @@ public class FrmPedidoCompra {
         if(compraTemp.getDataRecebimento()!=null)
             this.txtDtRecebimento.setText(date.format(compraTemp.getDataRecebimento()));
         this.txtFormaPagamento.setText(compraTemp.getPagamentoVO().getTipoPagamento().toString());
-        this.completarItem(compra.pegarItemCompra());
+        this.completarItem(compraTemp.getListaItens());
         this.setarBotao(compraTemp);
         
     }

@@ -16,7 +16,7 @@ public class FornecedorEntity extends PessoaJuridicaEntity {
 
     @ManyToMany(mappedBy = "listaFornecedores", fetch = FetchType.LAZY)
     private Set<ProdutoEntity> listaProdutos;
-
+    
     public FornecedorEntity() {
         this.listaProdutos = new HashSet();
     }
