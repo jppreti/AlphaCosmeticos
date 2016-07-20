@@ -21,6 +21,12 @@ public class MockVendedorDAO implements IVendedorDAO{
     private static MockClienteDAO clientes = new MockClienteDAO();
     private static Set<CidadeEntity> listaCidades;
     private static Set<ClienteEntity> listaClientes;
+
+    public static List<VendedorEntity> getLista() {
+        return lista;
+    }
+    
+    
     
     static{
         listaCidades = new HashSet();
@@ -28,7 +34,7 @@ public class MockVendedorDAO implements IVendedorDAO{
         listaCidades.add(cidades.getById((long)2));
         listaClientes = new HashSet();
         listaClientes.add(clientes.getById((long)1));
-        listaClientes.add(clientes.getById((long)2));
+        listaClientes.add(clientes.getById((long)4));
         lista.add(new VendedorEntity((long) 1,"Nome 1","023.456.656-01","234466",listaCidades,listaClientes ));
         listaCidades = new HashSet();
         listaCidades.add(cidades.getById((long)1));

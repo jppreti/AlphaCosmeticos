@@ -14,7 +14,7 @@
         <tabs>
           <Tab fx:id="tabComissao" text="%tab.comissao">
                <content>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblComissao" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmNome" prefWidth="416.0" text="%column.vendedor" />
                       <TableColumn fx:id="clmRegiao" prefWidth="68.0" text="%column.regiao" />
@@ -30,7 +30,7 @@
                <content>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tblRelatorio" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="clmDataVenda" prefWidth="75.0" text="%column.dtVenda" />
                             <TableColumn fx:id="clmValorVenda" prefWidth="75.0" text="%column.valorVenda" />

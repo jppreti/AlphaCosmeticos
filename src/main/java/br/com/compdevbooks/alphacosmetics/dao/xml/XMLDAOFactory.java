@@ -6,6 +6,7 @@ import br.com.compdevbooks.alphacosmetics.dao.IBancoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICidadeDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IComissaoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IEstadoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
@@ -87,4 +88,9 @@ public class XMLDAOFactory  implements DAOFactory {
 		
 	}
 */
+
+    @Override
+    public IComissaoDAO getComissaoDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

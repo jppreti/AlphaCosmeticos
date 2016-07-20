@@ -49,15 +49,16 @@ public class MockVendaDAO implements IVendaDAO {
     static{
         try {
             
-            ClienteEntity clienteEntity = new ClienteEntity();
+          
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date data = formato.parse("16/07/2016");
             listaItem = new HashSet();
 
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 2));
-            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDO, listaItem, cliente.nomeEspecifico(3l));
-
+            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDO, listaItem, cliente.nomeEspecifico(4l));
+          
+              
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             PagamentoEntity pagamento = new PagamentoEntity();
             parcela.setDataVencimento(data, 1);
@@ -105,15 +106,15 @@ public class MockVendaDAO implements IVendaDAO {
             pagamento.setId((long) 1);
 
             temp.setPagamentoVO(pagamento);
-
+           
             vendas.add(temp);
-
+            
             data = formato.parse("16/07/2016");
             listaItem = new HashSet();
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 3));
             temp = new VendaEntity((long) 2, data, SituacaoVendaEnum.PEDIDO, listaItem, cliente.nomeEspecifico(2l));
-            temp.setClienteVO(clienteDao.getById((long) 2));
+            //temp.setClienteVO(clienteDao.getById((long) 2));
 
             boleto = new BoletoBancarioEntity();
             listaParcela = new HashSet();

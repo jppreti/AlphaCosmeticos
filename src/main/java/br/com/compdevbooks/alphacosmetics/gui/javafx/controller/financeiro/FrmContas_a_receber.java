@@ -227,6 +227,11 @@ public class FrmContas_a_receber {
 
     void completar(List<VendaEntity> lista) {
         
+        Date referencia = new Date();
+        float vencidos =0;
+        float vencidos30=0;
+        float aberto =0;
+        
         ObservableList<TabelaTelaContasReceber> dado= FXCollections.observableArrayList();
         
         this.clmCliente.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber,String>("cliente"));
@@ -240,12 +245,12 @@ public class FrmContas_a_receber {
         
       
         for(VendaEntity vo : lista){ 
-              System.out.println(vo.getPagamentoVO().getListaParcelas().size());
-            
-            
+            //  System.out.println(vo.getPagamentoVO().getListaParcelas().size());
+            System.out.println(vo.getId());
+            System.out.println(vo.getClienteVO().getNome());
             for(ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()){
                 cont++;       
-                System.out.println(parcPg.getDocumentoPagamento().getNome());
+                //System.out.println(parcPg.getDocumentoPagamento().getNome());
                 
                 TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
                 
@@ -257,6 +262,15 @@ public class FrmContas_a_receber {
                 tabela.setValor((float)parcPg.getValorTotalPago());
             
                dado.add(tabela);
+               
+               if(parcPg.getDataVencimento().compareTo(referencia)==0) aberto+=(float)parcPg.getValorTotalPago();
+               if(parcPg.getDataVencimento().compareTo(referencia)==1) aberto+=(float)parcPg.getValorTotalPago();
+               if(parcPg.getDataVencimento().compareTo(referencia) ==-1){
+                   referencia.setDate(referencia.getDate()+30);
+                   if(parcPg.getDataVencimento().compareTo(referencia) == -1)vencidos30+=(float)parcPg.getValorTotalPago();
+                    if(parcPg.getDataVencimento().compareTo(referencia) == 0)vencidos30+=(float)parcPg.getValorTotalPago();
+                    else vencidos+=(float)parcPg.getValorTotalPago();
+               }
             }
             cont=0;
            
@@ -265,6 +279,9 @@ public class FrmContas_a_receber {
          this.tblVenda.setItems(dado);
         
         
+         txtTotalEmAbertoValor.setText("$ "+aberto);
+         txtTotalVencidosValor.setText("$ "+vencidos);
+         txtTotalVencido30Valor.setText("$ "+vencidos30);
      
         
     

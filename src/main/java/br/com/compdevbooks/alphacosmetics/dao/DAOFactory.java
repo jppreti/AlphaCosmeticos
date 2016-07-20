@@ -24,6 +24,7 @@ public interface DAOFactory {
         public abstract IBairroDAO getBairroDAO();
         public abstract IOperadoraDAO getOperadoraDAO();
         public abstract IBancoDAO getBancoDAO();
+        public abstract IComissaoDAO getComissaoDAO();
 	public static Properties props = new Properties();
 
 	public static DAOFactory getDAOFactory() {

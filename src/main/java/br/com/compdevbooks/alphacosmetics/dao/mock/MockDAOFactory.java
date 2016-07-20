@@ -7,6 +7,7 @@ import br.com.compdevbooks.alphacosmetics.dao.IBancoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICidadeDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IClienteDAO;
+import br.com.compdevbooks.alphacosmetics.dao.IComissaoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.ICompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IEstadoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.IFornecedorDAO;
@@ -21,6 +22,7 @@ import br.com.compdevbooks.alphacosmetics.dao.mock.cadastro.MockVendedorDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockBairroDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockCidadeDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.endereco.MockEstadoDAO;
+import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockComissaoDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemCompraDAO;
 import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockItemVendaDAO;
@@ -91,6 +93,11 @@ public class MockDAOFactory implements DAOFactory {
     public IBancoDAO getBancoDAO() {
         return MockBancoDAO.getInstance();
     }
+    
+    @Override
+    public IComissaoDAO getComissaoDAO() {
+        return MockComissaoDAO.getInstace();
+    }
       
 /*
 	@Override
@@ -103,4 +110,6 @@ public class MockDAOFactory implements DAOFactory {
 		
 	}
 */
+
+    
 }

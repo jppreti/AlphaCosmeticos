@@ -39,6 +39,12 @@ public class ComissaoEntity implements IEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<ParcelaComissaoEntity> listaParcelaComissao;
     
+    public ComissaoEntity(Long Id, Date dataVenda){
+        this.Id = Id;
+        this.dataVenda=dataVenda;
+        
+    }
+    
     public ComissaoEntity() {
         this.listaParcelaComissao = new HashSet();
     }

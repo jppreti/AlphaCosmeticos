@@ -77,4 +77,5 @@ public class ParcelaComissaoEntity implements IEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
