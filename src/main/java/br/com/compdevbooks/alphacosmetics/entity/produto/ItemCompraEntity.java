@@ -60,6 +60,9 @@ public class ItemCompraEntity implements IEntity {
     public void setQuantidadeFornecida(int quantidadeFornecida) {
         this.quantidadeFornecida = quantidadeFornecida;
     }
+    public Long getQuantidadeEstoque(){
+        return this.produtoVO.getQuantidade();
+    }
 
     public ProdutoEntity getProdutoVO() {
         return produtoVO;
@@ -74,6 +77,9 @@ public class ItemCompraEntity implements IEntity {
     }
     public String getNomeProduto(){
         return this.produtoVO.getNome();
+    }
+    public Long getQuantidadeTotal(){
+        return this.produtoVO.getQuantidade()+this.quantidadeFornecida;
     }
 
     @Override

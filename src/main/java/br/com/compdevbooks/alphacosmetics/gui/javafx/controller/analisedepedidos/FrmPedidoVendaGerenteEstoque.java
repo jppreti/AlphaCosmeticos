@@ -334,6 +334,9 @@ public class FrmPedidoVendaGerenteEstoque {
             if(p==sim){
               this.tblVenda.getSelectionModel().getSelectedItem().setSituacao(SituacaoVendaEnum.RECUSADA);
                 System.out.println("saida");
+                List<VendaEntity> l =venda.buscarTodasVendas();
+                Collections.sort(l);
+                this.completarTableVenda(l);
             }
             if(p==nao){}
                
@@ -346,14 +349,12 @@ public class FrmPedidoVendaGerenteEstoque {
     @FXML
     void btnSair_onAction(ActionEvent event) {
            ((BorderPane) NavegarObjetos.getPai()).setCenter(null);
-            //this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML
     void btnSair_onKeyPressed(KeyEvent event) {
         if(event.getCode()== KeyCode.ENTER)
             ((BorderPane) NavegarObjetos.getPai()).setCenter(null);
-           // this.getPainelPrincipal(this.bdpPrincipal);
     }
 
     @FXML

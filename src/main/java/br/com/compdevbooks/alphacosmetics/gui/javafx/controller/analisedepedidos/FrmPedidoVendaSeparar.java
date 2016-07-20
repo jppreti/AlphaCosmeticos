@@ -16,6 +16,7 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,6 +128,7 @@ public class FrmPedidoVendaSeparar {
         venda=NavegarObjetos.getVenda();
         this.completar(venda);
         this.completarItensVenda(venda.getListaItens());   
+        this.dtpDtEntrega.setValue(LocalDate.now());
     }
     
     void completar(VendaEntity venda){
