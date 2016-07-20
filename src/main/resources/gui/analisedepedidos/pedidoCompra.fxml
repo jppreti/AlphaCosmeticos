@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtPesqRazaoSocial" onKeyPressed="#txtPesqRazaoSocial_onKeyPressed" promptText="%text.razaoSocial" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                  <TextField fx:id="txtPesqRazaoSocial" onKeyPressed="#txtPesqRazaoSocial_onKeyPressed" promptText="%text.fantasia" GridPane.columnSpan="3" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" right="40.0" />
                      </GridPane.margin>
@@ -60,7 +60,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="txtPesqInscricao" onKeyPressed="#txtInscricao_onKeyPressed" promptText="\%text.inscricao" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="txtPesqInscricao" onKeyPressed="#txtInscricao_onKeyPressed" promptText="%text.inscricao" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
@@ -125,7 +125,7 @@
                      </VBox.margin>
                      <children>
                         <Label fx:id="lblFornecedor" text="%label.fornecedor" />
-                        <Label fx:id="lblRazaoSocial" text="%label.razaoSocial" GridPane.rowIndex="1" />
+                        <Label fx:id="lblRazaoSocial" text="%label.fantasia" GridPane.rowIndex="1" />
                         <Label fx:id="lblCNPJ" text="%label.cnpj" GridPane.rowIndex="2" />
                         <Label fx:id="lblCompra" text="%label.compra" GridPane.rowIndex="3" />
                         <Label fx:id="lblIID" text="%label.identificacao" GridPane.rowIndex="4" />

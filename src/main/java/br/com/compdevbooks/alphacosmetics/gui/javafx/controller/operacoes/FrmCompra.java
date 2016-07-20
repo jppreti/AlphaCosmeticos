@@ -3,16 +3,29 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes;
 import br.com.compdevbooks.alphacosmetics.business.Categoria;
 import br.com.compdevbooks.alphacosmetics.business.Fornecedor;
 import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
+import br.com.compdevbooks.alphacosmetics.business.operacoes.Compra;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.ItemCompra;
+import br.com.compdevbooks.alphacosmetics.business.pagamento.Banco;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.BoletoBancarioEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.SituacaoPagamentoEnum;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.TipoPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +37,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,12 +51,15 @@ public class FrmCompra {
 
     @FXML
     private Button btnConfirmar;
-    
+
     @FXML
     private Button btnMais;
-    
+
     @FXML
     private Button btnMenos;
+
+    @FXML
+    private Button btnFormadePagamento;
 
     @FXML
     private TextField txtFornecedor;
@@ -58,6 +75,9 @@ public class FrmCompra {
 
     @FXML
     private Tab tabProduto;
+
+    @FXML
+    private TabPane tabPainel;
 
     @FXML
     private TextField txtProdutoCarrinho;
@@ -135,6 +155,91 @@ public class FrmCompra {
     private Label lblMensagem;
 
     @FXML
+    private Tab tabFormaPagamento;
+
+    @FXML
+    private TextField txtvalorTotal;
+
+    @FXML
+    private TableView<ItemCompraEntity> tblItemCompras;
+
+    @FXML
+    private TableColumn<ItemCompraEntity, String> clmFornecedor;
+
+    @FXML
+    private TableColumn<ItemCompraEntity, String> clmItemCompra;
+
+    @FXML
+    private ComboBox<TipoPagamentoEnum> cmbFormaPagamento;
+
+    @FXML
+    private TextField txtNumeroParcelas;
+
+    @FXML
+    private Button btnMenos_Parcelas;
+
+    @FXML
+    private Button btnMais_Parcelas;
+
+    @FXML
+    void btnMenos_Parcelas_onMouseClicked(MouseEvent event) {
+        int x = Integer.parseInt(this.txtNumeroParcelas.getText());
+        x--;
+        if (x > 0) {
+            this.txtNumeroParcelas.setText(Integer.toString(x));
+        }
+    }
+
+    @FXML
+    void btnMais_Parcelas_onMouseClicked(MouseEvent event) {
+        int x = Integer.parseInt(this.txtNumeroParcelas.getText());
+        x++;
+        this.txtNumeroParcelas.setText(Integer.toString(x));
+    }
+
+    @FXML
+    void btnFormadePagamento_onAction(ActionEvent event) {
+        this.lblMensagem.setText("");
+        this.tabFormaPagamento.setDisable(false);
+        this.tabPainel.getSelectionModel().select(this.tabFormaPagamento);
+        this.tabProduto.setDisable(true);
+        this.tabCarrinho.setDisable(true);
+        this.btnConfirmar.setVisible(true);
+        this.completarFormaPagamento();
+    }
+
+    void completarFormaPagamento() {
+        ObservableList<TipoPagamentoEnum> ob = FXCollections.observableArrayList();
+        ob.add(TipoPagamentoEnum.VISTA);
+        ob.add(TipoPagamentoEnum.PRAZO);
+
+        this.cmbFormaPagamento.setItems(ob);
+
+        this.clmFornecedor.setCellValueFactory(new PropertyValueFactory<>("NomeFornecedor"));
+        this.clmItemCompra.setCellValueFactory(new PropertyValueFactory<>("NomeProduto"));
+        this.tblItemCompras.setItems(FXCollections.observableArrayList(listaCarrinho));
+
+        float x = 0;
+
+        for (ItemCompraEntity ic : listaCarrinho) {
+            x = (ic.getProdutoVO().getValorCompra()) * (ic.getQuantidadePedida());
+        }
+
+        this.txtvalorTotal.setText(Float.toString(x));
+
+        this.btnMais_Parcelas.setDisable(true);
+        this.btnMenos_Parcelas.setDisable(true);
+
+        this.cmbFormaPagamento.getSelectionModel().selectFirst();
+
+    }
+
+    @FXML
+    void btnFormadePagamento_onKeyPressed(KeyEvent event) {
+        this.btnFormadePagamento.fire();
+    }
+
+    @FXML
     void btnConfirmar_onAction(ActionEvent event) {
         if (listaCarrinho.size() == 0) {
 
@@ -149,7 +254,7 @@ public class FrmCompra {
 
             caixa.showAndWait().ifPresent(p -> {
                 if (p == sim) {
-                    //adicionar na persistencia itens compra
+                    completarCompra();
                     getPai(this.bdpPrincipal);
                 }
                 if (p == nao) {
@@ -157,6 +262,114 @@ public class FrmCompra {
                 }
             });
         }
+    }
+
+    @FXML
+    void cmbFormaPagamento_onAction(ActionEvent event) {
+        if (cmbFormaPagamento.getSelectionModel().getSelectedItem().equals(TipoPagamentoEnum.VISTA)) {
+            this.txtNumeroParcelas.setText("1");
+            this.txtNumeroParcelas.setDisable(true);
+            this.btnMais_Parcelas.setDisable(true);
+            this.btnMenos_Parcelas.setDisable(true);
+        } else {
+            this.txtNumeroParcelas.setDisable(false);
+            this.btnMais_Parcelas.setDisable(false);
+            this.btnMenos_Parcelas.setDisable(false);
+        }
+    }
+
+    List<CompraEntity> listaCompras = new ArrayList<>();
+    private static Banco ABanco = new Banco(DAOFactory.getDAOFactory().getBancoDAO());
+
+    void completarCompra() {
+
+        List<List<ItemCompraEntity>> matAux = new ArrayList<>();
+        boolean i = false;
+        
+        matAux.add(new ArrayList<>());
+        
+        for (ItemCompraEntity ic : listaCarrinho) {
+            if(matAux.get(0).isEmpty())matAux.get(0).add(ic);
+            else{
+                for (List<ItemCompraEntity> listiic : matAux) {
+                    if(listiic.get(0).getProdutoVO().getFornecedor().getFantasia().equals(ic.getNomeFornecedor())) {
+                        listiic.add(ic);
+                        i = true;
+                    }
+                }
+                if(!i){
+                    List<ItemCompraEntity> listAux = new ArrayList<>();
+                    listAux.add(ic);
+                    matAux.add(listAux);
+                }
+            }
+        }
+
+        TipoPagamentoEnum e = this.cmbFormaPagamento.getValue();
+        PagamentoEntity paga = new PagamentoEntity();
+        paga.setId((long) 1);
+        paga.setSituPagamento(SituacaoPagamentoEnum.NORMAL);
+        paga.setTipoPagamento(e);
+
+        Set<ParcelaPagamentoEntity> listaParcelas = new HashSet<>();
+
+        ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
+
+        BoletoBancarioEntity boleto = new BoletoBancarioEntity();
+        boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A."));
+        boleto.setAgencia("5423-5");
+        boleto.setCarteira("Registrada");
+        
+        
+        int j = 1;
+        if (e == TipoPagamentoEnum.VISTA) {
+            
+            boleto.setId((long) j);
+            boleto.setCodigoBarra(UUID.randomUUID().toString());
+            
+            parcela.setDataVencimento(new Date());
+            parcela.setValorOriginal(Float.parseFloat(this.txtvalorTotal.getText()));
+            parcela.setValorTotalPago(0.00);
+            parcela.setDocumentoPagamento(boleto);
+            listaParcelas.add(parcela);
+            paga.setListaParcelas(listaParcelas);
+        } else {
+            int numeroParcelas = Integer.parseInt(this.txtNumeroParcelas.getText());
+            float valorParcelas = Float.parseFloat(this.txtvalorTotal.getText()) / numeroParcelas;
+
+            for (int x = 0; x < numeroParcelas; x++) {
+                boleto.setId((long)(x + 1));
+                boleto.setCodigoBarra(UUID.randomUUID().toString());
+                
+                
+                parcela.setValorOriginal(valorParcelas);
+                parcela.setValorTotalPago(0.00);
+                parcela.setDocumentoPagamento(boleto);
+                listaParcelas.add(parcela);
+            }
+
+            paga.setListaParcelas(listaParcelas);
+
+        }
+        j = 4;
+        for (List<ItemCompraEntity> l : matAux) {
+            j++;
+            this.listaCompras.add(new CompraEntity((long)j, new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l)));
+        }
+
+        ItemCompra itensFinalizados = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
+
+        for (ItemCompraEntity ice : listaCarrinho) {
+            itensFinalizados.save(ice);
+        }
+
+        Compra compraFinalizada = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
+
+        for (CompraEntity c : listaCompras) {
+            compraFinalizada.save(c);
+            
+        }
+
     }
 
     @FXML
@@ -234,7 +447,8 @@ public class FrmCompra {
                 listaCarrinho.add(aux2);
             }
             completarCarrinhoComLista();
-            this.lblMensagem.setText("Produto \""+aux2.getProdutoVO().getNome()+"\" adicionado ao carrinho.");
+            this.lblMensagem.setText("Produto \"" + aux2.getProdutoVO().getNome() + "\" adicionado ao carrinho.");
+            this.tabCarrinho.setDisable(false);
         }
     }
 
@@ -283,41 +497,44 @@ public class FrmCompra {
     void btnNovoProduto_onKeyPressed(KeyEvent event) {
         this.btnNovoProduto.fire();
     }
-    
+
     @FXML
     void tblProduto_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.txtQtdePedir.requestFocus();
         }
     }
-        
+
     @FXML
     void tblProduto_onMouseClicked(MouseEvent event) {
-        if(event.getClickCount()>=2)
-           this.btnAdicionarCarrinho.fire();
+        if (event.getClickCount() >= 2) {
+            this.btnAdicionarCarrinho.fire();
+        }
     }
-    
+
     @FXML
-    void tblProdutoCarrinho_onKeyPressed(KeyEvent event){
+    void tblProdutoCarrinho_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.btnRemoverProduto.requestFocus();
         }
     }
-    
+
     @FXML
     void btnMais_onMouseClicked(MouseEvent event) {
         int x = Integer.parseInt(this.txtQtdePedir.getText());
         x++;
         this.txtQtdePedir.setText(Integer.toString(x));
     }
-    
+
     @FXML
     void btnMenos_onMouseClicked(MouseEvent event) {
         int x = Integer.parseInt(this.txtQtdePedir.getText());
-        if(x>1)x--;
+        if (x > 1) {
+            x--;
+        }
         this.txtQtdePedir.setText(Integer.toString(x));
     }
-    
+
     @FXML
     void btnRemover_onAction(ActionEvent event) {
         if (this.tblProdutoCarrinho.getSelectionModel().getSelectedItem() == null) {
@@ -326,7 +543,11 @@ public class FrmCompra {
             ItemCompraEntity item = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getProduto();
             listaCarrinho.remove(item);
             this.completarCarrinhoComLista();
-            this.lblMensagem.setText("Produto \""+item.getProdutoVO().getNome()+"\" removido do carrinho.");
+            this.lblMensagem.setText("Produto \"" + item.getProdutoVO().getNome() + "\" removido do carrinho.");
+            if (listaCarrinho.size() == 0) {
+                this.tabPainel.getSelectionModel().select(this.tabProduto);
+                this.tabCarrinho.setDisable(true);
+            }
         }
     }
 
@@ -355,9 +576,9 @@ public class FrmCompra {
             ob.add(cat.getNome());
         }
         this.cmbCategoria.setItems(ob);
-        
+
         this.txtQtdePedir.setText("1");
-        
+
         this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
     }
 
@@ -370,7 +591,7 @@ public class FrmCompra {
         this.clmProdutoFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
         this.tblProduto.setItems(FXCollections.observableArrayList(lista));
     }
-    
+
     private void completarCarrinhoComLista() {
         List<TabelaTelaCompraCarrinho> listItem = new ArrayList<>();
 
@@ -380,7 +601,6 @@ public class FrmCompra {
         }
         completarCarrinho(listItem);
     }
-    
 
     private void completarCarrinho(List<TabelaTelaCompraCarrinho> lista) {
 
@@ -394,7 +614,6 @@ public class FrmCompra {
         }
         this.cmbCategoriaCarrinho.setItems(ob);
 
-        
         this.clmProdutoCarrinhoProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
         this.clmProdutoCarrinhoQtdePedida.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         this.clmProdutoCarrinhoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
@@ -475,15 +694,14 @@ public class FrmCompra {
         }
         this.completarCarrinho(listItem);
     }
-    
-    public ArrayList<ItemCompraEntity> buscarEmLista(ItemCompraEntity ic){
-        
+
+    public ArrayList<ItemCompraEntity> buscarEmLista(ItemCompraEntity ic) {
+
         ArrayList<ItemCompraEntity> buscado = new ArrayList<>();
         int x;
-        
-        
-        for(ItemCompraEntity vo: listaCarrinho){
-          x = 0;
+
+        for (ItemCompraEntity vo : listaCarrinho) {
+            x = 0;
             if (ic.getProdutoVO().getNome().equals("") || vo.getProdutoVO().getNome().toUpperCase().contains(ic.getProdutoVO().getNome().toUpperCase())) {
                 x++;
             }

@@ -69,7 +69,7 @@ public class CompraEntity implements IEntity {
         this.situacao=sit;
         this.listaItens=lista;
     }
-
+    
     public Long getId() {
         return Id;
     }

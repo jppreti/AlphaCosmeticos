@@ -36,7 +36,7 @@ public class ItemCompraEntity implements IEntity {
         this.quantidadePedida=qtdePedida;
         this.produtoVO=produto;
     }
-
+    
     public Long getId() {
         return Id;
     }
@@ -74,6 +74,9 @@ public class ItemCompraEntity implements IEntity {
     }
     public String getNomeProduto(){
         return this.produtoVO.getNome();
+    }
+    public String getNomeFornecedor(){
+        return this.produtoVO.getFornecedor().getFantasia();
     }
 
     @Override

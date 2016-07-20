@@ -20,7 +20,7 @@ public class MockItemCompraDAO implements IItemCompraDAO {
     private static List<ItemCompraEntity> lista = new ArrayList();
     private static MockProdutoDAO produto = new MockProdutoDAO();
 
-    static {
+    static {      
         lista.add(new ItemCompraEntity((long) 1, 10, produto.getById((long) 1)));
         lista.add(new ItemCompraEntity((long) 2, 20, produto.getById((long) 2)));
         lista.add(new ItemCompraEntity((long) 3, 15, produto.getById((long) 3)));
