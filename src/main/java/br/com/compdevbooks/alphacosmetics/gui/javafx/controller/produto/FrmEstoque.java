@@ -14,7 +14,6 @@ import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
-import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.ComparaDoisCriterios;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaEstoque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -213,7 +212,7 @@ public class FrmEstoque {
     @FXML
     void cmbCategoria_onAction(ActionEvent event) {
         this.objetoBuscar();
-    }
+    }// mudar para separado
     
     @FXML
     void tblProduto_onMouseClicked(MouseEvent event) {

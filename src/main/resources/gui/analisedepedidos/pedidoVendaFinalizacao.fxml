@@ -189,8 +189,8 @@
             <TableView fx:id="tblItemVenda" prefHeight="240.0" prefWidth="944.0">
               <columns>
                 <TableColumn fx:id="clmID" prefWidth="103.0" text="%column.id" />
-                <TableColumn fx:id="clmProduto" prefWidth="661.0" text="%column.produto" />
-                  <TableColumn fx:id="clmQtdeVendida" prefWidth="180.0" text="%column.qtdeVendida" />
+                <TableColumn fx:id="clmProduto" prefWidth="655.0" text="%column.produto" />
+                  <TableColumn fx:id="clmQtdeVendida" prefWidth="185.0" text="%column.qtdeVendida" />
               </columns>
                <VBox.margin>
                   <Insets left="40.0" right="40.0" top="40.0" />

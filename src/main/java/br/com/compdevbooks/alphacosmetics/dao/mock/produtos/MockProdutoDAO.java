@@ -23,7 +23,7 @@ public class MockProdutoDAO implements IProdutoDAO {
 
     static {
         produtos.add(new ProdutoEntity((long) 1, "One Million", (float) 10.0, (float) 5.0, (float) 2.0, (float) 4.0, (float) 8.0, cat.getById((long) 1), 30, fornecedor.getById((long) 1)));
-        produtos.add(new ProdutoEntity((long) 2, "Vermelho", (float) 10.0, (float) 5.0, (float) 2.0, (float) 4.0, (float) 8.0, cat.getById((long) 2), 10, fornecedor.getById((long) 2)));
+        produtos.add(new ProdutoEntity((long) 2, "Vermelho", (float) 10.0, (float) 5.0, (float) 2.0, (float) 4.0, (float) 8.0, cat.getById((long) 2), 50, fornecedor.getById((long) 2)));
         produtos.add(new ProdutoEntity((long) 3, "head shoulder", (float) 10.0, (float) 5.0, (float) 2.0, (float) 4.0, (float) 8.0, cat.getById((long) 3), 40, fornecedor.getById((long) 3)));
         //verificar 
 
