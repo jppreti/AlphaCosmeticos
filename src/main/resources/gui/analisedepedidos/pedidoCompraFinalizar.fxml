@@ -39,7 +39,7 @@
                <children>
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblRazaoSocial" text="%label.razaoSocial">
+                        <Label fx:id="lblRazaoSocial" text="%label.fornecedor">
                            <FlowPane.margin>
                               <Insets right="10.0" />
                            </FlowPane.margin>
@@ -48,7 +48,7 @@
                   </FlowPane>
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="lblInscricao" text="%label.inscirção">
+                        <Label fx:id="lblInscricao" text="%label.inscricao">
                            <FlowPane.margin>
                               <Insets right="10.0" />
                            </FlowPane.margin>
@@ -76,7 +76,7 @@
                   <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2">
                      <children>
                         <Label fx:id="lblCNPJ" text="%label.cnpj" />
-                        <TextField fx:id="txtCNPJ" prefHeight="25.0" prefWidth="166.0">
+                        <TextField fx:id="txtCNPJ" editable="false" prefHeight="25.0" prefWidth="166.0">
                            <FlowPane.margin>
                               <Insets left="10.0" />
                            </FlowPane.margin>
@@ -104,12 +104,12 @@
                         </Label>
                      </children>
                   </FlowPane>
-                  <TextField fx:id="txtRazaoSocial" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-                  <TextField fx:id="txtInscricao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="txtQtdeTotal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="txtDtRecebimento" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="lblValorTotal" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtRazaoSocial" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                  <TextField fx:id="txtInscricao" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtID" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtQtdeTotal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtDtRecebimento" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="lblValorTotal" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                </children>
                <VBox.margin>
                   <Insets />

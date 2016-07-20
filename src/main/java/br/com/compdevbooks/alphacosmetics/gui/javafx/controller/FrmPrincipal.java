@@ -5,6 +5,7 @@ import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmProduto;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmComissao;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_receber;
@@ -139,7 +140,20 @@ public class FrmPrincipal {
         }catch (IOException ioe){
             ioe.printStackTrace();
         }    	
-    }    
+    }
+
+    @FXML //Add inicio - Evento Aba Produto
+        void mniProduto_onAction(ActionEvent event) {
+            BorderPane frmProduto = null;
+
+            try{
+                frmProduto = FXMLLoader.load(FrmProduto.class.getClassLoader().getResource("gui/FrmProduto.fxml"));//,ResourceBundle.getBundle("gui/i18N"));
+                bdpPrincipal.setCenter(frmProduto);
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+            }    	
+        }//Add fim
+    
     @FXML
     void mniPedidoVenda_onAction(ActionEvent event) {
       /*

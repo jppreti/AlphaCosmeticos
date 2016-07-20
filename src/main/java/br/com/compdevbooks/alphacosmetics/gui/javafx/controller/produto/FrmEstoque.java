@@ -11,14 +11,12 @@ import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.ItemCompra;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.ItemVenda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.dao.mock.produtos.MockCategoriaDAO;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
-import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaEstoque;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import org.hibernate.persister.collection.CollectionPropertyNames;
 
 public class FrmEstoque {
     
@@ -150,6 +149,9 @@ public class FrmEstoque {
         for(ProdutoEntity vo : l){
             lista.add(new TabelaTelaEstoque(vo));
         }
+        
+        Collections.sort(lista);
+        
         this.completarProdutos(lista);
         
         ObservableList<String> ob = FXCollections.observableArrayList();
@@ -168,7 +170,6 @@ public class FrmEstoque {
         this.clmProdutoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         this.clmProdutoFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
         this.tblProduto.setItems(FXCollections.observableArrayList(lista));
-       
     }
     
     
@@ -211,7 +212,7 @@ public class FrmEstoque {
     @FXML
     void cmbCategoria_onAction(ActionEvent event) {
         this.objetoBuscar();
-    }
+    }// mudar para separado
     
     @FXML
     void tblProduto_onMouseClicked(MouseEvent event) {
@@ -219,6 +220,15 @@ public class FrmEstoque {
        Completar(produto);
        if(event.getClickCount()>=2)
            this.tbpEstoque.getSelectionModel().select(this.tabDetalhe);
+    }
+    
+    @FXML
+    void tblProduto_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER){
+            ProdutoEntity produto = tblProduto.getSelectionModel().getSelectedItem().getProduto();
+            Completar(produto);
+            this.tbpEstoque.getSelectionModel().select(this.tabDetalhe);
+        }
     }
     
     void Completar( ProdutoEntity produto){
@@ -250,7 +260,7 @@ public class FrmEstoque {
         if (event.getCode() == KeyCode.ENTER)
             this.objetoBuscar();
     }
-
+    
     @FXML
     void txtNome_onKeyPressed(KeyEvent event) {
         
@@ -288,7 +298,8 @@ public class FrmEstoque {
     
     @FXML
     void txtFornecedor_onKeyPressed(KeyEvent event) {
-
+        if (event.getCode() == KeyCode.ENTER)
+             this.objetoBuscar();
     }
     
     private void objetoBuscar(){

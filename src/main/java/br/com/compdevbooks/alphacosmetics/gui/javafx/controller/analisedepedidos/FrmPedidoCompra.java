@@ -158,6 +158,8 @@ public class FrmPedidoCompra {
         MaskFieldUtil.dateField(this.txtPesqDtLancamento);
         this.btnConferir.setDisable(true);
         this.btnFinalizar.setDisable(true);
+        MaskFieldUtil.dateField(this.txtPesqDtLancamento);
+        MaskFieldUtil.cnpjField(this.txtPesqCNPJ);
     }
     private void completarCompra(List<CompraEntity> lista){
         this.clmCompraDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
@@ -220,11 +222,10 @@ public class FrmPedidoCompra {
 
     @FXML
     void btnCancelar_onAction(ActionEvent event) {
-            ((BorderPane)NavegarObjetos.getPai()).setCenter(null);
     }
 
     @FXML
-    void btnnCancelar_onKeyPressed(ActionEvent event) {
+    void btnnCancelar_onKeyPressed(KeyEvent event) {
 
     }
 

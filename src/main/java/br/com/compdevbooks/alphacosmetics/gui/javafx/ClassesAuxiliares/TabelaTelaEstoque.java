@@ -12,9 +12,10 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import java.util.Comparator;
 import java.util.List;
 
-public class TabelaTelaEstoque {
+public class TabelaTelaEstoque implements Comparable<TabelaTelaEstoque> {
     private ProdutoEntity produto;
     private ItemVenda itemVenda= new ItemVenda(DAOFactory.getDAOFactory().getItemVendaDAO());
     private ItemCompra itemCompra=new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
@@ -67,4 +68,23 @@ public class TabelaTelaEstoque {
     public String getFornecedor(){
         return produto.getFornecedor().getFantasia();
     }
+    @Override
+    public int compareTo(TabelaTelaEstoque t) {
+        int retorno =0;
+        if(this==null || t==null){
+            return 0;
+        }
+        
+        if(this.getProduto().getQuantidade()<=15 && t.getProduto().getQuantidade()>15){
+            retorno=-1;
+        } else if (t.getProduto().getQuantidade()<=15 && this.getProduto().getQuantidade()>15){
+            retorno=1 ;
+        } else{
+           retorno = this.getProduto().getNome().toUpperCase().compareTo(t.getProduto().getNome().toUpperCase());
+        }
+        
+        return retorno;
+    }
+
+    
 }
