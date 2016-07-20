@@ -15,7 +15,7 @@
                   <items>
                     <MenuItem fx:id="mniCadPessoa" mnemonicParsing="false" onAction="#mniCliente_onAction" text="%cadastro.pessoas" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniCadProduto" mnemonicParsing="false" text="%cadastro.produtos" />
+                        <MenuItem fx:id="mniCadProduto" mnemonicParsing="false" onAction="#mniProduto_onAction" text="%cadastro.produtos" />
                   </items>
                 </Menu>
                   <Menu fx:id="mnuProduto" mnemonicParsing="false" text="%menu.produtos">

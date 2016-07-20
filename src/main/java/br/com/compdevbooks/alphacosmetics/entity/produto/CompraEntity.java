@@ -21,6 +21,9 @@ import javax.persistence.TemporalType;
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 @Entity
 @Table(name = "compra")
@@ -77,7 +80,7 @@ public class CompraEntity implements IEntity {
     }
 
       public String getNomeFornecedor(){
-        return fornecedorVO.getNome();
+        return fornecedorVO.getFantasia();
     }
     public Date getDataLancamento() {
         return dataLancamento;
@@ -85,6 +88,9 @@ public class CompraEntity implements IEntity {
 
     public void setDataLancamento(Date dataLancamento) {
         this.dataLancamento = dataLancamento;
+    }
+     public void setDataLancamentoString(String data) throws ParseException{
+        this.dataLancamento= (Date)new SimpleDateFormat("dd/MM/yyyy").parse(data);
     }
 
     public Date getDataEnvio() {
@@ -141,6 +147,29 @@ public class CompraEntity implements IEntity {
 
     public void setPagamentoVO(PagamentoEntity pagamentoVO) {
         this.pagamentoVO = pagamentoVO;
+    }
+    public String getDataLancamentoString(){
+        return new SimpleDateFormat("dd/MM/yyyy").format(this.dataLancamento);
+    }
+    public float getValorTotal(){
+        Iterator<ItemCompraEntity> i= listaItens.iterator();
+        float vT=0;
+        ItemCompraEntity item=null;
+        while(i.hasNext()){
+            item=i.next();
+            vT+=item.getQuantidadePedida()*item.getProdutoVO().getValorCompra();
+        }
+        return vT;
+    }
+    public float getQtdeTotal(){
+        Iterator<ItemCompraEntity> i= listaItens.iterator();
+        float qtdeT=0;
+        ItemCompraEntity item=null;
+        while(i.hasNext()){
+            item=i.next();
+            qtdeT+=item.getQuantidadePedida();
+        }
+        return qtdeT;
     }
     
     @Override

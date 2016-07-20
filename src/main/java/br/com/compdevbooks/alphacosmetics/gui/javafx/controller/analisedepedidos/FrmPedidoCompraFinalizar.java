@@ -5,10 +5,17 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos;
 
-import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
-import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,10 +38,10 @@ public class FrmPedidoCompraFinalizar {
     private Label lblDtRecebimento;
 
     @FXML
-    private TableColumn<?, ?> clmItemCompraQtdeTotal;
+    private TableColumn<ItemCompraEntity, Integer> clmItemCompraQtdeTotal;
 
     @FXML
-    private TableColumn<?, ?> clmItemCompraProduto;
+    private TableColumn<ItemCompraEntity, String> clmItemCompraProduto;
 
     @FXML
     private Button btnFinalizar;
@@ -42,7 +50,7 @@ public class FrmPedidoCompraFinalizar {
     private TextField txtInscricao;
 
     @FXML
-    private TableColumn<?, ?> clmItemCompraID;
+    private TableColumn<ItemCompraEntity, String> clmItemCompraID;
 
     @FXML
     private Label lblQtdeTotal;
@@ -66,7 +74,7 @@ public class FrmPedidoCompraFinalizar {
     private Label lblCNPJ;
 
     @FXML
-    private TableColumn<?, ?> clmItemCompraQtdeEstoque;
+    private TableColumn<ItemCompraEntity, Integer> clmItemCompraQtdeEstoque;
 
     @FXML
     private TextField txtRazaoSocial;
@@ -81,23 +89,76 @@ public class FrmPedidoCompraFinalizar {
     private Label lblInscricao;
 
     @FXML
-    private TableView<?> tblItemCompra;
+    private TableView<ItemCompraEntity> tblItemCompra;
 
     @FXML
-    private TableColumn<?, ?> clmItemCompraQtdeRecebida;
+    private TableColumn<ItemCompraEntity, Integer> clmItemCompraQtdeRecebida;
 
     @FXML
     private Label lblPedidoCompraFinalizar;
-       
-
+    
+    private CompraEntity compra;
+    
     @FXML
-    void btnFinalizar_onAction(ActionEvent event) {
-
+    void initialize(){
+        this.tblItemCompra.requestFocus();
+        compra= NavegarObjetos.getCompra();
+        completarTable(compra.getListaItens());
+        this.txtRazaoSocial.setText(compra.getNomeFornecedor());
+        this.txtInscricao.setText(compra.getFornecedorVO().getInscricao());
+        this.txtCNPJ.setText(compra.getFornecedorVO().getCNPJ());
+        this.txtDtRecebimento.setText(new SimpleDateFormat("dd/MM/yyyy").format(compra.getDataRecebimento()));
+        this.txtQtdeTotal.setText(String.valueOf(compra.getQtdeTotal()));
+        this.lblValorTotal.setText(String.valueOf(compra.getValorTotal()));
+        this.txtID.setText(String.valueOf(compra.getId()));
+   }
+    private void completarTable(Set<ItemCompraEntity> lista){
+        this.clmItemCompraID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.clmItemCompraProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+        this.clmItemCompraQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadePedida"));
+        this.clmItemCompraQtdeEstoque.setCellValueFactory(new PropertyValueFactory<>("quantidadeEstoque"));
+        this.clmItemCompraQtdeTotal.setCellValueFactory(new PropertyValueFactory<>("quantidadeTotal"));
+        this.tblItemCompra.setItems(FXCollections.observableArrayList(lista));
     }
 
     @FXML
-    void btnFinalizar_onKeyPressed(ActionEvent event) {
+    void btnSair_onAction(ActionEvent event) {
+            BorderPane frmCompra=null;
+        try{
+            frmCompra= FXMLLoader.load(FrmPedidoCompra.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            
+            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmCompra);
+            
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+    }
 
+    @FXML
+    void btnSair_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER)
+            btnSair.fire();
+    }
+
+    @FXML
+    void btnFinalizar_onAction(ActionEvent event) {
+        compra.setSituacao(SituacaoCompraEnum.PROCESSADA);
+        Date data= new Date();
+        compra.setDataProcessamento(data);
+        Iterator<ItemCompraEntity> i= compra.getListaItens().iterator();
+        ItemCompraEntity item=null;
+        while(i.hasNext()){
+            item= i.next();
+            item.getProdutoVO().setQuantidade(item.getProdutoVO().getQuantidade()+item.getQuantidadeFornecida());
+        }
+       btnSair.fire();
+    }
+
+    @FXML
+    void btnFinalizar_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER)
+            btnFinalizar.fire();
     }
 
 }

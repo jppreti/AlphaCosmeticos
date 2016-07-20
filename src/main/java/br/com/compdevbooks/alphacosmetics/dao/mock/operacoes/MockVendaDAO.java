@@ -56,7 +56,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 2));
-            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDO, listaItem, cliente.nomeEspecifico(4l));
+            VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.PEDIDA, listaItem, cliente.nomeEspecifico(4l));
           
               
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
@@ -113,8 +113,11 @@ public class MockVendaDAO implements IVendaDAO {
             listaItem = new HashSet();
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 3));
-            temp = new VendaEntity((long) 2, data, SituacaoVendaEnum.PEDIDO, listaItem, cliente.nomeEspecifico(2l));
+
+            temp = new VendaEntity((long) 2, data, SituacaoVendaEnum.PEDIDA, listaItem, cliente.nomeEspecifico(2l));
             //temp.setClienteVO(clienteDao.getById((long) 2));
+
+
 
             boleto = new BoletoBancarioEntity();
             listaParcela = new HashSet();
@@ -171,14 +174,34 @@ public class MockVendaDAO implements IVendaDAO {
     }
 
     public List<VendaEntity> buscarGerenteEstoque(ClienteEntity cliente, VendaEntity venda) {
-       ArrayList<VendaEntity> res= new ArrayList<>();
-       for(VendaEntity vo: vendas)
-           if( vo.getClienteVO().getNome().toUpperCase().contains(cliente.getNome().toUpperCase()) &&
-                /*vo.getClienteVO().getCNPJ().contains(cliente.getCNPJ()) &&*/
-                vo.getSituacao().equals(venda.getSituacao()) &&
-                vo.getDataLancamento().equals(venda.getDataLancamento()))
-               res.add(vo);
-       return res;
+        ArrayList<VendaEntity> res= new ArrayList<>();
+        int x=0;
+        for(VendaEntity vo : vendas){
+            x=0;
+            if(!venda.getSituacao().equals(null)){
+            if(vo.getSituacao().equals(venda.getSituacao()))
+                x++;
+            }
+            if(vo.getClienteVO().getNome().toUpperCase().contains(cliente.getNome().toUpperCase()))
+                x++;
+            if(vo.getClienteVO().getCNPJ().contains(cliente.getCNPJ()))
+                x++;
+            try {
+                if(0!=venda.getDataLancamento().compareTo(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1111"))){
+                    if(vo.getDataLancamento().compareTo(venda.getDataLancamento())==0)
+                        x++;
+                }else{
+                    x++;
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(MockVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            if(x==4)             
+                res.add(vo);
+            x=0;
+        }
+        return res;
     }
 
     @Override
@@ -187,7 +210,7 @@ public class MockVendaDAO implements IVendaDAO {
         int x=0;
         for(VendaEntity vo : vendas){
             x=0;
-            if(vo.getSituacao().equals(SituacaoVendaEnum.PEDIDO))
+            if(vo.getSituacao().equals(SituacaoVendaEnum.PEDIDA))
                 x++;
             if(vo.getClienteVO().getNome().toUpperCase().contains(cliente.getNome().toUpperCase()))
                 x++;
@@ -231,13 +254,17 @@ public class MockVendaDAO implements IVendaDAO {
     }
     @Override
     public  List<VendaEntity> buscarTodasVendas(){
-        return vendas;
+       List<VendaEntity> temp = new ArrayList();
+        for(VendaEntity vo: vendas)
+            if(!vo.getSituacao().equals(SituacaoVendaEnum.ANALISE))
+                temp.add(vo);
+        return temp;
     }
     @Override
     public List<VendaEntity> buscarVendas(){
         List<VendaEntity> temp = new ArrayList();
         for(VendaEntity vo: vendas)
-            if(vo.getSituacao().equals(SituacaoVendaEnum.PEDIDO))
+            if(vo.getSituacao().equals(SituacaoVendaEnum.ANALISE))
                 temp.add(vo);
         return temp;
     }

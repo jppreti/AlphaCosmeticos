@@ -11,10 +11,14 @@ import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.VendedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemVendaEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -23,7 +27,9 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -109,6 +115,7 @@ public class FrmPedidoVendaFinalizacao {
         this.clmID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
         this.clmQtdeVendida.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        
         this.tblItemVenda.setItems(FXCollections.observableArrayList(lista));
     }
     
@@ -124,8 +131,11 @@ public class FrmPedidoVendaFinalizacao {
         this.txtQtdeTotal.setText(Float.toString(venda.getQtdeTotal()));
 
         this.txtDtLancamento.setText(venda.getDataLancamentoString()); 
-        //this.txtDtAprovacao.setText(venda.getDataAprovacaoString());
-         //this.txtDtEnvio.setText(venda.getDataRecebimString());
+        this.txtDtEnvio.setText(venda.getDataRecebimString());
+        if(venda.getDataAprovacao()!= null){
+            this.txtDtAprovacao.setText(venda.getDataAprovacaoString());
+        }
+        
     }
     
     VendedorEntity buscarVendedor(){
@@ -168,22 +178,65 @@ public class FrmPedidoVendaFinalizacao {
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {
-
+        AceitarDialog();
     }
 
     @FXML
     void btnFinalizar_onKeyPressed(KeyEvent event) {
-
+        if(event.getCode()==KeyCode.ENTER)
+            AceitarDialog();
     }
-
+    
+    private void AceitarDialog(){
+        Alert caixa= new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType sim= new ButtonType("Sim");
+        ButtonType nao = new ButtonType("Não");
+        caixa.setTitle("AlphaComesticos");
+        caixa.setHeaderText("Finalizar venda");
+        caixa.setContentText("Deseja realmente finalizar a venda?");
+        caixa.getButtonTypes().setAll(sim,nao);
+        caixa.showAndWait().ifPresent(p->{ 
+            if(p==sim){
+                venda.setSituacao(SituacaoVendaEnum.ENVIADA);
+                chamarPai();
+            }
+            if(p==nao){}
+        });        
+    }
+     
     @FXML
     void btnRecusar_onAction(ActionEvent event) {
-
+        RecusarDialog();
     }
 
     @FXML
     void btnRecusar_onKeyPressed(KeyEvent event) {
-
+        if(event.getCode()==KeyCode.ENTER)
+            RecusarDialog();
+    }
+     private void RecusarDialog(){
+        Alert caixa= new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType sim= new ButtonType("Sim");
+        ButtonType nao = new ButtonType("Não");
+        caixa.setTitle("AlphaComesticos");
+        caixa.setHeaderText("Finalizar venda");
+        caixa.setContentText("Deseja realmente recusar a venda?");
+        caixa.getButtonTypes().setAll(sim,nao);
+        
+        caixa.showAndWait().ifPresent(p->{ 
+            if(p==sim){
+                venda.setSituacao(SituacaoVendaEnum.RECUSADA);
+                ProdutoEntity prod= null;
+                for(ItemVendaEntity vo: venda.getListaItens()){
+                    prod=vo.getProdutoVO();
+                    prod.setQuantidade(prod.getQuantidade()+vo.getQuantidade());
+                }
+                chamarPai();
+            }
+            if(p==nao){}
+               
+            
+        });
     }
     
 }

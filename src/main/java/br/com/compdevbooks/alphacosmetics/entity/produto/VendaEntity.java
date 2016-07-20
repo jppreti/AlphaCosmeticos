@@ -30,7 +30,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "venda")
-public class VendaEntity implements IEntity {
+public class VendaEntity implements IEntity, Comparable<VendaEntity> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -209,4 +209,10 @@ public class VendaEntity implements IEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public int compareTo(VendaEntity t) {
+        return this.getSituacao().compareTo(t.getSituacao());
+            
+    }
 }
