@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -106,11 +108,6 @@
                                           <Insets right="10.0" />
                                        </FlowPane.margin>
                                     </Button>
-                                    <Button fx:id="btnAdicionarCarrinho" mnemonicParsing="false" onAction="#btnAdicionarCarrinho_onAction" onKeyPressed="#btnAdicionarCarrinho_onKeyPressed" text="%button.addcarrinho">
-                                       <FlowPane.margin>
-                                          <Insets right="10.0" />
-                                       </FlowPane.margin>
-                                    </Button>
                                  </children>
                               </FlowPane>
                            </children>
@@ -198,20 +195,188 @@
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                      <children>
-                        <TableView fx:id="tblItemCompras" disable="true" prefHeight="513.0" prefWidth="445.0">
+                        <TableView fx:id="tblItemCompras" prefHeight="399.0" prefWidth="259.0">
                           <columns>
-                            <TableColumn fx:id="clmItemCompra" prefWidth="251.0" text="%column.itemcompra" />
-                              <TableColumn fx:id="clmFornecedor" prefWidth="193.0" text="%column.fornecedor" />
+                            <TableColumn fx:id="clmItemCompra" prefWidth="267.0" text="%column.itemcompra" />
                           </columns>
                            <HBox.margin>
-                              <Insets bottom="20.0" left="100.0" top="20.0" />
+                              <Insets left="20.0" top="20.0" />
                            </HBox.margin>
                         </TableView>
-                        <VBox prefHeight="513.0" prefWidth="392.0">
+                        <VBox prefHeight="513.0" prefWidth="636.0">
                            <HBox.margin>
                               <Insets bottom="20.0" right="10.0" top="20.0" />
                            </HBox.margin>
                            <children>
+                              <HBox alignment="CENTER" prefHeight="25.0" prefWidth="392.0">
+                                 <children>
+                                    <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="357.0" progress="0.0" />
+                                 </children>
+                              </HBox>
+                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="322.0" stroke="BLACK" strokeType="INSIDE" width="635.0">
+                                       <StackPane.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <GridPane>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <StackPane.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </StackPane.margin>
+                                       <children>
+                                          <GridPane GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="lblCodigoBarras" text="214214214214221421421414214214321312" GridPane.columnSpan="2">
+                                                   <graphic>
+                                                      <Label text="%label.codigodebarras">
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                   <padding>
+                                                      <Insets left="20.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <GridPane>
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label fx:id="lblNumeroDocumento" text="111111111" GridPane.columnSpan="2">
+                                                   <padding>
+                                                      <Insets left="20.0" />
+                                                   </padding>
+                                                   <graphic>
+                                                      <Label text="%label.numerodocumento">
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="lblBanco" text="Banco do Brasil" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="20.0" />
+                                                   </GridPane.margin>
+                                                   <graphic>
+                                                      <Label text="%label.banco">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="1">
+                                             <children>
+                                                <Label fx:id="lblNomeFornecedor" text="Fantasia 1" GridPane.columnSpan="2">
+                                                   <padding>
+                                                      <Insets left="20.0" />
+                                                   </padding>
+                                                   <graphic>
+                                                      <Label text="%label.fornecedor">
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                                <Label fx:id="lblBancoAgencia" text="5434-5" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <graphic>
+                                                      <Label text="%label.agencia">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                          <ImageView fitHeight="73.0" fitWidth="594.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                             <image>
+                                                <Image url="@../../imagem/codigobarras.jpg" />
+                                             </image>
+                                             <GridPane.margin>
+                                                <Insets left="20.0" top="20.0" />
+                                             </GridPane.margin>
+                                          </ImageView>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label fx:id="lblDataVenc" text="21/05/2016">
+                                                   <graphic>
+                                                      <Label text="%label.dataVenc">
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <Label fx:id="lblValorTotal" text="R$1.240,50">
+                                                   <graphic>
+                                                      <Label text="%label.valorTotal">
+                                                         <padding>
+                                                            <Insets right="20.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </graphic>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </StackPane>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                  <children>
                                     <Label text="%label.formaPagamento" />
@@ -225,16 +390,36 @@
                                  <children>
                                     <Label text="%label.numeroparcelas" />
                                     <TextField fx:id="txtNumeroParcelas" disable="true" text="1" />
-                                    <Button fx:id="btnMenos_Parcelas" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMenos_Parcelas_onMouseClicked" prefWidth="25.0" text="-" />
-                                    <Button fx:id="btnMais_Parcelas" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMais_Parcelas_onMouseClicked" text="+" />
+                                    <Button fx:id="btnMenos_Parcelas" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMenos_Parcelas_onMouseClicked" prefWidth="25.0" text="-" />
+                                    <Button fx:id="btnMais_Parcelas" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMais_Parcelas_onMouseClicked" text="+" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                              <GridPane prefHeight="85.0" prefWidth="655.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <Label text="%label.valorTotal" />
-                                    <TextField fx:id="txtvalorTotal" disable="true" />
+                                    <Label fx:id="lblValorParcela" text="R$1.240,50" GridPane.columnIndex="1">
+                                       <graphic>
+                                          <Label text="%label.valorParcela">
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </Label>
+                                       </graphic>
+                                    </Label>
+                                    <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                       <children>
+                                          <Button fx:id="btnProximo" mnemonicParsing="false" onAction="#btnProximo_onAction" onKeyPressed="#btnProximo_onKeyPressed" text="%button.proximo" />
+                                       </children>
+                                    </FlowPane>
                                  </children>
-                              </HBox>
+                              </GridPane>
                            </children>
                         </VBox>
                      </children>

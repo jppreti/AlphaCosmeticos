@@ -245,7 +245,7 @@ public class FrmContas_a_pagar {
                 tabela.setNome(vo.getNomeFornecedor());
                 tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
                 System.out.println(parcPg.getDocumentoPagamento().getNome());
-                tabela.setValor((float)parcPg.getValorTotalPago());
+                tabela.setValor((float)parcPg.getValorOriginal());
             
                listaFinal.add(tabela);
             }
