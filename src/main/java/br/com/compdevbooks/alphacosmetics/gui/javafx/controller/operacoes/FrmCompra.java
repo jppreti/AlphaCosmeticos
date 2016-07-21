@@ -20,6 +20,7 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +51,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 
 public class FrmCompra {
     
@@ -224,6 +224,21 @@ public class FrmCompra {
     }
     
     @FXML
+    void txtNumeroParcelas_onAction(ActionEvent event){
+        int x = Integer.parseInt(this.txtNumeroParcelas.getText());
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
+    }
+    
+    @FXML
+    void txtNumeroParcelas_onKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnProximo.requestFocus();
+        }
+    }
+    
+    
+    @FXML
     void btnProximo_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.btnProximo.fire();
@@ -257,7 +272,8 @@ public class FrmCompra {
         x--;
         if (x > 0) {
             this.txtNumeroParcelas.setText(Integer.toString(x));
-            valorParcelas = Float.parseFloat(this.lblValorTotal.getText()) / Integer.parseInt(this.txtNumeroParcelas.getText());
+            valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+            this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
         }
     }
 
@@ -266,7 +282,8 @@ public class FrmCompra {
         int x = Integer.parseInt(this.txtNumeroParcelas.getText());
         x++;
         this.txtNumeroParcelas.setText(Integer.toString(x));
-        valorParcelas = Float.parseFloat(this.lblValorTotal.getText()) / Integer.parseInt(this.txtNumeroParcelas.getText());
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
     }
 
     List<List<ItemCompraEntity>> matAux = new ArrayList<>();
@@ -304,6 +321,7 @@ public class FrmCompra {
                     matAux.add(listAux);
                 }
             }
+            i = false;
         }
         completarFormaPagamento(matAux.get(0));
     }
@@ -336,7 +354,6 @@ public class FrmCompra {
         cal.add(Calendar.DATE, diasdepoisdhoje);
         this.lblDataVenc.setText(cal.getTime().toString());
             
-        
     }
 
     @FXML
@@ -413,8 +430,6 @@ public class FrmCompra {
 
         Set<ParcelaPagamentoEntity> listaParcelas = new HashSet<>();
 
-        ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
-
         BoletoBancarioEntity boleto = new BoletoBancarioEntity();
         boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A.")); //Arrumar
         boleto.setAgencia("5423-5");
@@ -428,6 +443,7 @@ public class FrmCompra {
             boleto.setId(Long.parseLong(this.lblNumeroDocumento.getText()));
             boleto.setCodigoBarra(this.lblCodigoBarras.getText());
             
+            ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             parcela.setId((long) this.getId());
             parcela.setDataVencimento(cal.getTime());
             parcela.setValorOriginal(Float.parseFloat(this.lblValorTotal.getText()));
@@ -444,6 +460,7 @@ public class FrmCompra {
                 if(x == 0)boleto.setCodigoBarra(this.lblCodigoBarras.getText());
                 else boleto.setCodigoBarra(UUID.randomUUID().toString());
                 
+                ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
                 parcela.setId((long) this.getId());
                 parcela.setDataVencimento(cal.getTime());
                 parcela.setValorOriginal(valorParcelas);
@@ -457,10 +474,8 @@ public class FrmCompra {
 
         }
 
-        for (List<ItemCompraEntity> l : matAux) {
-            this.listaCompras.add(new CompraEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l)));
-        }
-        
+        List<ItemCompraEntity> l = matAux.get(numeroFornecedor);
+        this.listaCompras.add(new CompraEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l))); 
         this.progressBar.setProgress((double) (numeroFornecedor + 1)/matAux.size());
     }
 

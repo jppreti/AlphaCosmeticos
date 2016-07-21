@@ -389,7 +389,7 @@
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                  <children>
                                     <Label text="%label.numeroparcelas" />
-                                    <TextField fx:id="txtNumeroParcelas" disable="true" text="1" />
+                                    <TextField fx:id="txtNumeroParcelas" disable="true" onAction="#txtNumeroParcelas_onAction" onKeyPressed="#txtNumeroParcelas_onKeyPressed" text="1" />
                                     <Button fx:id="btnMenos_Parcelas" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMenos_Parcelas_onMouseClicked" prefWidth="25.0" text="-" />
                                     <Button fx:id="btnMais_Parcelas" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnMais_Parcelas_onMouseClicked" text="+" />
                                  </children>
