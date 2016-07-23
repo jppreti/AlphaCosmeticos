@@ -50,6 +50,7 @@ public class MockCompraDAO implements ICompraDAO {
    static {
        
         try {
+            
              SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
              Date data = formato.parse("30/08/2017");
              lista.add(itemCompra.getById((long)1));
@@ -183,13 +184,13 @@ public class MockCompraDAO implements ICompraDAO {
 
              
              listaParcela.add(parcela);
-
-              */
+             */
+              
         } catch (ParseException ex) {
             Logger.getLogger(MockCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-       
+
+      
    }
     
     public MockCompraDAO(){  }

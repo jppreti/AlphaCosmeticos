@@ -20,7 +20,9 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -36,9 +38,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,9 +53,39 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class FrmCompra {
-
+    
+    @FXML
+    private ProgressBar progressBar;
+    
     @FXML
     private Button btnConfirmar;
+
+    @FXML
+    private Label lblNumeroDocumento;
+
+    @FXML
+    private Label lblNomeFornecedor;
+
+    @FXML
+    private Label lblBancoAgencia;
+
+    @FXML
+    private Label lblBanco;
+
+    @FXML
+    private Label lblCodigoBarras;
+
+    @FXML
+    private Label lblValorTotal;
+
+    @FXML
+    private Label lblValorParcela;
+
+    @FXML
+    private Label lblDataVenc;
+
+    @FXML
+    private Button btnProximo;
 
     @FXML
     private Button btnMais;
@@ -137,9 +172,6 @@ public class FrmCompra {
     private Button btnRemoverProduto;
 
     @FXML
-    private Button btnAdicionarCarrinho;
-
-    @FXML
     private TableColumn<TabelaTelaCompra, Integer> clmProdutoQtdeEsperada;
 
     @FXML
@@ -156,9 +188,6 @@ public class FrmCompra {
 
     @FXML
     private Tab tabFormaPagamento;
-
-    @FXML
-    private TextField txtvalorTotal;
 
     @FXML
     private TableView<ItemCompraEntity> tblItemCompras;
@@ -181,12 +210,70 @@ public class FrmCompra {
     @FXML
     private Button btnMais_Parcelas;
 
+
+    
+    
+    
+    //ID
+    
+    int id_global = 100;
+
+    int getId() {
+        id_global++;
+        return id_global;
+    }
+    
+    @FXML
+    void txtNumeroParcelas_onAction(ActionEvent event){
+        int x = Integer.parseInt(this.txtNumeroParcelas.getText());
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
+    }
+    
+    @FXML
+    void txtNumeroParcelas_onKeyPressed(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnProximo.requestFocus();
+        }
+    }
+    
+    
+    @FXML
+    void btnProximo_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnProximo.fire();
+        }
+    }
+    
+    private int numeroFornecedor = 0;
+    
+    @FXML
+    void btnProximo_onAction(ActionEvent event) {
+        if (true) // ADICIONAR ERROS.
+        {
+            completarCompra();
+            numeroFornecedor++;
+        }
+        if(numeroFornecedor+1 > matAux.size()) {
+            this.btnProximo.setDisable(true);
+            this.btnConfirmar.setVisible(true);
+        }else{
+            List<ItemCompraEntity> li = new ArrayList();
+            li = matAux.get(numeroFornecedor);
+            this.completarFormaPagamento(li);
+        }
+    }
+
+    float valorParcelas = 0;
+
     @FXML
     void btnMenos_Parcelas_onMouseClicked(MouseEvent event) {
         int x = Integer.parseInt(this.txtNumeroParcelas.getText());
         x--;
         if (x > 0) {
             this.txtNumeroParcelas.setText(Integer.toString(x));
+            valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+            this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
         }
     }
 
@@ -195,7 +282,11 @@ public class FrmCompra {
         int x = Integer.parseInt(this.txtNumeroParcelas.getText());
         x++;
         this.txtNumeroParcelas.setText(Integer.toString(x));
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
     }
+
+    List<List<ItemCompraEntity>> matAux = new ArrayList<>();
 
     @FXML
     void btnFormadePagamento_onAction(ActionEvent event) {
@@ -204,34 +295,65 @@ public class FrmCompra {
         this.tabPainel.getSelectionModel().select(this.tabFormaPagamento);
         this.tabProduto.setDisable(true);
         this.tabCarrinho.setDisable(true);
-        this.btnConfirmar.setVisible(true);
-        this.completarFormaPagamento();
-    }
 
-    void completarFormaPagamento() {
         ObservableList<TipoPagamentoEnum> ob = FXCollections.observableArrayList();
         ob.add(TipoPagamentoEnum.VISTA);
         ob.add(TipoPagamentoEnum.PRAZO);
 
         this.cmbFormaPagamento.setItems(ob);
 
-        this.clmFornecedor.setCellValueFactory(new PropertyValueFactory<>("NomeFornecedor"));
-        this.clmItemCompra.setCellValueFactory(new PropertyValueFactory<>("NomeProduto"));
-        this.tblItemCompras.setItems(FXCollections.observableArrayList(listaCarrinho));
-
-        float x = 0;
+        boolean i = false;
+        matAux.add(new ArrayList<>());
 
         for (ItemCompraEntity ic : listaCarrinho) {
+            if (matAux.get(0).isEmpty()) {
+                matAux.get(0).add(ic);
+            } else {
+                for (List<ItemCompraEntity> listiic : matAux) {
+                    if (listiic.get(0).getProdutoVO().getFornecedor().getFantasia().equals(ic.getNomeFornecedor())) {
+                        listiic.add(ic);
+                        i = true;
+                    }
+                }
+                if (!i) {
+                    List<ItemCompraEntity> listAux = new ArrayList<>();
+                    listAux.add(ic);
+                    matAux.add(listAux);
+                }
+            }
+            i = false;
+        }
+        completarFormaPagamento(matAux.get(0));
+    }
+
+    void completarFormaPagamento(List<ItemCompraEntity> li) {
+        
+        this.clmItemCompra.setCellValueFactory(new PropertyValueFactory<>("NomeProduto"));
+        this.tblItemCompras.setItems(FXCollections.observableArrayList(li));
+
+        float x = 0;
+        for (ItemCompraEntity ic : li) {
             x = (ic.getProdutoVO().getValorCompra()) * (ic.getQuantidadePedida());
         }
+        this.lblValorTotal.setText(Float.toString(x));
 
-        this.txtvalorTotal.setText(Float.toString(x));
+        this.txtNumeroParcelas.setText("1");
+        this.cmbFormaPagamento.getSelectionModel().selectFirst();
 
         this.btnMais_Parcelas.setDisable(true);
         this.btnMenos_Parcelas.setDisable(true);
 
-        this.cmbFormaPagamento.getSelectionModel().selectFirst();
-
+        this.lblValorParcela.setText(this.lblValorTotal.getText());
+        this.lblNumeroDocumento.setText(Long.toString((long) this.getId()));
+        this.lblNomeFornecedor.setText(li.get(0).getNomeFornecedor());
+        this.lblBanco.setText("Banco do Brasil"); //li.get(0).getProdutoVO().getFornecedorVO().getNomeBanco()
+        this.lblBancoAgencia.setText("44423-5"); //li.get(0).getProdutoVO().getFornecedorVO().getNumeroAgencia()
+        this.lblCodigoBarras.setText(UUID.randomUUID().toString());
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, diasdepoisdhoje);
+        this.lblDataVenc.setText(cal.getTime().toString());
+            
     }
 
     @FXML
@@ -254,13 +376,29 @@ public class FrmCompra {
 
             caixa.showAndWait().ifPresent(p -> {
                 if (p == sim) {
-                    completarCompra();
+                    finalizarCompra();
                     getPai(this.bdpPrincipal);
                 }
                 if (p == nao) {
                     caixa.close();
                 }
             });
+        }
+    }
+
+    void finalizarCompra() {
+
+        ItemCompra itensFinalizados = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
+
+        for (ItemCompraEntity ice : listaCarrinho) {
+            itensFinalizados.save(ice);
+        }
+
+        Compra compraFinalizada = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
+
+        for (CompraEntity c : listaCompras) {
+            compraFinalizada.save(c);
+
         }
     }
 
@@ -280,96 +418,65 @@ public class FrmCompra {
 
     List<CompraEntity> listaCompras = new ArrayList<>();
     private static Banco ABanco = new Banco(DAOFactory.getDAOFactory().getBancoDAO());
+    private int diasdepoisdhoje = 10;
 
     void completarCompra() {
-
-        List<List<ItemCompraEntity>> matAux = new ArrayList<>();
-        boolean i = false;
         
-        matAux.add(new ArrayList<>());
-        
-        for (ItemCompraEntity ic : listaCarrinho) {
-            if(matAux.get(0).isEmpty())matAux.get(0).add(ic);
-            else{
-                for (List<ItemCompraEntity> listiic : matAux) {
-                    if(listiic.get(0).getProdutoVO().getFornecedor().getFantasia().equals(ic.getNomeFornecedor())) {
-                        listiic.add(ic);
-                        i = true;
-                    }
-                }
-                if(!i){
-                    List<ItemCompraEntity> listAux = new ArrayList<>();
-                    listAux.add(ic);
-                    matAux.add(listAux);
-                }
-            }
-        }
-
         TipoPagamentoEnum e = this.cmbFormaPagamento.getValue();
         PagamentoEntity paga = new PagamentoEntity();
-        paga.setId((long) 1);
+        paga.setId((long) this.getId());
         paga.setSituPagamento(SituacaoPagamentoEnum.NORMAL);
         paga.setTipoPagamento(e);
 
         Set<ParcelaPagamentoEntity> listaParcelas = new HashSet<>();
 
-        ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
-
         BoletoBancarioEntity boleto = new BoletoBancarioEntity();
-        boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A."));
+        boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A.")); //Arrumar
         boleto.setAgencia("5423-5");
         boleto.setCarteira("Registrada");
         
-        
-        int j = 1;
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, diasdepoisdhoje);
+
         if (e == TipoPagamentoEnum.VISTA) {
+
+            boleto.setId(Long.parseLong(this.lblNumeroDocumento.getText()));
+            boleto.setCodigoBarra(this.lblCodigoBarras.getText());
             
-            boleto.setId((long) j);
-            boleto.setCodigoBarra(UUID.randomUUID().toString());
-            
-            parcela.setDataVencimento(new Date());
-            parcela.setValorOriginal(Float.parseFloat(this.txtvalorTotal.getText()));
+            ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
+            parcela.setId((long) this.getId());
+            parcela.setDataVencimento(cal.getTime());
+            parcela.setValorOriginal(Float.parseFloat(this.lblValorTotal.getText()));
             parcela.setValorTotalPago(0.00);
             parcela.setDocumentoPagamento(boleto);
             listaParcelas.add(parcela);
             paga.setListaParcelas(listaParcelas);
         } else {
             int numeroParcelas = Integer.parseInt(this.txtNumeroParcelas.getText());
-            float valorParcelas = Float.parseFloat(this.txtvalorTotal.getText()) / numeroParcelas;
 
             for (int x = 0; x < numeroParcelas; x++) {
-                boleto.setId((long)(x + 1));
-                boleto.setCodigoBarra(UUID.randomUUID().toString());
+
+                boleto.setId((long) this.getId());
+                if(x == 0)boleto.setCodigoBarra(this.lblCodigoBarras.getText());
+                else boleto.setCodigoBarra(UUID.randomUUID().toString());
                 
-                
+                ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
+                parcela.setId((long) this.getId());
+                parcela.setDataVencimento(cal.getTime());
                 parcela.setValorOriginal(valorParcelas);
                 parcela.setValorTotalPago(0.00);
                 parcela.setDocumentoPagamento(boleto);
+
                 listaParcelas.add(parcela);
             }
 
             paga.setListaParcelas(listaParcelas);
 
         }
-        j = 4;
-        for (List<ItemCompraEntity> l : matAux) {
-            j++;
-            this.listaCompras.add(new CompraEntity((long)j, new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l)));
-        }
 
-        ItemCompra itensFinalizados = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
-
-        for (ItemCompraEntity ice : listaCarrinho) {
-            itensFinalizados.save(ice);
-        }
-
-        Compra compraFinalizada = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
-
-        for (CompraEntity c : listaCompras) {
-            compraFinalizada.save(c);
-            
-        }
-
+        List<ItemCompraEntity> l = matAux.get(numeroFornecedor);
+        this.listaCompras.add(new CompraEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l))); 
+        this.progressBar.setProgress((double) (numeroFornecedor + 1)/matAux.size());
     }
 
     @FXML
@@ -424,17 +531,16 @@ public class FrmCompra {
     @FXML
     void txtQtdePedir_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.btnAdicionarCarrinho.fire();
+            this.adicionaraocarrinho();
         }
     }
 
-    @FXML
-    void btnAdicionarCarrinho_onAction(ActionEvent event) {
+    void adicionaraocarrinho() {
         if ("".equals(txtQtdePedir.getText()) || this.tblProduto.getSelectionModel().getSelectedItem() == null) {
             this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
         } else {
             ProdutoEntity aux = this.tblProduto.getSelectionModel().getSelectedItem().getProduto();
-            ItemCompraEntity aux2 = new ItemCompraEntity(Long.MIN_VALUE, Integer.parseInt(txtQtdePedir.getText()), aux);
+            ItemCompraEntity aux2 = new ItemCompraEntity((long) this.getId(), Integer.parseInt(txtQtdePedir.getText()), aux);
             boolean pass = false;
 
             for (ItemCompraEntity ice : listaCarrinho) {
@@ -449,13 +555,6 @@ public class FrmCompra {
             completarCarrinhoComLista();
             this.lblMensagem.setText("Produto \"" + aux2.getProdutoVO().getNome() + "\" adicionado ao carrinho.");
             this.tabCarrinho.setDisable(false);
-        }
-    }
-
-    @FXML
-    void btnAdicionarCarrinho_onKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            this.btnAdicionarCarrinho.fire();
         }
     }
 
@@ -508,7 +607,7 @@ public class FrmCompra {
     @FXML
     void tblProduto_onMouseClicked(MouseEvent event) {
         if (event.getClickCount() >= 2) {
-            this.btnAdicionarCarrinho.fire();
+            this.adicionaraocarrinho();
         }
     }
 
@@ -589,6 +688,33 @@ public class FrmCompra {
         this.clmProdutoQtdeReservada.setCellValueFactory(new PropertyValueFactory<>("quantidadeReservada"));
         this.clmProdutoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         this.clmProdutoFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        
+
+//Método para colorir tabela: Por Professor.
+        this.clmProdutoFornecedor.setCellFactory(column -> {
+        return new TableCell<TabelaTelaCompra, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                setText(empty ? "" : getItem().toString());
+                setGraphic(null);
+
+                TableRow<TabelaTelaCompra> currentRow = getTableRow();
+
+                if (!isEmpty()) {
+
+                    if(item.equals("Fantasia 1")) 
+                        currentRow.setStyle("-fx-background-color:lightcoral");
+                    else
+                        currentRow.setStyle("-fx-background-color:lightgreen");
+                }
+
+            }
+        };
+    });
+        
+        
         this.tblProduto.setItems(FXCollections.observableArrayList(lista));
     }
 
