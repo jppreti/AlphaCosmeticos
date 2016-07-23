@@ -21,6 +21,7 @@ public class TabelaTelaContasReceber {
     private String formapgto;
     private float valor;
     private int parcela;
+    private String cnpj;
 
     
     public String getDtLancamento() {
@@ -109,6 +110,20 @@ public class TabelaTelaContasReceber {
      */
     public void setParcela(int parcela) {
         this.parcela = parcela;
+    }
+
+    /**
+     * @return the cnpj
+     */
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    /**
+     * @param cnpj the cnpj to set
+     */
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
     
     

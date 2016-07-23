@@ -195,6 +195,9 @@ public class FrmContas_a_pagar {
     @FXML
     private Label lblNomeRazaoSocialValor;
     
+
+    
+  
     @FXML
     private TableView<TabelaTelaContasAPagar> tblContas_a_pagar;
     
@@ -231,12 +234,13 @@ public class FrmContas_a_pagar {
         this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("nome"));
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("formaPgto"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,Float>("valor"));
-        int cont =0;
+      
+       
         
         for(CompraEntity vo : lista){ 
             System.out.println(vo.getPagamentoVO().getListaParcelas().size());
             for(ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()){
-                cont++;       
+                     
                 System.out.println(parcPg.getDocumentoPagamento().getNome());
                 TabelaTelaContasAPagar tabela = new TabelaTelaContasAPagar();
                           
@@ -245,11 +249,11 @@ public class FrmContas_a_pagar {
                 tabela.setNome(vo.getNomeFornecedor());
                 tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
                 System.out.println(parcPg.getDocumentoPagamento().getNome());
-                tabela.setValor((float)parcPg.getValorTotalPago());
+                tabela.setValor((float)parcPg.getValorOriginal());
             
                listaFinal.add(tabela);
             }
-            cont=0;
+            
            
             
         }
