@@ -8,7 +8,7 @@ package br.com.compdevbooks.alphacosmetics.entity.pagamento;
  public enum FormaPagamentoEnum {
     
      BOLETO,
-     CARTÃO_CREDITO,
+     CARTÃO_CRÉDITO,
      CHEQUE,
      TODOS
      
