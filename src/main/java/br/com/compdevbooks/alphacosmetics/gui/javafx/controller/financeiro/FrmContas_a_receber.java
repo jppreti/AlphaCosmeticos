@@ -5,31 +5,25 @@
  */
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro;
 
-import br.com.compdevbooks.alphacosmetics.business.Cliente;
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.dao.mock.operacoes.MockVendaDAO;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
-import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasReceber;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -44,7 +38,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import org.hibernate.sql.Select;
 //import br.com.compdevbooks.alphacosmetics.entity.pagamento.
 
 public class FrmContas_a_receber {
@@ -1263,7 +1256,7 @@ public class FrmContas_a_receber {
             txtCpfCnpj.setDisable(false);
         }
     }
-
+    
     @FXML
     void txtNomeRazaoSocial(KeyEvent event) {
 
@@ -1287,13 +1280,41 @@ public class FrmContas_a_receber {
     void btnProcurar_OnKeyPressed(KeyEvent event) {
 
         if (event.getCode() == KeyCode.ENTER) {
-            busca();
+            if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
+                    busca();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Data Inválida!");
+                   
+                    alert.setContentText("Erro ao buscar pelas datas selecionadas");
+
+                    alert.showAndWait();
+                    return;
+                }
+            } else {
+                busca();
+            }
         }
     }
 
     @FXML
     void btnProcurar_onAction(ActionEvent event) {
-        busca();
+       if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
+                    busca();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Data Inválida!");
+                   
+                    alert.setContentText("Erro ao buscar pelas datas selecionadas");
+
+                    alert.showAndWait();
+                    return;
+                }
+            } else {
+                busca();
+            }
     }
 
     @FXML
@@ -1301,6 +1322,7 @@ public class FrmContas_a_receber {
 
         rdbTodosTipoCliente.setSelected(false);
         rdbVencidos.setSelected(false);
+        if(!rdbEmAberto.isSelected())rdbEmAberto.setSelected(true);
         btnProcurar_onAction(event);
     }
 
@@ -1308,6 +1330,7 @@ public class FrmContas_a_receber {
     void rdbVencidos_onAction(ActionEvent event) {
         rdbEmAberto.setSelected(false);
         rdbTodosTipoCliente.setSelected(false);
+        if(!rdbVencidos.isSelected())rdbVencidos.setSelected(true);
         btnProcurar_onAction(event);
     }
 
@@ -1315,6 +1338,7 @@ public class FrmContas_a_receber {
     void rdbTodosTipoCliente_onAction(ActionEvent event) {
         rdbEmAberto.setSelected(false);
         rdbVencidos.setSelected(false);
+        if(!rdbTodosTipoCliente.isSelected())rdbTodosTipoCliente.setSelected(true);
         btnProcurar_onAction(event);
 
     }
@@ -1351,7 +1375,7 @@ public class FrmContas_a_receber {
             if (!txtNomeRazaoSocial.getText().equals("")) {
                 int aux = 0;
                 if (listaVendaT.get(i).getClienteVO().getNome().toUpperCase().contains(txtNomeRazaoSocial.getText().toUpperCase())) {
-                    dado.add(listaVendaT.get(aux));
+                    dado.add(listaVendaT.get(i));
                 }
             }
             if (!txtCpfCnpj.getText().equals("")) {
@@ -1364,4 +1388,29 @@ public class FrmContas_a_receber {
         completar(dado);
 
     }
+    
+      private boolean comparador(Date data1, Date data2) {
+
+        Instant instant1 = Instant.ofEpochMilli(data1.getTime());
+        LocalDate localDate1 = LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
+
+        Instant instant2 = Instant.ofEpochMilli(data2.getTime());
+        LocalDate localDate2 = LocalDateTime.ofInstant(instant2, ZoneId.systemDefault()).toLocalDate();
+
+        if (localDate1.equals(localDate2)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+ private boolean validar_data(LocalDate inicio, LocalDate fim) {
+        if (fim.isAfter(inicio)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
+

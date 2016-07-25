@@ -17,6 +17,7 @@ public class TabelaTelaContasAPagar {
     private String nome;
     private String formaPgto;
     private float valor;
+    private String cnpj;
 
     public String getDtLancamento() {
         return dtLancamento;
@@ -94,6 +95,20 @@ public class TabelaTelaContasAPagar {
      */
     public void setFormaPgto(String formaPgto) {
         this.formaPgto = formaPgto;
+    }
+
+    /**
+     * @return the cnpj
+     */
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    /**
+     * @param cnpj the cnpj to set
+     */
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
 }

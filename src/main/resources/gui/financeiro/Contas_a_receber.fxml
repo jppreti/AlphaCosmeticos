@@ -238,7 +238,7 @@
                       <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
                         <TableColumn fx:id="clmCnpj" prefWidth="75.0" text="%column.cnpj" />
                         <TableColumn fx:id="clmCliente" prefWidth="75.0" text="%column.cliente" />
-                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%coumn.formaPgto" />
+                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%column.formaPgto" />
                         <TableColumn fx:id="clmValor" prefWidth="75.0" text="%column.valor" />
                         <TableColumn fx:id="clmNumParc" prefWidth="75.0" text="%column.numParcela" />
                     </columns>
