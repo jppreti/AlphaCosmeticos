@@ -303,9 +303,9 @@ public class FrmContas_a_receber {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
 
-                            if (fim.after(vo.getDataLancamento()) || fim.equals(vo.getDataLancamento())) {
+                            if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -357,7 +357,7 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                             if (rdbEmAberto.isSelected()) {
-                                if (parcPg.getDataVencimento().after(referencia)) {
+                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                     TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -407,9 +407,9 @@ public class FrmContas_a_receber {
                         }
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (inicio.before(vo.getDataLancamento()) || inicio.equals(vo.getDataLancamento())) {
+                            if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -461,10 +461,10 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
                             if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
-                                    || fim.equals(vo.getDataLancamento()) || inicio.equals(vo.getDataLancamento())) {
+                                    || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
 
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -509,7 +509,6 @@ public class FrmContas_a_receber {
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
 
                                     dado.add(tabela);
-
                                 }
                             }
                         }
@@ -518,10 +517,14 @@ public class FrmContas_a_receber {
                     if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            /*
+                            arrumar aqui!!
+                             */
 
-                            if (fim.after(parcPg.getDataVencimento()) || fim.equals(parcPg.getDataVencimento())) {
+                            if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -573,7 +576,7 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                             if (rdbEmAberto.isSelected()) {
-                                if (parcPg.getDataVencimento().after(referencia)) {
+                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                     TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -624,9 +627,9 @@ public class FrmContas_a_receber {
                         }
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (inicio.before(parcPg.getDataVencimento()) || inicio.equals(parcPg.getDataVencimento())) {
+                            if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -678,10 +681,10 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
                             if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
-                                    || fim.equals(parcPg.getDataVencimento()) || inicio.equals(parcPg.getDataVencimento())) {
+                                    || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
 
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -734,13 +737,13 @@ public class FrmContas_a_receber {
                     }
                 }
                 if (parcPg.getDocumentoPagamento().getNome().toUpperCase().equals(cmbFormaPgto.getValue().toString().toUpperCase())) {
-                     if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
+                    if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
 
-                            if (fim.after(vo.getDataLancamento()) || fim.equals(vo.getDataLancamento())) {
+                            if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -792,7 +795,7 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                             if (rdbEmAberto.isSelected()) {
-                                if (parcPg.getDataVencimento().after(referencia)) {
+                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                     TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -842,9 +845,9 @@ public class FrmContas_a_receber {
                         }
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (inicio.before(vo.getDataLancamento()) || inicio.equals(vo.getDataLancamento())) {
+                            if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -896,10 +899,10 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
                             if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
-                                    || fim.equals(vo.getDataLancamento()) || inicio.equals(vo.getDataLancamento())) {
+                                    || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
 
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -944,7 +947,6 @@ public class FrmContas_a_receber {
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
 
                                     dado.add(tabela);
-
                                 }
                             }
                         }
@@ -953,10 +955,14 @@ public class FrmContas_a_receber {
                     if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            /*
+                            arrumar aqui!!
+                             */
 
-                            if (fim.after(parcPg.getDataVencimento()) || fim.equals(parcPg.getDataVencimento())) {
+                            if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1008,7 +1014,7 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                             if (rdbEmAberto.isSelected()) {
-                                if (parcPg.getDataVencimento().after(referencia)) {
+                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                     TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1059,9 +1065,9 @@ public class FrmContas_a_receber {
                         }
                         if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (inicio.before(parcPg.getDataVencimento()) || inicio.equals(parcPg.getDataVencimento())) {
+                            if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1113,10 +1119,10 @@ public class FrmContas_a_receber {
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
                             if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
-                                    || fim.equals(parcPg.getDataVencimento()) || inicio.equals(parcPg.getDataVencimento())) {
+                                    || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
 
                                 if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia)) {
+                                    if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1256,7 +1262,7 @@ public class FrmContas_a_receber {
             txtCpfCnpj.setDisable(false);
         }
     }
-    
+
     @FXML
     void txtNomeRazaoSocial(KeyEvent event) {
 
@@ -1286,7 +1292,7 @@ public class FrmContas_a_receber {
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Data Inválida!");
-                   
+
                     alert.setContentText("Erro ao buscar pelas datas selecionadas");
 
                     alert.showAndWait();
@@ -1300,21 +1306,21 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnProcurar_onAction(ActionEvent event) {
-       if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
-                if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
-                    busca();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Data Inválida!");
-                   
-                    alert.setContentText("Erro ao buscar pelas datas selecionadas");
-
-                    alert.showAndWait();
-                    return;
-                }
-            } else {
+        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+            if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
                 busca();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Data Inválida!");
+
+                alert.setContentText("Erro ao buscar pelas datas selecionadas");
+
+                alert.showAndWait();
+                return;
             }
+        } else {
+            busca();
+        }
     }
 
     @FXML
@@ -1322,7 +1328,9 @@ public class FrmContas_a_receber {
 
         rdbTodosTipoCliente.setSelected(false);
         rdbVencidos.setSelected(false);
-        if(!rdbEmAberto.isSelected())rdbEmAberto.setSelected(true);
+        if (!rdbEmAberto.isSelected()) {
+            rdbEmAberto.setSelected(true);
+        }
         btnProcurar_onAction(event);
     }
 
@@ -1330,7 +1338,9 @@ public class FrmContas_a_receber {
     void rdbVencidos_onAction(ActionEvent event) {
         rdbEmAberto.setSelected(false);
         rdbTodosTipoCliente.setSelected(false);
-        if(!rdbVencidos.isSelected())rdbVencidos.setSelected(true);
+        if (!rdbVencidos.isSelected()) {
+            rdbVencidos.setSelected(true);
+        }
         btnProcurar_onAction(event);
     }
 
@@ -1338,12 +1348,15 @@ public class FrmContas_a_receber {
     void rdbTodosTipoCliente_onAction(ActionEvent event) {
         rdbEmAberto.setSelected(false);
         rdbVencidos.setSelected(false);
-        if(!rdbTodosTipoCliente.isSelected())rdbTodosTipoCliente.setSelected(true);
+        if (!rdbTodosTipoCliente.isSelected()) {
+            rdbTodosTipoCliente.setSelected(true);
+        }
         btnProcurar_onAction(event);
 
     }
+
     @FXML
-    void cmbOpcaoPesquisa_onAction(ActionEvent event){
+    void cmbOpcaoPesquisa_onAction(ActionEvent event) {
         btnProcurar_onAction(event);
     }
 
@@ -1388,8 +1401,8 @@ public class FrmContas_a_receber {
         completar(dado);
 
     }
-    
-      private boolean comparador(Date data1, Date data2) {
+
+    private boolean comparador(Date data1, Date data2) {
 
         Instant instant1 = Instant.ofEpochMilli(data1.getTime());
         LocalDate localDate1 = LocalDateTime.ofInstant(instant1, ZoneId.systemDefault()).toLocalDate();
@@ -1404,8 +1417,9 @@ public class FrmContas_a_receber {
         }
 
     }
- private boolean validar_data(LocalDate inicio, LocalDate fim) {
-        if (fim.isAfter(inicio)) {
+
+    private boolean validar_data(LocalDate inicio, LocalDate fim) {
+        if (fim.isAfter(inicio) || fim.equals(inicio)) {
             return true;
         } else {
             return false;
@@ -1413,4 +1427,3 @@ public class FrmContas_a_receber {
     }
 
 }
-

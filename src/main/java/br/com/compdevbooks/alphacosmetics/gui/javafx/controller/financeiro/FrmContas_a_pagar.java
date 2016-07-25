@@ -1164,7 +1164,7 @@ public class FrmContas_a_pagar {
     }
 
     private boolean validar_data(LocalDate inicio, LocalDate fim) {
-        if (fim.isAfter(inicio)) {
+        if (fim.isAfter(inicio)|| fim.equals(inicio)) {
             return true;
         } else {
             return false;
