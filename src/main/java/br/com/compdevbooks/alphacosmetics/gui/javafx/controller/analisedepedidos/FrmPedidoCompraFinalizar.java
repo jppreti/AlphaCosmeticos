@@ -10,6 +10,7 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,9 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -96,13 +99,13 @@ public class FrmPedidoCompraFinalizar {
 
     @FXML
     private Label lblPedidoCompraFinalizar;
-    
+
     private CompraEntity compra;
-    
+
     @FXML
-    void initialize(){
+    void initialize() {
         this.tblItemCompra.requestFocus();
-        compra= NavegarObjetos.getCompra();
+        compra = NavegarObjetos.getCompra();
         completarTable(compra.getListaItens());
         this.txtRazaoSocial.setText(compra.getNomeFornecedor());
         this.txtInscricao.setText(compra.getFornecedorVO().getInscricao());
@@ -111,11 +114,12 @@ public class FrmPedidoCompraFinalizar {
         this.txtQtdeTotal.setText(String.valueOf(compra.getQtdeTotal()));
         this.lblValorTotal.setText(String.valueOf(compra.getValorTotal()));
         this.txtID.setText(String.valueOf(compra.getId()));
-   }
-    private void completarTable(Set<ItemCompraEntity> lista){
+    }
+
+    private void completarTable(Set<ItemCompraEntity> lista) {
         this.clmItemCompraID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmItemCompraProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-        this.clmItemCompraQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadePedida"));
+        this.clmItemCompraQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadeFornecida"));
         this.clmItemCompraQtdeEstoque.setCellValueFactory(new PropertyValueFactory<>("quantidadeEstoque"));
         this.clmItemCompraQtdeTotal.setCellValueFactory(new PropertyValueFactory<>("quantidadeTotal"));
         this.tblItemCompra.setItems(FXCollections.observableArrayList(lista));
@@ -123,13 +127,13 @@ public class FrmPedidoCompraFinalizar {
 
     @FXML
     void btnSair_onAction(ActionEvent event) {
-            BorderPane frmCompra=null;
-        try{
-            frmCompra= FXMLLoader.load(FrmPedidoCompra.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
-            
-            ((BorderPane)NavegarObjetos.getPai()).setCenter(frmCompra);
-            
-        }catch (Exception ioe){
+        BorderPane frmCompra = null;
+        try {
+            frmCompra = FXMLLoader.load(FrmPedidoCompra.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoCompra.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
+
+            ((BorderPane) NavegarObjetos.getPai()).setCenter(frmCompra);
+
+        } catch (Exception ioe) {
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
@@ -137,28 +141,46 @@ public class FrmPedidoCompraFinalizar {
 
     @FXML
     void btnSair_onKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER)
+        if (event.getCode() == KeyCode.ENTER) {
             btnSair.fire();
+        }
     }
 
     @FXML
     void btnFinalizar_onAction(ActionEvent event) {
-        compra.setSituacao(SituacaoCompraEnum.PROCESSADA);
-        Date data= new Date();
-        compra.setDataProcessamento(data);
-        Iterator<ItemCompraEntity> i= compra.getListaItens().iterator();
-        ItemCompraEntity item=null;
-        while(i.hasNext()){
-            item= i.next();
-            item.getProdutoVO().setQuantidade(item.getProdutoVO().getQuantidade()+item.getQuantidadeFornecida());
-        }
-       btnSair.fire();
+        Alert caixa = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType sim = new ButtonType("Sim");
+        ButtonType nao = new ButtonType("Não");
+        caixa.setTitle("Alpha Cosmeticos");
+        caixa.setHeaderText("Finalizar pedido Compra");
+        caixa.setContentText("Deseja finalizar pedido de compra?");
+        caixa.getButtonTypes().setAll(sim, nao);
+
+        caixa.showAndWait().ifPresent(p -> {
+            if (p == sim) {
+                compra.setSituacao(SituacaoCompraEnum.PROCESSADA);
+                Date data = new Date();
+                compra.setDataProcessamento(data);
+                Iterator<ItemCompraEntity> i = compra.getListaItens().iterator();
+                ItemCompraEntity item = null;
+                while (i.hasNext()) {
+                    item = i.next();
+                    item.getProdutoVO().setQuantidade(item.getProdutoVO().getQuantidade() + item.getQuantidadeFornecida());
+                }
+                btnSair.fire();
+            }
+            if (p == nao) {
+            }
+
+        });
+
     }
 
     @FXML
     void btnFinalizar_onKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER)
+        if (event.getCode() == KeyCode.ENTER) {
             btnFinalizar.fire();
+        }
     }
 
 }
