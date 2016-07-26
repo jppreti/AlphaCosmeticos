@@ -4,4 +4,5 @@ public enum SituacaoCompraEnum {
     PROCESSADA,
     RECEBIDA,
     LANCADA,
+    CANCELADA
 }

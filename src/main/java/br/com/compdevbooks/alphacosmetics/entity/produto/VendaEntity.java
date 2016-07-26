@@ -35,44 +35,44 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date dataLancamento;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataRecebimento;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAprovacao;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataProcessamento;
-    
+
     @Enumerated(EnumType.ORDINAL)
     private SituacaoVendaEnum situacao;
-    
+
     @OneToMany(fetch = FetchType.LAZY)
     private Set<ItemVendaEntity> listaItens;
     //alterar depois;
     @ManyToOne(fetch = FetchType.EAGER)
     private ClienteEntity clienteVO;
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     private PagamentoEntity pagamentoVO;
 
     public VendaEntity() {
         this.listaItens = new HashSet();
     }
-    public VendaEntity(Long id, Date lancamento, SituacaoVendaEnum sit,Set<ItemVendaEntity> lista,ClienteEntity cliente){
+
+    public VendaEntity(Long id, Date lancamento, SituacaoVendaEnum sit, Set<ItemVendaEntity> lista, ClienteEntity cliente) {
         super();
-        this.Id=id;
-        this.dataLancamento=lancamento;
-        this.situacao=sit;  
-        this.listaItens=lista;
-        this.clienteVO=cliente;
+        this.Id = id;
+        this.dataLancamento = lancamento;
+        this.situacao = sit;
+        this.listaItens = lista;
+        this.clienteVO = cliente;
     }
-    
 
     public Long getId() {
         return Id;
@@ -89,18 +89,19 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     public void setDataLancamento(Date dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
-    public void setDataLancamentoString(String data) throws ParseException{
-        this.dataLancamento= (Date)new SimpleDateFormat("dd/MM/yyyy").parse(data);
+
+    public void setDataLancamentoString(String data) throws ParseException {
+        this.dataLancamento = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(data);
     }
 
     public Date getDataAprovacao() {
         return dataAprovacao;
     }
-    
-    public String getDataAprovacaoString(){
+
+    public String getDataAprovacaoString() {
         return new SimpleDateFormat("dd/MM/yyyy").format(dataAprovacao);
     }
-    
+
     public void setDataAprovacao(Date dataAprovacao) {
         this.dataAprovacao = dataAprovacao;
     }
@@ -108,10 +109,11 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     public Date getDataRecebimento() {
         return dataRecebimento;
     }
-    public String getDataRecebimString(){
+
+    public String getDataRecebimString() {
         return new SimpleDateFormat("dd/MM/yyyy").format(dataRecebimento);
     }
-        
+
     public void setDataRecebimento(Date dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
     }
@@ -143,8 +145,8 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     public ClienteEntity getClienteVO() {
         return clienteVO;
     }
-    
-    public String getNomeCliente(){
+
+    public String getNomeCliente() {
         return clienteVO.getNome();
     }
 
@@ -159,60 +161,86 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     public void setPagamentoVO(PagamentoEntity pagamentoVO) {
         this.pagamentoVO = pagamentoVO;
     }
-    
-      public List <Date> getDataVencimento(){
-          List<Date> datas = new ArrayList();
-          for(ParcelaPagamentoEntity parcela : this.pagamentoVO.getListaParcelas()){
-              datas.add(parcela.getDataVencimento());
-          }
-            return datas;      
-      }
-      
-    public String getDataLancamentoString(){
+
+    public List<Date> getDataVencimento() {
+        List<Date> datas = new ArrayList();
+        for (ParcelaPagamentoEntity parcela : this.pagamentoVO.getListaParcelas()) {
+            datas.add(parcela.getDataVencimento());
+        }
+        return datas;
+    }
+
+    public String getDataLancamentoString() {
         return new SimpleDateFormat("dd/MM/yyyy").format(dataLancamento);
     }
-    public float getValorTotal(){
-        Iterator<ItemVendaEntity> it= listaItens.iterator();
-        float valorTotal=0;
-            ItemVendaEntity item;
-            while(it.hasNext()){
-                item= it.next();
-                valorTotal+= item.getQuantidade()*item.getProdutoVO().getValorVenda();
-                
-            }
-            return valorTotal;
+
+    public float getValorTotal() {
+        Iterator<ItemVendaEntity> it = listaItens.iterator();
+        float valorTotal = 0;
+        ItemVendaEntity item;
+        while (it.hasNext()) {
+            item = it.next();
+            valorTotal += item.getQuantidade() * item.getProdutoVO().getValorVenda();
+
+        }
+        return valorTotal;
     }
-    public float getQtdeTotal(){
-        Iterator<ItemVendaEntity> it=listaItens.iterator();
-                ItemVendaEntity item;
-                float QtdeTotal=0;
-                while(it.hasNext()){
-                    item= it.next();
-                    QtdeTotal+=item.getQuantidade();
-                }
-                return QtdeTotal;
+
+    public float getQtdeTotal() {
+        Iterator<ItemVendaEntity> it = listaItens.iterator();
+        ItemVendaEntity item;
+        float QtdeTotal = 0;
+        while (it.hasNext()) {
+            item = it.next();
+            QtdeTotal += item.getQuantidade();
+        }
+        return QtdeTotal;
     }
 
     @Override
     public String toString() {
         return "";
-        
-        
+
     }
-    public Set<ParcelaPagamentoEntity> getParcelas(){
+
+    public Set<ParcelaPagamentoEntity> getParcelas() {
         return this.pagamentoVO.getListaParcelas();
     }
-    
-
-	@Override
-	public Object validar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
     @Override
-    public int compareTo(VendaEntity t) {
-        return this.getSituacao().compareTo(t.getSituacao());
-            
+    public Object validar() {
+        // TODO Auto-generated method stub
+        return null;
     }
+
+   // @Override
+    //public int compareTo(VendaEntity t) {
+    //    return this.getSituacao().compareTo(t.getSituacao());
+        //
+
+  //  }
+
+    public int compareTo(VendaEntity t) {
+        int retorno = 0;
+        if (this == null || t == null) {
+            return 0;
+        }
+        if(t.getDataRecebimento()==null && this.getDataRecebimento()!=null){
+            return -1;
+        }else if (t.getDataRecebimento()!=null &&this.getDataRecebimento()==null){
+            return 1;
+        }else if (t.getDataRecebimento()==null &&this.getDataRecebimento()==null){
+            retorno = this.getSituacao().compareTo(t.getSituacao());
+        }else{
+            if (this.getDataRecebimento().after(t.getDataRecebimento())) {
+                retorno = 1;
+            } else if (this.getDataRecebimento().before(t.getDataRecebimento())) {
+                retorno = -1;
+            } else {
+                retorno = this.getSituacao().compareTo(t.getSituacao());
+            }
+        }
+        return retorno;
+    }
+
 }
