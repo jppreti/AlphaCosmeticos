@@ -36,15 +36,15 @@ public class TabelaTelaCompra {
         return produto.getNome();
     }
 
-    public float getQuantidade() {
-        return produto.getQuantidade();
+    public int getQuantidade() {
+        return (int) produto.getQuantidade();
     }
 
     public String getCategoria() {
         return produto.getNomeCategoria();
     }
 
-    public Float getQuantidadeEsperada() {
+    public int getQuantidadeEsperada() {
         float soma = 0;
         CompraEntity compraTemp = null;
         try {
@@ -58,10 +58,10 @@ public class TabelaTelaCompra {
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-        return soma;
+        return (int) soma;
     }
 
-    public Float getQuantidadeReservada() {
+    public int getQuantidadeReservada() {
         float soma = 0;
         VendaEntity vendaTemp = null;
         listaItemVenda = itemVenda.buscarPorProduto(produto.getId());
@@ -72,10 +72,14 @@ public class TabelaTelaCompra {
             }
 
         }
-        return soma;
+        return (int) soma;
     }
 
     public String getFornecedor() {
         return produto.getFornecedor().getFantasia();
+    }
+    
+    public void setQuantidade(int qtd){
+        this.produto.setQuantidade(qtd);
     }
 }

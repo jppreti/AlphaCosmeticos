@@ -1,3 +1,4 @@
+
 package br.com.compdevbooks.alphacosmetics.entity.produto;
 
 import java.util.Date;

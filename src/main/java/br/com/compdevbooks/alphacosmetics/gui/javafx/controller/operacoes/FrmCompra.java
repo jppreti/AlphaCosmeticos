@@ -31,7 +31,10 @@ import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -39,101 +42,33 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class FrmCompra {
-    
-    @FXML
-    private ProgressBar progressBar;
-    
-    @FXML
-    private Button btnConfirmar;
-
-    @FXML
-    private Label lblNumeroDocumento;
-
-    @FXML
-    private Label lblNomeFornecedor;
-
-    @FXML
-    private Label lblBancoAgencia;
-
-    @FXML
-    private Label lblBanco;
-
-    @FXML
-    private Label lblCodigoBarras;
-
-    @FXML
-    private Label lblValorTotal;
-
-    @FXML
-    private Label lblValorParcela;
-
-    @FXML
-    private Label lblDataVenc;
-
-    @FXML
-    private Button btnProximo;
-
-    @FXML
-    private Button btnMais;
-
-    @FXML
-    private Button btnMenos;
-
-    @FXML
-    private Button btnFormadePagamento;
-
-    @FXML
-    private TextField txtFornecedor;
-
-    @FXML
-    private TextField txtProduto;
-
-    @FXML
-    private BorderPane bdpPrincipal;
-
-    @FXML
-    private Button btnPesquisarCarrino;
-
-    @FXML
-    private Tab tabProduto;
-
-    @FXML
-    private TabPane tabPainel;
-
-    @FXML
-    private TextField txtProdutoCarrinho;
-
-    @FXML
-    private TableColumn<TabelaTelaCompraCarrinho, String> clmProdutoCarrinhoFornecedor;
-
-    @FXML
-    private Label lblQtdePedir;
-
-    @FXML
-    private Button btnCancelar;
 
     @FXML
     private TableView<TabelaTelaCompraCarrinho> tblProdutoCarrinho;
 
     @FXML
     private TableColumn<TabelaTelaCompra, String> clmProdutoProduto;
-
-    @FXML
-    private TextField txtFornecedorCarrinho;
 
     @FXML
     private TableView<TabelaTelaCompra> tblProduto;
@@ -148,46 +83,16 @@ public class FrmCompra {
     private ComboBox<String> cmbCategoriaCarrinho;
 
     @FXML
-    private TableColumn<TabelaTelaCompraCarrinho, Integer> clmProdutoCarrinhoQtdePedida;
-
-    @FXML
     private ComboBox<String> cmbCategoria;
-
-    @FXML
-    private TextField txtQtdePedir;
-
-    @FXML
-    private TableColumn<TabelaTelaCompraCarrinho, String> clmProdutoCarrinhoProduto;
-
-    @FXML
-    private Button btnPesquisar;
-
-    @FXML
-    private Tab tabCarrinho;
 
     @FXML
     private TableColumn<TabelaTelaCompra, Integer> clmProdutoQtdeReservada;
 
     @FXML
-    private Button btnRemoverProduto;
-
-    @FXML
     private TableColumn<TabelaTelaCompra, Integer> clmProdutoQtdeEsperada;
 
     @FXML
-    private TableColumn<TabelaTelaCompraCarrinho, String> clmProdutoCarrinhoCategoria;
-
-    @FXML
-    private Button btnNovoProduto;
-
-    @FXML
     private TableColumn<TabelaTelaCompra, Integer> clmProdutoQtdeEstoque;
-
-    @FXML
-    private Label lblMensagem;
-
-    @FXML
-    private Tab tabFormaPagamento;
 
     @FXML
     private TableView<ItemCompraEntity> tblItemCompras;
@@ -202,51 +107,157 @@ public class FrmCompra {
     private ComboBox<TipoPagamentoEnum> cmbFormaPagamento;
 
     @FXML
-    private TextField txtNumeroParcelas;
+    private TableColumn<TabelaTelaCompraCarrinho, Float> clmCarrinhoValorTotal;
+
+    @FXML
+    private TableColumn<TabelaTelaCompraCarrinho, Integer> clmCarrinhoQuantidade;
+
+    @FXML
+    private TableColumn<TabelaTelaCompraCarrinho, String> clmCarrinhoProduto;
+
+    @FXML
+    private TableColumn<TabelaTelaCompraCarrinho, Float> clmCarrinhoValorUni;
+
+    @FXML
+    private TableColumn<TabelaTelaCompraCarrinho, String> clmCarrinhoFornecedor;
+
+    @FXML
+    private Button btnConfirmar;
+
+    @FXML
+    private ToggleButton btnCarinho;
+
+    @FXML
+    private TextField txtFornecedor;
+
+    @FXML
+    private TreeView<?> treeCategoria;
+
+    @FXML
+    private BorderPane bdnPrincipal;
+
+    @FXML
+    private Label lblCodigoBarras;
+
+    @FXML
+    private TextField txtProduto;
+
+    @FXML
+    private Label lblValorParcela;
+
+    @FXML
+    private VBox paneCarrinho;
 
     @FXML
     private Button btnMenos_Parcelas;
 
     @FXML
+    private Button btnLayout;
+
+    @FXML
+    private Button btnLayout2;
+
+    @FXML
+    private VBox paneProduto1;
+
+    @FXML
+    private Label lblSelecionarProduto;
+
+    @FXML
+    private BorderPane paneProduto2;
+
+    @FXML
+    private ProgressBar progressBar;
+
+    @FXML
+    private Button btnCancelar;
+
+    @FXML
+    private Label lblBanco;
+
+    @FXML
+    private StackPane paneFormaPgto;
+
+    @FXML
+    private Label lblXdeY;
+
+    @FXML
+    private Button btnFormadePagamento;
+
+    @FXML
+    private Button btnPesquisar;
+
+    @FXML
+    private Label lblNumeroDocumento;
+
+    @FXML
+    private Label lblBancoAgencia;
+
+    @FXML
+    private Label lblDataVenc;
+
+    @FXML
+    private Button btnProximo;
+
+    @FXML
+    private Label lblNomeFornecedor;
+
+    @FXML
+    private TextField txtNumeroParcelas;
+
+    @FXML
+    private Button btnPesquisar2;
+
+    @FXML
+    private Label lblValorTotal;
+
+    @FXML
+    private Label lblSelecionarProduto3;
+
+    @FXML
     private Button btnMais_Parcelas;
 
+    @FXML
+    private Label lblMensagem;
 
-    
-    
-    
+    @FXML
+    private TextField txtProduto2;
+
+    final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.C,KeyCombination.SHIFT_DOWN);
+    final KeyCombination keyComb2 = new KeyCodeCombination(KeyCode.L,KeyCombination.SHIFT_DOWN);
+    final KeyCombination keyComb3 = new KeyCodeCombination(KeyCode.P,KeyCombination.SHIFT_DOWN);
+
     //ID
-    
     int id_global = 100;
 
     int getId() {
         id_global++;
         return id_global;
     }
-    
+
     @FXML
-    void txtNumeroParcelas_onAction(ActionEvent event){
+    void txtNumeroParcelas_onAction(ActionEvent event) {
         int x = Integer.parseInt(this.txtNumeroParcelas.getText());
-        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText()) / x;
         this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
     }
-    
+
     @FXML
-    void txtNumeroParcelas_onKeyPressed(KeyEvent event){
+    void txtNumeroParcelas_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.btnProximo.requestFocus();
         }
     }
-    
-    
+
     @FXML
     void btnProximo_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             this.btnProximo.fire();
         }
     }
-    
+
     private int numeroFornecedor = 0;
-    
+
     @FXML
     void btnProximo_onAction(ActionEvent event) {
         if (true) // ADICIONAR ERROS.
@@ -254,10 +265,10 @@ public class FrmCompra {
             completarCompra();
             numeroFornecedor++;
         }
-        if(numeroFornecedor+1 > matAux.size()) {
+        if (numeroFornecedor + 1 > matAux.size()) {
             this.btnProximo.setDisable(true);
             this.btnConfirmar.setVisible(true);
-        }else{
+        } else {
             List<ItemCompraEntity> li = new ArrayList();
             li = matAux.get(numeroFornecedor);
             this.completarFormaPagamento(li);
@@ -272,7 +283,7 @@ public class FrmCompra {
         x--;
         if (x > 0) {
             this.txtNumeroParcelas.setText(Integer.toString(x));
-            valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+            valorParcelas = Float.parseFloat(this.lblValorTotal.getText()) / x;
             this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
         }
     }
@@ -282,7 +293,7 @@ public class FrmCompra {
         int x = Integer.parseInt(this.txtNumeroParcelas.getText());
         x++;
         this.txtNumeroParcelas.setText(Integer.toString(x));
-        valorParcelas = Float.parseFloat(this.lblValorTotal.getText())/x;
+        valorParcelas = Float.parseFloat(this.lblValorTotal.getText()) / x;
         this.lblValorParcela.setText(new DecimalFormat("##.##").format(valorParcelas));
     }
 
@@ -291,10 +302,9 @@ public class FrmCompra {
     @FXML
     void btnFormadePagamento_onAction(ActionEvent event) {
         this.lblMensagem.setText("");
-        this.tabFormaPagamento.setDisable(false);
-        this.tabPainel.getSelectionModel().select(this.tabFormaPagamento);
-        this.tabProduto.setDisable(true);
-        this.tabCarrinho.setDisable(true);
+        this.btnCarinho.setVisible(false);
+        this.paneCarrinho.setVisible(false);
+        this.paneFormaPgto.setVisible(true);
 
         ObservableList<TipoPagamentoEnum> ob = FXCollections.observableArrayList();
         ob.add(TipoPagamentoEnum.VISTA);
@@ -305,19 +315,19 @@ public class FrmCompra {
         boolean i = false;
         matAux.add(new ArrayList<>());
 
-        for (ItemCompraEntity ic : listaCarrinho) {
+        for (TabelaTelaCompraCarrinho ic : listaCarrinho) {
             if (matAux.get(0).isEmpty()) {
-                matAux.get(0).add(ic);
+                matAux.get(0).add(ic.getItemCompra());
             } else {
                 for (List<ItemCompraEntity> listiic : matAux) {
                     if (listiic.get(0).getProdutoVO().getFornecedor().getFantasia().equals(ic.getNomeFornecedor())) {
-                        listiic.add(ic);
+                        listiic.add(ic.getItemCompra());
                         i = true;
                     }
                 }
                 if (!i) {
                     List<ItemCompraEntity> listAux = new ArrayList<>();
-                    listAux.add(ic);
+                    listAux.add(ic.getItemCompra());
                     matAux.add(listAux);
                 }
             }
@@ -327,7 +337,7 @@ public class FrmCompra {
     }
 
     void completarFormaPagamento(List<ItemCompraEntity> li) {
-        
+
         this.clmItemCompra.setCellValueFactory(new PropertyValueFactory<>("NomeProduto"));
         this.tblItemCompras.setItems(FXCollections.observableArrayList(li));
 
@@ -349,11 +359,11 @@ public class FrmCompra {
         this.lblBanco.setText("Banco do Brasil"); //li.get(0).getProdutoVO().getFornecedorVO().getNomeBanco()
         this.lblBancoAgencia.setText("44423-5"); //li.get(0).getProdutoVO().getFornecedorVO().getNumeroAgencia()
         this.lblCodigoBarras.setText(UUID.randomUUID().toString());
-        
+
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, diasdepoisdhoje);
+        cal.add(Calendar.DATE, diasdepoisdehoje);
         this.lblDataVenc.setText(cal.getTime().toString());
-            
+        this.lblXdeY.setText((listaCompras.size() + 1) + " de " + matAux.size());
     }
 
     @FXML
@@ -377,7 +387,7 @@ public class FrmCompra {
             caixa.showAndWait().ifPresent(p -> {
                 if (p == sim) {
                     finalizarCompra();
-                    getPai(this.bdpPrincipal);
+                    getPai(this.bdnPrincipal);
                 }
                 if (p == nao) {
                     caixa.close();
@@ -390,8 +400,8 @@ public class FrmCompra {
 
         ItemCompra itensFinalizados = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
 
-        for (ItemCompraEntity ice : listaCarrinho) {
-            itensFinalizados.save(ice);
+        for (TabelaTelaCompraCarrinho ice : listaCarrinho) {
+            itensFinalizados.save(ice.getItemCompra());
         }
 
         Compra compraFinalizada = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
@@ -418,10 +428,10 @@ public class FrmCompra {
 
     List<CompraEntity> listaCompras = new ArrayList<>();
     private static Banco ABanco = new Banco(DAOFactory.getDAOFactory().getBancoDAO());
-    private int diasdepoisdhoje = 10;
+    private int diasdepoisdehoje = 30;
 
     void completarCompra() {
-        
+
         TipoPagamentoEnum e = this.cmbFormaPagamento.getValue();
         PagamentoEntity paga = new PagamentoEntity();
         paga.setId((long) this.getId());
@@ -434,17 +444,23 @@ public class FrmCompra {
         boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A.")); //Arrumar
         boleto.setAgencia("5423-5");
         boleto.setCarteira("Registrada");
-        
+
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, diasdepoisdhoje);
 
         if (e == TipoPagamentoEnum.VISTA) {
 
             boleto.setId(Long.parseLong(this.lblNumeroDocumento.getText()));
             boleto.setCodigoBarra(this.lblCodigoBarras.getText());
-            
+
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             parcela.setId((long) this.getId());
+            diasdepoisdehoje = 2;
+            for (int i = 0; i < diasdepoisdehoje;) {
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+                if (cal.get(Calendar.DAY_OF_WEEK) <= 5) {
+                    i++;
+                }
+            }
             parcela.setDataVencimento(cal.getTime());
             parcela.setValorOriginal(Float.parseFloat(this.lblValorTotal.getText()));
             parcela.setValorTotalPago(0.00);
@@ -457,11 +473,15 @@ public class FrmCompra {
             for (int x = 0; x < numeroParcelas; x++) {
 
                 boleto.setId((long) this.getId());
-                if(x == 0)boleto.setCodigoBarra(this.lblCodigoBarras.getText());
-                else boleto.setCodigoBarra(UUID.randomUUID().toString());
-                
+                if (x == 0) {
+                    boleto.setCodigoBarra(this.lblCodigoBarras.getText());
+                } else {
+                    boleto.setCodigoBarra(UUID.randomUUID().toString());
+                }
+
                 ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
                 parcela.setId((long) this.getId());
+                cal.add(Calendar.DATE, diasdepoisdehoje);
                 parcela.setDataVencimento(cal.getTime());
                 parcela.setValorOriginal(valorParcelas);
                 parcela.setValorTotalPago(0.00);
@@ -475,8 +495,8 @@ public class FrmCompra {
         }
 
         List<ItemCompraEntity> l = matAux.get(numeroFornecedor);
-        this.listaCompras.add(new CompraEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l))); 
-        this.progressBar.setProgress((double) (numeroFornecedor + 1)/matAux.size());
+        this.listaCompras.add(new CompraEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoCompraEnum.LANCADA, new HashSet<ItemCompraEntity>(l)));
+        this.progressBar.setProgress((double) (numeroFornecedor + 1) / matAux.size());
     }
 
     @FXML
@@ -488,12 +508,14 @@ public class FrmCompra {
 
     @FXML
     void btnCancelar_onAction(ActionEvent event) {
-        getPai(this.bdpPrincipal);
+        getPai(this.bdnPrincipal);
     }
 
     @FXML
     void btnCancelar_onKeyPressed(KeyEvent event) {
-        getPai(this.bdpPrincipal);
+        if (event.getCode() == KeyCode.ENTER) {
+            getPai(this.bdnPrincipal);
+        }
     }
 
     private void getPai(Node node) {
@@ -536,32 +558,24 @@ public class FrmCompra {
     }
 
     void adicionaraocarrinho() {
-        if ("".equals(txtQtdePedir.getText()) || this.tblProduto.getSelectionModel().getSelectedItem() == null) {
+        if (this.tblProduto.getSelectionModel().getSelectedItem() == null) {
             this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
         } else {
             ProdutoEntity aux = this.tblProduto.getSelectionModel().getSelectedItem().getProduto();
-            ItemCompraEntity aux2 = new ItemCompraEntity((long) this.getId(), Integer.parseInt(txtQtdePedir.getText()), aux);
+            TabelaTelaCompraCarrinho aux2 = new TabelaTelaCompraCarrinho(new ItemCompraEntity((long) this.getId(), 1, aux));
             boolean pass = false;
 
-            for (ItemCompraEntity ice : listaCarrinho) {
-                if (ice.getProdutoVO() == aux2.getProdutoVO()) {
-                    ice.setQuantidadePedida(ice.getQuantidadePedida() + aux2.getQuantidadePedida());
+            for (TabelaTelaCompraCarrinho ice : listaCarrinho) {
+                if (ice.getItemCompra().getProdutoVO() == aux2.getItemCompra().getProdutoVO()) {
+                    this.lblMensagem.setText("O Produto selecionado já se encontra no carrinho.");
                     pass = true;
                 }
             }
             if (!pass) {
                 listaCarrinho.add(aux2);
+                this.lblMensagem.setText("Produto \"" + aux2.getItemCompra().getProdutoVO().getNome() + "\" adicionado ao carrinho.");
+                atualizarTabela();
             }
-            completarCarrinhoComLista();
-            this.lblMensagem.setText("Produto \"" + aux2.getProdutoVO().getNome() + "\" adicionado ao carrinho.");
-            this.tabCarrinho.setDisable(false);
-        }
-    }
-
-    @FXML
-    void txtProdutoCarrinho_onKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            this.objetoBuscarCarrinho();
         }
     }
 
@@ -573,34 +587,9 @@ public class FrmCompra {
     }
 
     @FXML
-    void cmbCategoriaCarrinho_onAction(ActionEvent event) {
-        this.objetoBuscar();
-    }
-
-    @FXML
-    void btnPesquisarCarrinho_onAction(ActionEvent event) {
-        this.objetoBuscarCarrinho();
-    }
-
-    @FXML
-    void btnPesquisarCarrinho_onKeyPressed(KeyEvent event) {
-        this.objetoBuscarCarrinho();
-    }
-
-    @FXML
-    void btnNovoProduto_onAction(ActionEvent event) {
-        //Chamar tela de Cadastro de Produto
-    }
-
-    @FXML
-    void btnNovoProduto_onKeyPressed(KeyEvent event) {
-        this.btnNovoProduto.fire();
-    }
-
-    @FXML
     void tblProduto_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            this.txtQtdePedir.requestFocus();
+            this.adicionaraocarrinho();
         }
     }
 
@@ -613,53 +602,30 @@ public class FrmCompra {
 
     @FXML
     void tblProdutoCarrinho_onKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            this.btnRemoverProduto.requestFocus();
+        if (event.getCode() == KeyCode.DELETE) {
+            String nomeProduto = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getNome();
+            listaCarrinho.remove(tblProdutoCarrinho.getSelectionModel().getSelectedItem());
+            atualizarTabela();
+            lblMensagem.setText("Produto \"" + nomeProduto + "\" removido do carrinho.");
         }
-    }
-
-    @FXML
-    void btnMais_onMouseClicked(MouseEvent event) {
-        int x = Integer.parseInt(this.txtQtdePedir.getText());
-        x++;
-        this.txtQtdePedir.setText(Integer.toString(x));
-    }
-
-    @FXML
-    void btnMenos_onMouseClicked(MouseEvent event) {
-        int x = Integer.parseInt(this.txtQtdePedir.getText());
-        if (x > 1) {
-            x--;
+        if ((event.getCode() == KeyCode.PLUS) || (event.getCode() == KeyCode.EQUALS)) {
+            tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() + 1);
+            tblProdutoCarrinho.refresh();
         }
-        this.txtQtdePedir.setText(Integer.toString(x));
-    }
-
-    @FXML
-    void btnRemover_onAction(ActionEvent event) {
-        if (this.tblProdutoCarrinho.getSelectionModel().getSelectedItem() == null) {
-            this.lblMensagem.setText("Por Favor, selecione um item para remover do carrinho.");
-        } else {
-            ItemCompraEntity item = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getProduto();
-            listaCarrinho.remove(item);
-            this.completarCarrinhoComLista();
-            this.lblMensagem.setText("Produto \"" + item.getProdutoVO().getNome() + "\" removido do carrinho.");
-            if (listaCarrinho.size() == 0) {
-                this.tabPainel.getSelectionModel().select(this.tabProduto);
-                this.tabCarrinho.setDisable(true);
+        if (event.getCode() == KeyCode.MINUS) {
+            int y = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade();
+            if (y > 1) {
+                tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() - 1);
+                tblProdutoCarrinho.refresh();
             }
         }
-    }
-
-    @FXML
-    void btnRemover_onKeyPressed(KeyEvent event) {
-        this.btnRemoverProduto.fire();
     }
 
     private Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
     private ItemCompra itemCompra = new ItemCompra(DAOFactory.getDAOFactory().getItemCompraDAO());
     private Categoria categoria = new Categoria(DAOFactory.getDAOFactory().getCategoriaDAO());
     private Fornecedor fornecedor = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
-    private List<ItemCompraEntity> listaCarrinho = new ArrayList<>();
+    private List<TabelaTelaCompraCarrinho> listaCarrinho = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -675,10 +641,29 @@ public class FrmCompra {
             ob.add(cat.getNome());
         }
         this.cmbCategoria.setItems(ob);
+        this.lblMensagem.setText("Por Favor, selecione um produto para adicionar ao carrinho.");
 
-        this.txtQtdePedir.setText("1");
-
-        this.lblMensagem.setText("Por Favor, selecione um produto e insira a quantidade desejada para adicionar ao carrinho.");
+        bdnPrincipal.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (keyComb1.match(event)) {
+                    btnCarinho.fire();
+                }
+                if (keyComb2.match(event)) {
+                    boolean passou = false;
+                    if(paneProduto1.isVisible()){
+                        btnLayout.fire();
+                        passou = true;
+                    }
+                    if(paneProduto2.isVisible() && !passou)btnLayout2.fire();
+                }
+                if (keyComb3.match(event)) {
+                    if(paneProduto1.isVisible())txtProduto.requestFocus();
+                    if(paneProduto2.isVisible())txtProduto2.requestFocus();
+                }
+            }
+        }
+        );
     }
 
     private void completarProdutos(List<TabelaTelaCompra> lista) {
@@ -688,63 +673,103 @@ public class FrmCompra {
         this.clmProdutoQtdeReservada.setCellValueFactory(new PropertyValueFactory<>("quantidadeReservada"));
         this.clmProdutoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         this.clmProdutoFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
-        
-
-//Método para colorir tabela: Por Professor.
-        this.clmProdutoFornecedor.setCellFactory(column -> {
-        return new TableCell<TabelaTelaCompra, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-
-                setText(empty ? "" : getItem().toString());
-                setGraphic(null);
-
-                TableRow<TabelaTelaCompra> currentRow = getTableRow();
-
-                if (!isEmpty()) {
-
-                    if(item.equals("Fantasia 1")) 
-                        currentRow.setStyle("-fx-background-color:lightcoral");
-                    else
-                        currentRow.setStyle("-fx-background-color:lightgreen");
-                }
-
-            }
-        };
-    });
-        
-        
         this.tblProduto.setItems(FXCollections.observableArrayList(lista));
     }
 
-    private void completarCarrinhoComLista() {
-        List<TabelaTelaCompraCarrinho> listItem = new ArrayList<>();
+    private void atualizarTabela() {
 
-        for (ItemCompraEntity vo : listaCarrinho) {
-            TabelaTelaCompraCarrinho aux = new TabelaTelaCompraCarrinho(vo);
-            listItem.add(aux);
-        }
-        completarCarrinho(listItem);
-    }
+        this.clmCarrinhoProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        this.clmCarrinhoProduto.setCellFactory(column -> {
+            return new TableCell<TabelaTelaCompraCarrinho, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        final VBox vbox = new VBox(2);
+                        ImageView imageview = new ImageView();
+                        imageview.setFitHeight(50);
+                        imageview.setFitWidth(50);
+                        String imageUrl = "file:///C://NetBeans//AlphaCosmeticos//src//main//resources//imagem//imagem.jpg";
+                        imageview.setImage(new Image(imageUrl));
+                        Label label = new Label(item);
 
-    private void completarCarrinho(List<TabelaTelaCompraCarrinho> lista) {
+                        vbox.getChildren().add(imageview);
+                        vbox.getChildren().add(label);
+                        vbox.setAlignment(Pos.TOP_LEFT);
+                        setGraphic(vbox);
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            };
+        });
 
-        ObservableList<String> ob = FXCollections.observableArrayList();
-        List<CategoriaEntity> cat = new ArrayList<>();
-        for (ItemCompraEntity ic : listaCarrinho) {
-            cat.add(ic.getProdutoVO().getCategoriaVO());
-        }
-        for (CategoriaEntity x : cat) {
-            ob.add(x.getNome());
-        }
-        this.cmbCategoriaCarrinho.setItems(ob);
+        this.clmCarrinhoFornecedor.setCellValueFactory(new PropertyValueFactory<>("nomeFornecedor"));
+        this.clmCarrinhoQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        this.clmCarrinhoValorUni.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
+        this.clmCarrinhoValorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
 
-        this.clmProdutoCarrinhoProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        this.clmProdutoCarrinhoQtdePedida.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        this.clmProdutoCarrinhoCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        this.clmProdutoCarrinhoFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
-        this.tblProdutoCarrinho.setItems(FXCollections.observableArrayList(lista));
+        this.clmCarrinhoQuantidade.setCellFactory((TableColumn<TabelaTelaCompraCarrinho, Integer> column) -> {
+            return new TableCell<TabelaTelaCompraCarrinho, Integer>() {
+                @Override
+                protected void updateItem(Integer item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        final HBox hbox = new HBox(5);
+                        final VBox vbox = new VBox(5);
+                        Label label = new Label(item.toString());
+                        final Button btnMais = new Button("+");
+                        btnMais.setMinSize(25, 25);
+                        final TableCell<TabelaTelaCompraCarrinho, Integer> c = this;
+                        btnMais.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() + 1);
+                                tblProdutoCarrinho.refresh();
+                            }
+                        });
+                        Button btnMenos = new Button("-", null);
+                        btnMenos.setMinSize(25, 25);
+                        final TableCell<TabelaTelaCompraCarrinho, Integer> d = this;
+                        btnMenos.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                if (getItem() > 1) {
+                                    tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() - 1);
+                                    tblProdutoCarrinho.refresh();
+                                }
+                            }
+                        });
+                        Button btnRemover = new Button("Remover", null);
+                        btnRemover.setFont(new Font(8));
+                        final TableCell<TabelaTelaCompraCarrinho, Integer> e = this;
+                        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                String nomeProduto = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getNome();
+                                listaCarrinho.remove(tblProdutoCarrinho.getSelectionModel().getSelectedItem());
+                                atualizarTabela();
+                                lblMensagem.setText("Produto \"" + nomeProduto + "\" removido do carrinho.");
+                            }
+                        });
+                        vbox.getChildren().add(hbox);
+                        vbox.getChildren().add(btnRemover);
+                        hbox.getChildren().add(btnMais);
+                        hbox.getChildren().add(label);
+                        hbox.getChildren().add(btnMenos);
+                        hbox.setAlignment(Pos.CENTER);
+                        vbox.setAlignment(Pos.CENTER);
+                        setGraphic(vbox);
+                    } else {
+                        setGraphic(null);
+                    }
+
+                }
+            };
+        });
+
+        this.tblProdutoCarrinho.setItems(FXCollections.observableArrayList(listaCarrinho));
+        controlarBtnFormaPagto();
     }
 
     private void objetoBuscar() {
@@ -783,6 +808,7 @@ public class FrmCompra {
         this.completarProdutos(listProdutos);
     }
 
+    /*
     private void objetoBuscarCarrinho() {
         ItemCompraEntity item = new ItemCompraEntity();
         FornecedorEntity fornecedor = new FornecedorEntity();
@@ -845,6 +871,107 @@ public class FrmCompra {
             }
         }
         return buscado;
+    }
+     */
+    @FXML
+    void btnLayout_onAction(ActionEvent event) {
+        this.paneProduto1.setVisible(false);
+        this.paneProduto2.setVisible(true);
+    }
+
+    @FXML
+    void btnLayout_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnLayout.fire();
+        }
+    }
+
+    @FXML
+    void btnPesquisar2_onAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnPesquisar2_onKeyPressed(KeyEvent event) {
+
+    }
+
+    @FXML
+    void treeCategoria_onEditCancel(ActionEvent event) {
+
+    }
+
+    @FXML
+    void treeCategoria_onEditCommit(ActionEvent event) {
+
+    }
+
+    @FXML
+    void treeCategoria_onEditStart(ActionEvent event) {
+
+    }
+
+    @FXML
+    void treeCategoria_onMouseClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void btnLayout2_onAction(ActionEvent event) {
+        this.paneProduto2.setVisible(false);
+        this.paneProduto1.setVisible(true);
+    }
+
+    @FXML
+    void btnLayout2_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnLayout2.fire();
+        }
+    }
+
+    int panePassado = 0;
+    boolean passou_carrinho = false;
+
+    @FXML
+    void btnCarinho_onAction(ActionEvent event) {
+        if (passou_carrinho) {
+            this.paneCarrinho.setVisible(false);
+            if (panePassado == 1) {
+                this.paneProduto1.setVisible(true);
+            }
+            if (panePassado == 2) {
+                this.paneProduto2.setVisible(true);
+            }
+            passou_carrinho = false;
+        } else {
+            if (this.paneProduto1.isVisible()) {
+                panePassado = 1;
+                this.paneProduto1.setVisible(false);
+            }
+            if (this.paneProduto2.isVisible()) {
+                panePassado = 2;
+                this.paneProduto2.setVisible(false);
+            }
+            this.paneCarrinho.setVisible(true);
+            controlarBtnFormaPagto();
+            lblMensagem.setText(listaCarrinho.size() + " produto(s) no carrinho.");
+            passou_carrinho = true;
+        }
+    }
+
+    void controlarBtnFormaPagto() {
+        if (listaCarrinho.size() < 1) {
+            this.btnFormadePagamento.setVisible(false);
+        } else {
+            this.btnFormadePagamento.setVisible(true);
+        }
+    }
+
+    @FXML
+    void btnCarinho_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnCarinho.fire();
+        }
     }
 
 }
