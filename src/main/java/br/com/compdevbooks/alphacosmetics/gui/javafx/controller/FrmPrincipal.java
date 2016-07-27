@@ -185,7 +185,7 @@ public class FrmPrincipal {
     void mniOpCompra_onAction(ActionEvent event){
         BorderPane frmCompra=null;
         try{
-            frmCompra= FXMLLoader.load(FrmCompra.class.getClassLoader().getResource("gui/operacoes/compra.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmCompra= FXMLLoader.load(FrmCompra.class.getClassLoader().getResource("gui/operacoes/compra_final.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCompra);
         }catch (Exception ioe){
             System.out.println(ioe.getMessage());
