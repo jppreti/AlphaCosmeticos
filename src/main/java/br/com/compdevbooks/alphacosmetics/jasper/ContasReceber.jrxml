@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContasReceber" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cd06501-75df-4f01-974c-70cb6cbcd00c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="dtVencimento" class="java.lang.String"/>
+	<field name="formapgto" class="java.lang.String"/>
+	<field name="valor" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="104" y="0" width="328" height="47" uuid="58a6049a-26d3-447a-a587-83f7783b7b4e"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Relatório de contas á Receber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="47" width="222" height="28" uuid="5e071371-fe70-4a24-a2cf-6ec422b8041e"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Empresa AlphaCosmetico]]></text>
+			</staticText>
+			<image>
+				<reportElement x="406" y="0" width="151" height="97" uuid="a6d8bfe8-0cd8-4c54-9d15-d4fe82a1b7ff"/>
+				<imageExpression><![CDATA["F:\\funcionando\\src\\main\\resources\\imagem\\logo1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="4" width="100" height="20" uuid="371f8f77-c775-403e-8782-ca0683a34c1a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="4" width="117" height="20" uuid="a06d15a0-fd5a-4063-a174-499986023d4e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Dt.Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="4" width="100" height="20" uuid="7e063bfc-d8d4-4b2d-88c7-480d74562be7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Forma Pgto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="4" width="100" height="20" uuid="bba5de3e-f576-42d5-9e33-ad5b3d6fd247"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="0" width="100" height="20" uuid="eae99c27-2cf5-4d73-b3c0-a0c42b7f5fa2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="115" height="20" uuid="1038f9c3-4808-4b2d-87b6-e6700f81bdd4"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtVencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="0" width="121" height="20" uuid="11fb8cf2-35d1-4e3b-b4f6-d1dc788d6f76"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formapgto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="100" height="20" uuid="1f11afa5-8c86-4fb3-aff2-7fa00f029bbb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="4" y="17" width="100" height="20" uuid="230d8b53-9b34-4549-b045-bacc7554bb3d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="17" width="80" height="20" uuid="c5af08ed-0c18-4f49-9816-eb8a28945948"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="508" y="17" width="40" height="20" uuid="2e6bc9f7-5f51-4ffd-aec5-510154ca20a5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -11,6 +11,8 @@ import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasReceber;
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,6 +24,7 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -40,6 +43,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.hibernate.sql.Select;
 //import br.com.compdevbooks.alphacosmetics.entity.pagamento.
 
 public class FrmContas_a_receber {
@@ -83,8 +93,7 @@ public class FrmContas_a_receber {
     @FXML
     private Button btnBaixarTitulos;
 
-    @FXML
-    private Label lblNumPedidoValor;
+  
 
     @FXML
     private ComboBox<FormaPagamentoEnum> cmbFormaPgto;
@@ -173,8 +182,7 @@ public class FrmContas_a_receber {
     @FXML
     private Label lblClienteValor;
 
-    @FXML
-    private Label lblSituacaoValor;
+  
 
     @FXML
     private Label lblPo;
@@ -210,11 +218,19 @@ public class FrmContas_a_receber {
     float aberto = 0;
 
     private Venda venda = new Venda(DAOFactory.getDAOFactory().getVendaDAO());
-
     List<VendaEntity> listaVendaT;
+    private String path;
+    private String pathToReportPackage;
+
+    public FrmContas_a_receber() {
+        /*this.path = this.getClass().getClassLoader().getResource("").getPath();
+        this.pathToReportPackage = this.path + "br\\com\\compdevbooks\\alphacosmetics\\gui\\javafx\\jasper\\";
+        System.out.println(path+" "+"aqui");*/
+    }
 
     @FXML
     void initialize() {
+        tabVisualizar.setDisable(true);
 
         ObservableList<String> ob = FXCollections.observableArrayList();
 
@@ -268,6 +284,14 @@ public class FrmContas_a_receber {
 
         completar(listaVendaT);
 
+    }
+
+    public String getPathToReportPackage() {
+        return this.pathToReportPackage;
+    }
+
+    public String getPath() {
+        return this.path;
     }
 
     void completar(List<VendaEntity> lista) {
@@ -535,10 +559,13 @@ public class FrmContas_a_receber {
                         }
                         if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                                /*
-                            arrumar aqui!!
-                                 */
+                    }
+                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
+
+                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            /*
+                             arrumar aqui!!
+                             */
 
                                 if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
 
@@ -998,10 +1025,13 @@ public class FrmContas_a_receber {
                         }
                         if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                                /*
-                            arrumar aqui!!
-                                 */
+                    }
+                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
+
+                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            /*
+                             arrumar aqui!!
+                             */
 
                                 if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
 
@@ -1283,14 +1313,11 @@ public class FrmContas_a_receber {
         }
     }
 
-    @FXML
-    void tblVenda_onMousePressed(MouseEvent event) {
 
-    }
 
     @FXML
-    void btnVisualizarImpressao_onAction(ActionEvent event) {
-
+    void btnVisualizarImpressao_onAction(ActionEvent event) throws Exception {
+      //  imprimir();
     }
 
     @FXML
@@ -1525,6 +1552,26 @@ public class FrmContas_a_receber {
         } else {
             return false;
         }
+    }
+
+
+
+    @FXML
+    void tblVenda_onMouseClicked(MouseEvent event) {
+        if (event.getClickCount() >= 1) {
+            if(tblVenda.getSelectionModel().getSelectedItem() == null) return;
+            tabVisualizar.setDisable(false);
+        }
+        
+        TabelaTelaContasReceber receber = tblVenda.getSelectionModel().getSelectedItem();
+        
+        lblClienteValor.setText("  "+receber.getCliente());
+        lblLancamentoValor.setText("  "+receber.getDtLancamento());
+        lblVencimentoValor.setText("  "+receber.getDtVencimento());
+        lblValorValor.setText("  $"+receber.getValor());
+        lblNumTituloValor.setText("  "+receber.getParcela());
+        lblTipoDocumentoValor.setText("  "+receber.getFormapgto());
+      
     }
 
 }

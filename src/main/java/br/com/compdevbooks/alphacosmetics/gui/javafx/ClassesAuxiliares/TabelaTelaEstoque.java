@@ -12,7 +12,9 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class TabelaTelaEstoque implements Comparable<TabelaTelaEstoque> {
@@ -79,10 +81,10 @@ public class TabelaTelaEstoque implements Comparable<TabelaTelaEstoque> {
         if(this==null || t==null){
             return 0;
         }
-        
-        if(this.getProduto().getQuantidade()<=15 && t.getProduto().getQuantidade()>15){
+        int aux = this.estadoCritico(produto);
+        if(this.getProduto().getQuantidade()<=aux && t.getProduto().getQuantidade()>aux){
             retorno=-1;
-        } else if (t.getProduto().getQuantidade()<=15 && this.getProduto().getQuantidade()>15){
+        } else if (t.getProduto().getQuantidade()<=aux && this.getProduto().getQuantidade()>aux){
             retorno=1 ;
         } else{
            retorno = this.getProduto().getNome().toUpperCase().compareTo(t.getProduto().getNome().toUpperCase());
@@ -90,6 +92,21 @@ public class TabelaTelaEstoque implements Comparable<TabelaTelaEstoque> {
         
         return retorno;
     }
-
     
+    public int estadoCritico(ProdutoEntity produ){
+        Date data = new Date();
+        int quantidade=0;
+        data.setDate(data.getDate()-30);
+        for (VendaEntity vo:venda.buscarTodasVendas()){
+            if (vo.getDataLancamento().after(data)){
+                for (ItemVendaEntity vo2: vo.getListaItens()){
+                    if (vo2.getProdutoVO().getId().equals(produ.getId())){
+                        quantidade = vo2.getQuantidade()+quantidade;
+                    }
+                }
+            }
+        }
+        quantidade = (int) (quantidade)/10;
+        return quantidade+1;
+    }
 }

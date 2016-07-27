@@ -106,7 +106,7 @@
                         <Insets right="10.0" />
                      </FlowPane.margin>
                   </Label>
-                  <TextField fx:id="txtQtdeRecebida">
+                  <TextField fx:id="txtQtdeRecebida" onKeyPressed="#txtQtdeRecebida_onKeyPressed">
                      <FlowPane.margin>
                         <Insets right="10.0" />
                      </FlowPane.margin>
@@ -117,11 +117,11 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </FlowPane>
-            <TableView fx:id="tblItemPedidoConf" prefHeight="186.0" prefWidth="984.0">
+            <TableView fx:id="tblItemPedidoConf" editable="true" prefHeight="186.0" prefWidth="984.0">
               <columns>
                 <TableColumn fx:id="clmItemPedidoConfID" prefWidth="151.00000762939453" text="%column.id" />
                 <TableColumn fx:id="clmItemPedidoConfProduto" prefWidth="628.6666870117188" text="%column.produto" />
-                  <TableColumn fx:id="clmItemPedidoConfQtdeRecebida" prefWidth="242.0" text="%column.qtdeRecebida" />
+                  <TableColumn fx:id="clmItemPedidoConfQtdeRecebida" onEditCommit="#clmItemPedidoConfQtdeRecebida_OnEditCommit" onEditStart="#clmItemPedidoConfQtdeRecebida_OnEditStart" prefWidth="242.0" text="%column.qtdeRecebida" />
               </columns>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />

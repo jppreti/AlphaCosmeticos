@@ -359,7 +359,6 @@ public class MockVendaDAO implements IVendaDAO {
                         // Verifica se o usuário passou apenas a data final e deixou em branco a data inicial
                        Set<ParcelaPagamentoEntity> parcela = new HashSet<>();
                         parcela = vo.getPagamentoVO().getListaParcelas();
-                        
                         Iterator it = parcela.iterator();
                         
                         while(it.hasNext()){

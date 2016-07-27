@@ -96,6 +96,9 @@ public class FrmPedidoCompraFinalizar {
 
     @FXML
     private TableColumn<ItemCompraEntity, Integer> clmItemCompraQtdeRecebida;
+    
+    @FXML
+    private TableColumn<ItemCompraEntity, Integer> clmItemCompraQtdePedida;
 
     @FXML
     private Label lblPedidoCompraFinalizar;
@@ -121,6 +124,7 @@ public class FrmPedidoCompraFinalizar {
         this.clmItemCompraProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
         this.clmItemCompraQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadeFornecida"));
         this.clmItemCompraQtdeEstoque.setCellValueFactory(new PropertyValueFactory<>("quantidadeEstoque"));
+        this.clmItemCompraQtdePedida.setCellValueFactory(new PropertyValueFactory<>("quantidadePedida"));
         this.clmItemCompraQtdeTotal.setCellValueFactory(new PropertyValueFactory<>("quantidadeTotal"));
         this.tblItemCompra.setItems(FXCollections.observableArrayList(lista));
     }
