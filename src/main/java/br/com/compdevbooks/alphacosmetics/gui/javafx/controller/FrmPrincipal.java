@@ -20,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -52,6 +54,10 @@ public class FrmPrincipal {
     @FXML
     private Menu mnuAjuda;
     
+        @FXML
+    private ScrollBar sbaLateral;
+
+    
     @FXML
     void initialize(){
         NavegarObjetos.setPai(bdpPrincipal);
@@ -73,7 +79,13 @@ public class FrmPrincipal {
             }
 
     }
-
+    
+    
+    @FXML
+    void sbaLateral_onDragDetected(DragEvent event) {
+     sbaLateral.setTranslateY(10);
+    }
+    
     @FXML
     void mniFinContaPagar_onAction(ActionEvent event)  {
         

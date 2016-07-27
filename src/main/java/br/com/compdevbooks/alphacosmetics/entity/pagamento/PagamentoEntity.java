@@ -21,6 +21,7 @@ public class PagamentoEntity implements IEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
     
+    
     @Enumerated(EnumType.ORDINAL)
     private TipoPagamentoEnum tipoPagamento;
     

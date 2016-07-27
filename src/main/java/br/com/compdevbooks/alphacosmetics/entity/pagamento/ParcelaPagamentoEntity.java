@@ -14,43 +14,45 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 @Table(name = "parcelapagamento")
 public class ParcelaPagamentoEntity implements IEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long Id;
-    
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private DocumentoPagamentoEntity documentoPagamento;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date dataOperacao;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataVencimento;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPagamento;
-    
+
     @Column(scale = 2)
     private double valorOriginal;
-    
+
     @Column(scale = 2)
     private double valorDesconto;
-    
+
     @Column(scale = 2)
     private double valorJuro;
-    
+
     @Column(scale = 2)
     private double valorMulta;
-    
+
     @Column(scale = 2)
     private double valorTotalPago;
-    
+
     public Long getId() {
         return Id;
     }
@@ -71,15 +73,15 @@ public class ParcelaPagamentoEntity implements IEntity {
         return dataVencimento;
     }
 
-      public void setDataVencimento(Date dataVencimento, int numDaParcela) {
-       
+    public void setDataVencimento(Date dataVencimento, int numDaParcela) {
+
         this.dataVencimento = new Date();
-        this.dataVencimento.setDate(dataVencimento.getDate()+30*numDaParcela);
+        this.dataVencimento.setDate(dataVencimento.getDate() + 30 * numDaParcela);
         this.dataVencimento.setMonth(dataVencimento.getMonth());
         this.dataVencimento.setYear(dataVencimento.getYear());
-        
+
     }
-      
+
     public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
@@ -145,9 +147,10 @@ public class ParcelaPagamentoEntity implements IEntity {
         return "";
     }
 
-	@Override
-	public Object validar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object validar() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

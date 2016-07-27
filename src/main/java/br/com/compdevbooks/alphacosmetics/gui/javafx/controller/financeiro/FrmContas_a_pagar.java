@@ -299,7 +299,7 @@ public class FrmContas_a_pagar {
                                         tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
                                         tabela.setCnpj(vo.getFornecedorVO().getCNPJ());
                                         tabela.setValor((float) parcPg.getValorOriginal());
-
+                                        
                                         listaFinal.add(tabela);
                                     }
                                 }

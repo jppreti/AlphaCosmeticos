@@ -67,6 +67,7 @@ public class MockVendaDAO implements IVendaDAO {
             cartaoCredito.setNumero("4922935883145378");
             cartaoCredito.setValidade("29/08/2022");
             cartaoCredito.setOperadora(AOperadora.getOperadora("Visa"));
+            parcela.setId(1L);
             parcela.setValorOriginal(100.00);
             parcela.setValorTotalPago(100.00);
             parcela.setDocumentoPagamento(cartaoCredito);
@@ -80,12 +81,14 @@ public class MockVendaDAO implements IVendaDAO {
             cheque.setConta("34.123-8");
             cheque.setAgencia("0046-9");
             parcela.setValorOriginal(200.00);
+             parcela.setId(2L);
             parcela.setValorTotalPago(200.00);
             parcela.setDocumentoPagamento(cheque);
             listaParcela.add(parcela);
             
             parcela = new ParcelaPagamentoEntity();
             parcela.setDataVencimento(data, 3);
+             parcela.setId(3L);
             BoletoBancarioEntity boleto = new BoletoBancarioEntity();
             boleto.setBancoEmissorVO(ABanco.getBancos("Banco do Brasil S.A."));
             boleto.setId((long) 1);
@@ -123,7 +126,7 @@ public class MockVendaDAO implements IVendaDAO {
             listaParcela = new HashSet();
             pagamento = new PagamentoEntity();
             parcela = new ParcelaPagamentoEntity();
-
+             parcela.setId(4L);
             boleto.setBancoEmissorVO(ABanco.getBancos("Banco do Brasil S.A."));
             boleto.setId((long) 2);
             boleto.setAgencia("0046-9");

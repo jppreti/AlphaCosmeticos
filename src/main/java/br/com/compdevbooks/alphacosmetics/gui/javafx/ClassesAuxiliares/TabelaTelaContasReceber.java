@@ -10,11 +10,9 @@ import java.util.Date;
 
 public class TabelaTelaContasReceber {
 
-
-
     public TabelaTelaContasReceber() {
     }
-    
+
     private String dtLancamento;
     private String dtVencimento;
     private String cliente;
@@ -22,8 +20,25 @@ public class TabelaTelaContasReceber {
     private float valor;
     private int parcela;
     private String cnpj;
+    private Long id_venda;
+    private Long id_parcela;
 
-    
+    public Long getId_venda() {
+        return id_venda;
+    }
+
+    public void setId_venda(Long id_venda) {
+        this.id_venda = id_venda;
+    }
+
+    public Long getId_parcela() {
+        return id_parcela;
+    }
+
+    public void setId_parcela(Long id_parcela) {
+        this.id_parcela = id_parcela;
+    }
+
     public String getDtLancamento() {
         return dtLancamento;
     }
@@ -32,7 +47,7 @@ public class TabelaTelaContasReceber {
      * @param dtLancamento the dtLancamento to set
      */
     public void setDtLancamento(Date dtLancamento) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String data = sdf.format(dtLancamento);
 
@@ -50,7 +65,7 @@ public class TabelaTelaContasReceber {
      * @param dtVencimento the dtVencimento to set
      */
     public void setDtVencimento(Date dtVencimento) {
-           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String data = sdf.format(dtVencimento);
 
         this.dtVencimento = data;
@@ -125,7 +140,5 @@ public class TabelaTelaContasReceber {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-    
-    
-    
+
 }

@@ -10,7 +10,7 @@
 
 <BorderPane fx:id="frmContasPagar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="538.0" minWidth="342.0" prefHeight="342.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar">
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="697.0">
                <children>
@@ -258,18 +258,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblValorPago" text="%label.valorPago" />
-                              <TextField fx:id="txtValorPago">
-                                 <HBox.margin>
-                                    <Insets left="23.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
                               <Label fx:id="lblValorAPagar" text="%label.valorApagar" />
-                              <TextField fx:id="txtValorAPagar">
+                              <TextField fx:id="txtValorAPagar" disable="true">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="10.0" top="5.0" />
                                  </HBox.margin>
@@ -278,17 +268,45 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblTotal" text="%label.total" />
-                              <TextField fx:id="txtTotal" prefHeight="25.0" prefWidth="144.0">
+                              <Label fx:id="lblJuros" text="%label.juros" />
+                              <TextField fx:id="txtJuros">
                                  <HBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets bottom="5.0" left="39.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
                         </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lbldesconto" text="%label.desconto" />
+                              <TextField fx:id="txtdesconto">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="20.0" top="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblTotal" text="%label.total" />
+                              <TextField fx:id="txtTotal" disable="true" prefHeight="25.0" prefWidth="144.0">
+                                 <HBox.margin>
+                                    <Insets left="40.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="74.0" prefWidth="85.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="%button.calcular" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="170.0" prefWidth="189.0">
                      <children>
                         <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" text="%button.baixarDivida">
                            <VBox.margin>
@@ -298,14 +316,9 @@
                         <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="84.0" text="%button.sair" />
                      </children>
                      <HBox.margin>
-                        <Insets left="450.0" />
+                        <Insets left="350.0" />
                      </HBox.margin>
                   </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="838.0">
-               <children>
-                  <Label fx:id="lblStatus" text="%label.status" />
                </children>
             </HBox>
          </children>

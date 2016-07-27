@@ -18,6 +18,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 //import br.com.compdevbooks.alphacosmetics.entity.pagamento.
@@ -236,23 +238,25 @@ public class FrmContas_a_receber {
         for (VendaEntity vo : listaVendaT) {
 
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                if (parcPg.getDataPagamento() == null) {
 
-                if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
-                    //  referencia.setDate(referencia.getDate() + 30);
-                    if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
+                        aberto += (float) parcPg.getValorOriginal();
                     }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
+                        aberto += (float) parcPg.getValorOriginal();
                     }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
-                        vencidos += (float) parcPg.getValorOriginal();
+                    if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
+                        //  referencia.setDate(referencia.getDate() + 30);
+                        if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
+                            vencidos += (float) parcPg.getValorOriginal();
+                        }
                     }
                 }
             }
@@ -297,13 +301,71 @@ public class FrmContas_a_receber {
 
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
                 cont++;
+                if (parcPg.getDataPagamento() == null) {
 
-                if (cmbFormaPgto.getValue().toString().toUpperCase().equals("TODOS")) {
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
+                    if (cmbFormaPgto.getValue().toString().toUpperCase().equals("TODOS")) {
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
 
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
 
-                            if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
+                                if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
+
+                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                        tabela.setCliente(vo.getNomeCliente());
+                                        tabela.setDtLancamento(vo.getDataLancamento());
+                                        tabela.setDtVencimento(parcPg.getDataVencimento());
+                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                        tabela.setParcela(cont);
+                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
+                                        dado.add(tabela);
+
+                                    }
+                                }
+                            }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
+
                                 if (rdbEmAberto.isSelected()) {
                                     if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
@@ -316,7 +378,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -332,7 +395,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -348,68 +412,51 @@ public class FrmContas_a_receber {
                                     tabela.setParcela(cont);
                                     tabela.setValor((float) parcPg.getValorTotalPago());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                    tabela.setId_venda(vo.getId());
+                                    tabela.setId_parcela(parcPg.getId());
                                     dado.add(tabela);
 
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (rdbEmAberto.isSelected()) {
-                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
 
-                                    dado.add(tabela);
-                                }
-                            }
-                            if (rdbVencidos.isSelected()) {
-                                if (parcPg.getDataVencimento().before(referencia)) {
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
 
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-
-                            if (rdbTodosTipoCliente.isSelected()) {
-
-                                TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                tabela.setCliente(vo.getNomeCliente());
-                                tabela.setDtLancamento(vo.getDataLancamento());
-                                tabela.setDtVencimento(parcPg.getDataVencimento());
-                                tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                tabela.setParcela(cont);
-                                tabela.setValor((float) parcPg.getValorTotalPago());
-                                tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                dado.add(tabela);
-
-                            }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
-
-                            if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -420,51 +467,54 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
-                            if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
-                                    || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
+                                if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
+                                        || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
 
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -475,53 +525,78 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
                                 }
                             }
+
                         }
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                    }
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
-
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                            /*
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                                /*
                             arrumar aqui!!
-                             */
+                                 */
 
-                            if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+                                if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
+
+                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                        tabela.setCliente(vo.getNomeCliente());
+                                        tabela.setDtLancamento(vo.getDataLancamento());
+                                        tabela.setDtVencimento(parcPg.getDataVencimento());
+                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                        tabela.setParcela(cont);
+                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
+                                        dado.add(tabela);
+
+                                    }
+                                }
+                            }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                                 if (rdbEmAberto.isSelected()) {
                                     if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
@@ -535,7 +610,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -551,7 +627,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -567,69 +644,52 @@ public class FrmContas_a_receber {
                                     tabela.setParcela(cont);
                                     tabela.setValor((float) parcPg.getValorTotalPago());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                    tabela.setId_venda(vo.getId());
+                                    tabela.setId_parcela(parcPg.getId());
                                     dado.add(tabela);
 
                                 }
-                            }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
-
-                            if (rdbEmAberto.isSelected()) {
-                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-                            if (rdbVencidos.isSelected()) {
-                                if (parcPg.getDataVencimento().before(referencia)) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-
-                            if (rdbTodosTipoCliente.isSelected()) {
-
-                                TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                tabela.setCliente(vo.getNomeCliente());
-                                tabela.setDtLancamento(vo.getDataLancamento());
-                                tabela.setDtVencimento(parcPg.getDataVencimento());
-                                tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                tabela.setParcela(cont);
-                                tabela.setValor((float) parcPg.getValorTotalPago());
-                                tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                dado.add(tabela);
 
                             }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
+                                if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
-                            if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -640,51 +700,54 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
-                            if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
-                                    || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
+                                if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
+                                        || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
 
-                                if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -695,53 +758,77 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
 
+                        }
                     }
-                }
-                if (parcPg.getDocumentoPagamento().getNome().toUpperCase().equals(cmbFormaPgto.getValue().toString().toUpperCase())) {
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
+                    if (parcPg.getDocumentoPagamento().getNome().toUpperCase().equals(cmbFormaPgto.getValue().toString().toUpperCase())) {
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Lançamento")) {
 
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
 
-                            if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
+                                if (fim.after(vo.getDataLancamento()) || comparador(fim, vo.getDataLancamento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
+
+                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                        tabela.setCliente(vo.getNomeCliente());
+                                        tabela.setDtLancamento(vo.getDataLancamento());
+                                        tabela.setDtVencimento(parcPg.getDataVencimento());
+                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                        tabela.setParcela(cont);
+                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
+                                        dado.add(tabela);
+
+                                    }
+                                }
+                            }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
+
                                 if (rdbEmAberto.isSelected()) {
                                     if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
@@ -754,7 +841,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -770,7 +858,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -786,68 +875,51 @@ public class FrmContas_a_receber {
                                     tabela.setParcela(cont);
                                     tabela.setValor((float) parcPg.getValorTotalPago());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                    tabela.setId_venda(vo.getId());
+                                    tabela.setId_parcela(parcPg.getId());
                                     dado.add(tabela);
 
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                            if (rdbEmAberto.isSelected()) {
-                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
 
-                                    dado.add(tabela);
-                                }
-                            }
-                            if (rdbVencidos.isSelected()) {
-                                if (parcPg.getDataVencimento().before(referencia)) {
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
 
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-
-                            if (rdbTodosTipoCliente.isSelected()) {
-
-                                TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                tabela.setCliente(vo.getNomeCliente());
-                                tabela.setDtLancamento(vo.getDataLancamento());
-                                tabela.setDtVencimento(parcPg.getDataVencimento());
-                                tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                tabela.setParcela(cont);
-                                tabela.setValor((float) parcPg.getValorTotalPago());
-                                tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                dado.add(tabela);
-
-                            }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
-
-                            if (inicio.before(vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -858,51 +930,54 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
-                            if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
-                                    || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
+                                if ((fim.after(vo.getDataLancamento()) && inicio.before(vo.getDataLancamento()))
+                                        || comparador(fim, vo.getDataLancamento()) || comparador(inicio, vo.getDataLancamento())) {
 
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -913,53 +988,77 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
                                 }
                             }
+
                         }
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                    }
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
-
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                            /*
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                                /*
                             arrumar aqui!!
-                             */
+                                 */
 
-                            if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+                                if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
+
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
+
+                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                        tabela.setCliente(vo.getNomeCliente());
+                                        tabela.setDtLancamento(vo.getDataLancamento());
+                                        tabela.setDtVencimento(parcPg.getDataVencimento());
+                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                        tabela.setParcela(cont);
+                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
+                                        dado.add(tabela);
+
+                                    }
+                                }
+                            }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
 
                                 if (rdbEmAberto.isSelected()) {
                                     if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
@@ -973,7 +1072,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -989,7 +1089,8 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
                                     }
                                 }
@@ -1005,69 +1106,52 @@ public class FrmContas_a_receber {
                                     tabela.setParcela(cont);
                                     tabela.setValor((float) parcPg.getValorTotalPago());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                    tabela.setId_venda(vo.getId());
+                                    tabela.setId_parcela(parcPg.getId());
                                     dado.add(tabela);
 
                                 }
-                            }
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
-
-                            if (rdbEmAberto.isSelected()) {
-                                if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-                            if (rdbVencidos.isSelected()) {
-                                if (parcPg.getDataVencimento().before(referencia)) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-                                }
-                            }
-
-                            if (rdbTodosTipoCliente.isSelected()) {
-
-                                TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                tabela.setCliente(vo.getNomeCliente());
-                                tabela.setDtLancamento(vo.getDataLancamento());
-                                tabela.setDtVencimento(parcPg.getDataVencimento());
-                                tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                tabela.setParcela(cont);
-                                tabela.setValor((float) parcPg.getValorTotalPago());
-                                tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                dado.add(tabela);
 
                             }
+                            if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
 
-                        }
-                        if (dtpFinal.getValue() == null && dtpInicial.getValue() != null) {
+                                if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
 
-                            if (inicio.before(parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
-                                if (rdbEmAberto.isSelected()) {
-                                    if ((parcPg.getDataVencimento().after(referencia)) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1078,51 +1162,54 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
-                            if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
-                                    || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
+                                if ((fim.after(parcPg.getDataVencimento()) && inicio.before(parcPg.getDataVencimento()))
+                                        || comparador(fim, parcPg.getDataVencimento()) || comparador(inicio, parcPg.getDataVencimento())) {
 
-                                if (rdbEmAberto.isSelected()) {
-                                    if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
+                                    if (rdbEmAberto.isSelected()) {
+                                        if (parcPg.getDataVencimento().after(referencia) || comparador(parcPg.getDataVencimento(), referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+                                    if (rdbVencidos.isSelected()) {
+                                        if (parcPg.getDataVencimento().before(referencia)) {
+
+                                            TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
+
+                                            tabela.setCliente(vo.getNomeCliente());
+                                            tabela.setDtLancamento(vo.getDataLancamento());
+                                            tabela.setDtVencimento(parcPg.getDataVencimento());
+                                            tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
+                                            tabela.setParcela(cont);
+                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setCnpj(vo.getClienteVO().getCNPJ());
+                                            tabela.setId_venda(vo.getId());
+                                            tabela.setId_parcela(parcPg.getId());
+                                            dado.add(tabela);
+                                        }
+                                    }
+
+                                    if (rdbTodosTipoCliente.isSelected()) {
 
                                         TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
 
@@ -1133,45 +1220,15 @@ public class FrmContas_a_receber {
                                         tabela.setParcela(cont);
                                         tabela.setValor((float) parcPg.getValorTotalPago());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
+                                        tabela.setId_venda(vo.getId());
+                                        tabela.setId_parcela(parcPg.getId());
                                         dado.add(tabela);
+
                                     }
-                                }
-                                if (rdbVencidos.isSelected()) {
-                                    if (parcPg.getDataVencimento().before(referencia)) {
-
-                                        TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                        tabela.setCliente(vo.getNomeCliente());
-                                        tabela.setDtLancamento(vo.getDataLancamento());
-                                        tabela.setDtVencimento(parcPg.getDataVencimento());
-                                        tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                        tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
-                                        tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                        dado.add(tabela);
-                                    }
-                                }
-
-                                if (rdbTodosTipoCliente.isSelected()) {
-
-                                    TabelaTelaContasReceber tabela = new TabelaTelaContasReceber();
-
-                                    tabela.setCliente(vo.getNomeCliente());
-                                    tabela.setDtLancamento(vo.getDataLancamento());
-                                    tabela.setDtVencimento(parcPg.getDataVencimento());
-                                    tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
-                                    tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
-                                    tabela.setCnpj(vo.getClienteVO().getCNPJ());
-
-                                    dado.add(tabela);
-
                                 }
                             }
-                        }
 
+                        }
                     }
                 }
             }
@@ -1184,6 +1241,50 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnBaixarTitulos_onAction(ActionEvent event) {
+        TabelaTelaContasReceber teste;
+        teste = tblVenda.getSelectionModel().getSelectedItem();
+        System.out.println(teste.getId_parcela());
+        ParcelaPagamentoEntity aux = null;
+
+        for (VendaEntity vo : listaVendaT) {
+
+            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                System.out.println(parcPg.getId());
+
+                if (parcPg.getId().equals(teste.getId_parcela())) {
+                    parcPg.setDataPagamento(referencia);
+                }
+            }
+            //   System.out.println("aaa");
+            // vo.getPagamentoVO().getListaParcelas().remove(aux);
+            //System.out.println("bbbbb");
+        }
+
+        completar(listaVendaT);
+
+    }
+
+    @FXML
+    void tblVenda_onMouseClicked(MouseEvent event) {
+        
+        if (event.getClickCount() == 1) {
+
+            TabelaTelaContasReceber teste;
+            if (tblVenda.getSelectionModel().getSelectedItem() != null) {
+                teste = tblVenda.getSelectionModel().getSelectedItem();
+            } else {
+                return;
+            }
+
+            txtValorTotal.setText(String.valueOf(teste.getValor()));
+            txtNumParcelas.setText(String.valueOf(teste.getParcela()));
+
+            System.out.println(txtValorTotal.getText() + " / " + txtNumParcelas.getText() + " / " + teste.getId_venda());
+        }
+    }
+
+    @FXML
+    void tblVenda_onMousePressed(MouseEvent event) {
 
     }
 
@@ -1377,8 +1478,8 @@ public class FrmContas_a_receber {
         List<VendaEntity> dado = new ArrayList<>();
 
         if (txtNomeRazaoSocial.getText().equals("") && txtCpfCnpj.getText().equals("")) {
-            List<VendaEntity> listaVendaT;
-            listaVendaT = venda.buscarTodasVendas();
+            // List<VendaEntity> listaVendaT;
+            // listaVendaT = venda.buscarTodasVendas();
             completar(listaVendaT);
             return;
         }
