@@ -36,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 //import br.com.compdevbooks.alphacosmetics.entity.pagamento.
@@ -81,8 +82,7 @@ public class FrmContas_a_receber {
     @FXML
     private Button btnBaixarTitulos;
 
-    @FXML
-    private Label lblNumPedidoValor;
+  
 
     @FXML
     private ComboBox<FormaPagamentoEnum> cmbFormaPgto;
@@ -171,8 +171,7 @@ public class FrmContas_a_receber {
     @FXML
     private Label lblClienteValor;
 
-    @FXML
-    private Label lblSituacaoValor;
+  
 
     @FXML
     private Label lblPo;
@@ -213,6 +212,7 @@ public class FrmContas_a_receber {
 
     @FXML
     void initialize() {
+        tabVisualizar.setDisable(true);
 
         ObservableList<String> ob = FXCollections.observableArrayList();
 
@@ -518,7 +518,7 @@ public class FrmContas_a_receber {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
                             /*
-                            arrumar aqui!!
+                             arrumar aqui!!
                              */
 
                             if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
@@ -956,7 +956,7 @@ public class FrmContas_a_receber {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
                             /*
-                            arrumar aqui!!
+                             arrumar aqui!!
                              */
 
                             if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
@@ -1424,6 +1424,26 @@ public class FrmContas_a_receber {
         } else {
             return false;
         }
+    }
+
+
+
+    @FXML
+    void tblVenda_onMouseClicked(MouseEvent event) {
+        if (event.getClickCount() >= 1) {
+            if(tblVenda.getSelectionModel().getSelectedItem() == null) return;
+            tabVisualizar.setDisable(false);
+        }
+        
+        TabelaTelaContasReceber receber = tblVenda.getSelectionModel().getSelectedItem();
+        
+        lblClienteValor.setText("  "+receber.getCliente());
+        lblLancamentoValor.setText("  "+receber.getDtLancamento());
+        lblVencimentoValor.setText("  "+receber.getDtVencimento());
+        lblValorValor.setText("  $"+receber.getValor());
+        lblNumTituloValor.setText("  "+receber.getParcela());
+        lblTipoDocumentoValor.setText("  "+receber.getFormapgto());
+      
     }
 
 }

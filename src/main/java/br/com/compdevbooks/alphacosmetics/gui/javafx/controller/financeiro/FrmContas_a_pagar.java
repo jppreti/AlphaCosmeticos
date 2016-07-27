@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -208,6 +209,7 @@ public class FrmContas_a_pagar {
 
     @FXML
     void initialize() {
+        tabRelatorioResumido.setDisable(true);
         ObservableList<String> ob = FXCollections.observableArrayList();
         refAux.setDate(refAux.getDate() - 30);
         ListaCompra = compra.buscarTodasCompras();
@@ -490,7 +492,7 @@ public class FrmContas_a_pagar {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
                             /*
-                            arrumar aqui!!
+                             arrumar aqui!!
                              */
 
                             if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
@@ -904,7 +906,7 @@ public class FrmContas_a_pagar {
 
                         if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
                             /*
-                            arrumar aqui!!
+                             arrumar aqui!!
                              */
 
                             if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
@@ -1164,7 +1166,7 @@ public class FrmContas_a_pagar {
     }
 
     private boolean validar_data(LocalDate inicio, LocalDate fim) {
-        if (fim.isAfter(inicio)|| fim.equals(inicio)) {
+        if (fim.isAfter(inicio) || fim.equals(inicio)) {
             return true;
         } else {
             return false;
@@ -1227,7 +1229,7 @@ public class FrmContas_a_pagar {
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Data Inválida!");
-                   
+
                     alert.setContentText("Erro ao buscar pelas datas selecionadas");
 
                     alert.showAndWait();
@@ -1257,20 +1259,20 @@ public class FrmContas_a_pagar {
     @FXML
     void btnProcurar_onAction(ActionEvent event) {
         if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
-                if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
-                    busca();
-                } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Data Inválida!");
-                   
-                    alert.setContentText("Erro ao buscar pelas datas selecionadas");
-
-                    alert.showAndWait();
-                    return;
-                }
-            } else {
+            if (validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
                 busca();
+            } else {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Data Inválida!");
+
+                alert.setContentText("Erro ao buscar pelas datas selecionadas");
+
+                alert.showAndWait();
+                return;
             }
+        } else {
+            busca();
+        }
     }
 
     @FXML
@@ -1343,4 +1345,19 @@ public class FrmContas_a_pagar {
         }
 
     }
+
+    @FXML
+    void tblContas_a_pagar_onMouseClicked(MouseEvent event) {
+        if (event.getClickCount() >= 1) {
+            if(tblContas_a_pagar.getSelectionModel().getSelectedItem() == null) return;
+            tabRelatorioResumido.setDisable(false);
+        }
+        TabelaTelaContasAPagar pagar = tblContas_a_pagar.getSelectionModel().getSelectedItem();
+        lblDocumentoValor.setText("  "+pagar.getCnpj());
+        lblNomeRazaoSocialValor.setText("  "+pagar.getNome());
+        lblVencimentoValor.setText("  "+pagar.getDtVencimento());
+        lblValorValor.setText("  $"+pagar.getValor());
+        
+    }
+
 }
