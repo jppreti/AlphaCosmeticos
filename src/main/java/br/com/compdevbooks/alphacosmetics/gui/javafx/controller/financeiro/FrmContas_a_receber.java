@@ -93,8 +93,6 @@ public class FrmContas_a_receber {
     @FXML
     private Button btnBaixarTitulos;
 
-  
-
     @FXML
     private ComboBox<FormaPagamentoEnum> cmbFormaPgto;
 
@@ -181,8 +179,6 @@ public class FrmContas_a_receber {
 
     @FXML
     private Label lblClienteValor;
-
-  
 
     @FXML
     private Label lblPo;
@@ -559,13 +555,13 @@ public class FrmContas_a_receber {
                         }
                         if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                    }
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
+                        }
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                            /*
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                                /*
                              arrumar aqui!!
-                             */
+                                 */
 
                                 if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
 
@@ -1025,13 +1021,13 @@ public class FrmContas_a_receber {
                         }
                         if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                    }
-                    if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
+                        }
+                        if (cmbOpcaoPesquisa.getValue().equals("Dt Vencimento")) {
 
-                        if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
-                            /*
+                            if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                                /*
                              arrumar aqui!!
-                             */
+                                 */
 
                                 if ((fim.after(parcPg.getDataVencimento())) || comparador(fim, parcPg.getDataVencimento())) {
 
@@ -1294,30 +1290,11 @@ public class FrmContas_a_receber {
 
     }
 
-    @FXML
-    void tblVenda_onMouseClicked(MouseEvent event) {
-        
-        if (event.getClickCount() == 1) {
-
-            TabelaTelaContasReceber teste;
-            if (tblVenda.getSelectionModel().getSelectedItem() != null) {
-                teste = tblVenda.getSelectionModel().getSelectedItem();
-            } else {
-                return;
-            }
-
-            txtValorTotal.setText(String.valueOf(teste.getValor()));
-            txtNumParcelas.setText(String.valueOf(teste.getParcela()));
-
-            System.out.println(txtValorTotal.getText() + " / " + txtNumParcelas.getText() + " / " + teste.getId_venda());
-        }
-    }
-
 
 
     @FXML
     void btnVisualizarImpressao_onAction(ActionEvent event) throws Exception {
-      //  imprimir();
+        //  imprimir();
     }
 
     @FXML
@@ -1554,24 +1531,26 @@ public class FrmContas_a_receber {
         }
     }
 
-
-
     @FXML
     void tblVenda_onMouseClicked(MouseEvent event) {
         if (event.getClickCount() >= 1) {
-            if(tblVenda.getSelectionModel().getSelectedItem() == null) return;
+            if (tblVenda.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
             tabVisualizar.setDisable(false);
         }
-        
+
         TabelaTelaContasReceber receber = tblVenda.getSelectionModel().getSelectedItem();
-        
-        lblClienteValor.setText("  "+receber.getCliente());
-        lblLancamentoValor.setText("  "+receber.getDtLancamento());
-        lblVencimentoValor.setText("  "+receber.getDtVencimento());
-        lblValorValor.setText("  $"+receber.getValor());
-        lblNumTituloValor.setText("  "+receber.getParcela());
-        lblTipoDocumentoValor.setText("  "+receber.getFormapgto());
-      
+
+        lblClienteValor.setText("  " + receber.getCliente());
+        lblLancamentoValor.setText("  " + receber.getDtLancamento());
+        lblVencimentoValor.setText("  " + receber.getDtVencimento());
+        lblValorValor.setText("  $" + receber.getValor());
+        lblNumTituloValor.setText("  " + receber.getParcela());
+        lblTipoDocumentoValor.setText("  " + receber.getFormapgto());
+        txtValorTotal.setText(String.valueOf(receber.getValor()));
+        txtNumParcelas.setText(String.valueOf(receber.getParcela()));
+
     }
 
 }
