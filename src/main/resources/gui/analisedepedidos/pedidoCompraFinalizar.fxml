@@ -115,13 +115,14 @@
                   <Insets />
                </VBox.margin>
             </GridPane>
-            <TableView fx:id="tblItemCompra" prefHeight="321.0" prefWidth="984.0">
+            <TableView fx:id="tblItemCompra" prefHeight="321.0" prefWidth="904.0">
               <columns>
                 <TableColumn fx:id="clmItemCompraID" prefWidth="101.66666412353516" text="%column.id" />
-                <TableColumn fx:id="clmItemCompraProduto" prefWidth="532.6666870117188" text="%column.produto" />
-                  <TableColumn fx:id="clmItemCompraQtdeRecebida" prefWidth="124.0" text="%column.qtdeRecebida" />
-                  <TableColumn fx:id="clmItemCompraQtdeEstoque" prefWidth="107.0" text="%column.qtdeEstoque" />
-                  <TableColumn fx:id="clmItemCompraQtdeTotal" prefWidth="117.0" text="%column.qtdeTotal" />
+                <TableColumn fx:id="clmItemCompraProduto" prefWidth="308.66668701171875" text="%column.produto" />
+                  <TableColumn fx:id="clmItemCompraQtdePedida" prefWidth="175.66668701171875" text="%column.qtdePedida" />
+                  <TableColumn fx:id="clmItemCompraQtdeRecebida" prefWidth="121.33331298828125" text="%column.qtdeRecebida" />
+                  <TableColumn fx:id="clmItemCompraQtdeEstoque" prefWidth="142.0" text="%column.qtdeEstoque" />
+                  <TableColumn fx:id="clmItemCompraQtdeTotal" prefWidth="133.0" text="%column.qtdeTotal" />
               </columns>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />

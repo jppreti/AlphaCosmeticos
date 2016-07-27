@@ -63,7 +63,7 @@ public class MockComissaoDAO implements IComissaoDAO{
             }
             
             if(vendedorVO == null){
-                System.out.println("Não encontro o cliente, classe MockCOmissaoDAO");
+                System.out.println("Não encontrou o cliente, classe MockCOmissaoDAO");
             }else{
                 temp.setVendedor(vendedorVO);
               
@@ -83,7 +83,8 @@ public class MockComissaoDAO implements IComissaoDAO{
                 ParcelaComissaoEntity parcelaComissao = new ParcelaComissaoEntity();
                 parcelaComissao.setValorParcela(total);
                 parcelaComissao.setId(a);
-                parcelaComissao.setDataVencimento(vendaEntity.getDataLancamento());
+                 System.out.println(a);
+                parcelaComissao.setDataVencimento(vendaEntity.getDataVencimento().get(i));
                 listaParcelaComissoes.add(parcelaComissao);
             }
              temp.setListaParcelaComissao(listaParcelaComissoes);

@@ -8,11 +8,14 @@ import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
+import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
+import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.MaskFieldUtil;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -24,7 +27,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -162,22 +167,33 @@ public class FrmPedidoCompra {
         MaskFieldUtil.cnpjField(this.txtPesqCNPJ);
     }
     private void completarCompra(List<CompraEntity> lista){
+        
         this.clmCompraDtLancamento.setCellValueFactory(new PropertyValueFactory<>("dataLancamentoString"));
         this.clmCompraID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmCompraSituacao.setCellValueFactory(new PropertyValueFactory<>("situacao"));
+        Collections.sort(lista);
         this.tblCompra.setItems(FXCollections.observableArrayList(lista));
+        tblCompra.refresh();
     }
     private void setarBotao(CompraEntity compra){
         if(compra.getSituacao().equals(SituacaoCompraEnum.LANCADA)){
             this.btnConferir.setDisable(false);
              this.btnFinalizar.setDisable(true);
+             this.btnCancelar.setDisable(false);
         }else if(compra.getSituacao().equals(SituacaoCompraEnum.RECEBIDA)){
             this.btnConferir.setDisable(true);
              this.btnFinalizar.setDisable(false);
+             this.btnCancelar.setDisable(false);
         }else if(compra.getSituacao().equals(SituacaoCompraEnum.PROCESSADA)){
             this.btnConferir.setDisable(true);
              this.btnFinalizar.setDisable(true);
+             this.btnCancelar.setDisable(true);
+        }else if(compra.getSituacao().equals(SituacaoCompraEnum.CANCELADA)){
+            this.btnConferir.setDisable(true);
+             this.btnFinalizar.setDisable(true);
+             this.btnCancelar.setDisable(true);
         }
+        
             
     }
     @FXML
@@ -222,7 +238,29 @@ public class FrmPedidoCompra {
 
     @FXML
     void btnCancelar_onAction(ActionEvent event) {
+        RecusarDialog();
+        completarCompra(compra.buscarTodasCompras());
+        setarBotao(this.tblCompra.getSelectionModel().getSelectedItem());
     }
+    private void RecusarDialog(){
+        Alert caixa= new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType sim= new ButtonType("Sim");
+        ButtonType nao = new ButtonType("Não");
+        caixa.setTitle("Alpha Cosmeticos");
+        caixa.setHeaderText("Cancelar pedido");
+        caixa.setContentText("Deseja cancelar pedido de compra?");
+        caixa.getButtonTypes().setAll(sim,nao);
+        
+        caixa.showAndWait().ifPresent(p->{ 
+            if(p==sim){
+              this.tblCompra.getSelectionModel().getSelectedItem().setSituacao(SituacaoCompraEnum.CANCELADA);
+            }
+            if(p==nao){}
+               
+            
+        });
+        //this.tblVenda.refresh();
+        }
 
     @FXML
     void btnnCancelar_onKeyPressed(KeyEvent event) {
@@ -257,6 +295,7 @@ public class FrmPedidoCompra {
         this.txtFormaPagamento.setText(compraTemp.getPagamentoVO().getTipoPagamento().toString());
         this.completarItem(compraTemp.getListaItens());
         this.setarBotao(compraTemp);
+       
         
     }
     private void completarItem(Set<ItemCompraEntity> lista){
@@ -291,13 +330,13 @@ public class FrmPedidoCompra {
     }
 
     @FXML
-    void cmbSituacao_onAction(ActionEvent event) {
-                pesquisar();
+    void cmbSituacao_onAction(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER)        
+            pesquisar();
     }
 
     @FXML
     void btnPesquisar_onAction(ActionEvent event) {
-        
                 pesquisar();
     }
 
@@ -313,15 +352,13 @@ public class FrmPedidoCompra {
         System.out.println(fornecedor.getFantasia());
         fornecedor.setInscricao(this.txtPesqInscricao.getText());
         System.out.println(fornecedor.getInscricao());
-        fornecedor.setCNPJ(this.txtCNPJ.getText());
-        System.out.println(fornecedor.getCNPJ());
-        
-       
+       if(this.txtCNPJ.getText().endsWith(""))
+        fornecedor.setCNPJ("");
+       else
+           fornecedor.setCNPJ(this.txtCNPJ.getText());
+        System.out.println(fornecedor.getCNPJ());            
             compra.setSituacao(cmbPesqSituacao.getSelectionModel().getSelectedItem());
-            System.out.println(compra.getSituacao().toString());
-        
-        
-        
+            System.out.println(compra.getSituacao().toString());      
             try {
                 if(this.txtPesqDtLancamento.getText().equals(""))
                 compra.setDataLancamento(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1111"));

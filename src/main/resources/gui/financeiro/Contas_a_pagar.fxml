@@ -183,7 +183,7 @@
         <tabs>
           <Tab fx:id="tabDividas" text="%tab.dividas">
                <content>
-                  <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" onMouseClicked="#tblContas_a_pagar_onMouseClicked" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
                       <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
@@ -210,19 +210,16 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label fx:id="lblDocumento" text="%label.cpfCnpj" />
                         <Label fx:id="lblNomeRazaoSocial" text="%label.nomeRazaoSocial" GridPane.rowIndex="1" />
                         <Label fx:id="lblVencimento" text="%label.vencimento" GridPane.rowIndex="2" />
-                        <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="4" />
+                        <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="3" />
                         <Label fx:id="lblDocumentoValor" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="lblNomeRazaoSocialValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="lblVencimentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="lblDiaAtrasado" text="%label.diasDeAtraso" GridPane.rowIndex="3" />
-                        <Label fx:id="lblDiaAtrasadoValor" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

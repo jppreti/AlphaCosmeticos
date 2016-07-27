@@ -65,9 +65,15 @@
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
+                     <children>
+                        <Label fx:id="lblFiltrarPor" text="%label.filtrarPor" />
+                     </children>
                   </FlowPane>
                   <TextField fx:id="txtIDVenda" editable="false" GridPane.columnIndex="1" />
                   <TextField fx:id="txtNomeVendedor" editable="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="rdbProx60Dias" mnemonicParsing="false" onAction="#rdbProx60Dias_onAction" text="%rdb.prox60dias" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="rdbProx30Dias" mnemonicParsing="false" onAction="#rdbProx30Dias_onAction" text="%rdb.prox30dias" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="rdbProx10Dias" mnemonicParsing="false" onAction="#rdbProx10Dias_onAction" text="%rdb.prox10dias" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -86,6 +92,8 @@
                   </FlowPane>
                   <TextField fx:id="txtDtLancamento" editable="false" GridPane.columnIndex="3" />
                   <TextField fx:id="txtDtAprovacao" editable="false" GridPane.columnIndex="5" />
+                  <RadioButton fx:id="rdbProxSemana" mnemonicParsing="false" onAction="#rdbProxSemana_onAction" text="%rdb.proxSemana" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="rdbDtAtual" mnemonicParsing="false" onAction="#rdbDtAtual_onAction" text="%rdb.DtAtual" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
@@ -93,9 +101,11 @@
             </GridPane>
             <TableView fx:id="tblPedidoVenda" prefHeight="235.0" prefWidth="984.0">
               <columns>
-                <TableColumn fx:id="clmPedidoVendaID" prefWidth="130.0" text="%column.id" />
-                <TableColumn fx:id="clmPedidoVendaProduto" prefWidth="724.0" text="%column.produto" />
-                  <TableColumn fx:id="clmPedidoVendaQtdeTotal" prefWidth="128.0" text="%column.qtdeTotal" />
+                <TableColumn fx:id="clmPedidoVendaID" prefWidth="75.0" text="%column.id" />
+                <TableColumn fx:id="clmPedidoVendaProduto" prefWidth="498.0" text="%column.produto" />
+                  <TableColumn fx:id="clmPedidoVendaQtdeTotal" prefWidth="136.3333740234375" text="%column.qtdeTotal" />
+                  <TableColumn fx:id="clmQtdePrevista" prefWidth="94.0" text="%column.qtdePrevista" />
+                  <TableColumn fx:id="clmPedidoVendaDtPrevisto" minWidth="0.0" prefWidth="178.0" text="%column.dtPrevistoQtdEstoque" />
               </columns>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
@@ -131,7 +141,7 @@
                               <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#btnCancelar_onAction" onKeyPressed="#btnCancelar_onKeyPressed" text="%button.cancelar" textFill="#fc0707" />
                            </children>
                         </FlowPane>
-                        <DatePicker fx:id="dtpDtEntrega" GridPane.columnIndex="1" />
+                        <DatePicker fx:id="dtpDtEntrega" prefHeight="25.0" prefWidth="242.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
