@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -51,9 +52,8 @@ public class TabelaTelaContasReceber {
      */
     public void setDtVencimento(Date dtVencimento) {
            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String data = sdf.format(dtVencimento);
-
-        this.dtVencimento = data;
+           String data = sdf.format(dtVencimento);
+           this.dtVencimento = data;
     }
 
     /**

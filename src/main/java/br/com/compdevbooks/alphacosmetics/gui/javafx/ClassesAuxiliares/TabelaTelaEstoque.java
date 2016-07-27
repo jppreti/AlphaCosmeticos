@@ -43,11 +43,16 @@ public class TabelaTelaEstoque implements Comparable<TabelaTelaEstoque> {
     public Long getQuantidadeEsperada(){
         long soma=0;
         CompraEntity compraTemp=null;
-        listaItemCompra= itemCompra.buscarPorProduto(produto.getId());
-        for (ItemCompraEntity vo:listaItemCompra){
-           compraTemp= compra.pegaCompra(vo);
-           if(!compraTemp.getSituacao().equals(SituacaoCompraEnum.PROCESSADA))
-               soma +=vo.getQuantidadePedida();
+        try{
+            listaItemCompra= itemCompra.buscarPorProduto(produto.getId());
+            for (ItemCompraEntity vo:listaItemCompra){
+               compraTemp= compra.pegaCompra(vo);
+               if(!compraTemp.getSituacao().equals(SituacaoCompraEnum.PROCESSADA))
+                   soma +=vo.getQuantidadePedida();
+            }
+            return soma;
+        }catch (Exception ex){
+            System.out.println(ex);
         }
         return soma;
     }

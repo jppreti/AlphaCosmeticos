@@ -16,10 +16,13 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.NavegarObjetos;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaVendaSeparar;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -67,31 +70,48 @@ public class FrmPedidoVendaSeparar {
     private Label lblNomeVendedor;
 
     @FXML
-    private TableColumn<ItemVendaEntity, Long> clmPedidoVendaID;
+    private TableColumn<TabelaTelaVendaSeparar, Long> clmPedidoVendaID;
+
+    @FXML
+    private RadioButton rdbProx10Dias;
+    
+    @FXML
+    private RadioButton rdbProx60Dias;
+    
+    @FXML
+    private RadioButton rdbProx30Dias;
+    
+    @FXML
+    private RadioButton rdbProxSemana;
+    
+    @FXML
+    private RadioButton rdbDtAtual;
+    
+    @FXML
+    private TableView<TabelaTelaVendaSeparar> tblPedidoVenda;
 
 
     @FXML
-    private TableView<ItemVendaEntity> tblPedidoVenda;
-
-
-    @FXML
-    private TableColumn<ItemVendaEntity, Long> clmPedidoVendaQtdeTotal;
+    private TableColumn<TabelaTelaVendaSeparar, Long> clmPedidoVendaQtdeTotal;
 
     @FXML
     private Label lblDtAprovacao;
 
     @FXML
-    private TableColumn<ItemVendaEntity, String> clmPedidoVendaDtPrevisto;
-
+    private TableColumn<TabelaTelaVendaSeparar, String> clmPedidoVendaDtPrevisto;
+        
     @FXML
     private TextField txtDtAprovacao;
 
     @FXML
-    private TableColumn<ItemVendaEntity, String> clmPedidoVendaProduto;
+    private TableColumn<TabelaTelaVendaSeparar, String> clmPedidoVendaProduto;
 
     @FXML
     private TextField txtIDVenda;
 
+    @FXML
+    private TableColumn<TabelaTelaVendaSeparar, Long> clmQtdePrevista;
+    
     @FXML
     private DatePicker dtpDtEntrega;
 
@@ -113,11 +133,26 @@ public class FrmPedidoVendaSeparar {
     private VendaEntity venda;
     Vendedor vendedor =new Vendedor(DAOFactory.getDAOFactory().getVendedorDAO());
     Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
+    List<TabelaTelaVendaSeparar> lista;
+        
     @FXML
     void initialize(){
         venda=NavegarObjetos.getVenda();
+        Set<ItemVendaEntity> l= venda.getListaItens();
+        lista = new ArrayList();
+        
+        this.rdbProx10Dias.setSelected(false);
+        this.rdbProx30Dias.setSelected(false);
+        this.rdbProx60Dias.setSelected(false);
+        this.rdbProxSemana.setSelected(false);
+        this.rdbDtAtual.setSelected(true);
+        
+        for(ItemVendaEntity vo : l){
+            lista.add(new TabelaTelaVendaSeparar(vo,0));
+        }         
+         
         this.completar(venda);
-        this.completarItensVenda(venda.getListaItens());   
+        this.completarItensVenda(lista);   
         this.dtpDtEntrega.setValue(LocalDate.now());
     }
     
@@ -131,11 +166,12 @@ public class FrmPedidoVendaSeparar {
         
     }
     
-    void completarItensVenda(Set<ItemVendaEntity> lista){
+    void completarItensVenda(List<TabelaTelaVendaSeparar> lista){
         this.clmPedidoVendaID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmPedidoVendaProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
         this.clmPedidoVendaQtdeTotal.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        //this.clmPedidoVendaDtPrevisto.setCellValueFactory(new PropertyValueFactory<>(""));
+        this.clmPedidoVendaDtPrevisto.setCellValueFactory(new PropertyValueFactory<>("dtPrevistoQtdeEstoqueString"));
+        this.clmQtdePrevista.setCellValueFactory(new PropertyValueFactory<>("qtdePrevista"));
         this.tblPedidoVenda.setItems(FXCollections.observableArrayList(lista));
     }
     
@@ -278,5 +314,80 @@ public class FrmPedidoVendaSeparar {
                
             
         });
+    }
+    
+    @FXML
+    void rdbProx60Dias_onAction(ActionEvent event) {
+        this.rdbProx10Dias.setSelected(false);
+        this.rdbProx30Dias.setSelected(false);
+        this.rdbProxSemana.setSelected(false);
+        this.rdbProx60Dias.setSelected(true);
+        this.rdbDtAtual.setSelected(false);
+        lista = new ArrayList();
+        Set<ItemVendaEntity> la= venda.getListaItens();
+        for(ItemVendaEntity vo : la){
+            lista.add(new TabelaTelaVendaSeparar(vo,60));
+        }
+        this.completarItensVenda(this.lista);
+    }
+
+    @FXML
+    void rdbProx30Dias_onAction(ActionEvent event) {
+        this.rdbProx10Dias.setSelected(false);
+        this.rdbProx60Dias.setSelected(false);
+        this.rdbProxSemana.setSelected(false);
+        this.rdbProx30Dias.setSelected(true);
+        this.rdbDtAtual.setSelected(false);
+        lista = new ArrayList();
+        Set<ItemVendaEntity> la= venda.getListaItens();
+        for(ItemVendaEntity vo : la){
+            lista.add(new TabelaTelaVendaSeparar(vo,30));
+        }
+        this.completarItensVenda(this.lista);
+    }
+
+    @FXML
+    void rdbProx10Dias_onAction(ActionEvent event) {
+        this.rdbProx60Dias.setSelected(false);
+        this.rdbProx30Dias.setSelected(false);
+        this.rdbProx10Dias.setSelected(true);
+        this.rdbProxSemana.setSelected(false);
+        this.rdbDtAtual.setSelected(false);
+        lista = new ArrayList();
+        Set<ItemVendaEntity> la= venda.getListaItens();
+        for(ItemVendaEntity vo : la){
+            lista.add(new TabelaTelaVendaSeparar(vo,10));
+        }
+        this.completarItensVenda(this.lista);
+    }
+
+    @FXML
+    void rdbProxSemana_onAction(ActionEvent event) {
+        this.rdbProx10Dias.setSelected(false);
+        this.rdbProx30Dias.setSelected(false);
+        this.rdbProx60Dias.setSelected(false);
+        this.rdbProxSemana.setSelected(true);
+        this.rdbDtAtual.setSelected(false);
+        lista = new ArrayList();
+        Set<ItemVendaEntity> la= venda.getListaItens();
+        for(ItemVendaEntity vo : la){
+            lista.add(new TabelaTelaVendaSeparar(vo,7));
+        }
+        this.completarItensVenda(this.lista);
+    }
+    
+    @FXML
+    void rdbDtAtual_onAction(ActionEvent event) {
+        this.rdbProx10Dias.setSelected(false);
+        this.rdbProx30Dias.setSelected(false);
+        this.rdbProx60Dias.setSelected(false);
+        this.rdbProxSemana.setSelected(false);
+        this.rdbDtAtual.setSelected(true);
+        lista = new ArrayList();
+        Set<ItemVendaEntity> la= venda.getListaItens();
+        for(ItemVendaEntity vo : la){
+            lista.add(new TabelaTelaVendaSeparar(vo,0));
+        }
+        this.completarItensVenda(this.lista);
     }
 }

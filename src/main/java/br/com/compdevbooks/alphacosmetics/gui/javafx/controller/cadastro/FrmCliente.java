@@ -290,6 +290,7 @@ public class FrmCliente {
 		//	txtTelefone.setText(ent.getTelefone());
 			habilitarEdicao(false);
 		}
+                
 		if (event.getClickCount() > 2)
 			tbpCliente.getSelectionModel().select(tabEdicao);
 	}
