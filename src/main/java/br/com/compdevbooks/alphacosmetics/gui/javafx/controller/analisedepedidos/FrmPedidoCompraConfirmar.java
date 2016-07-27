@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -32,15 +33,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 public class FrmPedidoCompraConfirmar {
 
@@ -108,7 +114,7 @@ public class FrmPedidoCompraConfirmar {
     private TableView<ItemCompraEntity> tblItemPedidoConf;
 
     @FXML
-    private TableColumn<ItemCompraEntity, Float> clmItemPedidoConfQtdeRecebida;
+    private TableColumn<ItemCompraEntity, Integer> clmItemPedidoConfQtdeRecebida;
 
     @FXML
     private Label lblPedidoCompraConferir;
@@ -181,6 +187,11 @@ public class FrmPedidoCompraConfirmar {
         if (event.getCode() == KeyCode.ENTER) {
             btnSair.fire();
         }
+    }
+      @FXML
+    void txtQtdeRecebida_onKeyPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER)
+            btnConfirmar.fire();
     }
 
     @FXML
@@ -265,6 +276,8 @@ public class FrmPedidoCompraConfirmar {
             compra.getListaItens().remove(itemTemp);
             completarTblConferir();
             completar(compra.getListaItens());
+            if(compra.getListaItens().isEmpty())
+                this.btnConfirmarRecebimento.requestFocus();
         } else {
             ItemCompraEntity itemTemp = this.tblItemPedido.getSelectionModel().getSelectedItem();
             this.txtID.setText(String.valueOf(itemTemp.getId()));
@@ -275,12 +288,56 @@ public class FrmPedidoCompraConfirmar {
         }
 
     }
+    @FXML
+    void clmItemPedidoConfQtdeRecebida_OnEditStart(CellEditEvent event) {
+        
+    
+   }
 
     @FXML
-    void clmItemPedidoConfQtdeRecebida_OnEditCommit(CellEditEvent event) {
-
-    }
-
+    void clmItemPedidoConfQtdeRecebida_OnEditCommit(CellEditEvent<ItemCompraEntity,Integer> t) {
+            
+                
+               ItemCompraEntity a =(ItemCompraEntity)t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                            ;
+                        String teste= String.valueOf(t.getOldValue());
+                        int qtdeAnt= Integer.parseInt(teste);
+                       teste=String.valueOf(t.getNewValue());
+                       
+                       
+                        int qtde= Integer.parseInt(teste);
+                        if(qtde<0){
+                            Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
+                           dialogoErro.setTitle("Alpha Cosmeticos");
+                           dialogoErro.setHeaderText("Quantidade Inválida");
+                           dialogoErro.setContentText("Digite uma quantidade maior ou igual a zero");
+                           dialogoErro.showAndWait();
+                           ((ItemCompraEntity)t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())).setQuantidadeFornecida(qtdeAnt);
+                        }else if(qtde>a.getQuantidadePedida()){
+                            Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
+                           dialogoErro.setTitle("Alpha Cosmeticos");
+                           dialogoErro.setHeaderText("Quantidade Inválida");
+                           dialogoErro.setContentText("Digite inferior a quantidade pedida");
+                           dialogoErro.showAndWait();
+                           ((ItemCompraEntity)t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())).setQuantidadeFornecida(qtdeAnt);
+                           a.setQuantidadeFornecida(qtdeAnt);
+                                   
+                        }else if(qtde>0 && qtde<a.getQuantidadePedida()){
+                            ((ItemCompraEntity)t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())).setQuantidadeFornecida(qtde);
+                            a.setQuantidadeFornecida(qtde);
+                        } 
+                        btnConfirmarRecebimento.requestFocus();     
+                        this.completarTblConferir();
+            }
+            
+    
+    
+   
+          
     private void botaoConfirmar(ItemCompraEntity t) {
         if (this.txtQtdeRecebida.getText().equals("")) {
             Alert dialogoErro = new Alert(Alert.AlertType.ERROR);
@@ -307,14 +364,30 @@ public class FrmPedidoCompraConfirmar {
             btnConfirmar.setDisable(true);
             txtID.setText("");
             txtProduto.setText("");
+            if(compra.getListaItens().isEmpty()){
+                this.btnConfirmarRecebimento.requestFocus();
+            }
         }
+       
     }
-
+    
+ 
     private void completarTblConferir() {
+        
+         
+        
+        
         this.clmItemPedidoConfID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.clmItemPedidoConfProduto.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
         this.clmItemPedidoConfQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadeFornecida"));
+        this.clmItemPedidoConfQtdeRecebida.setCellFactory(TextFieldTableCell.<ItemCompraEntity,Integer>
+                forTableColumn((StringConverter) new NumberStringConverter()));
+        
+        this.clmItemPedidoConfQtdeRecebida.setCellValueFactory(new PropertyValueFactory<>("quantidadeFornecida"));
+                        
+        this.tblItemPedidoConf.refresh();
         this.tblItemPedidoConf.setItems(FXCollections.observableArrayList(lista));
+        
     }
 
 }
