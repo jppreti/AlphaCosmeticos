@@ -1214,7 +1214,7 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnVisualizarImpressao_onAction(ActionEvent event) throws Exception {
-        imprimir();
+      //  imprimir();
     }
 
     @FXML

@@ -20,7 +20,7 @@ public class TabelaTelaContasReceber {
     private String dtVencimento;
     private String cliente;
     private String formapgto;
-    private String valor;
+    private float valor;
     private int parcela;
     private String cnpj;
 
@@ -87,14 +87,14 @@ public class TabelaTelaContasReceber {
     /**
      * @return the valor
      */
-    public String getValor() {
+    public float getValor() {
         return valor;
     }
 
     /**
      * @param valor the valor to set
      */
-    public void setValor(String valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 
