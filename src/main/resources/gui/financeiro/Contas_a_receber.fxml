@@ -31,7 +31,7 @@
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label fx:id="lblPo" alignment="CENTER_RIGHT" text="%label.por" />
-                                    <ComboBox fx:id="cmbOpcaoPesquisa" prefHeight="25.0" prefWidth="122.0" />
+                                    <ComboBox fx:id="cmbOpcaoPesquisa" onAction="#cmbOpcaoPesquisa_onAction" prefHeight="25.0" prefWidth="122.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
@@ -40,7 +40,7 @@
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="%label.dtInicial" />
-                                    <DatePicker fx:id="dtpInicial" onKeyPressed="#dtpInicial_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
+                                    <DatePicker fx:id="dtpInicial" onAction="#dtpInicial_onAction" onKeyPressed="#dtpInicial_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="10.0" />
@@ -49,7 +49,7 @@
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="%label.dtFinal" />
-                                    <DatePicker fx:id="dtpFinal" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
+                                    <DatePicker fx:id="dtpFinal" onAction="#dtpFinal_onAction" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="10.0" />
@@ -108,7 +108,7 @@
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Label text="%label.formaPgto" />
-                                    <ComboBox fx:id="cmbFormaPgto" prefWidth="150.0">
+                                    <ComboBox fx:id="cmbFormaPgto" onAction="#cmbFormaPgto_onAction" prefWidth="150.0">
                                        <VBox.margin>
                                           <Insets left="10.0" />
                                        </VBox.margin>
@@ -232,13 +232,13 @@
         <tabs>
           <Tab fx:id="tabTitulos" text="%tab.titulos">
                <content>
-                  <TableView fx:id="tblVenda" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblVenda" onMouseClicked="#tblVenda_onMouseClicked" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
                       <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
                         <TableColumn fx:id="clmCnpj" prefWidth="75.0" text="%column.cnpj" />
                         <TableColumn fx:id="clmCliente" prefWidth="75.0" text="%column.cliente" />
-                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%coumn.formaPgto" />
+                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%column.formaPgto" />
                         <TableColumn fx:id="clmValor" prefWidth="75.0" text="%column.valor" />
                         <TableColumn fx:id="clmNumParc" prefWidth="75.0" text="%column.numParcela" />
                     </columns>
@@ -262,26 +262,20 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label fx:id="lblCliente" text="%label.cliente" />
                         <Label fx:id="lblLancamento" text="%label.lancamento" GridPane.rowIndex="1" />
                         <Label fx:id="lblVencimento" text="%label.vencimento" GridPane.rowIndex="2" />
                         <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="3" />
-                        <Label fx:id="lblNumPedido" text="%label.numeroPedido" GridPane.rowIndex="4" />
-                        <Label fx:id="lblNumTitulo" text="%label.numeroTitulo" GridPane.rowIndex="5" />
-                        <Label fx:id="lblTipoDocumento" text="%label.tipoDocumento" GridPane.rowIndex="6" />
-                        <Label fx:id="lblSituacao" text="label.situacao" GridPane.rowIndex="7" />
+                        <Label fx:id="lblNumTitulo" text="%label.numeroTitulo" GridPane.rowIndex="4" />
+                        <Label fx:id="lblTipoDocumento" text="%label.tipoDocumento" GridPane.rowIndex="5" />
                         <Label fx:id="lblClienteValor" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="lblLancamentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="lblVencimentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="lblNumPedidoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="lblNumTituloValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="lblTipoDocumentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="lblSituacaoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="lblNumTituloValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblTipoDocumentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

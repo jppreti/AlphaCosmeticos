@@ -1,11 +1,11 @@
 package br.com.compdevbooks.alphacosmetics.entity.produto;
 
 public enum SituacaoVendaEnum {
-    PROCESSADA,
-    ENVIADA,
     SEPARADA,
+    ENVIADA,
     APROVADA,
     ANALISE,
     PEDIDA,
+    PROCESSADA,
     RECUSADA
 }

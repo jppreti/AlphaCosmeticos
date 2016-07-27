@@ -51,7 +51,7 @@ public class MockVendaDAO implements IVendaDAO {
             
           
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Date data = formato.parse("16/07/2016");
+            Date data = formato.parse("16/05/2016");
             listaItem = new HashSet();
 
             listaItem.add(ItemVenda.getById((long) 1));

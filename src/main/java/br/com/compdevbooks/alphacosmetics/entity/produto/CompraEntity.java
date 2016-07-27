@@ -27,7 +27,8 @@ import java.util.Iterator;
 
 @Entity
 @Table(name = "compra")
-public class CompraEntity implements IEntity {
+public class CompraEntity implements IEntity,Comparable<CompraEntity> {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -182,4 +183,8 @@ public class CompraEntity implements IEntity {
 		// TODO Auto-generated method stub
 		return null;
 	}
+     @Override   
+    public int compareTo(CompraEntity t) {
+       return this.getSituacao().compareTo(t.getSituacao());
+    }
 }

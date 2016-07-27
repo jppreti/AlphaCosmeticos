@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "doccredito")
 public class CartaoCreditoEntity extends DocumentoPagamentoEntity {
     
-      private String nome = "Cartão de Crédito";
+      private String nome = "Cartão_Crédito";
     
     public void setnome(){
         super.setNome(nome);
