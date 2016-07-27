@@ -144,6 +144,30 @@ public class FrmPrincipal {
     }
     
     @FXML
+    void mniFornecedor_onAction(ActionEvent event) {
+      /*  BorderPane frmCliente = null;
+        
+        try{
+            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmCliente);
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }*/    	
+    }
+    
+    @FXML
+    void mniVendedor_onAction(ActionEvent event) {
+      /*  BorderPane frmCliente = null;
+        
+        try{
+            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmCliente);
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }*/    	
+    }
+    
+    @FXML
     void mniSobre_onAction(ActionEvent event) {
         VBox frmSobre = null;
         try{

@@ -13,7 +13,11 @@
               <menus>
                 <Menu fx:id="mnuCadastro" mnemonicParsing="false" text="%menu.cadastro">
                   <items>
-                    <MenuItem fx:id="mniCadPessoa" mnemonicParsing="false" onAction="#mniCliente_onAction" text="%cadastro.pessoas" />
+                    <MenuItem fx:id="mniCadCliente" mnemonicParsing="false" onAction="#mniCliente_onAction" text="%cadastro.cliente" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniCadFornecedor" mnemonicParsing="false" onAction="#mniFornecedor_onAction" text="%cadastro.fornecedor" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="mniCadVendedor" mnemonicParsing="false" onAction="#mniVendedor_onAction" text="%cadastro.vendedor" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="mniCadProduto" mnemonicParsing="false" onAction="#mniProduto_onAction" text="%cadastro.produtos" />
                   </items>
