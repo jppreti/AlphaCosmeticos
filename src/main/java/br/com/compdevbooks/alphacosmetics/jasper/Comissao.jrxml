@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comissao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4f013942-9ffb-4a52-8271-74666b88dda4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="valor" class="java.lang.String"/>
+	<field name="valorVenda" class="java.lang.String"/>
+	<field name="dataPrevista" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="148" y="0" width="279" height="34" uuid="4cd06603-e6bd-4bb3-92ae-7a99ccf7718d"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Relatório de Comissões]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="48" width="212" height="29" uuid="0f0b8736-b249-44bb-9a4f-6b83488b6986"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Empresa AlphaCosmetico]]></text>
+			</staticText>
+			<image>
+				<reportElement x="398" y="-6" width="157" height="106" uuid="7ca9f200-f5f4-4606-81e6-7133279111e1"/>
+				<imageExpression><![CDATA["F:\\funcionando\\src\\main\\resources\\imagem\\logo1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="26" uuid="8b350b55-720d-4d4f-9457-c5d78bfa8636"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="22" y="3" width="100" height="20" uuid="b51b6a78-13fc-41f1-a337-1535d3f98acc"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="3" width="116" height="20" uuid="9ad91116-5ad1-41fe-911d-45973ee45572"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Valor da Venda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="2" width="120" height="20" uuid="7dda3f09-a531-4abb-9b90-418ca3655662"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Valor da Comissão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="3" width="118" height="20" uuid="6ebd5e19-94b5-4bd7-89ba-69f0ee764559"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Data Prevista Pgto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="3" width="100" height="20" uuid="b2c58463-489c-4041-99f2-ccfd5040315d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="4" width="100" height="20" uuid="8eaf50b7-96cf-41b6-8a29-fafb58926bda"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="3" width="100" height="20" uuid="362531ed-114b-459d-bfd4-7e36ff1a7078"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorVenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="4" width="100" height="20" uuid="2167c9fc-3954-4033-8727-4a39ec24761c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataPrevista}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="417" y="19" width="80" height="20" uuid="69d03b3f-1d0a-4452-a339-a4e65eab3ef1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de$F{valor}"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="497" y="19" width="40" height="20" uuid="d6503733-a3b7-4655-88c1-4b007e1cdbfd"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="8" y="19" width="130" height="20" uuid="b3a8cce8-7e9b-46f1-b064-97dce3ee96ce"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

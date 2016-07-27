@@ -1,4 +1,3 @@
-
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro;
 
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Compra;
@@ -31,12 +30,19 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 public class FrmContas_a_pagar {
-    
-     @FXML
+
+    @FXML
     private TextField txtNomeRazaoSocial;
-     
-         @FXML
+
+    @FXML
     private BorderPane frmContasPagar;
 
     @FXML
@@ -194,98 +200,95 @@ public class FrmContas_a_pagar {
 
     @FXML
     private Label lblNomeRazaoSocialValor;
-    
+
     @FXML
     private TableView<TabelaTelaContasAPagar> tblContas_a_pagar;
-    
+
     private Compra compra = new Compra(DAOFactory.getDAOFactory().getCompraDAO());
-    
+  
     @FXML
-    void initialize(){
-         ObservableList<String> ob = FXCollections.observableArrayList();
-         List<CompraEntity> ListaCompra;
-         ListaCompra = compra.buscarTodasCompras();
-         System.out.println(ListaCompra.size());
-         
-         ob.add("Dt Lançamento");
-         ob.add("Dt Vencimento");
-         cmbOpcaoPesquisa.setItems(ob);
-         cmbOpcaoPesquisa.setValue("Dt Lançamento");
-            
-         Date data = new Date();
-         LocalDate dtlocal = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-         dtpFinal.setValue(dtlocal);
-            
-         rdbTodos.setSelected(true);
-         rdbTodosTipoCliente.setSelected(true);
-            
-         cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
-         cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
-         completar(ListaCompra);
+    void initialize() throws Exception {
+        ObservableList<String> ob = FXCollections.observableArrayList();
+        List<CompraEntity> ListaCompra;
+        ListaCompra = compra.buscarTodasCompras();
+        System.out.println(ListaCompra.size());
+
+        ob.add("Dt Lançamento");
+        ob.add("Dt Vencimento");
+        cmbOpcaoPesquisa.setItems(ob);
+        cmbOpcaoPesquisa.setValue("Dt Lançamento");
+
+        Date data = new Date();
+        LocalDate dtlocal = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        dtpFinal.setValue(dtlocal);
+
+        rdbTodos.setSelected(true);
+        rdbTodosTipoCliente.setSelected(true);
+
+        cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
+        cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
+        completar(ListaCompra);
     }
 
-    public void completar(List<CompraEntity> lista){
+    public void completar(List<CompraEntity> lista) throws Exception {
         ObservableList<TabelaTelaContasAPagar> listaFinal = FXCollections.observableArrayList();
-        this.clmDtLancamento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("dtLancamento"));
-        this.clmDtVencimento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("dtVencimento"));
-        this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("nome"));
-        this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,String>("formaPgto"));
-        this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar,Float>("valor"));
-        int cont =0;
-        
-        for(CompraEntity vo : lista){ 
-            System.out.println(vo.getPagamentoVO().getListaParcelas().size());
-            for(ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()){
-                cont++;       
+        this.clmDtLancamento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("dtLancamento"));
+        this.clmDtVencimento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("dtVencimento"));
+        this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("nome"));
+        this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("formaPgto"));
+        this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, Float>("valor"));
+
+        for (CompraEntity vo : lista) {
+            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+
                 System.out.println(parcPg.getDocumentoPagamento().getNome());
                 TabelaTelaContasAPagar tabela = new TabelaTelaContasAPagar();
-                          
                 tabela.setDtLancamento(vo.getDataLancamento());
                 tabela.setDtVencimento(parcPg.getDataVencimento());
                 tabela.setNome(vo.getNomeFornecedor());
                 tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
-                System.out.println(parcPg.getDocumentoPagamento().getNome());
-                tabela.setValor((float)parcPg.getValorTotalPago());
-            
-               listaFinal.add(tabela);
+                tabela.setValor((float) parcPg.getValorOriginal());
+                listaFinal.add(tabela);
             }
-            cont=0;
-           
-            
+
         }
         this.tblContas_a_pagar.setItems(listaFinal);
     }
-    @FXML
-    void btnBaixarDivida_onAction(ActionEvent event) {
+    
+    
 
+    @FXML
+    void btnBaixarDivida_onAction(ActionEvent event) throws Exception {
+        
+        
     }
 
     @FXML
     void btnSair_onAction(ActionEvent event) {
-        
+
         getPai(frmContasPagar);
 
     }
-    
+
     @FXML
     void btnSair_onKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER){
-                getPai(frmContasPagar);
-                }
+        if (event.getCode() == KeyCode.ENTER) {
+            getPai(frmContasPagar);
+        }
     }
 
     @FXML
     void dtpInicial_onKeyPressed(ActionEvent event) {
 
     }
-        private void getPai(Node node){
-        Node aux = node.getParent();
-        while(!(aux instanceof BorderPane)){
-            aux=node.getParent();
-        }
-        ((BorderPane)aux).setCenter(null);
-    }
 
+    private void getPai(Node node) {
+        Node aux = node.getParent();
+        while (!(aux instanceof BorderPane)) {
+            aux = node.getParent();
+        }
+        ((BorderPane) aux).setCenter(null);
+    }
 
     @FXML
     void dtpFinal_onKeyPressed(ActionEvent event) {
@@ -306,33 +309,32 @@ public class FrmContas_a_pagar {
     void btnProcurar_onAction(ActionEvent event) {
 
     }
-    
-    
+
     @FXML
     void rdbEmAberto_onAction(ActionEvent event) {
-            rdbVencidos.setSelected(false);
-            rdbTodosTipoCliente.setSelected(false);
+        rdbVencidos.setSelected(false);
+        rdbTodosTipoCliente.setSelected(false);
 
     }
 
     @FXML
     void rdbVencidos_onAction(ActionEvent event) {
-        
-     rdbEmAberto.setSelected(false);
-     rdbTodos.setSelected(false);
+
+        rdbEmAberto.setSelected(false);
+        rdbTodos.setSelected(false);
     }
 
     @FXML
     void rdbTodosTipoCliente_onAction(ActionEvent event) {
-        
+
         rdbEmAberto.setSelected(false);
         rdbVencidos.setSelected(false);
 
     }
-    
-        @FXML
+
+    @FXML
     void rdbFornecedor_onAction(ActionEvent event) {
-        
+
         rdbTodos.setSelected(false);
         rdbPromotor.setSelected(false);
 
@@ -340,7 +342,7 @@ public class FrmContas_a_pagar {
 
     @FXML
     void rdbPromotor_onAction(ActionEvent event) {
-        
+
         rdbTodos.setSelected(false);
         rdbFornecedor.setSelected(false);
 
@@ -348,7 +350,7 @@ public class FrmContas_a_pagar {
 
     @FXML
     void rdbTodos_onAction(ActionEvent event) {
-        
+
         rdbFornecedor.setSelected(false);
         rdbPromotor.setSelected(false);
 

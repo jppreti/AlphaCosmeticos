@@ -13,7 +13,7 @@ public class MockClienteDAO implements IClienteDAO {
 	private static List<ClienteEntity> clientes = new ArrayList<>();
         private static MockBairroDAO bairro = new MockBairroDAO();
 	static {
-		clientes.add(new ClienteEntity((long)1,"JOAO PAULO PRETTI","JOÃO PAULO","11122233344455","000",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
+		clientes.add(new ClienteEntity((long)1,"JOAO paulo PRETTI","JOÃO PAULO","11122233344455","000",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
 		clientes.add(new ClienteEntity((long)2,"MARIA CRISTINA","MARIA CRISTINA","12345678901234","1111",new EnderecoEntity("Rua São Paulo",196,"78078-446", bairro.getById((long) 1))));
 		clientes.add(new ClienteEntity((long)3,"JOSE PEDRO","JOSÉ PEDRO","12874698314278","2222",new EnderecoEntity("Rua Coronel Escolastico",237,"323,83874-740",bairro.getById((long) 3))));
 		clientes.add(new ClienteEntity((long)4,"ANA PAULA","ANA PAULA","1122223333","875",new EnderecoEntity("Rua Coronel Escolastico",237,"323,83874-740",bairro.getById((long) 3))));

@@ -9,9 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TabelaTelaContasAPagar {
-    
-    public TabelaTelaContasAPagar(){}
-    
+
+    public TabelaTelaContasAPagar() {
+    }
+
     private String dtLancamento;
     private String dtVencimento;
     private String nome;
@@ -23,11 +24,15 @@ public class TabelaTelaContasAPagar {
     }
 
     public void setDtLancamento(Date dtLancamento) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String data = sdf.format(dtLancamento);
 
         this.setDtLancamento(data);
+    }
+
+    public void setDtLancamento(String dtLancamento) {
+        this.dtLancamento = dtLancamento;
     }
 
     public String getDtVencimento() {
@@ -41,57 +46,30 @@ public class TabelaTelaContasAPagar {
         this.setDtVencimento(data);
     }
 
-
-    
-    public float getValor() {
-        return valor;
-    }
-
-    /**
-     * @param valor the valor to set
-     */
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
-
-    /**
-     * @param dtLancamento the dtLancamento to set
-     */
-    public void setDtLancamento(String dtLancamento) {
-        this.dtLancamento = dtLancamento;
-    }
-
-    /**
-     * @param dtVencimento the dtVencimento to set
-     */
     public void setDtVencimento(String dtVencimento) {
         this.dtVencimento = dtVencimento;
     }
 
-    /**
-     * @return the nome
-     */
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @return the formaPgto
-     */
     public String getFormaPgto() {
         return formaPgto;
     }
 
-    /**
-     * @param formaPgto the formaPgto to set
-     */
     public void setFormaPgto(String formaPgto) {
         this.formaPgto = formaPgto;
     }

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,8 +20,9 @@ public class TabelaTelaContasReceber {
     private String dtVencimento;
     private String cliente;
     private String formapgto;
-    private float valor;
+    private String valor;
     private int parcela;
+    private String cnpj;
 
     
     public String getDtLancamento() {
@@ -50,9 +52,8 @@ public class TabelaTelaContasReceber {
      */
     public void setDtVencimento(Date dtVencimento) {
            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String data = sdf.format(dtVencimento);
-
-        this.dtVencimento = data;
+           String data = sdf.format(dtVencimento);
+           this.dtVencimento = data;
     }
 
     /**
@@ -86,14 +87,14 @@ public class TabelaTelaContasReceber {
     /**
      * @return the valor
      */
-    public float getValor() {
+    public String getValor() {
         return valor;
     }
 
     /**
      * @param valor the valor to set
      */
-    public void setValor(float valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
@@ -109,6 +110,20 @@ public class TabelaTelaContasReceber {
      */
     public void setParcela(int parcela) {
         this.parcela = parcela;
+    }
+
+    /**
+     * @return the cnpj
+     */
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    /**
+     * @param cnpj the cnpj to set
+     */
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
     
     
