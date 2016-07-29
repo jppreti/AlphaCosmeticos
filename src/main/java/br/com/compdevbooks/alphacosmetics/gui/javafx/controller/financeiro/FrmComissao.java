@@ -8,8 +8,10 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.ParcelaComissaoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaComissao;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -147,7 +149,7 @@ public class FrmComissao {
     public FrmComissao() {
         this.path = this.getClass().getClassLoader().getResource("").getPath();
         this.pathToReportPackage = this.path + "br\\com\\compdevbooks\\alphacosmetics\\gui\\javafx\\jasper\\";
-        System.out.println(path+" "+"aqui");
+        System.out.println(path + " " + "aqui");
     }
 
     @FXML
@@ -190,30 +192,108 @@ public class FrmComissao {
         for (ComissaoEntity vo : lista) {
             for (ParcelaComissaoEntity parcCom : vo.getListaParcelaComissao()) {
                 if (parcCom.getDataPagamento() == null) {
-                    TabelaTelaComissao tabela = new TabelaTelaComissao();
-                    tabela.setNome(vo.getVendedor().getNome());
-                    tabela.setDataPrevista(parcCom.getDataVencimento());
-                    System.out.println(parcCom.getDataVencimento() + " teste");
-                    tabela.setValor(Float.toString(parcCom.getValorParcela()));
-                    tabela.setDataVenda(vo.getDataVenda());
-                    System.out.println(vo.getDataVenda());
-                    tabela.setValorVenda(Float.toString(vo.getVenda().getValorTotal()));
-                    tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
-                    tabela.setCliente(vo.getVenda().getNomeCliente());
-                    tabela.setId(parcCom.getId());
-                    if (parcCom.getDataPagamento() != null) {
-                        tabela.setSituacaoParcela("Pago");
-                    } else {
-                        tabela.setSituacaoParcela("Não Pago");
+
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String data2 = sdf.format(parcCom.getDataVencimento());
+                    LocalDate vencimento = LocalDate.parse(data2, dtf);
+                    if (dtpFinal.getValue() != null && dtpInicial.getValue() == null) {
+                        if (vencimento.isBefore(dtpFinal.getValue()) || vencimento.equals(dtpFinal.getValue())) {
+
+                            TabelaTelaComissao tabela = new TabelaTelaComissao();
+                            tabela.setNome(vo.getVendedor().getNome());
+                            tabela.setDataPrevista(parcCom.getDataVencimento());
+                            tabela.setValor(Float.toString(parcCom.getValorParcela()));
+                            tabela.setDataVenda(vo.getDataVenda());
+                            tabela.setValorVenda(Float.toString(vo.getVenda().getValorTotal()));
+                            tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
+                            tabela.setCliente(vo.getVenda().getNomeCliente());
+                            tabela.setId(parcCom.getId());
+                            if (parcCom.getDataPagamento() != null) {
+                                tabela.setSituacaoParcela("Pago");
+                            } else {
+                                tabela.setSituacaoParcela("Não Pago");
+                            }
+
+                            listaFinal.add(tabela);
+                            cont++;
+                        }
                     }
-                    listaFinal.add(tabela);
-                    cont++;
+                    if (dtpInicial.getValue() != null && dtpFinal.getValue() == null) {
+                        if (vencimento.isAfter(dtpInicial.getValue()) || vencimento.equals(dtpInicial.getValue())) {
+
+                            TabelaTelaComissao tabela = new TabelaTelaComissao();
+                            tabela.setNome(vo.getVendedor().getNome());
+                            tabela.setDataPrevista(parcCom.getDataVencimento());
+                            tabela.setValor(Float.toString(parcCom.getValorParcela()));
+                            tabela.setDataVenda(vo.getDataVenda());
+                            tabela.setValorVenda(Float.toString(vo.getVenda().getValorTotal()));
+                            tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
+                            tabela.setCliente(vo.getVenda().getNomeCliente());
+                            tabela.setId(parcCom.getId());
+                            if (parcCom.getDataPagamento() != null) {
+                                tabela.setSituacaoParcela("Pago");
+                            } else {
+                                tabela.setSituacaoParcela("Não Pago");
+                            }
+
+                            listaFinal.add(tabela);
+                            cont++;
+                        }
+                    }
+                    if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
+
+                        if ((vencimento.isAfter(dtpInicial.getValue()) && vencimento.isBefore(dtpFinal.getValue()))
+                                || (vencimento.isEqual(dtpFinal.getValue()) || vencimento.isEqual(dtpInicial.getValue()))) {
+
+                            TabelaTelaComissao tabela = new TabelaTelaComissao();
+                            tabela.setNome(vo.getVendedor().getNome());
+                            tabela.setDataPrevista(parcCom.getDataVencimento());
+                            tabela.setValor(Float.toString(parcCom.getValorParcela()));
+                            tabela.setDataVenda(vo.getDataVenda());
+                            tabela.setValorVenda(Float.toString(vo.getVenda().getValorTotal()));
+                            tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
+                            tabela.setCliente(vo.getVenda().getNomeCliente());
+                            tabela.setId(parcCom.getId());
+                            if (parcCom.getDataPagamento() != null) {
+                                tabela.setSituacaoParcela("Pago");
+                            } else {
+                                tabela.setSituacaoParcela("Não Pago");
+                            }
+
+                            listaFinal.add(tabela);
+                            cont++;
+                        }
+                    }
+                    if (dtpFinal.getValue() == null && dtpInicial.getValue() == null) {
+
+                        TabelaTelaComissao tabela = new TabelaTelaComissao();
+                        tabela.setNome(vo.getVendedor().getNome());
+                        tabela.setDataPrevista(parcCom.getDataVencimento());
+                        tabela.setValor(Float.toString(parcCom.getValorParcela()));
+                        tabela.setDataVenda(vo.getDataVenda());
+                        tabela.setValorVenda(Float.toString(vo.getVenda().getValorTotal()));
+                        tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
+                        tabela.setCliente(vo.getVenda().getNomeCliente());
+                        tabela.setId(parcCom.getId());
+                        if (parcCom.getDataPagamento() != null) {
+                            tabela.setSituacaoParcela("Pago");
+                        } else {
+                            tabela.setSituacaoParcela("Não Pago");
+                        }
+
+                        listaFinal.add(tabela);
+                        cont++;
+                    }
+
                 }
             }
             cont = 0;
 
         }
+
         this.tblComissao.setItems(listaFinal);
+
         this.tblRelatorio.setItems(listaFinal);
     }
 
@@ -249,29 +329,53 @@ public class FrmComissao {
     @FXML
     void txtVendedor_onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            busca();
+            btnProcurar_onKeyPressed(event);
         }
 
     }
 
     @FXML
-    void dtpInicial_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtRegiao_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void dtpFinal_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnProcurar_onAction(ActionEvent event) {
+        if (dtpFinal.getValue() != null && dtpInicial.getValue() != null) {
 
+            if (!validar_data(dtpInicial.getValue(), dtpFinal.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Data Inválida!");
+
+                alert.setContentText("Erro ao buscar pelas datas selecionadas");
+
+                alert.showAndWait();
+                return;
+            }
+        }
+        busca();
+    }
+
+    @FXML
+    void btnProcurar_onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            busca();
+        }
+    }
+
+    @FXML
+    void dtpInicial_onKeyPressed(KeyEvent event) {
+        btnProcurar_onKeyPressed(event);
+    }
+
+    @FXML
+    void dtpFinal_onAction(ActionEvent event) {
+        btnProcurar_onAction(event);
+    }
+
+    @FXML
+    void dtpInicial_onAction(ActionEvent event) {
+        btnProcurar_onAction(event);
+    }
+
+    @FXML
+    void dtpFinal_onKeyPressed(KeyEvent event) {
+        btnProcurar_onKeyPressed(event);
     }
 
     @FXML
@@ -286,8 +390,8 @@ public class FrmComissao {
         telaComissao = tblComissao.getSelectionModel().getSelectedItem();
 
         ParcelaComissaoEntity aux = null;
-        
-        if(telaComissao == null){
+
+        if (telaComissao == null) {
             System.out.println("erro aqui");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Pagamento de comissão");
@@ -295,8 +399,8 @@ public class FrmComissao {
             alert.setContentText("Selecione uma linha");
             alert.showAndWait();
             return;
-        }    
-            
+        }
+
         if (telaComissao.getSituacaoParcela() == "Pago") {
             for (ComissaoEntity com : comissao.buscarTodasComissoes()) {
                 for (ParcelaComissaoEntity parc : com.getListaParcelaComissao()) {
@@ -326,6 +430,9 @@ public class FrmComissao {
     @FXML
     void tblComissao_onMouseClicked(MouseEvent event) {
         TabelaTelaComissao com = tblComissao.getSelectionModel().getSelectedItem();
+        if (com == null) {
+            return;
+        }
         if (event.getClickCount() >= 1) {
             txtValorTotal.setText(com.getValorComissaoRelatorio());
         }
@@ -362,6 +469,14 @@ public class FrmComissao {
             }
         }
         completar(dado);
+    }
+
+    private boolean validar_data(LocalDate inicio, LocalDate fim) {
+        if (fim.isAfter(inicio) || fim.equals(inicio)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

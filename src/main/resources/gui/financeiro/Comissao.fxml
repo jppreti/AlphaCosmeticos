@@ -91,19 +91,19 @@
                      </HBox.margin>
                      <children>
                         <Label fx:id="lblDataInicial" text="%label.dtInicial" />
-                        <DatePicker fx:id="dtpInicial" onKeyPressed="#dtpInicial_onKeyPressed" />
+                        <DatePicker fx:id="dtpInicial" onAction="#dtpInicial_onAction" onKeyPressed="#dtpInicial_onKeyPressed" />
                      </children>
                   </VBox>
                   <VBox prefHeight="52.0" prefWidth="124.0">
                      <children>
                         <Label fx:id="lblDataFinal" alignment="TOP_LEFT" text="%label.dtFinal" />
-                        <DatePicker fx:id="dtpFinal" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="131.0" />
+                        <DatePicker fx:id="dtpFinal" onAction="#dtpFinal_onAction" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="131.0" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <Button fx:id="btnProcurar" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#btnProcurar_onAction" prefHeight="25.0" prefWidth="70.0" text="%button.procurar">
+                  <Button fx:id="btnProcurar" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#btnProcurar_onAction" onKeyPressed="#btnProcurar_onKeyPressed" prefHeight="25.0" prefWidth="70.0" text="%button.procurar">
                      <HBox.margin>
                         <Insets left="10.0" top="8.0" />
                      </HBox.margin>
