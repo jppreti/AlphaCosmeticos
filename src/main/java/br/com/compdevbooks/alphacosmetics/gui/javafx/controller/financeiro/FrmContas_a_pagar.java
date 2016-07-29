@@ -6,13 +6,17 @@ import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasAPagar;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -37,12 +41,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class FrmContas_a_pagar {
 
@@ -307,7 +305,7 @@ public class FrmContas_a_pagar {
                                         tabela.setFormaPgto(parcPg.getDocumentoPagamento().getNome());
                                         tabela.setCnpj(vo.getFornecedorVO().getCNPJ());
                                         tabela.setValor((float) parcPg.getValorOriginal());
-                                        
+
                                         listaFinal.add(tabela);
                                     }
                                 }
@@ -1121,15 +1119,35 @@ public class FrmContas_a_pagar {
             }
 
         }
+        Comparator<TabelaTelaContasAPagar> cmp = new Comparator<TabelaTelaContasAPagar>() {
+            @Override
+            public int compare(TabelaTelaContasAPagar o1, TabelaTelaContasAPagar o2) {
+              
+                
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate primeira = LocalDate.parse(o1.getDtVencimento(),dtf);
+                 LocalDate segunda = LocalDate.parse(o2.getDtVencimento(),dtf);
+
+                if (primeira.isBefore(segunda)) {
+                    return -1;
+                }
+                if (primeira.isAfter(segunda)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+
+            }
+
+        };
+        Collections.sort(listaFinal, cmp);
+
         this.tblContas_a_pagar.setItems(listaFinal);
     }
-    
-    
 
     @FXML
     void btnBaixarDivida_onAction(ActionEvent event) throws Exception {
-        
-        
+
     }
 
     @FXML
@@ -1358,15 +1376,17 @@ public class FrmContas_a_pagar {
     @FXML
     void tblContas_a_pagar_onMouseClicked(MouseEvent event) {
         if (event.getClickCount() >= 1) {
-            if(tblContas_a_pagar.getSelectionModel().getSelectedItem() == null) return;
+            if (tblContas_a_pagar.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
             tabRelatorioResumido.setDisable(false);
         }
         TabelaTelaContasAPagar pagar = tblContas_a_pagar.getSelectionModel().getSelectedItem();
-        lblDocumentoValor.setText("  "+pagar.getCnpj());
-        lblNomeRazaoSocialValor.setText("  "+pagar.getNome());
-        lblVencimentoValor.setText("  "+pagar.getDtVencimento());
-        lblValorValor.setText("  $"+pagar.getValor());
-        
+        lblDocumentoValor.setText("  " + pagar.getCnpj());
+        lblNomeRazaoSocialValor.setText("  " + pagar.getNome());
+        lblVencimentoValor.setText("  " + pagar.getDtVencimento());
+        lblValorValor.setText("  $" + pagar.getValor());
+
     }
 
 }

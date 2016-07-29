@@ -17,7 +17,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -1261,6 +1264,29 @@ public class FrmContas_a_receber {
             cont = 0;
 
         }
+         Comparator<TabelaTelaContasReceber> cmp = new Comparator<TabelaTelaContasReceber>() {
+            @Override
+            public int compare(TabelaTelaContasReceber o1, TabelaTelaContasReceber o2) {
+              
+                
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate primeira = LocalDate.parse(o1.getDtVencimento(),dtf);
+                 LocalDate segunda = LocalDate.parse(o2.getDtVencimento(),dtf);
+
+                if (primeira.isBefore(segunda)) {
+                    return -1;
+                }
+                if (primeira.isAfter(segunda)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+
+            }
+
+        };
+        
+        Collections.sort(dado, cmp);
         this.tblVenda.setItems(dado);
 
     }
@@ -1281,9 +1307,7 @@ public class FrmContas_a_receber {
                     parcPg.setDataPagamento(referencia);
                 }
             }
-            //   System.out.println("aaa");
-            // vo.getPagamentoVO().getListaParcelas().remove(aux);
-            //System.out.println("bbbbb");
+     
         }
 
         completar(listaVendaT);
