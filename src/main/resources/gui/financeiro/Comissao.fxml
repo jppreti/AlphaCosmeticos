@@ -16,10 +16,10 @@
                <content>
                   <TableView fx:id="tblComissao" onMouseClicked="#tblComissao_onMouseClicked" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn fx:id="clmNome" prefWidth="416.0" text="%column.vendedor" />
-                      <TableColumn fx:id="clmdtPrevista" prefWidth="68.0" text="%column.dtPrevista" />
-                        <TableColumn fx:id="clmValorComissao" prefWidth="116.0" text="%column.valorComissao" />
-                        <TableColumn fx:id="clmSituacaoParcelaVenda" prefWidth="75.0" text="%column.SituacaoParcelaVenda" />
+                      <TableColumn fx:id="clmNome" editable="false" prefWidth="416.0" sortable="false" text="%column.vendedor" />
+                      <TableColumn fx:id="clmdtPrevista" editable="false" prefWidth="68.0" sortable="false" text="%column.dtPrevista" />
+                        <TableColumn fx:id="clmValorComissao" editable="false" prefWidth="116.0" sortable="false" text="%column.valorComissao" />
+                        <TableColumn fx:id="clmSituacaoParcelaVenda" editable="false" prefWidth="75.0" sortable="false" text="%column.SituacaoParcelaVenda" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

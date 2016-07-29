@@ -191,12 +191,12 @@
                <content>
                   <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" onMouseClicked="#tblContas_a_pagar_onMouseClicked" prefHeight="144.0" prefWidth="838.0">
                     <columns>
-                      <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
-                      <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
-                        <TableColumn fx:id="clmNomeRazaoSocial" prefWidth="140.0" text="%column.nomeRazaoSocial" />
-                        <TableColumn fx:id="clmCnpj" prefWidth="139.0" text="%column.cnpj" />
-                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%column.formaPgto" />
-                        <TableColumn fx:id="clmValor" prefWidth="75.0" text="%column.valor" />
+                      <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" sortable="false" text="%column.dtLancamento" />
+                      <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" sortable="false" text="%column.dtVencimento" />
+                        <TableColumn fx:id="clmNomeRazaoSocial" prefWidth="75.0" sortable="false" text="%column.nomeRazaoSocial" />
+                        <TableColumn fx:id="clmCnpj" prefWidth="75.0" sortable="false" text="%column.cnpj" />
+                        <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" sortable="false" text="%column.formaPgto" />
+                        <TableColumn fx:id="clmValor" prefWidth="75.0" sortable="false" text="%column.valor" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
