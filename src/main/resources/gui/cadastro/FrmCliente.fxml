@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente">
+   <top>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" minHeight="20.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtPesqNome" prefWidth="350.0" promptText="Digite o nome ou parte dele para realizar a pesquisa." />
+            <Button fx:id="btnProcurar" mnemonicParsing="false" text="Pesquisar" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </FlowPane>
+   </top>
+   <bottom>
+      <VBox fx:id="vbxBottom" alignment="CENTER" prefHeight="60.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="hbxEditButtons" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" />
+            <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <StackPane fx:id="stkDialog" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TabPane fx:id="tbpFornecedores" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="tabCliente" text="%tab.cliente">
+                     <content>
+                        <AnchorPane prefHeight="455.0" prefWidth="800.0">
+                           <children>
+                              <TableView prefHeight="421.0" prefWidth="800.0">
+                                 <contextMenu>
+                                    <ContextMenu fx:id="ctxMenu">
+                                      <items>
+                                        <MenuItem fx:id="mniEditar" mnemonicParsing="false" onAction="#mniEditar_onAction" text="Editar" />
+                                          <MenuItem fx:id="mniExcluir" mnemonicParsing="false" onAction="#mniExcluir_onAction" text="Excluir" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                              </TableView>
+                              <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.novo">
+                                 <tooltip>
+                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                 </tooltip>
+                              </Button>
+                              <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.editar">
+                                 <tooltip>
+                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                 </tooltip>
+                              </Button>
+                              <Button fx:id="buttonExcluir" layoutX="480.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.excluir">
+                                 <tooltip>
+                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                 </tooltip>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tabEditar" text="%tab.editar">
+                     <content>
+                        <AnchorPane prefHeight="455.0" prefWidth="800.0">
+                           <children>
+                              <AnchorPane prefHeight="177.0" prefWidth="800.0">
+                                 <children>
+                                    <Label layoutX="362.0" layoutY="14.0" text="Dados do Cliente">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="razaoSocial" layoutX="48.0" layoutY="49.0" text="%label.razaoSocial" translateX="-20.0" />
+                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite a Razão Social" translateX="30.0" />
+                                    <Label fx:id="nomeFantasia" layoutX="28.0" layoutY="70.0" text="%label.fantasia" translateY="9.0" />
+                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o Nome Fantasia" translateX="30.0" translateY="9.0" />
+                                    <Label fx:id="nomeFantasia1" layoutX="28.0" layoutY="93.0" text="%label.cnpj" translateY="18.0" />
+                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o CNPJ" translateY="18.0" />
+                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o Inscrição Estadual" />
+                                    <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.inscricao_estadual" />
+                                    <Separator layoutX="7.0" layoutY="176.0" prefWidth="800.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="7.0" layoutY="179.0" prefHeight="165.0" prefWidth="800.0">
+                                 <children>
+                                    <Label layoutX="360.0" layoutY="4.0" text="Endereço">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="21.0" layoutY="36.0" text="%label.logradouro" />
+                                    <TextField fx:id="txtNome2" layoutX="127.0" layoutY="32.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Logradouro" />
+                                    <Label layoutX="21.0" layoutY="67.0" text="%label.numero_endereco" />
+                                    <TextField fx:id="txtNome21" layoutX="127.0" layoutY="63.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Número" />
+                                    <Label layoutX="21.0" layoutY="99.0" text="%label.cep" />
+                                    <TextField fx:id="txtNome211" layoutX="127.0" layoutY="95.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o CEP" />
+                                    <Label layoutX="21.0" layoutY="130.0" text="%label.bairro" />
+                                    <TextField fx:id="txtNome2111" layoutX="127.0" layoutY="126.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite a Bairro" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="-2.0" layoutY="345.0" prefHeight="164.0" prefWidth="800.0">
+                                 <children>
+                                    <Label layoutX="370.0" text="Localidade">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="30.0" layoutY="34.0" text="%label.municipio" />
+                                    <TextField fx:id="txtNome22" layoutX="136.0" layoutY="30.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Município" />
+                                    <Label layoutX="30.0" layoutY="65.0" text="%label.estado" />
+                                    <TextField fx:id="txtNome212" layoutX="136.0" layoutY="61.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Estado" />
+                                    <Button layoutX="300.0" layoutY="96.0" mnemonicParsing="false" text="%button.salvar" />
+                                    <Button layoutX="400.0" layoutY="96.0" mnemonicParsing="false" text="%button.cancelar" />
+                                 </children>
+                              </AnchorPane>
+                              <HBox fx:id="hbxEditButtons1" alignment="CENTER" layoutX="-52.0" layoutY="359.0" prefHeight="100.0" prefWidth="100.0" spacing="10.0" />
+                              <Separator layoutY="343.0" prefWidth="800.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

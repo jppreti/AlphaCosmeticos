@@ -56,10 +56,6 @@
                   <items>
                     <MenuItem fx:id="mniAjudaSobre" mnemonicParsing="false" onAction="#mniSobre_onAction" text="%ajuda.sobre" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniAjudaDesenvolvedores" mnemonicParsing="false" text="%ajuda.desenvolvedores" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniAjudaLicenca" mnemonicParsing="false" text="%ajuda.licenca" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="mniAjudaSair" mnemonicParsing="false" onAction="#mniSair_onAction" text="%ajuda.sair" />
                   </items>
                 </Menu>

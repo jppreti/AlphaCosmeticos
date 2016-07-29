@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class FrmCliente {
+public class FrmFornecedor {
 
     @FXML
     private MenuItem mniEditar;
@@ -29,16 +29,10 @@ public class FrmCliente {
     private TextField txtPesqNome;
 
     @FXML
-    private Tab tabEdicao1;
-
-    @FXML
     private Label lblPesqNome;
 
     @FXML
     private HBox hbxEditButtons;
-
-    @FXML
-    private Tab tabClientes;
 
     @FXML
     private VBox vbxBottom;
@@ -62,6 +56,9 @@ public class FrmCliente {
     private Button btnAlterar1;
 
     @FXML
+    private Tab tabClientes1;
+
+    @FXML
     private MenuItem mniExcluir;
 
     @FXML
@@ -69,9 +66,6 @@ public class FrmCliente {
 
     @FXML
     private ContextMenu ctxMenu;
-
-    @FXML
-    private Label lblRazao1;
 
     @FXML
     void tblClientes_mouseClicked(ActionEvent event) {
@@ -89,12 +83,12 @@ public class FrmCliente {
     }
 
     @FXML
-    void btnNovo_onAction(ActionEvent event) {
+    void btnAlterar_onAction(ActionEvent event) {
 
     }
 
     @FXML
-    void btnAlterar_onAction(ActionEvent event) {
+    void btnNovo_onAction(ActionEvent event) {
 
     }
 

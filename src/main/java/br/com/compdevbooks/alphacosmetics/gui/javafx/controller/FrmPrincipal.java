@@ -5,6 +5,9 @@ import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteEstoque;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.analisedepedidos.FrmPedidoVendaGerenteVendas;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmFornecedor;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmVendedor;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.ajuda.FrmSobre;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmProduto;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmComissao;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar;
@@ -24,6 +27,8 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 public class FrmPrincipal {
 
@@ -133,49 +138,48 @@ public class FrmPrincipal {
     
     @FXML
     void mniCliente_onAction(ActionEvent event) {
-      /*  BorderPane frmCliente = null;
-        
+        BorderPane frmCliente = null;
         try{
-            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui//cadastro//FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmCliente);
         }catch (IOException ioe){
             ioe.printStackTrace();
-        }*/    	
+        }    	
     }
     
     @FXML
     void mniFornecedor_onAction(ActionEvent event) {
-      /*  BorderPane frmCliente = null;
-        
+      BorderPane frmFornecedor = null;
         try{
-            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
-            bdpPrincipal.setCenter(frmCliente);
+            frmFornecedor = FXMLLoader.load(FrmFornecedor.class.getClassLoader().getResource("gui//cadastro//FrmFornecedor.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmFornecedor);
         }catch (IOException ioe){
             ioe.printStackTrace();
-        }*/    	
+        }      	
     }
     
     @FXML
     void mniVendedor_onAction(ActionEvent event) {
-      /*  BorderPane frmCliente = null;
-        
+        BorderPane frmVendedor = null;
         try{
-            frmCliente = FXMLLoader.load(FrmCliente.class.getClassLoader().getResource("gui/FrmCliente.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
-            bdpPrincipal.setCenter(frmCliente);
+            frmVendedor = FXMLLoader.load(FrmVendedor.class.getClassLoader().getResource("gui//cadastro//FrmVendedor.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmVendedor);
         }catch (IOException ioe){
             ioe.printStackTrace();
-        }*/    	
+        }     	
     }
     
     @FXML
     void mniSobre_onAction(ActionEvent event) {
-        VBox frmSobre = null;
+        StackPane frmSobre = null;
+        //AnchorPane frmSobre = null;
+        //VBox frmSobre = null;
         try{
-            frmSobre = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmSobre.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmSobre = FXMLLoader.load(FrmSobre.class.getClassLoader().getResource("gui//ajuda//FrmSobre.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmSobre);
         }catch (IOException ioe){
             ioe.printStackTrace();
-        }    	
+        }      
     }
 
     @FXML //Add inicio - Evento Aba Produto
