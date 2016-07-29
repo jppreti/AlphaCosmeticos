@@ -55,9 +55,6 @@ import org.hibernate.sql.Select;
 public class FrmContas_a_receber {
 
     @FXML
-    private TextField txtNumParcelas;
-
-    @FXML
     private TextField txtNomeRazaoSocial;
 
     @FXML
@@ -1294,7 +1291,7 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnVisualizarImpressao_onAction(ActionEvent event) throws Exception {
-        //  imprimir();
+          imprimir();
     }
 
     @FXML
@@ -1549,7 +1546,19 @@ public class FrmContas_a_receber {
         lblNumTituloValor.setText("  " + receber.getParcela());
         lblTipoDocumentoValor.setText("  " + receber.getFormapgto());
         txtValorTotal.setText(String.valueOf(receber.getValor()));
-        txtNumParcelas.setText(String.valueOf(receber.getParcela()));
+
+    }
+    
+    
+    public void imprimir() throws Exception {
+
+        System.out.println("ok");
+
+        JasperReport report = JasperCompileManager.compileReport("F:\\AlphaCosmeticos\\src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
+        System.out.println("ok2");
+        JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getItems()));
+
+        JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Roberto Junior\\Documents\\NetBeansProjects\\Relatorio_de_ContasReceber.pdf");
 
     }
 

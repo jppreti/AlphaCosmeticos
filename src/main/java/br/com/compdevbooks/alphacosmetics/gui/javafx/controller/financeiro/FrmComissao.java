@@ -338,15 +338,15 @@ public class FrmComissao {
     }
 
     public void imprimir() throws Exception {
-/*
+
         System.out.println("ok");
 
-        JasperReport report = JasperCompileManager.compileReport("F:\\funcionando\\src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\Comissao.jrxml");
+        JasperReport report = JasperCompileManager.compileReport("F:\\AlphaCosmeticos\\src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\Comissao.jrxml");
         System.out.println("ok2");
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblComissao.getItems()));
 
         JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Roberto Junior\\Documents\\NetBeansProjects\\Relatorio_de_Comissoes.pdf");
-*/
+
     }
 
     private void busca() {

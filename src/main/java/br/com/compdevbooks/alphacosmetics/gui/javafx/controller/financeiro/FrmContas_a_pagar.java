@@ -204,6 +204,9 @@ public class FrmContas_a_pagar {
 
     @FXML
     private TableView<TabelaTelaContasAPagar> tblContas_a_pagar;
+    
+    @FXML
+    private Button btnGerarRealatorio;
 
     Date referencia = new Date();
     Date refAux = new Date();
@@ -1367,6 +1370,11 @@ public class FrmContas_a_pagar {
         lblVencimentoValor.setText("  "+pagar.getDtVencimento());
         lblValorValor.setText("  $"+pagar.getValor());
         
+    }
+    
+    @FXML
+    void btnGerarRealatorio_onAction(ActionEvent event) {
+
     }
 
 }

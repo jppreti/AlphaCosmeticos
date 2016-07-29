@@ -26,10 +26,6 @@
 				</textElement>
 				<text><![CDATA[Empresa AlphaCosmetico]]></text>
 			</staticText>
-			<image>
-				<reportElement x="398" y="-6" width="157" height="106" uuid="7ca9f200-f5f4-4606-81e6-7133279111e1"/>
-				<imageExpression><![CDATA["F:\\funcionando\\src\\main\\resources\\imagem\\logo1.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

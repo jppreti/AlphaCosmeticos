@@ -25,18 +25,18 @@
                <children>
                   <VBox prefHeight="153.0" prefWidth="442.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="441.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="125.0">
                                  <children>
                                     <Label text="%label.por" />
-                                    <ComboBox fx:id="cmbOpcaoPesquisa" onAction="#cmbOpcaoPesquisa_onAction" prefHeight="25.0" prefWidth="122.0" />
+                                    <ComboBox fx:id="cmbOpcaoPesquisa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cmbOpcaoPesquisa_onAction" prefHeight="25.0" prefWidth="124.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </VBox>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="109.0">
                                  <children>
                                     <Label fx:id="lblDataInicial" text="%label.dtInicial" />
                                     <DatePicker fx:id="dtpInicial" onAction="#dtpInicial_onAction" onKeyPressed="#dtpInicial_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
@@ -45,7 +45,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="114.0">
                                  <children>
                                     <Label fx:id="lblDataFinal" text="%label.dtFinal" />
                                     <DatePicker fx:id="dtpFinal" onAction="#dtpFinal_onAction" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="107.0" />
@@ -66,7 +66,7 @@
                               <TextField fx:id="txtCpfCnpj" onKeyPressed="#txtCpfCnpj_onKeyPressed" onKeyReleased="#txtCpfCnpj_onKeyReleased" prefHeight="25.0" prefWidth="122.0" promptText="%text.cpfCnpj" />
                               <TextField fx:id="txtNomeRazaoSocial" onKeyPressed="#txtNomeRazaoSocial_onKeyPressed" onKeyReleased="#txtNomeRazaoSocial_onKeyReleased" prefHeight="25.0" prefWidth="225.0" promptText="%text.nomeRazaoSocial">
                                  <HBox.margin>
-                                    <Insets left="2.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
                               <Button fx:id="btnProcurar" mnemonicParsing="false" onAction="#btnProcurar_onAction" onKeyPressed="#btnProcurar_onKeyPressed" prefHeight="25.0" prefWidth="75.0" text="%button.procurar">
@@ -87,32 +87,35 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <RadioButton fx:id="rdbEmAberto" mnemonicParsing="false" onAction="#rdbEmAberto_onAction" text="%rdb.emAberto">
+                                    <RadioButton fx:id="rdbEmAberto" mnemonicParsing="false" onAction="#rdbEmAberto_onAction" prefHeight="17.0" prefWidth="83.0" text="%rdb.emAberto">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </RadioButton>
                                  </children>
                               </VBox>
-                              <RadioButton fx:id="rdbVencidos" mnemonicParsing="false" onAction="#rdbVencidos_onAction" text="%rdb.vencido">
+                              <RadioButton fx:id="rdbVencidos" mnemonicParsing="false" onAction="#rdbVencidos_onAction" prefWidth="83.0" text="%rdb.vencido">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbTodosTipoCliente" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#rdbTodosTipoCliente_onAction" text="%rdb.todos">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </RadioButton>
-                              <RadioButton fx:id="rdbTodosTipoCliente" mnemonicParsing="false" onAction="#rdbTodosTipoCliente_onAction" text="%rdb.todos">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </RadioButton>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="146.0">
                                  <children>
                                     <Label fx:id="lblFormaPagamento" text="%label.formaPgto" />
-                                    <ComboBox fx:id="cmbFormaPgto" onAction="#cmbFormaPgto_onAction" prefWidth="150.0">
+                                    <ComboBox fx:id="cmbFormaPgto" onAction="#cmbFormaPgto_onAction" prefHeight="25.0" prefWidth="145.0">
                                        <VBox.margin>
-                                          <Insets left="10.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </ComboBox>
                                  </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </VBox>
                            </children>
                            <VBox.margin>
@@ -138,8 +141,8 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00050a" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
-                              <Label fx:id="lblTotalVencido30" text="%label.vencidos30" />
-                              <TextField fx:id="txtTotalVencidos30Valor" disable="true" promptText="\$ 00,00">
+                              <Label fx:id="lblTotalVencido30" prefHeight="17.0" prefWidth="103.0" text="%label.vencidos30" />
+                              <TextField fx:id="txtTotalVencidos30Valor" disable="true" prefHeight="25.0" prefWidth="139.0" promptText="\$ 00,00">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="10.0" />
                                  </HBox.margin>
@@ -149,10 +152,10 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0202" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
-                              <Label fx:id="txtTotalVencidos" text="%label.vencidos" />
-                              <TextField fx:id="txtTotalVencidosValor" disable="true" promptText="\$ 00,00">
+                              <Label fx:id="txtTotalVencidos" prefHeight="17.0" prefWidth="103.0" text="%label.vencidos" />
+                              <TextField fx:id="txtTotalVencidosValor" disable="true" prefHeight="25.0" prefWidth="139.0" promptText="\$ 00,00">
                                  <HBox.margin>
-                                    <Insets bottom="5.0" left="29.0" />
+                                    <Insets bottom="5.0" left="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
@@ -160,10 +163,13 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#28dd34" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
-                              <Label fx:id="lblTotalEmAberto" text="%label.EmAberto" />
-                              <TextField fx:id="txtTotalEmAbertoValor" disable="true" promptText="\$ 00,00">
+                              <Label fx:id="lblTotalEmAberto" prefHeight="17.0" prefWidth="103.0" text="%label.EmAberto">
                                  <HBox.margin>
-                                    <Insets left="21.0" />
+                                    <Insets />
+                                 </HBox.margin></Label>
+                              <TextField fx:id="txtTotalEmAbertoValor" disable="true" prefHeight="25.0" prefWidth="139.0" promptText="\$ 00,00">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
@@ -179,16 +185,16 @@
       </VBox>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="167.0" prefWidth="838.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="tabDividas" text="%tab.dividas">
                <content>
-                  <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" onMouseClicked="#tblContas_a_pagar_onMouseClicked" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblContas_a_pagar" onKeyPressed="#btnSair_onKeyPressed" onMouseClicked="#tblContas_a_pagar_onMouseClicked" prefHeight="144.0" prefWidth="838.0">
                     <columns>
                       <TableColumn fx:id="clmDtLancamento" prefWidth="75.0" text="%column.dtLancamento" />
                       <TableColumn fx:id="clmDtVencimento" prefWidth="75.0" text="%column.dtVencimento" />
-                        <TableColumn fx:id="clmNomeRazaoSocial" prefWidth="75.0" text="%column.nomeRazaoSocial" />
-                        <TableColumn fx:id="clmCnpj" prefWidth="75.0" text="%column.cnpj" />
+                        <TableColumn fx:id="clmNomeRazaoSocial" prefWidth="140.0" text="%column.nomeRazaoSocial" />
+                        <TableColumn fx:id="clmCnpj" prefWidth="139.0" text="%column.cnpj" />
                         <TableColumn fx:id="clmFormaPgto" prefWidth="75.0" text="%column.formaPgto" />
                         <TableColumn fx:id="clmValor" prefWidth="75.0" text="%column.valor" />
                     </columns>
@@ -200,31 +206,36 @@
           </Tab>
           <Tab fx:id="tabRelatorioResumido" text="%tab.relatorio">
                <content>
-                  <GridPane fx:id="grpRelatorioResumido" gridLinesVisible="true">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label fx:id="lblDocumento" text="%label.cpfCnpj" />
-                        <Label fx:id="lblNomeRazaoSocial" text="%label.nomeRazaoSocial" GridPane.rowIndex="1" />
-                        <Label fx:id="lblVencimento" text="%label.vencimento" GridPane.rowIndex="2" />
-                        <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="3" />
-                        <Label fx:id="lblDocumentoValor" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="lblNomeRazaoSocialValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblVencimentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <GridPane fx:id="grpRelatorioResumido" gridLinesVisible="true">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="lblDocumento" text="%label.cpfCnpj" />
+                              <Label fx:id="lblNomeRazaoSocial" text="%label.nomeRazaoSocial" GridPane.rowIndex="1" />
+                              <Label fx:id="lblVencimento" text="%label.vencimento" GridPane.rowIndex="2" />
+                              <Label fx:id="lblValor" text="%label.valor" GridPane.rowIndex="3" />
+                              <Label fx:id="lblDocumentoValor" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="lblNomeRazaoSocialValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblVencimentoValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblValorValor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </GridPane>
+                        <Button fx:id="btnGerarRealatorio" mnemonicParsing="false" onAction="#btnGerarRealatorio_onAction" text="%button.gerarRelatorio" />
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </GridPane>
+                  </VBox>
                </content>
           </Tab>
         </tabs>
@@ -236,16 +247,16 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="139.0" prefWidth="838.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="152.0" prefWidth="838.0">
                <children>
                   <VBox prefHeight="100.0" prefWidth="260.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
+                        <HBox alignment="CENTER" prefHeight="19.0" prefWidth="260.0">
                            <children>
-                              <Label fx:id="lblDataPagamento" text="%label.dtPgto" />
+                              <Label fx:id="lblDataPagamento" prefWidth="112.0" text="%label.dtPgto" />
                               <DatePicker fx:id="dtpPagamento" prefHeight="25.0" prefWidth="147.0">
                                  <HBox.margin>
-                                    <Insets left="29.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </DatePicker>
                            </children>
@@ -255,40 +266,49 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblValorAPagar" text="%label.valorApagar" />
+                              <Label fx:id="lblValorAPagar" prefHeight="17.0" prefWidth="112.0" text="%label.valorApagar" />
                               <TextField fx:id="txtValorAPagar" disable="true">
                                  <HBox.margin>
-                                    <Insets bottom="5.0" left="10.0" top="5.0" />
+                                    <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblJuros" text="%label.juros" />
+                              <Label fx:id="lblJuros" prefWidth="112.0" text="%label.juros" />
                               <TextField fx:id="txtJuros">
                                  <HBox.margin>
-                                    <Insets bottom="5.0" left="39.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lbldesconto" text="%label.desconto" />
+                              <Label fx:id="lbldesconto" prefWidth="112.0" text="%label.desconto" />
                               <TextField fx:id="txtdesconto">
                                  <HBox.margin>
-                                    <Insets bottom="5.0" left="20.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblTotal" text="%label.total" />
-                              <TextField fx:id="txtTotal" disable="true" prefHeight="25.0" prefWidth="144.0">
+                              <Label fx:id="lblTotal" prefWidth="112.0" text="%label.total" />
+                              <TextField fx:id="txtTotal" disable="true">
                                  <HBox.margin>
-                                    <Insets left="40.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
@@ -297,11 +317,20 @@
                            </VBox.margin>
                         </HBox>
                      </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="112.0">
                      <children>
-                        <Button mnemonicParsing="false" text="%button.calcular" />
+                        <Button mnemonicParsing="false" text="%button.calcular">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Button>
                      </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="170.0" prefWidth="189.0">
                      <children>
@@ -313,10 +342,13 @@
                         <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="84.0" text="%button.sair" />
                      </children>
                      <HBox.margin>
-                        <Insets left="350.0" />
+                        <Insets left="250.0" />
                      </HBox.margin>
                   </VBox>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

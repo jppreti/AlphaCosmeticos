@@ -55,19 +55,7 @@
    <bottom>
       <VBox alignment="TOP_RIGHT" prefHeight="46.0" prefWidth="800.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="lblStatus" text="%label.status">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="50.0" />
-               </VBox.margin>
-            </HBox>
-            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="81.0" text="%button.sair" />
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="102.0" text="%button.sair" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -75,7 +63,7 @@
       </VBox>
    </bottom>
    <top>
-      <VBox prefHeight="185.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="153.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0">
                <children>
@@ -97,7 +85,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="44.0" prefWidth="114.0">
+                  <VBox prefHeight="52.0" prefWidth="124.0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -106,55 +94,43 @@
                         <DatePicker fx:id="dtpInicial" onKeyPressed="#dtpInicial_onKeyPressed" />
                      </children>
                   </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="lblRegiao" text="%label.regiao" />
-                        <TextField fx:id="txtRegiao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#txtRegiao_onKeyPressed" prefHeight="25.0" prefWidth="249.0" promptText="text.regiao" />
-                     </children>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="94.0" prefWidth="113.0">
+                  <VBox prefHeight="52.0" prefWidth="124.0">
                      <children>
                         <Label fx:id="lblDataFinal" alignment="TOP_LEFT" text="%label.dtFinal" />
-                        <DatePicker fx:id="dtpFinal" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="119.0" />
+                        <DatePicker fx:id="dtpFinal" onKeyPressed="#dtpFinal_onKeyPressed" prefHeight="25.0" prefWidth="131.0" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="98.0" prefWidth="135.0">
-                     <children>
-                        <Button fx:id="btnProcurar" mnemonicParsing="false" onAction="#btnProcurar_onAction" prefHeight="25.0" prefWidth="114.0" text="%button.procurar" />
-                     </children>
-                  </VBox>
-                  <Label fx:id="lblTotal" prefHeight="17.0" prefWidth="30.0" text="%label.valorTotal">
+                  <Button fx:id="btnProcurar" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#btnProcurar_onAction" prefHeight="25.0" prefWidth="70.0" text="%button.procurar">
                      <HBox.margin>
-                        <Insets top="35.0" />
+                        <Insets left="10.0" top="8.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="800.0">
+               <children>
+                  <Label fx:id="lblTotal" prefHeight="17.0" prefWidth="72.0" text="%label.valorTotal">
+                     <HBox.margin>
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtValorTotal" onKeyPressed="#txtValorTotal_onKeyPressed" prefHeight="25.0" prefWidth="105.0" promptText="\$00,00">
+                  <TextField fx:id="txtValorTotal" onKeyPressed="#txtValorTotal_onKeyPressed" prefHeight="25.0" prefWidth="137.0" promptText="\$00,00">
                      <HBox.margin>
-                        <Insets top="35.0" />
+                        <Insets />
                      </HBox.margin>
                   </TextField>
-                  <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="159.0">
-                     <children>
-                        <Button fx:id="btnPagarComissao" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#btnPagarComissao_onAction" prefHeight="25.0" prefWidth="200.0" text="%button.pagarComissao">
-                           <VBox.margin>
-                              <Insets top="35.0" />
-                           </VBox.margin></Button>
-                     </children>
-                     <padding>
+                  <Button fx:id="btnPagarComissao" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#btnPagarComissao_onAction" prefHeight="25.0" prefWidth="126.0" text="%button.pagarComissao">
+                     <HBox.margin>
                         <Insets left="10.0" />
-                     </padding>
-                  </VBox>
+                     </HBox.margin>
+                  </Button>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
