@@ -23,6 +23,7 @@ public class TabelaTelaContasReceber {
     private String cnpj;
     private Long id_venda;
     private Long id_parcela;
+    private String valor2;
 
     public Long getId_venda() {
         return id_venda;
@@ -112,6 +113,7 @@ public class TabelaTelaContasReceber {
      */
     public void setValor(float valor) {
         this.valor = valor;
+        this.valor2 = String.valueOf(valor);
     }
 
     /**
@@ -140,6 +142,13 @@ public class TabelaTelaContasReceber {
      */
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    /**
+     * @return the valor2
+     */
+    public String getValor2() {
+        return valor2;
     }
 
 }

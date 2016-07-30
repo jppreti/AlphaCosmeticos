@@ -61,14 +61,14 @@ public class MockCompraDAO implements ICompraDAO {
              ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
              PagamentoEntity pagamento = new PagamentoEntity();
              parcela.setDataVencimento(data, 1);
-             
+             parcela.setId(1L);
              CartaoCreditoEntity cartaoCredito = new CartaoCreditoEntity();
              cartaoCredito.setId((long) 1);
              cartaoCredito.setNumero("4872568423658741");
              cartaoCredito.setValidade("30/12/2019");
              cartaoCredito.setOperadora(AOperadora.getOperadora("MasterCard"));
              parcela.setValorOriginal(256.85);
-             parcela.setValorTotalPago(256.85);
+             //parcela.setValorTotalPago(256.85);
              parcela.setDocumentoPagamento(cartaoCredito);
              listaParcela.add(parcela);
              
@@ -83,8 +83,8 @@ public class MockCompraDAO implements ICompraDAO {
              boleto.setCodigoBarra("111252358844");
 
              parcela.setValorOriginal(600.00);
-             parcela.setValorTotalPago(600.00);
-
+            // parcela.setValorTotalPago(600.00);
+ parcela.setId(2L);
              parcela.setDocumentoPagamento(boleto);
              listaParcela.add(parcela);
 
@@ -98,7 +98,8 @@ public class MockCompraDAO implements ICompraDAO {
              boleto.setCarteira("Registrada");
              boleto.setCodigoBarra("235875585222555");
              parcela.setValorOriginal(620.00);
-             parcela.setValorTotalPago(620.00);
+            // parcela.setValorTotalPago(620.00);
+             parcela.setId(3L);
              parcela.setDocumentoPagamento(boleto);
              listaParcela.add(parcela);
              
@@ -122,7 +123,7 @@ public class MockCompraDAO implements ICompraDAO {
              parcela = new ParcelaPagamentoEntity();
              ChequeEntity cheque = new ChequeEntity();
              parcela.setDataVencimento(data, 1);
-           
+            parcela.setId(4L);
              cheque.setId((long) 1);
              cheque.setBancoVO(ABanco.getBancos("Banco do Brasil S.A."));
              cheque.setConta("65.4210-9");
@@ -135,7 +136,7 @@ public class MockCompraDAO implements ICompraDAO {
              
              parcela = new ParcelaPagamentoEntity();
              parcela.setDataVencimento(data, 2);
-           
+            parcela.setId(5L);
              cheque = new ChequeEntity();
              cheque.setId((long) 2);
              cheque.setBancoVO(ABanco.getBancos("Banco do Brasil S.A."));

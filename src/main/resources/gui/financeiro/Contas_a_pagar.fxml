@@ -267,7 +267,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblValorAPagar" prefHeight="17.0" prefWidth="112.0" text="%label.valorApagar" />
-                              <TextField fx:id="txtValorAPagar" disable="true">
+                              <TextField fx:id="txtValorAPagar" disable="true" promptText="\$00,00">
                                  <HBox.margin>
                                     <Insets left="10.0" top="5.0" />
                                  </HBox.margin>
@@ -280,7 +280,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblJuros" prefWidth="112.0" text="%label.juros" />
-                              <TextField fx:id="txtJuros">
+                              <TextField fx:id="txtJuros" promptText="\$00,00">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
@@ -293,7 +293,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lbldesconto" prefWidth="112.0" text="%label.desconto" />
-                              <TextField fx:id="txtdesconto">
+                              <TextField fx:id="txtdesconto" promptText="\$00,00">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
@@ -306,7 +306,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblTotal" prefWidth="112.0" text="%label.total" />
-                              <TextField fx:id="txtTotal" disable="true">
+                              <TextField fx:id="txtTotal" disable="true" promptText="\$00,00">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
@@ -323,7 +323,7 @@
                   </VBox>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="112.0">
                      <children>
-                        <Button mnemonicParsing="false" text="%button.calcular">
+                        <Button fx:id="btncalcular" mnemonicParsing="false" onAction="#btncalcular_onAction" text="%button.calcular">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></Button>
@@ -334,12 +334,13 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="170.0" prefWidth="189.0">
                      <children>
-                        <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" text="%button.baixarDivida">
+                        <Button fx:id="btnVisualizarImpressao" mnemonicParsing="false" onAction="#btnVisualizarImpressao_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.visualizarImpressao" />
+                        <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.baixarDivida">
                            <VBox.margin>
-                              <Insets bottom="10.0" />
+                              <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="84.0" text="%button.sair" />
+                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="131.0" text="%button.sair" />
                      </children>
                      <HBox.margin>
                         <Insets left="250.0" />

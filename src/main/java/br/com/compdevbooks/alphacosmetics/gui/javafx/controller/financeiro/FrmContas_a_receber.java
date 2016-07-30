@@ -10,6 +10,7 @@ import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.MaskFieldUtil;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasReceber;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +49,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -207,6 +211,24 @@ public class FrmContas_a_receber {
     @FXML
     private TableColumn<TabelaTelaContasReceber, String> clmCnpj;
 
+    @FXML
+    private Button btnCalcular;
+
+    @FXML
+    private DatePicker dtpPagamento;
+
+    @FXML
+    private TextField txtDesconto;
+
+    @FXML
+    private TextField txtJuros;
+
+    @FXML
+    private TextField txtValorAPagar;
+
+    @FXML
+    private Button btnGerarRelatorio;
+
     Date referencia = new Date();
     Date refAux = new Date();
     float vencidos = 0;
@@ -239,6 +261,10 @@ public class FrmContas_a_receber {
         cmbOpcaoPesquisa.setItems(ob);
         cmbOpcaoPesquisa.setValue("Dt Lançamento");
 
+        MaskFieldUtil.monetaryField(txtJuros);
+
+        MaskFieldUtil.monetaryField(txtDesconto);
+
         Date data = new Date();
         LocalDate dtlocal = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         dtpFinal.setValue(dtlocal);
@@ -247,6 +273,7 @@ public class FrmContas_a_receber {
         cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
         cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
 
+        dtpPagamento.setValue(dtlocal);
         for (VendaEntity vo : listaVendaT) {
 
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
@@ -339,7 +366,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -357,7 +384,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -375,7 +402,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -396,7 +423,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -413,7 +440,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -430,7 +457,7 @@ public class FrmContas_a_receber {
                                     tabela.setDtVencimento(parcPg.getDataVencimento());
                                     tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                     tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
+                                    tabela.setValor((float) parcPg.getValorOriginal());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                     tabela.setId_venda(vo.getId());
                                     tabela.setId_parcela(parcPg.getId());
@@ -451,7 +478,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -468,7 +495,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -485,7 +512,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -509,7 +536,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -526,7 +553,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -543,7 +570,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -576,7 +603,7 @@ public class FrmContas_a_receber {
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
 
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -593,7 +620,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -610,7 +637,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -631,7 +658,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -648,7 +675,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -665,7 +692,7 @@ public class FrmContas_a_receber {
                                     tabela.setDtVencimento(parcPg.getDataVencimento());
                                     tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                     tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
+                                    tabela.setValor((float) parcPg.getValorOriginal());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                     tabela.setId_venda(vo.getId());
                                     tabela.setId_parcela(parcPg.getId());
@@ -687,7 +714,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -704,7 +731,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -721,7 +748,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -745,7 +772,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -762,7 +789,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -779,7 +806,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -807,7 +834,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -841,7 +868,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -862,7 +889,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -879,7 +906,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -896,7 +923,7 @@ public class FrmContas_a_receber {
                                     tabela.setDtVencimento(parcPg.getDataVencimento());
                                     tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                     tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
+                                    tabela.setValor((float) parcPg.getValorOriginal());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                     tabela.setId_venda(vo.getId());
                                     tabela.setId_parcela(parcPg.getId());
@@ -917,7 +944,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -934,7 +961,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -951,7 +978,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -975,7 +1002,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -992,7 +1019,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1009,7 +1036,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1041,7 +1068,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1058,7 +1085,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1075,7 +1102,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1096,7 +1123,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1113,7 +1140,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1130,7 +1157,7 @@ public class FrmContas_a_receber {
                                     tabela.setDtVencimento(parcPg.getDataVencimento());
                                     tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                     tabela.setParcela(cont);
-                                    tabela.setValor((float) parcPg.getValorTotalPago());
+                                    tabela.setValor((float) parcPg.getValorOriginal());
                                     tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                     tabela.setId_venda(vo.getId());
                                     tabela.setId_parcela(parcPg.getId());
@@ -1152,7 +1179,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1169,7 +1196,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1186,7 +1213,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1210,7 +1237,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1227,7 +1254,7 @@ public class FrmContas_a_receber {
                                             tabela.setDtVencimento(parcPg.getDataVencimento());
                                             tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                             tabela.setParcela(cont);
-                                            tabela.setValor((float) parcPg.getValorTotalPago());
+                                            tabela.setValor((float) parcPg.getValorOriginal());
                                             tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                             tabela.setId_venda(vo.getId());
                                             tabela.setId_parcela(parcPg.getId());
@@ -1244,7 +1271,7 @@ public class FrmContas_a_receber {
                                         tabela.setDtVencimento(parcPg.getDataVencimento());
                                         tabela.setFormapgto(parcPg.getDocumentoPagamento().getNome().toUpperCase());
                                         tabela.setParcela(cont);
-                                        tabela.setValor((float) parcPg.getValorTotalPago());
+                                        tabela.setValor((float) parcPg.getValorOriginal());
                                         tabela.setCnpj(vo.getClienteVO().getCNPJ());
                                         tabela.setId_venda(vo.getId());
                                         tabela.setId_parcela(parcPg.getId());
@@ -1261,14 +1288,13 @@ public class FrmContas_a_receber {
             cont = 0;
 
         }
-         Comparator<TabelaTelaContasReceber> cmp = new Comparator<TabelaTelaContasReceber>() {
+        Comparator<TabelaTelaContasReceber> cmp = new Comparator<TabelaTelaContasReceber>() {
             @Override
             public int compare(TabelaTelaContasReceber o1, TabelaTelaContasReceber o2) {
-              
-                
+
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate primeira = LocalDate.parse(o1.getDtVencimento(),dtf);
-                 LocalDate segunda = LocalDate.parse(o2.getDtVencimento(),dtf);
+                LocalDate primeira = LocalDate.parse(o1.getDtVencimento(), dtf);
+                LocalDate segunda = LocalDate.parse(o2.getDtVencimento(), dtf);
 
                 if (primeira.isBefore(segunda)) {
                     return -1;
@@ -1282,7 +1308,7 @@ public class FrmContas_a_receber {
             }
 
         };
-        
+
         Collections.sort(dado, cmp);
         this.tblVenda.setItems(dado);
 
@@ -1290,8 +1316,16 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnBaixarTitulos_onAction(ActionEvent event) {
-        TabelaTelaContasReceber teste;
+        TabelaTelaContasReceber teste = null;
         teste = tblVenda.getSelectionModel().getSelectedItem();
+        if (teste == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Contas á receber");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione uma linha");
+            alert.showAndWait();
+            return;
+        }
         System.out.println(teste.getId_parcela());
         ParcelaPagamentoEntity aux = null;
 
@@ -1301,21 +1335,20 @@ public class FrmContas_a_receber {
                 System.out.println(parcPg.getId());
 
                 if (parcPg.getId().equals(teste.getId_parcela())) {
-                    parcPg.setDataPagamento(referencia);
+                    parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+
                 }
             }
-     
+
         }
 
         completar(listaVendaT);
 
     }
 
-
-
     @FXML
     void btnVisualizarImpressao_onAction(ActionEvent event) throws Exception {
-          imprimir();
+        imprimir();
     }
 
     @FXML
@@ -1482,6 +1515,22 @@ public class FrmContas_a_receber {
     }
 
     @FXML
+    void btnGerarRelatorio_onAction(ActionEvent event) {
+        System.out.println("ok");
+        JasperReport report;
+        try {
+            report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
+            System.out.println("ok2");
+            JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getSelectionModel().getSelectedItems()));
+
+            JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber.pdf");
+        } catch (JRException ex) {
+            System.out.println("erro " + ex.getMessage());
+        }
+
+    }
+
+    @FXML
     void cmbOpcaoPesquisa_onAction(ActionEvent event) {
         btnProcurar_onAction(event);
     }
@@ -1554,6 +1603,11 @@ public class FrmContas_a_receber {
 
     @FXML
     void tblVenda_onMouseClicked(MouseEvent event) {
+
+        txtValorTotal.setText("");
+        txtDesconto.setText("");
+        txtJuros.setText("");
+
         if (event.getClickCount() >= 1) {
             if (tblVenda.getSelectionModel().getSelectedItem() == null) {
                 return;
@@ -1569,20 +1623,84 @@ public class FrmContas_a_receber {
         lblValorValor.setText("  $" + receber.getValor());
         lblNumTituloValor.setText("  " + receber.getParcela());
         lblTipoDocumentoValor.setText("  " + receber.getFormapgto());
-        txtValorTotal.setText(String.valueOf(receber.getValor()));
+        txtValorAPagar.setText(String.valueOf(receber.getValor()));
+        txtJuros.requestFocus();
 
     }
-    
-    
+
+    @FXML
+    void btnCalcular_onAction(ActionEvent event) {
+        float valorT = 0;
+        TabelaTelaContasReceber teste = null;
+        teste = tblVenda.getSelectionModel().getSelectedItem();
+        if (teste == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Contas á receber");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione uma linha");
+            alert.showAndWait();
+            return;
+        }
+        System.out.println(teste.getId_parcela());
+        ParcelaPagamentoEntity aux = null;
+        float juros = 0;
+        float desconto = 0;
+        for (VendaEntity vo : listaVendaT) {
+            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                System.out.println(parcPg.getId());
+
+                if (parcPg.getId().equals(teste.getId_parcela())) {
+
+                    if (txtJuros.getText().isEmpty()) {
+                        juros = 0;
+                    } else {
+                        String conversaoJuros = txtJuros.getText().replaceAll(",", ".");
+                        Float t = Float.parseFloat(conversaoJuros);
+                        juros = t;
+
+                    }
+                    if (txtDesconto.getText().isEmpty()) {
+                        desconto = 0;
+                    } else {
+                        String conversaoDesconto = txtDesconto.getText().replaceAll(",", ".");
+                        Float t2 = Float.parseFloat(conversaoDesconto);
+                        
+                        if (t2 >= parcPg.getValorOriginal()) {
+                            
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Contas á receber");
+                            alert.setHeaderText(null);
+                            alert.setContentText("O desconto não pode ser maior do que o valor");
+                            alert.showAndWait();
+                            return;
+                            
+                        }else{
+                             desconto = t2;
+                        }
+                       
+                    }
+                    valorT = (juros - desconto);
+                    parcPg.setValorJuro(juros);
+                    parcPg.setValorDesconto(desconto);
+                    valorT += parcPg.getValorOriginal();
+                    parcPg.setValorTotalPago(valorT);
+
+                }
+            }
+            txtValorTotal.setText(String.valueOf(valorT));
+        }
+
+    }
+
     public void imprimir() throws Exception {
 
         System.out.println("ok");
 
-        JasperReport report = JasperCompileManager.compileReport("F:\\AlphaCosmeticos\\src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
+        JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
         System.out.println("ok2");
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getItems()));
 
-        JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Roberto Junior\\Documents\\NetBeansProjects\\Relatorio_de_ContasReceber.pdf");
+        JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber_geral.pdf");
 
     }
 

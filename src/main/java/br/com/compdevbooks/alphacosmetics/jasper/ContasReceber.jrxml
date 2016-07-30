@@ -6,7 +6,7 @@
 	<field name="cliente" class="java.lang.String"/>
 	<field name="dtVencimento" class="java.lang.String"/>
 	<field name="formapgto" class="java.lang.String"/>
-	<field name="valor" class="java.lang.String"/>
+	<field name="valor2" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -41,21 +41,21 @@
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="168" y="4" width="117" height="20" uuid="a06d15a0-fd5a-4063-a174-499986023d4e"/>
+				<reportElement x="156" y="4" width="117" height="20" uuid="a06d15a0-fd5a-4063-a174-499986023d4e"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Dt.Vencimento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="306" y="4" width="100" height="20" uuid="7e063bfc-d8d4-4b2d-88c7-480d74562be7"/>
+				<reportElement x="291" y="4" width="100" height="20" uuid="7e063bfc-d8d4-4b2d-88c7-480d74562be7"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Forma Pgto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="448" y="4" width="100" height="20" uuid="bba5de3e-f576-42d5-9e33-ad5b3d6fd247"/>
+				<reportElement x="455" y="4" width="100" height="20" uuid="bba5de3e-f576-42d5-9e33-ad5b3d6fd247"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -73,25 +73,25 @@
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="0" width="115" height="20" uuid="1038f9c3-4808-4b2d-87b6-e6700f81bdd4"/>
+				<reportElement x="158" y="0" width="115" height="20" uuid="1038f9c3-4808-4b2d-87b6-e6700f81bdd4"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dtVencimento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="307" y="0" width="121" height="20" uuid="11fb8cf2-35d1-4e3b-b4f6-d1dc788d6f76"/>
+				<reportElement x="291" y="0" width="153" height="20" uuid="11fb8cf2-35d1-4e3b-b4f6-d1dc788d6f76"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{formapgto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="448" y="0" width="100" height="20" uuid="1f11afa5-8c86-4fb3-aff2-7fa00f029bbb"/>
+				<reportElement x="455" y="0" width="100" height="20" uuid="1f11afa5-8c86-4fb3-aff2-7fa00f029bbb"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{valor}.toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valor2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

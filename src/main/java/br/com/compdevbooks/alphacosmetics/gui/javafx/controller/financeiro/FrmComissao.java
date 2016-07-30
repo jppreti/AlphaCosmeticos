@@ -144,12 +144,7 @@ public class FrmComissao {
     private String pathToReportPackage;
     List<ComissaoEntity> listaComissoes;
 
-    public FrmComissao() {
-        this.path = this.getClass().getClassLoader().getResource("").getPath();
-        this.pathToReportPackage = this.path + "br\\com\\compdevbooks\\alphacosmetics\\gui\\javafx\\jasper\\";
-        System.out.println(path+" "+"aqui");
-    }
-
+  
     @FXML
     void initialize() {
 
@@ -288,7 +283,6 @@ public class FrmComissao {
         ParcelaComissaoEntity aux = null;
         
         if(telaComissao == null){
-            System.out.println("erro aqui");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Pagamento de comissão");
             alert.setHeaderText(null);
@@ -341,11 +335,11 @@ public class FrmComissao {
 
         System.out.println("ok");
 
-        JasperReport report = JasperCompileManager.compileReport("F:\\AlphaCosmeticos\\src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\Comissao.jrxml");
+        JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\Comissao.jrxml");
         System.out.println("ok2");
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblComissao.getItems()));
 
-        JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\Roberto Junior\\Documents\\NetBeansProjects\\Relatorio_de_Comissoes.pdf");
+        JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_Comissoes.pdf");
 
     }
 

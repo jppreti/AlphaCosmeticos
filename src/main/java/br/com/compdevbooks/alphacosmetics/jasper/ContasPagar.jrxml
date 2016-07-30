@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContasPagar" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41694877-d5d7-4820-bd81-db5817a5b906">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="formaPgto" class="java.lang.String"/>
+	<field name="valor2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="143" y="0" width="298" height="33" uuid="f8d04c81-4f6f-4d76-a2cd-35176fb8fb2d"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Relatório Contas á Pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="33" width="211" height="32" uuid="c395a2e1-b78e-4801-bbc1-3f7b63784a73"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Empresa AlphaCosmetico]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="127" height="20" uuid="7c552cf8-b556-437f-ba01-fd6d3a58fde9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="0" width="100" height="20" uuid="c34ba8d8-52bc-4e5c-bab0-db018a97625a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="2" width="100" height="20" uuid="b224c280-883a-42c2-8ed3-2d71b0cc3cf2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Forma Pgto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="2" width="100" height="20" uuid="d42b3df0-3aa1-43f2-9e3a-86ba21ea7f3c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="127" height="20" uuid="3ef7148e-b675-4c66-aa64-72264578d5b1"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="0" width="100" height="20" uuid="d0d1ba9f-606e-4a48-9560-7a020cc440ef"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="3" width="130" height="20" uuid="b70594be-e439-4923-a19e-e06245da990b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formaPgto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="3" width="100" height="20" uuid="ad2efdce-0589-4fb9-bdbd-a2c59f746e3b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="11" y="21" width="100" height="20" uuid="dfa348c5-1417-4fa6-9051-385bcebdbfb2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="21" width="80" height="20" uuid="d12346ca-6876-43ed-b5d2-38721d06f717"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="488" y="21" width="40" height="20" uuid="c4d130cc-ab78-466d-9bb5-5f24bebf5217"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
