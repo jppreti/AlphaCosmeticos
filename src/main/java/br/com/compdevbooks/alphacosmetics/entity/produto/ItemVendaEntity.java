@@ -91,6 +91,10 @@ public class ItemVendaEntity implements IEntity {
     public float getQuantidadeEstoque(){
         return produtoVO.getQuantidade();
     }
+    
+    public String getNomeFornecedor(){
+        return this.produtoVO.getFornecedor().getFantasia();
+    }
 
     @Override
     public String toString() {

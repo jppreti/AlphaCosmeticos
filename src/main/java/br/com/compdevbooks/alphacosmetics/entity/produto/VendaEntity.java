@@ -22,6 +22,7 @@ import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,6 +73,10 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
         this.situacao = sit;
         this.listaItens = lista;
         this.clienteVO = cliente;
+    }
+
+    public VendaEntity(long l, Date date, FornecedorEntity fornecedor, PagamentoEntity paga, SituacaoVendaEnum situacaoVendaEnum, HashSet<ItemVendaEntity> hashSet) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Long getId() {

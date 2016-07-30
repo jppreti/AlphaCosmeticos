@@ -1,9 +1,16 @@
 
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 
+import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ArvoreCategoria;
+import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -26,6 +34,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 public class FrmProduto implements Initializable{
     
@@ -180,6 +189,9 @@ public class FrmProduto implements Initializable{
     private ArvoreCategoria arvore;
     private TreeItem root = new TreeItem();
     
+    Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
+    private boolean novo = true;
+    
     public FrmProduto() {
     }
     
@@ -187,7 +199,14 @@ public class FrmProduto implements Initializable{
     //Botao Procurar -> Principal -> Superior
     @FXML
     void btnProcurar_onAction (ActionEvent evento) {
-    
+        final ObservableList<ProdutoEntity> produtos = FXCollections
+				.observableArrayList(produto.getByNome(txtProduto.getText()));
+
+		tblCentroProduto.setItems(produtos);
+
+		//lblStatus.setText("Foram encontrados " + produtos.size() + " clientes.");
+
+		//tbpCliente.getSelectionModel().select(tabClientes);
     }
     //Texto Produto -> Principal -> Superior
         //Se possivel fazer a filtragem conforme o digitar do nome
@@ -318,6 +337,8 @@ public class FrmProduto implements Initializable{
     @FXML
     void btnVoltarArvore_onAction(ActionEvent evento) {
         tbpCentroPrincipal.getSelectionModel().select(tabProduto);
+        this.treeCategoria.setEditable(false);
+        this.treeCategoria.getSelectionModel().selectFirst();
     }    
 //Fim Evento
 
@@ -513,6 +534,41 @@ public class FrmProduto implements Initializable{
 //        ArvoreCategoria arvore = new ArvoreCategoria(treeCategoria);
 //        arvore.carregarTreeView();
         arvore = new ArvoreCategoria(this.treeCategoria, this.root);
+        
+        TableColumn<ProdutoEntity, String> tbcNome = new TableColumn<ProdutoEntity, String>("Nome");
+		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
+			}
+		});
+                tbcNome.setMinWidth(300);
+                tblCentroProduto.getColumns().add(tbcNome);
+                
+		TableColumn<ProdutoEntity, String> tbcDescricao = new TableColumn<ProdutoEntity, String>("Descrição");
+		tbcDescricao.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getDescricao());
+			}
+		});
+                tbcDescricao.setMinWidth(300);
+                tblCentroProduto.getColumns().add(tbcDescricao);
+                
+		TableColumn<ProdutoEntity, String> tbcMarca = new TableColumn<ProdutoEntity, String>("Marca");
+		tbcMarca.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
+					public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
+						return new ReadOnlyObjectWrapper<String>(c.getValue().getMarca());
+					}
+				});
+		tbcMarca.setMinWidth(150);
+                tblCentroProduto.getColumns().add(tbcMarca);
+
+		//stkDialog.getChildren().remove(vbxDialog);
+
+		//dlgMensagem.getDialogPane().getButtonTypes().add(bttOk);
+		//dlgConfirmacao.getDialogPane().getButtonTypes().add(bttSim);
+		//dlgConfirmacao.getDialogPane().getButtonTypes().add(bttNao);
+
+		txtProduto.requestFocus();
     }
 
 }

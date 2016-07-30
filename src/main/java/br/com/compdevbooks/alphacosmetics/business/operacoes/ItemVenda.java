@@ -28,5 +28,7 @@ public class ItemVenda extends ABusiness<ItemVendaEntity,Exception, IItemVendaDA
         return ((IItemVendaDAO)dao).buscarPorProduto(id);
     }
    
-    
+    public List<ItemVendaEntity> buscarItensVenda(ItemVendaEntity ic){
+        return ((IItemVendaDAO)dao).buscarItensVenda(ic);
+    }
 }

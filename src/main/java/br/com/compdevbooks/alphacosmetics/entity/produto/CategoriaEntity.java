@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
+import java.util.Objects;
 
 @Entity
 @Table(name = "categoria")
@@ -18,63 +19,23 @@ public class CategoriaEntity implements IEntity {
     private Long Id;
     @Column(length = 30, nullable = false)
     private String nome;
-    @Column(precision = 5, scale = 2, nullable = false)
-    private float margemLucro;
-    @Column(precision = 5, scale = 2, nullable = false)
-    private float percPromocao;
-    @Column(precision = 5, scale = 2, nullable = false)
-    private float percComissao;
-    private CategoriaEntity superCategoria;
+    
+    private CategoriaEntity superCat;
     
     public CategoriaEntity(){}
     
-    public CategoriaEntity(Long id, String nome, float mar, float pro, float com, CategoriaEntity supercat){
+    public CategoriaEntity(Long id, String nome, CategoriaEntity superCat){
         this.Id=id;
         this.nome=nome;
-        this.margemLucro=mar;
-        this.percPromocao=pro;
-        this.percComissao=com;
-        this.superCategoria=supercat;
+        this.superCat=superCat;
     }
 
-    public CategoriaEntity getSuperCategoria() {
-		return superCategoria;
-	}
-
-	public void setSuperCategoria(CategoriaEntity superCategoria) {
-		this.superCategoria = superCategoria;
-	}
-
-	public String getNome() {
+    public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public float getMargemLucro() {
-        return margemLucro;
-    }
-
-    public void setMargemLucro(float margemLucro) {
-        this.margemLucro = margemLucro;
-    }
-
-    public float getPercPromocao() {
-        return percPromocao;
-    }
-
-    public void setPercPromocao(float percPromocao) {
-        this.percPromocao = percPromocao;
-    }
-
-    public float getPercComissao() {
-        return percComissao;
-    }
-
-    public void setPercComissao(float percComissao) {
-        this.percComissao = percComissao;
     }
 
     @Override
@@ -91,10 +52,43 @@ public class CategoriaEntity implements IEntity {
         this.Id = Id;
     }
 
-	@Override
-	public Object validar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object validar() {
+	// TODO Auto-generated method stub
+    	return null;
+    }
+
+    public CategoriaEntity getSuperCat() {
+        return superCat;
+    }
+
+    public void setSuperCat(CategoriaEntity superCat) {
+        this.superCat = superCat;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.Id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CategoriaEntity other = (CategoriaEntity) obj;
+        if (!Objects.equals(this.Id, other.Id)) {
+            return false;
+        }
+        return true;
+    }
     
 }

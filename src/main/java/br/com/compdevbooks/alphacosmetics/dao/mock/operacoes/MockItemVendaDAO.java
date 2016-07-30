@@ -70,4 +70,30 @@ public class MockItemVendaDAO implements IItemVendaDAO {
                 temp.add(vo);
         return temp;
     }
+
+    public List<ItemVendaEntity> buscarItensVenda(ItemVendaEntity ic) {
+
+        ArrayList<ItemVendaEntity> buscado = new ArrayList<>();
+        int x;
+
+        for (ItemVendaEntity vo : itens) {
+            x = 0;
+            if (ic.getProdutoVO().getNome().equals("") || vo.getProdutoVO().getNome().toUpperCase().contains(ic.getProdutoVO().getNome().toUpperCase())) {
+                x++;
+            }
+            if (ic.getProdutoVO().getCategoria() == null || ic.getProdutoVO().getCategoria().getId().equals(vo.getProdutoVO().getCategoria().getId())) {
+                x++;
+            }
+            if (ic.getProdutoVO().getFornecedor().getFantasia().equals("") || vo.getProdutoVO().getFornecedor().getFantasia().toUpperCase().contains(ic.getProdutoVO().getFornecedor().getFantasia().toUpperCase())) {
+                x++;
+            }
+            if (ic.getQuantidade() == 0 || ic.getQuantidade() <= vo.getQuantidade()) {
+                x++;
+            }
+            if (x == 4) {
+                buscado.add(vo);
+            }
+        }
+        return buscado;
+    }
 }

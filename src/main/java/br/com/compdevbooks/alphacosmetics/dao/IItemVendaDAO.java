@@ -16,4 +16,6 @@ public interface IItemVendaDAO extends IDAO<ItemVendaEntity> {
     public List<ItemVendaEntity> buscarTodosItemVendas();
     
     public List<ItemVendaEntity> buscarPorProduto(Long iD);
+    
+    public List<ItemVendaEntity> buscarItensVenda(ItemVendaEntity ic);
 }

@@ -24,4 +24,8 @@ public class Produto extends ABusiness<ProdutoEntity, Exception, IProdutoDAO>{
         return ((IProdutoDAO)dao).getById(id);
     }
     
+    public List <ProdutoEntity> getByNome(String nome){
+        return ((IProdutoDAO)dao).getByNome(nome);
+    }
+    
 }

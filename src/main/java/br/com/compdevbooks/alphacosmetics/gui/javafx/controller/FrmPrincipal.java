@@ -13,6 +13,7 @@ import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmCo
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_pagar;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro.FrmContas_a_receber;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmCompra;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmVenda;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.produto.FrmEstoque;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -232,6 +233,19 @@ public class FrmPrincipal {
             ioe.printStackTrace();
         }
     }
+    
+     @FXML
+    void mniOpVenda_onAction(ActionEvent event){
+        BorderPane frmVenda=null;
+        try{
+            frmVenda= FXMLLoader.load(FrmVenda.class.getClassLoader().getResource("gui/operacoes/venda.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            bdpPrincipal.setCenter(frmVenda);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
+    }
+    
     
     @FXML
     void mniPedCompra_onAction(ActionEvent event){

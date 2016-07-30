@@ -21,7 +21,7 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "produto")
-public class ProdutoEntity implements IEntity {
+public class ProdutoVO implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,12 +29,6 @@ public class ProdutoEntity implements IEntity {
 
     @Column(length = 30, nullable = false)
     private String nome;
-    
-    @Column(length = 30, nullable = false)
-    private String descricao;
-    
-    @Column(length = 30, nullable = false)
-    private String marca;
 
     @Column(precision = 5, scale = 2, nullable = false)
     private float margemLucro;
@@ -48,51 +42,31 @@ public class ProdutoEntity implements IEntity {
     @Column(precision = 5, scale = 2, nullable = false)
     private float valorCompra;
 
-    @Column(nullable=false)
-    private long quantidade;
-    
-    @Column(nullable=false)
-    private long qtdMin;
-    
-    @Column(nullable=false)
-    private long qtdMax;
-    
     @Transient
     private float valorVenda;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
     private CategoriaEntity categoriaVO;
-/*
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "fornecido", 
             joinColumns = {@JoinColumn(name = "produto")}, 
             inverseJoinColumns = {@JoinColumn(name = "fornecedor")})
-    private Set<FornecedorEntity> listaFornecedores;    
-    */
-    private FornecedorEntity fornecedor;
+    private Set<FornecedorEntity> listaFornecedores;
     
-    public ProdutoEntity(){
-       // listaFornecedores= new HashSet();//verificar
+    public ProdutoVO(){
+        listaFornecedores= new HashSet();//verificar
     }
-    public ProdutoEntity(Long Id, String nome,String descricao, String marca,
-                        float mar, float pro, float com, float compra,float venda,
-                        CategoriaEntity cate, 
-                        int quantidade, int qtdMin, int qtdMax, FornecedorEntity fornecedor ){
+    public ProdutoVO(Long Id, String nome,float mar, float pro, float com, float compra,float venda,CategoriaEntity cate ){//FornecedorEntity fornecedor ){
      super();
      this.Id=Id;
      this.nome=nome;
-     this.descricao=descricao;
-     this.marca = marca;
      this.margemLucro=mar;
      this.percComissao=com;
      this.percPromocao=pro;
      this.valorCompra=compra;
      this.valorVenda=venda;
      this.categoriaVO=cate;
-     this.quantidade=quantidade;
-     this.qtdMin=qtdMin;
-     this.qtdMax=qtdMax;
-     this.fornecedor=fornecedor;
      //this.listaFornecedores.add(fornecedor);
     }
 
@@ -102,14 +76,6 @@ public class ProdutoEntity implements IEntity {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-    public long getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(long quantidade) {
-        this.quantidade = quantidade;
     }
 
     public float getMargemLucro() {
@@ -148,14 +114,11 @@ public class ProdutoEntity implements IEntity {
     }
 
     public CategoriaEntity getCategoria() {
-        return getCategoriaVO();
-    }
-    public String getNomeCategoria(){
-        return getCategoriaVO().getNome();
+        return categoriaVO;
     }
 
     public void setCategoria(CategoriaEntity categoriaVO) {
-        this.setCategoriaVO(categoriaVO);
+        this.categoriaVO = categoriaVO;
     }
 
     public float getValorVenda() {
@@ -170,16 +133,25 @@ public class ProdutoEntity implements IEntity {
         this.categoriaVO = categoriaVO;
     }
 
+    public Set<FornecedorEntity> getListaFornecedores() {
+        return listaFornecedores;
+    }
+
+    public void setListaFornecedores(Set<FornecedorEntity> listaFornecedores) {
+        this.listaFornecedores = listaFornecedores;
+    }
+    
     private void calcularValorVenda() {
-        float tempPercMargemLucro = this.getMargemLucro();
-        float tempPercPromocao = this.getPercPromocao();
-        this.setValorVenda(this.getValorCompra() + (this.getValorCompra() * tempPercMargemLucro / 100));
-        this.setValorVenda(this.getValorVenda() - (this.getValorVenda() * tempPercPromocao / 100));
+        float tempPercMargemLucro = this.margemLucro;
+        float tempPercPromocao = this.percPromocao;
+
+        this.valorVenda = this.valorCompra + (this.valorCompra * tempPercMargemLucro / 100);
+        this.valorVenda = this.valorVenda - (this.valorVenda * tempPercPromocao / 100);
     }
 
     @Override
     public String toString() {
-        return this.getNome();
+        return this.nome;
     }
 
     @Override
@@ -197,74 +169,4 @@ public class ProdutoEntity implements IEntity {
 		return null;
 	}
 
-    /**
-     * @param valorVenda the valorVenda to set
-     */
-    public void setValorVenda(float valorVenda) {
-        this.valorVenda = valorVenda;
-    }
-
-    /**
-     * @return the fornecedor
-     */
-    public FornecedorEntity getFornecedor() {
-        return fornecedor;
-    }
-
-    /**
-     * @param fornecedor the fornecedor to set
-     */
-    public void setFornecedor(FornecedorEntity fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-    
-    public boolean pertenceCategoria(CategoriaEntity catProd, CategoriaEntity catComp){
-        while (catProd!=null) {
-            if (catProd.equals(catComp))
-                return true;
-            else{
-                return pertenceCategoria(catProd.getSuperCat(),catComp);
-            }
-        }
-            return false;
-    }
-    
-    void main(){
-        ProdutoEntity x = null;
-        if (x.pertenceCategoria(x.getCategoria(), categoriaVO)){
-            
-        }
-    } 
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public long getQtdMin() {
-        return qtdMin;
-    }
-
-    public void setQtdMin(long qtdMin) {
-        this.qtdMin = qtdMin;
-    }
-
-    public long getQtdMax() {
-        return qtdMax;
-    }
-
-    public void setQtdMax(long qtdMax) {
-        this.qtdMax = qtdMax;
-    }
 }
