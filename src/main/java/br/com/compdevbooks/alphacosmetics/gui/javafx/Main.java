@@ -20,7 +20,7 @@ public class Main extends Application {
         Application.launch(Main.class, args);
     }
     
-    
+    /*
     @Override
     public void start(Stage primaryStage) {
 
@@ -50,37 +50,29 @@ public class Main extends Application {
 
         primaryStage.show();
     }
-    
+    */
      
     //Descomentar 
-    /*
+    
     @Override
     public void start(Stage primaryStage) {
-
+        
         StackPane FrmLogin = null;
-
+        
         try {
             FrmLogin = FXMLLoader.load(FrmLogin.class.getClassLoader().getResource("gui//login//FrmLogin.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
         } catch (Exception ex) {
             System.out.println("Exception on FXMLLoader.load()");
-            System.out.println(ex.getMessage());   //-- Doesn't show in stack dump
+            System.out.println(ex.getMessage());  
         }
 
         primaryStage.setTitle("Alphacosmetics System");
-
         Scene scene = new Scene(FrmLogin);
         primaryStage.setScene(scene);
-
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                System.exit(0);
-            }
-        });
-
         primaryStage.show();
     }
-    */
+    
+    
     //Descomentar
     
     
