@@ -109,12 +109,10 @@
                                     <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CNPJ" translateY="18.0" />
                                     <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Inscrição Estadual" />
                                     <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.inscricao_estadual" />
-                                    <Label fx:id="nomeFantasia111" layoutX="31.0" layoutY="174.0" text="%tab.produto" />
-                                    <ComboBox layoutX="134.0" layoutY="170.0" prefHeight="25.0" prefWidth="302.0" promptText="Selecione o Produto" />
-                                    <Label fx:id="nomeFantasia1111" layoutX="31.0" layoutY="206.0" text="%tab.banco" />
-                                    <TextField fx:id="txtNome112" layoutX="132.0" layoutY="202.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Banco" />
-                                    <Label fx:id="nomeFantasia11111" layoutX="31.0" layoutY="241.0" text="%tab.regiao" />
-                                    <TextField fx:id="txtNome1121" layoutX="132.0" layoutY="237.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Região de Atuação" />
+                                    <Label fx:id="nomeFantasia1111" layoutX="33.0" layoutY="174.0" text="%tab.banco" />
+                                    <TextField fx:id="txtNome112" layoutX="134.0" layoutY="170.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Banco" />
+                                    <Label fx:id="nomeFantasia11111" layoutX="33.0" layoutY="209.0" text="%label.email" />
+                                    <TextField fx:id="txtNome1121" layoutX="134.0" layoutY="205.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o E-mail" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="2.0" layoutY="272.0" prefHeight="215.0" prefWidth="814.0">
