@@ -140,7 +140,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00050a" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="BROWN" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
                               <Label fx:id="lblTotalVencido30" prefHeight="17.0" prefWidth="103.0" text="%label.vencidos30" />
                               <TextField fx:id="txtTotalVencidos30Valor" disable="true" prefHeight="25.0" prefWidth="139.0" promptText="\$ 00,00">
                                  <HBox.margin>
@@ -151,7 +151,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff0202" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTCORAL" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
                               <Label fx:id="txtTotalVencidos" prefHeight="17.0" prefWidth="103.0" text="%label.vencidos" />
                               <TextField fx:id="txtTotalVencidosValor" disable="true" prefHeight="25.0" prefWidth="139.0" promptText="\$ 00,00">
                                  <HBox.margin>
@@ -162,7 +162,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#28dd34" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="FORESTGREEN" height="17.0" stroke="BLACK" strokeType="INSIDE" width="31.0" />
                               <Label fx:id="lblTotalEmAberto" prefHeight="17.0" prefWidth="103.0" text="%label.EmAberto">
                                  <HBox.margin>
                                     <Insets />

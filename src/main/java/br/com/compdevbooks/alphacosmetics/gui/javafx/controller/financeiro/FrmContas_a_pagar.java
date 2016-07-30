@@ -33,7 +33,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -289,10 +291,57 @@ public class FrmContas_a_pagar {
         completar(ListaCompra);
     }
 
+    public int colorir(String data) {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String data2 = sdf.format(referencia);
+        LocalDate ref = LocalDate.parse(data2, dtf);
+
+        data2 = sdf.format(refAux);
+        LocalDate ref30 = LocalDate.parse(data2, dtf);
+
+        LocalDate atual = LocalDate.parse(data, dtf);
+
+        if (atual.isAfter(ref) || atual.isEqual(ref)) {
+            return -1;
+        } else if (atual.isBefore(ref30)) {
+            return 0;
+        } else {
+            return 1;
+        }
+
+    }
+
     public void completar(List<CompraEntity> lista) {
         ObservableList<TabelaTelaContasAPagar> listaFinal = FXCollections.observableArrayList();
         this.clmDtLancamento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("dtLancamento"));
         this.clmDtVencimento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("dtVencimento"));
+        this.clmDtVencimento.setCellFactory(column -> {
+            return new TableCell<TabelaTelaContasAPagar, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? "" : getItem().toString());
+                    TableRow<TabelaTelaContasAPagar> currentRow = getTableRow();
+                    if (!isEmpty()) {
+
+                        if (colorir(item) == 1) {
+                            currentRow.setStyle("-fx-background-color:lightcoral");
+                        }
+                        if (colorir(item) == -1) {
+                            currentRow.setStyle("-fx-background-color:forestgreen");
+                        }
+                        if (colorir(item) == 0) {
+                            currentRow.setStyle("-fx-background-color:brown");
+                        }
+
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            };
+        });
         this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("nome"));
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("formaPgto"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, Float>("valor"));

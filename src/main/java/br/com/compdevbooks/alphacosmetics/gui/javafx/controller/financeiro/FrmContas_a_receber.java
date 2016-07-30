@@ -32,6 +32,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -40,15 +41,21 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javax.accessibility.AccessibleRole;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -317,6 +324,28 @@ public class FrmContas_a_receber {
         return this.path;
     }
 
+    public int colorir(String data) {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String data2 = sdf.format(referencia);
+        LocalDate ref = LocalDate.parse(data2, dtf);
+
+        data2 = sdf.format(refAux);
+        LocalDate ref30 = LocalDate.parse(data2, dtf);
+
+        LocalDate atual = LocalDate.parse(data, dtf);
+
+        if (atual.isAfter(ref) || atual.isEqual(ref)) {
+            return -1;
+        } else if (atual.isBefore(ref30)) {
+            return 0;
+        } else {
+            return 1;
+        }
+
+    }
+
     void completar(List<VendaEntity> lista) {
 
         ObservableList<TabelaTelaContasReceber> dado = FXCollections.observableArrayList();
@@ -324,6 +353,31 @@ public class FrmContas_a_receber {
         this.clmCliente.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("cliente"));
         this.clmDtLancamento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("dtLancamento"));
         this.clmDtVencimento.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("dtVencimento"));
+        this.clmDtVencimento.setCellFactory(column -> {
+            return new TableCell<TabelaTelaContasReceber, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? "" : getItem().toString());
+                    TableRow<TabelaTelaContasReceber> currentRow = getTableRow();
+                    if (!isEmpty()) {
+
+                        if (colorir(item) == 1) {
+                            currentRow.setStyle("-fx-background-color:lightcoral");
+                        }
+                        if (colorir(item) == -1) {
+                            currentRow.setStyle("-fx-background-color:forestgreen");
+                        }
+                        if (colorir(item) == 0) {
+                            currentRow.setStyle("-fx-background-color:brown");
+                        }
+
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            };
+        });
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("formapgto"));
         this.clmNumParc.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("parcela"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, Float>("valor"));
