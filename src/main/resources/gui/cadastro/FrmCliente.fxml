@@ -102,12 +102,12 @@
                                        </font>
                                     </Label>
                                     <Label fx:id="razaoSocial" layoutX="48.0" layoutY="49.0" text="%label.razaoSocial" translateX="-20.0" />
-                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite a Razão Social" translateX="30.0" />
+                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça a Razão Social" translateX="30.0" />
                                     <Label fx:id="nomeFantasia" layoutX="28.0" layoutY="70.0" text="%label.fantasia" translateY="9.0" />
-                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o Nome Fantasia" translateX="30.0" translateY="9.0" />
+                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Nome Fantasia" translateX="30.0" translateY="9.0" />
                                     <Label fx:id="nomeFantasia1" layoutX="28.0" layoutY="93.0" text="%label.cnpj" translateY="18.0" />
-                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o CNPJ" translateY="18.0" />
-                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o Inscrição Estadual" />
+                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CNPJ" translateY="18.0" />
+                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Inscrição Estadual" />
                                     <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.inscricao_estadual" />
                                     <Separator layoutX="7.0" layoutY="176.0" prefWidth="800.0" />
                                  </children>
@@ -120,13 +120,13 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="21.0" layoutY="36.0" text="%label.logradouro" />
-                                    <TextField fx:id="txtNome2" layoutX="127.0" layoutY="32.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Logradouro" />
+                                    <TextField fx:id="txtNome2" layoutX="127.0" layoutY="32.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Logradouro" />
                                     <Label layoutX="21.0" layoutY="67.0" text="%label.numero_endereco" />
-                                    <TextField fx:id="txtNome21" layoutX="127.0" layoutY="63.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Número" />
+                                    <TextField fx:id="txtNome21" layoutX="127.0" layoutY="63.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Número" />
                                     <Label layoutX="21.0" layoutY="99.0" text="%label.cep" />
-                                    <TextField fx:id="txtNome211" layoutX="127.0" layoutY="95.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o CEP" />
+                                    <TextField fx:id="txtNome211" layoutX="127.0" layoutY="95.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o CEP" />
                                     <Label layoutX="21.0" layoutY="130.0" text="%label.bairro" />
-                                    <TextField fx:id="txtNome2111" layoutX="127.0" layoutY="126.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite a Bairro" />
+                                    <TextField fx:id="txtNome2111" layoutX="127.0" layoutY="126.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Bairro" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="-2.0" layoutY="345.0" prefHeight="164.0" prefWidth="800.0">
@@ -137,9 +137,9 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="30.0" layoutY="34.0" text="%label.municipio" />
-                                    <TextField fx:id="txtNome22" layoutX="136.0" layoutY="30.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Município" />
+                                    <TextField fx:id="txtNome22" layoutX="136.0" layoutY="30.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Município" />
                                     <Label layoutX="30.0" layoutY="65.0" text="%label.estado" />
-                                    <TextField fx:id="txtNome212" layoutX="136.0" layoutY="61.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Estado" />
+                                    <TextField fx:id="txtNome212" layoutX="136.0" layoutY="61.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Estado" />
                                     <Button layoutX="300.0" layoutY="96.0" mnemonicParsing="false" text="%button.salvar" />
                                     <Button layoutX="400.0" layoutY="96.0" mnemonicParsing="false" text="%button.cancelar" />
                                  </children>

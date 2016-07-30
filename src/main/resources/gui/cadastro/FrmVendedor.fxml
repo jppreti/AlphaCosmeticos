@@ -102,11 +102,11 @@
                                        </font>
                                     </Label>
                                     <Label fx:id="razaoSocial" layoutX="48.0" layoutY="49.0" text="%label.nome" translateX="-20.0" />
-                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Digite o Nome" translateX="30.0" />
+                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Nome" translateX="30.0" />
                                     <Label fx:id="nomeFantasia" layoutX="28.0" layoutY="70.0" text="%label.cpf" translateY="9.0" />
-                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o CPF" translateX="30.0" translateY="9.0" />
+                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CPF" translateX="30.0" translateY="9.0" />
                                     <Label fx:id="nomeFantasia1" layoutX="28.0" layoutY="93.0" text="%label.rg" translateY="18.0" />
-                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Digite o RG" translateY="18.0" />
+                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o RG" translateY="18.0" />
                                     <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.cidade" />
                                     <ComboBox layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Selecione a Cidade" />
                                     <Label fx:id="nomeFantasia111" layoutX="28.0" layoutY="174.0" text="%label.cliente" />
