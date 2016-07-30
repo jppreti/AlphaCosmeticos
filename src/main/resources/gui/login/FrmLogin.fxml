@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.login.FrmLogin">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Text fx:id="Titulo" layoutX="304.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alpha Cosmético">
+               <font>
+                  <Font name="System Bold Italic" size="38.0" />
+               </font>
+            </Text>
+            <Label layoutX="261.0" layoutY="217.0" />
+            <Label layoutX="195.0" layoutY="226.0" text="Senha">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label layoutX="195.0" layoutY="168.0" text="Login">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@AlphaLine.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="335.0" layoutY="188.0" prefHeight="25.0" prefWidth="237.0" />
+            <TextField layoutX="335.0" layoutY="249.0" prefHeight="25.0" prefWidth="237.0" />
+            <ImageView fitHeight="159.0" fitWidth="221.0" layoutX="14.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Itens.jpg" />
+               </image>
+            </ImageView>
+            <Text fx:id="mensagem" layoutX="245.0" layoutY="524.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A empresa líder em gestão de vendas e compras de produtos cosméticos ">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Text>
+            <Button layoutX="335.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_cadastrar" text="Cadastrar" />
+            <Button layoutX="421.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_entrar" prefHeight="25.0" prefWidth="67.0" text="Entrar" />
+            <Button layoutX="519.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_sair" prefHeight="25.0" prefWidth="67.0" text="Sair" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
