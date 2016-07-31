@@ -1,21 +1,25 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.login;
 
-
 import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.FrmPrincipal;
-import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javax.swing.JOptionPane;
 
 public class FrmLogin {
+
+    @FXML
+    private TextField txtLogin;
+
+    @FXML
+    private PasswordField txtSenha;
 
     @FXML
     private Text mensagem;
@@ -28,8 +32,7 @@ public class FrmLogin {
 
     }
 
-    @FXML
-    void button_entrar(ActionEvent event) {
+    void chama_tela_login(){
         BorderPane frmPrincipal = null;
         Stage primaryStage = new Stage();
         try {
@@ -39,16 +42,31 @@ public class FrmLogin {
             System.out.println(ex.getMessage());   
         }
         
-        primaryStage.setTitle("Alphacosmetics System");
+        primaryStage.setTitle("Tela Principal do Sistema");
 
         Scene scene = new Scene(frmPrincipal);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    
+    
+    @FXML
+    void button_entrar(ActionEvent event) {
+        
+        if(txtLogin.getText().equals("admin") &&
+           txtSenha.getText().equals("admin")){
+           chama_tela_login();
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"Login ou Senha Inválidos"
+            ,"Erro ao Logar no Sistema",
+            JOptionPane.WARNING_MESSAGE);
+        }
+    }
+	
     @FXML
     void button_sair(ActionEvent event) {
-        System.exit(0);
+
     }
 
 }

@@ -66,7 +66,7 @@ public class Main extends Application {
             System.out.println(ex.getMessage());  
         }
 
-        primaryStage.setTitle("Alphacosmetics System");
+        primaryStage.setTitle("Tela de Login do Sistema");
         Scene scene = new Scene(FrmLogin);
         primaryStage.setScene(scene);
         primaryStage.show();
