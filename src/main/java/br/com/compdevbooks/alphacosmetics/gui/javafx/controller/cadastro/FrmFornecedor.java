@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -20,31 +19,40 @@ public class FrmFornecedor {
     private MenuItem mniEditar;
 
     @FXML
-    private Button btnNovo1;
+    private Label nomeFantasia11111;
 
     @FXML
-    private Button btnCancelar1;
+    private TextField txtNome11;
 
     @FXML
     private TextField txtPesqNome;
 
     @FXML
-    private Label lblPesqNome;
+    private HBox hbxEditButtons1;
 
     @FXML
-    private HBox hbxEditButtons;
+    private Tab tabCliente;
+
+    @FXML
+    private TextField txtNome;
 
     @FXML
     private VBox vbxBottom;
 
     @FXML
-    private Label lblStatus;
+    private Label nomeFantasia1;
 
     @FXML
-    private StackPane stkDialog;
+    private TextField txtNome2;
 
     @FXML
-    private TableView<?> tblFornecedores;
+    private TextField txtNome1;
+
+    @FXML
+    private Label nomeFantasia1111;
+
+    @FXML
+    private Label nomeFantasia;
 
     @FXML
     private Button btnProcurar;
@@ -53,24 +61,55 @@ public class FrmFornecedor {
     private TabPane tbpFornecedores;
 
     @FXML
-    private Button btnAlterar1;
+    private Button buttonExcluir;
 
     @FXML
-    private Tab tabClientes1;
-
-    @FXML
-    private MenuItem mniExcluir;
-
-    @FXML
-    private Button btnExcluir1;
+    private Tab tabEditar;
 
     @FXML
     private ContextMenu ctxMenu;
 
     @FXML
-    void tblClientes_mouseClicked(ActionEvent event) {
+    private Button buttonEditar;
 
-    }
+    @FXML
+    private TextField txtNome21;
+
+    @FXML
+    private HBox hbxEditButtons;
+
+    @FXML
+    private TextField txtNome111;
+
+    @FXML
+    private TextField txtNome112;
+
+    @FXML
+    private TextField txtNome211;
+
+    @FXML
+    private Label lblStatus;
+
+    @FXML
+    private StackPane stkDialog;
+
+    @FXML
+    private TextField txtNome1121;
+
+    @FXML
+    private TextField txtNome2111;
+
+    @FXML
+    private Button buttonCadastrar;
+
+    @FXML
+    private Label nomeFantasia11;
+
+    @FXML
+    private MenuItem mniExcluir;
+
+    @FXML
+    private Label razaoSocial;
 
     @FXML
     void mniEditar_onAction(ActionEvent event) {
@@ -83,32 +122,17 @@ public class FrmFornecedor {
     }
 
     @FXML
-    void btnAlterar_onAction(ActionEvent event) {
+    void botao_cadastrar_fornecedor(ActionEvent event) {
 
     }
 
     @FXML
-    void btnNovo_onAction(ActionEvent event) {
+    void botao_editar_fornecedor(ActionEvent event) {
 
     }
 
     @FXML
-    void btnExcluir_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnCancelar_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtPesqNome_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnProcurar_onAction(ActionEvent event) {
+    void botao_remover_fornecedor(ActionEvent event) {
 
     }
 

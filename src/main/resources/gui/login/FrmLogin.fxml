@@ -45,9 +45,13 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="335.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_cadastrar" text="Cadastrar" />
-            <Button layoutX="421.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_entrar" prefHeight="25.0" prefWidth="67.0" text="Entrar" />
-            <Button layoutX="519.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_sair" prefHeight="25.0" prefWidth="67.0" text="Sair" />
+            <Group>
+               <children>
+                  <Button layoutX="330.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_cadastrar" text="Cadastrar" />
+                  <Button layoutX="420.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_entrar" prefHeight="25.0" prefWidth="67.0" text="Entrar" />
+                  <Button layoutX="510.0" layoutY="323.0" mnemonicParsing="false" onAction="#button_sair" prefHeight="25.0" prefWidth="67.0" text="Sair" />
+               </children>
+            </Group>
          </children>
       </AnchorPane>
    </children>

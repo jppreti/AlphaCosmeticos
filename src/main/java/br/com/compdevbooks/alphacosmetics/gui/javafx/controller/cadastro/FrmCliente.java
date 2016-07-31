@@ -3,54 +3,35 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 public class FrmCliente {
 
     @FXML
-    private MenuItem mniEditar;
-
-    @FXML
-    private Button btnNovo1;
-
-    @FXML
-    private Button btnCancelar1;
+    private TextField txtNome11;
 
     @FXML
     private TextField txtPesqNome;
 
     @FXML
-    private Tab tabEdicao1;
+    private Tab tabCliente;
 
     @FXML
-    private Label lblPesqNome;
+    private Label nomeFantasia1;
 
     @FXML
-    private HBox hbxEditButtons;
+    private TextField txtNome2;
 
     @FXML
-    private Tab tabClientes;
+    private TextField txtNome1;
 
     @FXML
-    private VBox vbxBottom;
-
-    @FXML
-    private Label lblStatus;
-
-    @FXML
-    private StackPane stkDialog;
-
-    @FXML
-    private TableView<?> tblFornecedores;
+    private Label nomeFantasia;
 
     @FXML
     private Button btnProcurar;
@@ -59,63 +40,71 @@ public class FrmCliente {
     private TabPane tbpFornecedores;
 
     @FXML
-    private Button btnAlterar1;
+    private Button buttonExcluir;
 
     @FXML
-    private MenuItem mniExcluir;
+    private Tab tabEditar;
 
     @FXML
-    private Button btnExcluir1;
+    private Button buttonEditar;
 
     @FXML
-    private ContextMenu ctxMenu;
+    private TableColumn<?, ?> tableColumClienteNomeFantasia;
 
     @FXML
-    private Label lblRazao1;
+    private TextField txtNome22;
 
     @FXML
-    void tblClientes_mouseClicked(ActionEvent event) {
+    private TextField txtNome21;
+
+    @FXML
+    private TextField txtNome212;
+
+    @FXML
+    private TextField txtNome111;
+
+    @FXML
+    private TextField txtNome211;
+
+    @FXML
+    private StackPane stkDialog;
+
+    @FXML
+    private TextField txtNome2111;
+
+    @FXML
+    private TableColumn<?, ?> tableColumClienteRazaoSocial;
+
+    @FXML
+    private Button buttonCadastrar;
+
+    @FXML
+    private Label nomeFantasia11;
+
+    @FXML
+    private Label razaoSocial;
+
+    @FXML
+    private TextField txtClienteRazaoSocial;
+
+    @FXML
+    void btnCadastrar(ActionEvent event) {
 
     }
 
     @FXML
-    void mniEditar_onAction(ActionEvent event) {
+    void btnAlterar(ActionEvent event) {
 
     }
 
     @FXML
-    void mniExcluir_onAction(ActionEvent event) {
+    void btnExcluir(ActionEvent event) {
 
     }
-
-    @FXML
-    void btnNovo_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnAlterar_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnExcluir_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnCancelar_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtPesqNome_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnProcurar_onAction(ActionEvent event) {
-
+    
+    void adicionar(){
+        //tableColumClienteRazaoSocial.setCellFactory("xD");
     }
 
 }
+

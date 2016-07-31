@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.Main;
+import javafx.scene.control.Alert;
 
 public class FrmLogin {
 
@@ -26,6 +28,7 @@ public class FrmLogin {
 
     @FXML
     private Text Titulo;
+    
 
     @FXML
     void button_cadastrar(ActionEvent event) {
@@ -54,8 +57,8 @@ public class FrmLogin {
     void button_entrar(ActionEvent event) {
         if(txtLogin.getText().equals("admin") &&
            txtSenha.getText().equals("admin")){
-           chama_tela_login();
-           
+            chama_tela_login();
+            
         }else{
             tratamento_login_senha();
         }   
@@ -64,39 +67,65 @@ public class FrmLogin {
     void tratamento_login_senha(){
         if(txtLogin.getText().equals("") &&
            !txtSenha.getText().equals("")){
+            /*
             JOptionPane.showMessageDialog(null,"O Login deve ser informado"
             ,"Erro ao Logar no Sistema",
             JOptionPane.ERROR_MESSAGE); 
+            */
+            Alert msg_erro = new Alert(Alert.AlertType.ERROR);
+            msg_erro.setTitle("Erro ao Logar no Sistema");
+            msg_erro.setHeaderText("O Login deve ser informado");
+            msg_erro.setContentText("Por favor forneça o Login");
+            msg_erro.showAndWait();
         }
         
         if(txtSenha.getText().equals("") &&
            !txtLogin.getText().equals("")){
+            /*
             JOptionPane.showMessageDialog(null,"A senha deve ser informada"
             ,"Erro ao Logar no Sistema",
-            JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.ERROR_MESSAGE);
+            */
+            Alert msg_erro = new Alert(Alert.AlertType.ERROR);
+            msg_erro.setTitle("Erro ao Logar no Sistema");
+            msg_erro.setHeaderText("A senha deve ser informada");
+            msg_erro.setContentText("Por favor forneça a Senha");
+            msg_erro.showAndWait();
         }
         
         if(txtLogin.getText().equals("") && 
             txtSenha.getText().equals("")){
-             JOptionPane.showMessageDialog(null,"O Login e a Senha devem ser informados"
+            /* 
+            JOptionPane.showMessageDialog(null,"O Login e a Senha devem ser informados"
              ,"Erro ao Logar no Sistema",
              JOptionPane.ERROR_MESSAGE); 
-            }   
+            */
+            Alert msg_erro = new Alert(Alert.AlertType.ERROR);
+            msg_erro.setTitle("Erro ao Logar no Sistema");
+            msg_erro.setHeaderText("A Senha e o Login devem ser informados");
+            msg_erro.setContentText("Por favor forneça a Senha e o Login");
+            msg_erro.showAndWait();
+            }
         
         if(!txtLogin.getText().equals("") && 
             !txtSenha.getText().equals("")){
-             JOptionPane.showMessageDialog(null,"Login e Senha Inválidos!"
+            /* 
+            JOptionPane.showMessageDialog(null,"Login e Senha Inválidos!"
              ,"Erro ao Logar no Sistema",
-             JOptionPane.ERROR_MESSAGE); 
+             JOptionPane.ERROR_MESSAGE);
+             */
+            Alert msg_erro = new Alert(Alert.AlertType.ERROR);
+            msg_erro.setTitle("Erro ao Logar no Sistema");
+            msg_erro.setHeaderText("Login e Senha Inválidos");
+            msg_erro.setContentText("Por favor forneça um Login e Senha Válidos");
+            msg_erro.showAndWait();
             }     
     }
    
     
-    
-    
     @FXML
     void button_sair(ActionEvent event) {
-
+        System.exit(0);
     }
 
 }

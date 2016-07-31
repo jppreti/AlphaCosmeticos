@@ -108,9 +108,9 @@
                                     <Label fx:id="nomeFantasia1" layoutX="28.0" layoutY="93.0" text="%label.rg" translateY="18.0" />
                                     <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o RG" translateY="18.0" />
                                     <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.cidade" />
+                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Cidade" />
                                     <Label fx:id="nomeFantasia11111" layoutX="28.0" layoutY="176.0" text="%tab.regiao" />
                                     <TextField fx:id="txtNome1121" layoutX="134.0" layoutY="173.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Região de Atuação" />
-                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Cidade" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="-2.0" layoutY="345.0" prefHeight="164.0" prefWidth="800.0">

@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmCliente">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro.FrmFornecedor">
    <top>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" minHeight="20.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -71,17 +71,17 @@
                                     </ContextMenu>
                                  </contextMenu>
                               </TableView>
-                              <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.novo">
+                              <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#botao_cadastrar_fornecedor" text="%button.novo">
                                  <tooltip>
                                     <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
                                  </tooltip>
                               </Button>
-                              <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.editar">
+                              <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#botao_editar_fornecedor" text="%button.editar">
                                  <tooltip>
                                     <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
                                  </tooltip>
                               </Button>
-                              <Button fx:id="buttonExcluir" layoutX="480.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.excluir">
+                              <Button fx:id="buttonExcluir" layoutX="480.0" layoutY="432.0" mnemonicParsing="false" onAction="#botao_remover_fornecedor" text="%button.excluir">
                                  <tooltip>
                                     <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
                                  </tooltip>

@@ -40,18 +40,6 @@
          </BorderPane.margin>
       </FlowPane>
    </top>
-   <bottom>
-      <VBox fx:id="vbxBottom" alignment="CENTER" prefHeight="60.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox fx:id="hbxEditButtons" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" />
-            <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER">
-               <font>
-                  <Font name="Arial" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-   </bottom>
    <center>
       <StackPane fx:id="stkDialog" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -61,31 +49,34 @@
                      <content>
                         <AnchorPane prefHeight="455.0" prefWidth="800.0">
                            <children>
-                              <TableView prefHeight="421.0" prefWidth="800.0">
-                                 <contextMenu>
-                                    <ContextMenu fx:id="ctxMenu">
-                                      <items>
-                                        <MenuItem fx:id="mniEditar" mnemonicParsing="false" onAction="#mniEditar_onAction" text="Editar" />
-                                          <MenuItem fx:id="mniExcluir" mnemonicParsing="false" onAction="#mniExcluir_onAction" text="Excluir" />
-                                      </items>
-                                    </ContextMenu>
-                                 </contextMenu>
+                              <TableView layoutX="64.0" layoutY="66.0" prefHeight="416.0" prefWidth="800.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="tableColumClienteRazaoSocial" prefWidth="75.0" text="Razão Social" />
+                                  <TableColumn fx:id="tableColumClienteNomeFantasia" prefWidth="75.0" text="Nome Fantasia" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
-                              <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.novo">
-                                 <tooltip>
-                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
-                                 </tooltip>
-                              </Button>
-                              <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.editar">
-                                 <tooltip>
-                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
-                                 </tooltip>
-                              </Button>
-                              <Button fx:id="buttonExcluir" layoutX="480.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnNovo_onAction" text="%button.excluir">
-                                 <tooltip>
-                                    <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
-                                 </tooltip>
-                              </Button>
+                              <Group AnchorPane.bottomAnchor="30.0">
+                                 <children>
+                                    <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnCadastrar" text="%button.novo">
+                                       <tooltip>
+                                          <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                       </tooltip>
+                                    </Button>
+                                    <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnAlterar" text="%button.editar">
+                                       <tooltip>
+                                          <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                       </tooltip>
+                                    </Button>
+                                    <Button fx:id="buttonExcluir" layoutX="480.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnExcluir" text="%button.excluir">
+                                       <tooltip>
+                                          <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
+                                       </tooltip>
+                                    </Button>
+                                 </children>
+                              </Group>
                            </children>
                         </AnchorPane>
                      </content>
@@ -94,57 +85,101 @@
                      <content>
                         <AnchorPane prefHeight="455.0" prefWidth="800.0">
                            <children>
-                              <AnchorPane prefHeight="177.0" prefWidth="800.0">
+                              <AnchorPane prefHeight="177.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0">
                                  <children>
                                     <Label layoutX="362.0" layoutY="14.0" text="Dados do Cliente">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="razaoSocial" layoutX="48.0" layoutY="49.0" text="%label.razaoSocial" translateX="-20.0" />
-                                    <TextField fx:id="txtNome" layoutX="104.0" layoutY="45.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça a Razão Social" translateX="30.0" />
-                                    <Label fx:id="nomeFantasia" layoutX="28.0" layoutY="70.0" text="%label.fantasia" translateY="9.0" />
-                                    <TextField fx:id="txtNome1" layoutX="104.0" layoutY="67.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Nome Fantasia" translateX="30.0" translateY="9.0" />
-                                    <Label fx:id="nomeFantasia1" layoutX="28.0" layoutY="93.0" text="%label.cnpj" translateY="18.0" />
-                                    <TextField fx:id="txtNome11" layoutX="133.0" layoutY="89.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CNPJ" translateY="18.0" />
-                                    <TextField fx:id="txtNome111" layoutX="133.0" layoutY="138.0" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Inscrição Estadual" />
-                                    <Label fx:id="nomeFantasia11" layoutX="28.0" layoutY="142.0" text="%label.inscricao_estadual" />
-                                    <Separator layoutX="7.0" layoutY="176.0" prefWidth="800.0" />
+                                    <GridPane layoutX="20.0" layoutY="34.0" prefHeight="120.0" prefWidth="718.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0">
+                                       <children>
+                                          <Label fx:id="razaoSocial" text="%label.razaoSocial" />
+                                          <TextField fx:id="txtClienteRazaoSocial" prefHeight="25.0" prefWidth="436.0" promptText="Forneça a Razão Social" GridPane.columnIndex="1" />
+                                          <Label fx:id="nomeFantasia" text="%label.fantasia" GridPane.rowIndex="1" />
+                                          <TextField fx:id="txtNome1" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Nome Fantasia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label fx:id="nomeFantasia1" text="%label.cnpj" GridPane.rowIndex="2" />
+                                          <TextField fx:id="txtNome11" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label fx:id="nomeFantasia11" text="%label.inscricao_estadual" GridPane.rowIndex="3" />
+                                          <TextField fx:id="txtNome111" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Inscrição Estadual" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="178.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="0.0" prefWidth="540.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <Separator layoutX="-345.0" layoutY="178.0" prefHeight="0.0" prefWidth="1139.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="7.0" layoutY="179.0" prefHeight="165.0" prefWidth="800.0">
+                              <AnchorPane layoutX="7.0" layoutY="179.0" prefHeight="177.0" prefWidth="800.0">
                                  <children>
-                                    <Label layoutX="360.0" layoutY="4.0" text="Endereço">
+                                    <Label layoutX="362.0" layoutY="4.0" text="Endereço">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="21.0" layoutY="36.0" text="%label.logradouro" />
-                                    <TextField fx:id="txtNome2" layoutX="127.0" layoutY="32.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Logradouro" />
-                                    <Label layoutX="21.0" layoutY="67.0" text="%label.numero_endereco" />
-                                    <TextField fx:id="txtNome21" layoutX="127.0" layoutY="63.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Número" />
-                                    <Label layoutX="21.0" layoutY="99.0" text="%label.cep" />
-                                    <TextField fx:id="txtNome211" layoutX="127.0" layoutY="95.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o CEP" />
-                                    <Label layoutX="21.0" layoutY="130.0" text="%label.bairro" />
-                                    <TextField fx:id="txtNome2111" layoutX="127.0" layoutY="126.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Bairro" />
+                                    <GridPane layoutX="14.0" layoutY="31.0" prefHeight="120.0" prefWidth="711.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+                                       <children>
+                                          <Label text="%label.logradouro" />
+                                          <TextField fx:id="txtNome2" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Logradouro" GridPane.columnIndex="1" />
+                                          <Label text="%label.numero_endereco" GridPane.rowIndex="1" />
+                                          <TextField fx:id="txtNome21" prefHeight="25.0" prefWidth="360.0" promptText="Forneça o Número" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="%label.cep" GridPane.rowIndex="2" />
+                                          <TextField fx:id="txtNome211" prefHeight="25.0" prefWidth="81.0" promptText="Forneça o CEP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="%label.bairro" GridPane.rowIndex="3" />
+                                          <TextField fx:id="txtNome2111" prefHeight="25.0" prefWidth="379.0" promptText="Forneça o Bairro" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="107.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="528.0" minWidth="10.0" prefWidth="528.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="-2.0" layoutY="345.0" prefHeight="164.0" prefWidth="800.0">
+                              <AnchorPane layoutX="-2.0" layoutY="345.0" prefHeight="177.0" prefWidth="800.0">
                                  <children>
-                                    <Label layoutX="370.0" text="Localidade">
+                                    <Label layoutX="362.0" layoutY="4.0" text="Localidade">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="30.0" layoutY="34.0" text="%label.municipio" />
-                                    <TextField fx:id="txtNome22" layoutX="136.0" layoutY="30.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Município" />
-                                    <Label layoutX="30.0" layoutY="65.0" text="%label.estado" />
-                                    <TextField fx:id="txtNome212" layoutX="136.0" layoutY="61.0" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Estado" />
-                                    <Button layoutX="300.0" layoutY="96.0" mnemonicParsing="false" text="%button.salvar" />
-                                    <Button layoutX="400.0" layoutY="96.0" mnemonicParsing="false" text="%button.cancelar" />
+                                    <GridPane layoutX="20.0" layoutY="20.0" prefHeight="90.0" prefWidth="719.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="20.0">
+                                       <children>
+                                          <Label text="%label.municipio" />
+                                          <TextField fx:id="txtNome22" prefHeight="25.0" prefWidth="400.0" promptText="Forneça o Município" GridPane.columnIndex="1" />
+                                          <Label text="%label.estado" GridPane.rowIndex="1" />
+                                          <TextField fx:id="txtNome212" prefHeight="25.0" prefWidth="305.0" promptText="Forneça o Estado" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.0" minWidth="10.0" prefWidth="182.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="10.0" prefWidth="537.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <Group AnchorPane.bottomAnchor="50.0">
+                                       <children>
+                                          <Button layoutX="269.0" layoutY="102.0" mnemonicParsing="false" text="%button.cancelar" />
+                                          <Button layoutX="400.0" layoutY="102.0" mnemonicParsing="false" text="%button.salvar" />
+                                       </children>
+                                    </Group>
                                  </children>
                               </AnchorPane>
-                              <HBox fx:id="hbxEditButtons1" alignment="CENTER" layoutX="-52.0" layoutY="359.0" prefHeight="100.0" prefWidth="100.0" spacing="10.0" />
                               <Separator layoutY="343.0" prefWidth="800.0" />
                            </children>
                         </AnchorPane>

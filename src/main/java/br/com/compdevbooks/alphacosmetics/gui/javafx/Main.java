@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 public class Main extends Application {
 
     public static void main(String[] args) {
