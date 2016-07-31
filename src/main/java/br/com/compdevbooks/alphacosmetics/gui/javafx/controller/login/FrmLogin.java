@@ -52,18 +52,48 @@ public class FrmLogin {
     
     @FXML
     void button_entrar(ActionEvent event) {
-        
         if(txtLogin.getText().equals("admin") &&
            txtSenha.getText().equals("admin")){
            chama_tela_login();
-            
+           
         }else{
-            JOptionPane.showMessageDialog(null,"Login ou Senha Inválidos"
-            ,"Erro ao Logar no Sistema",
-            JOptionPane.WARNING_MESSAGE);
-        }
+            tratamento_login_senha();
+        }   
     }
-	
+    
+    void tratamento_login_senha(){
+        if(txtLogin.getText().equals("") &&
+           !txtSenha.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"O Login deve ser informado"
+            ,"Erro ao Logar no Sistema",
+            JOptionPane.ERROR_MESSAGE); 
+        }
+        
+        if(txtSenha.getText().equals("") &&
+           !txtLogin.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"A senha deve ser informada"
+            ,"Erro ao Logar no Sistema",
+            JOptionPane.ERROR_MESSAGE); 
+        }
+        
+        if(txtLogin.getText().equals("") && 
+            txtSenha.getText().equals("")){
+             JOptionPane.showMessageDialog(null,"O Login e a Senha devem ser informados"
+             ,"Erro ao Logar no Sistema",
+             JOptionPane.ERROR_MESSAGE); 
+            }   
+        
+        if(!txtLogin.getText().equals("") && 
+            !txtSenha.getText().equals("")){
+             JOptionPane.showMessageDialog(null,"Login e Senha Inválidos!"
+             ,"Erro ao Logar no Sistema",
+             JOptionPane.ERROR_MESSAGE); 
+            }     
+    }
+   
+    
+    
+    
     @FXML
     void button_sair(ActionEvent event) {
 
