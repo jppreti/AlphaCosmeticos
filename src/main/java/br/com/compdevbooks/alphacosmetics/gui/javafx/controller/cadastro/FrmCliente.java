@@ -1,8 +1,8 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 
-import br.com.compdevbooks.alphacosmetics.business.Cliente;
+import br.com.compdevbooks.alphacosmetics.business.Vendedor;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
-import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.VendedorEntity;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,13 +23,13 @@ import javafx.util.Callback;
 public class FrmCliente {
 
     @FXML
-    private TextField txtNome11;
+    private TextField txtClienteMunicipio;
 
     @FXML
     private TextField txtPesqNome;
 
     @FXML
-   private TableView<ClienteEntity> tableViewCliente;
+    private TableView<VendedorEntity> tableViewCliente;
 
     @FXML
     private Tab tabCliente;
@@ -38,10 +38,13 @@ public class FrmCliente {
     private Label nomeFantasia1;
 
     @FXML
-    private TextField txtNome2;
+    private TextField txtClienteBairro;
 
     @FXML
-    private TextField txtNome1;
+    private TextField txtClienteCep;
+
+    @FXML
+    private TextField txtClienteFantasia;
 
     @FXML
     private Label nomeFantasia;
@@ -59,31 +62,31 @@ public class FrmCliente {
     private Tab tabEditar;
 
     @FXML
+    private TextField txtClienteCnpj;
+
+    @FXML
+    private TextField txtClienteLogradouro;
+
+    @FXML
     private Button buttonEditar;
 
     @FXML
-    private TextField txtNome22;
+    private TextField txtClienteNumero;
 
     @FXML
-    private TextField txtNome21;
+    private Button botao_limpar;
 
     @FXML
-    private TextField txtNome212;
-
-    @FXML
-    private TextField txtNome111;
+    private TextField txtClienteInscricao;
 
     @FXML
     private Button botao_salvar;
 
     @FXML
-    private TextField txtNome211;
-
-    @FXML
     private StackPane stkDialog;
 
     @FXML
-    private TextField txtNome2111;
+    private TextField txtClienteEstado;
 
     @FXML
     private Button botao_cancelar;
@@ -100,40 +103,45 @@ public class FrmCliente {
     @FXML
     private TextField txtClienteRazaoSocial;
     
-    Cliente cliente = new Cliente(DAOFactory.getDAOFactory().getClienteDAO());
+    Vendedor vendedor = new Vendedor(DAOFactory.getDAOFactory().getVendedorDAO());
+    private boolean novo = true;
     
     //Inicializa os elementos da TableViewCliente
     @FXML
     void initialize() {
-		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome Fantasia");
-		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
-				return new ReadOnlyObjectWrapper<String>(c.getValue().getFantasia());
+		TableColumn<VendedorEntity, String> tbcNome = new TableColumn<VendedorEntity, String>("Nome");
+		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<VendedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<VendedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
 			}
 		});
                 tableViewCliente.getColumns().add(tbcNome);
                 atualiza_Cliente();
     }
     
-    
-    
-    
-    
-    
     @FXML
     void btnCadastrar(ActionEvent event) {
-
+    
     }
-
+    
+    //Método para Alterar
     @FXML
     void btnAlterar(ActionEvent event) {
-
+        VendedorEntity ent = tableViewCliente.getSelectionModel().getSelectedItem();
+        //Deleta a informação anterior e adiciona a nova informação no TextField
+		if (ent != null) {
+                    vendedor.delete(tableViewCliente.getSelectionModel().getSelectedItem());
+                    txtClienteFantasia.setText(ent.getNome());
+	            txtClienteCnpj.setText(ent.getRG());
+		    txtClienteInscricao.setText(ent.getCPF());
+		}
     }
-
+    
+    //Método para Excluir
     @FXML
     void btnExcluir(ActionEvent event) {
         if (tableViewCliente.getSelectionModel().getSelectedIndex() >= 0) {
-            cliente.delete(tableViewCliente.getSelectionModel().getSelectedItem());
+            vendedor.delete(tableViewCliente.getSelectionModel().getSelectedItem());
             atualiza_Cliente();
         }
     }
@@ -143,20 +151,43 @@ public class FrmCliente {
 
     }
 
+    //Método para Cadastrar    
     @FXML
     void button_salvar(ActionEvent event) {
-
+        VendedorEntity ent;
+        ent = new VendedorEntity();
+	ent.setNome(txtClienteFantasia.getText());
+	vendedor.save(ent);
+        atualiza_Cliente();
     }
 
+    //Método para Limpar os campos
+    @FXML
+    void limpar_dados(){
+        txtClienteRazaoSocial.setText("");
+        txtClienteFantasia.setText("");
+        txtClienteCnpj.setText("");
+        txtClienteInscricao.setText("");
+        
+        txtClienteLogradouro.setText("");  
+        txtClienteNumero.setText("");  
+        txtClienteCep.setText("");
+        txtClienteBairro.setText("");
+        
+        txtClienteMunicipio.setText("");
+        txtClienteEstado.setText("");
+    }	
+    
+    //Pesquisa Por Nome
     @FXML
     void botao_pesquisa(ActionEvent event) {
-
+        atualiza_Cliente();
     }
-
+    
     void atualiza_Cliente(){
-        final ObservableList<ClienteEntity> produtos = FXCollections.observableArrayList(cliente.getByNome(txtPesqNome.getText()));
+        final ObservableList<VendedorEntity> produtos = FXCollections.observableArrayList(vendedor.getByNome(txtPesqNome.getText()));
         tableViewCliente.setItems(produtos);
     }
-	
     
+
 }
