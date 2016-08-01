@@ -49,14 +49,17 @@
                      <content>
                         <AnchorPane prefHeight="455.0" prefWidth="800.0">
                            <children>
-                              <TableView layoutX="64.0" layoutY="66.0" prefHeight="416.0" prefWidth="800.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <columns>
-                                  <TableColumn fx:id="tableColumClienteRazaoSocial" prefWidth="75.0" text="Razão Social" />
-                                  <TableColumn fx:id="tableColumClienteNomeFantasia" prefWidth="75.0" text="Nome Fantasia" />
-                                </columns>
+                              <TableView fx:id="tableViewCliente" layoutX="64.0" layoutY="66.0" prefHeight="416.0" prefWidth="800.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="Editar" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </TableView>
                               <Group AnchorPane.bottomAnchor="30.0">
                                  <children>
