@@ -58,6 +58,7 @@ public class FrmLogin {
         if(txtLogin.getText().equals("admin") &&
            txtSenha.getText().equals("admin")){
             chama_tela_login();
+            Main.login.close();//Fecha a Tela de Login
             
         }else{
             tratamento_login_senha();

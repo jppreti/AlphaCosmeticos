@@ -19,6 +19,8 @@ public class Main extends Application {
         Application.launch(Main.class, args);
     }
     
+    public static Stage login;//Para fechar a Tela de Login quando abrir a tela Principal
+    
     /*
     @Override
     public void start(Stage primaryStage) {
@@ -55,7 +57,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
+        login = primaryStage; //Para fechar a tela depois quando abrir a Tela Principal
         StackPane FrmLogin = null;
         
         try {

@@ -33,7 +33,7 @@
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" minHeight="20.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="txtPesqNome" prefWidth="350.0" promptText="Digite o nome ou parte dele para realizar a pesquisa." />
-            <Button fx:id="btnProcurar" mnemonicParsing="false" text="Pesquisar" />
+            <Button fx:id="btnProcurar" mnemonicParsing="false" onAction="#botao_pesquisa" text="Pesquisar" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -177,8 +177,8 @@
                                     </GridPane>
                                     <Group AnchorPane.bottomAnchor="50.0">
                                        <children>
-                                          <Button layoutX="269.0" layoutY="102.0" mnemonicParsing="false" text="%button.cancelar" />
-                                          <Button layoutX="400.0" layoutY="102.0" mnemonicParsing="false" text="%button.salvar" />
+                                          <Button fx:id="botao_cancelar" layoutX="269.0" layoutY="102.0" mnemonicParsing="false" onAction="#botao_cancelar" text="%button.cancelar" />
+                                          <Button fx:id="botao_salvar" layoutX="400.0" layoutY="102.0" mnemonicParsing="false" onAction="#button_salvar" text="%button.salvar" />
                                        </children>
                                     </Group>
                                  </children>
