@@ -373,7 +373,9 @@ public class FrmCompra {
 
     @FXML
     void btnFormadePagamento_onKeyPressed(KeyEvent event) {
-        this.btnFormadePagamento.fire();
+        if (event.getCode() == KeyCode.ENTER) {
+            this.btnFormadePagamento.fire();
+        }
     }
 
     @FXML
@@ -768,6 +770,7 @@ public class FrmCompra {
                         Label label = new Label(item.toString());
                         final Button btnMais = new Button("+");
                         btnMais.setMinSize(25, 25);
+                        btnMais.setFocusTraversable(false);
                         final TableCell<TabelaTelaCompraCarrinho, Integer> c = this;
                         btnMais.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -782,6 +785,7 @@ public class FrmCompra {
                         });
                         final Button btnMenos = new Button("-");
                         btnMenos.setMinSize(25, 25);
+                        btnMenos.setFocusTraversable(false);
                         final TableCell<TabelaTelaCompraCarrinho, Integer> d = this;
                         btnMenos.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -808,6 +812,7 @@ public class FrmCompra {
                                 lblMensagem.setText("Produto \"" + nomeProduto + "\" removido do carrinho.");
                             }
                         });
+                        btnRemover.setFocusTraversable(false);
                         vbox.getChildren().add(hbox);
                         vbox.getChildren().add(btnRemover);
                         hbox.getChildren().add(btnMais);

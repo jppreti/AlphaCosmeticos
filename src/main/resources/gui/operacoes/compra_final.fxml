@@ -20,7 +20,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/layout.png" />
+                                    <Image url="@../../imagem/layout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -142,7 +142,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/layout.png" />
+                                    <Image url="@../../imagem/layout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -476,7 +476,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/cart.png" />
+                        <Image url="@../../imagem/cart.png" />
                      </image>
                   </ImageView>
                </graphic>
