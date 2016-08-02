@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -1384,23 +1386,36 @@ public class FrmContas_a_receber {
             alert.showAndWait();
             return;
         }
-        System.out.println(teste.getId_parcela());
-        ParcelaPagamentoEntity aux = null;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Pagamento de contas a receber");
+        alert.setHeaderText(null);
+        alert.setContentText("Deseja efetuar o pagamento desta conta?");
 
-        for (VendaEntity vo : listaVendaT) {
+        ButtonType buttonTypeOne = new ButtonType("Sim");
+        ButtonType buttonTypeTwo = new ButtonType("Não");
 
-            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
-                System.out.println(parcPg.getId());
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeTwo) {
+            return;
+        } else if (result.get() == buttonTypeOne) {
+            System.out.println(teste.getId_parcela());
+            ParcelaPagamentoEntity aux = null;
 
-                if (parcPg.getId().equals(teste.getId_parcela())) {
-                    parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            for (VendaEntity vo : listaVendaT) {
+
+                for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                    System.out.println(parcPg.getId());
+
+                    if (parcPg.getId().equals(teste.getId_parcela())) {
+                        parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+                    }
                 }
+
             }
 
+            completar(listaVendaT);
         }
-
-        completar(listaVendaT);
-
     }
 
     @FXML
@@ -1754,7 +1769,7 @@ public class FrmContas_a_receber {
 
     public void imprimir() throws Exception {
         JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
-        
+
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getItems()));
 
         JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber_geral.pdf");

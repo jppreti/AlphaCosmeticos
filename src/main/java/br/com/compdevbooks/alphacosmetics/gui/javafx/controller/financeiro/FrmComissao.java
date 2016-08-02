@@ -2,6 +2,7 @@ package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.financeiro;
 
 import br.com.compdevbooks.alphacosmetics.business.operacoes.Comissao;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ComissaoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ParcelaComissaoEntity;
@@ -14,7 +15,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +26,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -146,7 +151,6 @@ public class FrmComissao {
     private String pathToReportPackage;
     List<ComissaoEntity> listaComissoes;
 
-  
     @FXML
     void initialize() {
 
@@ -204,10 +208,18 @@ public class FrmComissao {
                             tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
                             tabela.setCliente(vo.getVenda().getNomeCliente());
                             tabela.setId(parcCom.getId());
-                            if (parcCom.getDataPagamento() != null) {
-                                tabela.setSituacaoParcela("Pago");
-                            } else {
-                                tabela.setSituacaoParcela("Não Pago");
+
+                            Iterator<ParcelaPagamentoEntity> pag = vo.getVenda().getParcelas().iterator();
+                            while (pag.hasNext()) {
+                                ParcelaPagamentoEntity aux = pag.next();
+
+                                if (parcCom.getDataVencimento().equals(aux.getDataVencimento())) {
+                                    if (aux.getDataPagamento() != null) {
+                                        tabela.setSituacaoParcela("Pago");
+                                    } else {
+                                        tabela.setSituacaoParcela("Não Pago");
+                                    }
+                                }
                             }
 
                             listaFinal.add(tabela);
@@ -226,12 +238,18 @@ public class FrmComissao {
                             tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
                             tabela.setCliente(vo.getVenda().getNomeCliente());
                             tabela.setId(parcCom.getId());
-                            if (parcCom.getDataPagamento() != null) {
-                                tabela.setSituacaoParcela("Pago");
-                            } else {
-                                tabela.setSituacaoParcela("Não Pago");
-                            }
+                            Iterator<ParcelaPagamentoEntity> pag = vo.getVenda().getParcelas().iterator();
+                            while (pag.hasNext()) {
+                                ParcelaPagamentoEntity aux = pag.next();
 
+                                if (parcCom.getDataVencimento().equals(aux.getDataVencimento())) {
+                                    if (aux.getDataPagamento() != null) {
+                                        tabela.setSituacaoParcela("Pago");
+                                    } else {
+                                        tabela.setSituacaoParcela("Não Pago");
+                                    }
+                                }
+                            }
                             listaFinal.add(tabela);
                             cont++;
                         }
@@ -250,10 +268,17 @@ public class FrmComissao {
                             tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
                             tabela.setCliente(vo.getVenda().getNomeCliente());
                             tabela.setId(parcCom.getId());
-                            if (parcCom.getDataPagamento() != null) {
-                                tabela.setSituacaoParcela("Pago");
-                            } else {
-                                tabela.setSituacaoParcela("Não Pago");
+                            Iterator<ParcelaPagamentoEntity> pag = vo.getVenda().getParcelas().iterator();
+                            while (pag.hasNext()) {
+                                ParcelaPagamentoEntity aux = pag.next();
+
+                                if (parcCom.getDataVencimento().equals(aux.getDataVencimento())) {
+                                    if (aux.getDataPagamento() != null) {
+                                        tabela.setSituacaoParcela("Pago");
+                                    } else {
+                                        tabela.setSituacaoParcela("Não Pago");
+                                    }
+                                }
                             }
 
                             listaFinal.add(tabela);
@@ -271,10 +296,17 @@ public class FrmComissao {
                         tabela.setValorComissaoRelatorio(Float.toString(parcCom.getValorParcela()));
                         tabela.setCliente(vo.getVenda().getNomeCliente());
                         tabela.setId(parcCom.getId());
-                        if (parcCom.getDataPagamento() != null) {
-                            tabela.setSituacaoParcela("Pago");
-                        } else {
-                            tabela.setSituacaoParcela("Não Pago");
+                        Iterator<ParcelaPagamentoEntity> pag = vo.getVenda().getParcelas().iterator();
+                        while (pag.hasNext()) {
+                            ParcelaPagamentoEntity aux = pag.next();
+
+                            if (parcCom.getDataVencimento().equals(aux.getDataVencimento())) {
+                                if (aux.getDataPagamento() != null) {
+                                    tabela.setSituacaoParcela("Pago");
+                                } else {
+                                    tabela.setSituacaoParcela("Não Pago");
+                                }
+                            }
                         }
 
                         listaFinal.add(tabela);
@@ -385,8 +417,8 @@ public class FrmComissao {
         telaComissao = tblComissao.getSelectionModel().getSelectedItem();
 
         ParcelaComissaoEntity aux = null;
-        
-        if(telaComissao == null){
+
+        if (telaComissao == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Pagamento de comissão");
             alert.setHeaderText(null);
@@ -396,28 +428,43 @@ public class FrmComissao {
         }
 
         if (telaComissao.getSituacaoParcela() == "Pago") {
-            for (ComissaoEntity com : comissao.buscarTodasComissoes()) {
-                for (ParcelaComissaoEntity parc : com.getListaParcelaComissao()) {
-                    System.out.println(telaComissao.getId());
-                    if (parc.getId().equals(telaComissao.getId())) {
-                        aux = parc;
+
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Pagamento de comissão?");
+            alert.setHeaderText(null);
+            alert.setContentText("Deseja efetuar o pagamento desta comissão?");
+
+            ButtonType buttonTypeOne = new ButtonType("Sim");
+            ButtonType buttonTypeTwo = new ButtonType("Não");
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeTwo) {
+                return;
+            } else if (result.get() == buttonTypeOne) {
+
+                for (ComissaoEntity com : comissao.buscarTodasComissoes()) {
+                    for (ParcelaComissaoEntity parc : com.getListaParcelaComissao()) {
+                        System.out.println(telaComissao.getId());
+                        if (parc.getId().equals(telaComissao.getId())) {
+                            aux = parc;
+                        }
+
                     }
 
+                    com.getListaParcelaComissao().remove(aux);
+
                 }
-
-                com.getListaParcelaComissao().remove(aux);
-
+                busca();
+            } else {
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Pagamento de comissão");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Comissão não pode ser paga, parcela cliente em aberto");
+                alert2.showAndWait();
+                System.out.println("não pode pagar");
             }
-            busca();
-        } else {
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Pagamento de comissão");
-            alert2.setHeaderText(null);
-            alert2.setContentText("Comissão não pode ser paga, parcela cliente em aberto");
-            alert2.showAndWait();
-            System.out.println("não pode pagar");
         }
-
         //
     }
 

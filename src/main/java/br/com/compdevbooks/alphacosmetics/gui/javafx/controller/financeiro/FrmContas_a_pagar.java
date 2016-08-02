@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -316,9 +318,9 @@ public class FrmContas_a_pagar {
                 }
             };
         });
-        aberto=0;
-        vencidos=0;
-        vencidos30=0;
+        aberto = 0;
+        vencidos = 0;
+        vencidos30 = 0;
         for (CompraEntity vo : lista) {
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
                 if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
@@ -345,7 +347,6 @@ public class FrmContas_a_pagar {
         txtTotalVencidosValor.setText("$ " + vencidos);
         txtTotalVencidos30Valor.setText("$ " + vencidos30);
 
-        
         this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("nome"));
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("formaPgto"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, Float>("valor"));
@@ -1306,22 +1307,35 @@ public class FrmContas_a_pagar {
             alert.showAndWait();
             return;
         }
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Pagamento de contas a pagar");
+        alert.setHeaderText(null);
+        alert.setContentText("Deseja efetuar o pagamento desta conta?");
 
-        for (CompraEntity vo : ListaCompra) {
+        ButtonType buttonTypeOne = new ButtonType("Sim");
+        ButtonType buttonTypeTwo = new ButtonType("Não");
 
-            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
-                System.out.println(parcPg.getId());
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeTwo) {
+            return;
+        } else if (result.get() == buttonTypeOne) {
 
-                if (parcPg.getId().equals(teste.getId_parcela())) {
-                    parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            for (CompraEntity vo : ListaCompra) {
 
+                for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                    System.out.println(parcPg.getId());
+
+                    if (parcPg.getId().equals(teste.getId_parcela())) {
+                        parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+
+                    }
                 }
+
             }
 
+            completar(ListaCompra);
         }
-
-        completar(ListaCompra);
-
     }
 
     @FXML
@@ -1336,7 +1350,7 @@ public class FrmContas_a_pagar {
         alert.setHeaderText(null);
         alert.setContentText("Relatório criado com sucesso - Diretório: src\\Relatorio_de_ContasPagar_geral.pdf");
         alert.showAndWait();
-    
+
     }
 
     @FXML
@@ -1588,7 +1602,7 @@ public class FrmContas_a_pagar {
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblContas_a_pagar.getSelectionModel().getSelectedItems()));
 
         JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasPagar_especifico.pdf");
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Contas á receber");
         alert.setHeaderText(null);
@@ -1633,18 +1647,18 @@ public class FrmContas_a_pagar {
                     } else {
                         String conversaoDesconto = txtdesconto.getText().replaceAll(",", ".");
                         Float t2 = Float.parseFloat(conversaoDesconto);
-                        
-                           if (t2 >= parcPg.getValorOriginal()) {
-                            
+
+                        if (t2 >= parcPg.getValorOriginal()) {
+
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Contas á receber");
                             alert.setHeaderText(null);
                             alert.setContentText("O desconto não pode ser maior do que o valor");
                             alert.showAndWait();
                             return;
-                            
-                        }else{
-                             desconto = t2;
+
+                        } else {
+                            desconto = t2;
                         }
                         desconto = t2;
                     }
