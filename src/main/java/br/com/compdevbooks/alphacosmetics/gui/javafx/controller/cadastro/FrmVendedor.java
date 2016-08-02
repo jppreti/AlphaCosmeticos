@@ -102,7 +102,7 @@ public class FrmVendedor {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getRG());
 			}
 		});
-
+                
                 tableViewVendedor.getColumns().add(tbcNome);
                 tableViewVendedor.getColumns().add(tbcCPF);
                 tableViewVendedor.getColumns().add(tbcRg);

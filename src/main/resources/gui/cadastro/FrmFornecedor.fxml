@@ -32,7 +32,7 @@
    <top>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" minHeight="20.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtPesqNome" onAction="#Pesquisa" prefWidth="350.0" promptText="Digite o nome ou parte dele para realizar a pesquisa." />
+            <TextField fx:id="txtPesqNome" onAction="#Pesquisa" prefWidth="350.0" promptText="Digite a razão social ou parte dela para realizar a pesquisa" />
             <Button fx:id="btnProcurar" mnemonicParsing="false" text="Pesquisar" />
          </children>
          <BorderPane.margin>

@@ -99,15 +99,23 @@ public class FrmFornecedor {
     @FXML
     void initialize() {
                 //Adciona a Coluna Razão Social
-		TableColumn<FornecedorEntity, String> tbcNome = new TableColumn<FornecedorEntity, String>("Nome Fantasia");
-		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+		TableColumn<FornecedorEntity, String> tbcRazaoSocial = new TableColumn<FornecedorEntity, String>("Razão Social");
+		tbcRazaoSocial.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
+			}
+		});
+                
+                //Adciona a Coluna Nome Fantasia
+                TableColumn<FornecedorEntity, String> tbcNomeFantasia = new TableColumn<FornecedorEntity, String>("Nome Fantasia");
+		tbcNomeFantasia.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getFantasia());
 			}
 		});
                 
-                //Adciona a Coluna Nome Fantasia
-                TableColumn<FornecedorEntity, String> tbcCnpj = new TableColumn<FornecedorEntity, String>("Cnpj");
+                //Adciona a Coluna Cnpj
+                TableColumn<FornecedorEntity, String> tbcCnpj = new TableColumn<FornecedorEntity, String>("Inscrição Estadual");
 		tbcCnpj.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getCNPJ());
@@ -121,7 +129,8 @@ public class FrmFornecedor {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getInscricao());
 			}
 		});
-                //Endereço
+                
+                //Coluna Referente a Endereço......
                 //Adciona a Coluna Logradouro
                 TableColumn<FornecedorEntity, String> tbcLogradouro = new TableColumn<FornecedorEntity, String>("Logradouro");
 		tbcLogradouro.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
@@ -154,9 +163,11 @@ public class FrmFornecedor {
 			}
 		});
                           
-                tableViewFornecedor.getColumns().add(tbcNome);
+                tableViewFornecedor.getColumns().add(tbcRazaoSocial);
+                tableViewFornecedor.getColumns().add(tbcNomeFantasia);
                 tableViewFornecedor.getColumns().add(tbcCnpj);
                 tableViewFornecedor.getColumns().add(tbcInscricao);
+                
                 tableViewFornecedor.getColumns().add(tbcLogradouro);
                 tableViewFornecedor.getColumns().add(tbcNumero);
                 tableViewFornecedor.getColumns().add(tbcCep);
@@ -164,13 +175,11 @@ public class FrmFornecedor {
                 atualiza_Fornecedor();
                 
     }
-    
     void atualiza_Fornecedor(){
-        final ObservableList<FornecedorEntity> produtos = FXCollections.observableArrayList(fornecedor.getByNome(txtPesqNome.getText()));
+        final ObservableList<FornecedorEntity> produtos = FXCollections.observableArrayList(fornecedor.buscarTodosFornecedores());
         tableViewFornecedor.setItems(produtos);
     }
-    
-    
+        
     //Método para Alterar
     @FXML
     void botao_editar_fornecedor(ActionEvent event) {
@@ -179,8 +188,17 @@ public class FrmFornecedor {
         //Deleta a informação anterior e adiciona a nova informação no TextField
 		if (ent != null) {
                     fornecedor.delete(tableViewFornecedor.getSelectionModel().getSelectedItem());
+                    txtRazaoSocial.setText(ent.getNome());
                     txtFantasia.setText(ent.getFantasia());
                     txtCnpj.setText(ent.getCNPJ());
+                    txtInscricao.setText(ent.getInscricao());
+                    txtBanco.setText("");
+                    txtEmail.setText("");
+                    
+                    txtLogradouro.setText(ent.getEnderecoVO().getLogradouro());
+                    txtNumero.setText(String.valueOf(ent.getEnderecoVO().getNumero()));
+                    txtCep.setText(ent.getEnderecoVO().getCEP());
+                    txtBairro.setText(ent.getEnderecoVO().getBairroVO().getNome());
 		}
         }
     }
@@ -199,17 +217,25 @@ public class FrmFornecedor {
     void Salvar_Dados(ActionEvent event) {
         FornecedorEntity ent;
         ent = new FornecedorEntity();
-	ent.setFantasia(txtFantasia.getText());
-        ent.setCNPJ(txtCnpj.getText());
-	fornecedor.save(ent);
+	ent.setFantasia("teste");
+        fornecedor.save(ent);
         atualiza_Fornecedor();
     }
 
     //Método para Limpar os Campos    
     @FXML
     void Limpar_Dados(ActionEvent event) {
+        txtRazaoSocial.setText("");
         txtFantasia.setText("");
         txtCnpj.setText("");
+        txtInscricao.setText("");
+        txtBanco.setText("");
+        txtEmail.setText("");
+                    
+        txtLogradouro.setText("");
+        txtNumero.setText("");
+        txtCep.setText("");
+        txtBairro.setText("");
     }
 
     //Método para Pesquisar Por Nome
