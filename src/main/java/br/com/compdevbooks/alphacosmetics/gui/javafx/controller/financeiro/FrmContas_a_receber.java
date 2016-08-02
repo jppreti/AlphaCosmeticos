@@ -281,36 +281,6 @@ public class FrmContas_a_receber {
         cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
 
         dtpPagamento.setValue(dtlocal);
-        for (VendaEntity vo : listaVendaT) {
-
-            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
-                if (parcPg.getDataPagamento() == null) {
-
-                    if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
-                        aberto += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
-                        aberto += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
-                        //  referencia.setDate(referencia.getDate() + 30);
-                        if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
-                            vencidos30 += (float) parcPg.getValorOriginal();
-                        }
-                        if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
-                            vencidos30 += (float) parcPg.getValorOriginal();
-                        }
-                        if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
-                            vencidos += (float) parcPg.getValorOriginal();
-                        }
-                    }
-                }
-            }
-        }
-
-        txtTotalEmAbertoValor.setText("$ " + aberto);
-        txtTotalVencidosValor.setText("$ " + vencidos);
-        txtTotalVencido30Valor.setText("$ " + vencidos30);
 
         completar(listaVendaT);
 
@@ -378,6 +348,40 @@ public class FrmContas_a_receber {
                 }
             };
         });
+        aberto = 0;
+        vencidos = 0;
+        vencidos30 = 0;
+        for (VendaEntity vo : lista) {
+
+            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                if (parcPg.getDataPagamento() == null) {
+
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
+                        aberto += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
+                        aberto += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
+                        //  referencia.setDate(referencia.getDate() + 30);
+                        if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
+                            vencidos += (float) parcPg.getValorOriginal();
+                        }
+                    }
+                }
+            }
+        }
+
+        txtTotalEmAbertoValor.setText("$ " + aberto);
+        txtTotalVencidosValor.setText("$ " + vencidos);
+        txtTotalVencido30Valor.setText("$ " + vencidos30);
+
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("formapgto"));
         this.clmNumParc.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, String>("parcela"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasReceber, Float>("valor"));
@@ -1390,7 +1394,6 @@ public class FrmContas_a_receber {
 
                 if (parcPg.getId().equals(teste.getId_parcela())) {
                     parcPg.setDataPagamento(Date.from(this.dtpPagamento.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-
                 }
             }
 
@@ -1570,14 +1573,17 @@ public class FrmContas_a_receber {
 
     @FXML
     void btnGerarRelatorio_onAction(ActionEvent event) {
-        System.out.println("ok");
         JasperReport report;
         try {
             report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
-            System.out.println("ok2");
             JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getSelectionModel().getSelectedItems()));
+            JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber_especifico.pdf");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Contas á receber");
+            alert.setHeaderText(null);
+            alert.setContentText("Relatório criado com sucesso - Diretório: src\\Relatorio_de_ContasReceber_especifico.pdf");
+            alert.showAndWait();
 
-            JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber.pdf");
         } catch (JRException ex) {
             System.out.println("erro " + ex.getMessage());
         }
@@ -1718,20 +1724,20 @@ public class FrmContas_a_receber {
                     } else {
                         String conversaoDesconto = txtDesconto.getText().replaceAll(",", ".");
                         Float t2 = Float.parseFloat(conversaoDesconto);
-                        
+
                         if (t2 >= parcPg.getValorOriginal()) {
-                            
+
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Contas á receber");
                             alert.setHeaderText(null);
                             alert.setContentText("O desconto não pode ser maior do que o valor");
                             alert.showAndWait();
                             return;
-                            
-                        }else{
-                             desconto = t2;
+
+                        } else {
+                            desconto = t2;
                         }
-                       
+
                     }
                     valorT = (juros - desconto);
                     parcPg.setValorJuro(juros);
@@ -1747,15 +1753,16 @@ public class FrmContas_a_receber {
     }
 
     public void imprimir() throws Exception {
-
-        System.out.println("ok");
-
         JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasReceber.jrxml");
-        System.out.println("ok2");
+        
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblVenda.getItems()));
 
         JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasReceber_geral.pdf");
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Contas á receber");
+        alert.setHeaderText(null);
+        alert.setContentText("Relatório criado com sucesso - Diretório: src\\Relatorio_de_ContasReceber_geral.pdf");
+        alert.showAndWait();
     }
 
 }

@@ -253,13 +253,13 @@
                      </HBox.margin></TextField>
                   <VBox alignment="CENTER" minHeight="-Infinity" prefHeight="91.0" prefWidth="191.0">
                      <children>
-                        <Button fx:id="btnBaixarTitulos" mnemonicParsing="false" onAction="#btnBaixarTitulos_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.baixarTitulos" />
-                        <Button fx:id="btnVisualizarImpressao" mnemonicParsing="false" onAction="#btnVisualizarImpressao_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.visualizarImpressao">
+                        <Button fx:id="btnBaixarTitulos" mnemonicParsing="false" onAction="#btnBaixarTitulos_onAction" prefHeight="25.0" prefWidth="164.0" text="%button.baixarTitulos" />
+                        <Button fx:id="btnVisualizarImpressao" mnemonicParsing="false" onAction="#btnVisualizarImpressao_onAction" prefHeight="25.0" prefWidth="164.0" text="%button.gerarRelatorioGeral">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="131.0" text="%button.sair">
+                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="164.0" text="%button.sair">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -276,7 +276,7 @@
             </HBox>
          </children>
          <BorderPane.margin>
-            <Insets left="10.0" />
+            <Insets left="10.0" top="15.0" />
          </BorderPane.margin>
       </VBox>
    </bottom>
@@ -303,7 +303,7 @@
           </Tab>
           <Tab fx:id="tabVisualizar" text="%tab.relatorio">
                <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="219.0" prefWidth="838.0">
                      <children>
                         <GridPane fx:id="grpVisualizar" gridLinesVisible="true">
                           <columnConstraints>

@@ -334,13 +334,13 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="170.0" prefWidth="189.0">
                      <children>
-                        <Button fx:id="btnVisualizarImpressao" mnemonicParsing="false" onAction="#btnVisualizarImpressao_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.visualizarImpressao" />
-                        <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" prefHeight="25.0" prefWidth="131.0" text="%button.baixarDivida">
+                        <Button fx:id="btnVisualizarImpressao" mnemonicParsing="false" onAction="#btnVisualizarImpressao_onAction" prefHeight="25.0" prefWidth="164.0" text="%button.gerarRelatorioGeral" />
+                        <Button fx:id="btnBaixarDivida" mnemonicParsing="false" onAction="#btnBaixarDivida_onAction" prefHeight="25.0" prefWidth="164.0" text="%button.baixarDivida">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="131.0" text="%button.sair" />
+                        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_onAction" onKeyPressed="#btnSair_onKeyPressed" prefHeight="25.0" prefWidth="164.0" text="%button.sair" />
                      </children>
                      <HBox.margin>
                         <Insets left="250.0" />

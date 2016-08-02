@@ -262,32 +262,6 @@ public class FrmContas_a_pagar {
         cmbFormaPgto.setItems(FXCollections.observableArrayList(FormaPagamentoEnum.values()));
         cmbFormaPgto.setValue(FormaPagamentoEnum.TODOS);
 
-        for (CompraEntity vo : ListaCompra) {
-            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
-                if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
-
-                    if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
-                        vencidos += (float) parcPg.getValorOriginal();
-                    }
-                }
-            }
-        }
-        txtTotalEmAbertoValor.setText("$ " + aberto);
-        txtTotalVencidosValor.setText("$ " + vencidos);
-        txtTotalVencidos30Valor.setText("$ " + vencidos30);
-
         completar(ListaCompra);
     }
 
@@ -342,6 +316,36 @@ public class FrmContas_a_pagar {
                 }
             };
         });
+        aberto=0;
+        vencidos=0;
+        vencidos30=0;
+        for (CompraEntity vo : lista) {
+            for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
+                if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
+                    aberto += (float) parcPg.getValorOriginal();
+                }
+                if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
+                    aberto += (float) parcPg.getValorOriginal();
+                }
+                if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
+
+                    if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
+                        vencidos30 += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
+                        vencidos30 += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
+                        vencidos += (float) parcPg.getValorOriginal();
+                    }
+                }
+            }
+        }
+        txtTotalEmAbertoValor.setText("$ " + aberto);
+        txtTotalVencidosValor.setText("$ " + vencidos);
+        txtTotalVencidos30Valor.setText("$ " + vencidos30);
+
+        
         this.clmNomeRazaoSocial.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("nome"));
         this.clmFormaPgto.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, String>("formaPgto"));
         this.clmValor.setCellValueFactory(new PropertyValueFactory<TabelaTelaContasAPagar, Float>("valor"));
@@ -1326,8 +1330,13 @@ public class FrmContas_a_pagar {
         JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasPagar.jrxml");
         System.out.println("ok2");
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblContas_a_pagar.getItems()));
-
         JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasPagar_geral.pdf");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Contas á pagar");
+        alert.setHeaderText(null);
+        alert.setContentText("Relatório criado com sucesso - Diretório: src\\Relatorio_de_ContasPagar_geral.pdf");
+        alert.showAndWait();
+    
     }
 
     @FXML
@@ -1575,12 +1584,16 @@ public class FrmContas_a_pagar {
 
     @FXML
     void btnGerarRealatorio_onAction(ActionEvent event) throws JRException {
-        System.out.println("ok");
         JasperReport report = JasperCompileManager.compileReport("src\\main\\java\\br\\com\\compdevbooks\\alphacosmetics\\jasper\\ContasPagar.jrxml");
-        System.out.println("ok2");
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(tblContas_a_pagar.getSelectionModel().getSelectedItems()));
 
         JasperExportManager.exportReportToPdfFile(print, "src\\Relatorio_de_ContasPagar_especifico.pdf");
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Contas á receber");
+        alert.setHeaderText(null);
+        alert.setContentText("Relatório criado com sucesso - Diretório: src\\Relatorio_de_ContasPagar_especifico.pdf");
+        alert.showAndWait();
     }
 
     @FXML
