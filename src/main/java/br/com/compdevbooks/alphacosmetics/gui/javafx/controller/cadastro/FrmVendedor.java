@@ -102,7 +102,6 @@ public class FrmVendedor {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getRG());
 			}
 		});
-                
 
                 tableViewVendedor.getColumns().add(tbcNome);
                 tableViewVendedor.getColumns().add(tbcCPF);
@@ -155,6 +154,8 @@ public class FrmVendedor {
         txtNome.setText("");
         txtCpf.setText("");
         txtRg.setText("");
+        txtCidade.setText("");
+        txtRegiao.setText("");
     }	
     
     //Método para Pesquisar Por Nome

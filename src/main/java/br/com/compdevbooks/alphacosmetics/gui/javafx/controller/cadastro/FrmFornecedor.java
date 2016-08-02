@@ -95,10 +95,10 @@ public class FrmFornecedor {
     
     Fornecedor fornecedor = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
     
-    //Inicializa os elementos da TableViewCliente
+    //Inicializa os elementos da TableViewFornecedor
     @FXML
     void initialize() {
-                //Adciona a Coluna Nome
+                //Adciona a Coluna Razão Social
 		TableColumn<FornecedorEntity, String> tbcNome = new TableColumn<FornecedorEntity, String>("Nome Fantasia");
 		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
@@ -106,6 +106,7 @@ public class FrmFornecedor {
 			}
 		});
                 
+                //Adciona a Coluna Nome Fantasia
                 TableColumn<FornecedorEntity, String> tbcCnpj = new TableColumn<FornecedorEntity, String>("Cnpj");
 		tbcCnpj.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
@@ -113,8 +114,53 @@ public class FrmFornecedor {
 			}
 		});
                 
+                //Adciona a Coluna Inscrição Estadual
+                TableColumn<FornecedorEntity, String> tbcInscricao = new TableColumn<FornecedorEntity, String>("Inscrição Estadual");
+		tbcInscricao.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getInscricao());
+			}
+		});
+                //Endereço
+                //Adciona a Coluna Logradouro
+                TableColumn<FornecedorEntity, String> tbcLogradouro = new TableColumn<FornecedorEntity, String>("Logradouro");
+		tbcLogradouro.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getLogradouro());
+			}
+		});
+                
+                //Adciona a Coluna Número
+                TableColumn<FornecedorEntity, Integer> tbcNumero = new TableColumn<FornecedorEntity, Integer>("Número");
+		tbcNumero.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, Integer>, ObservableValue<Integer>>() {
+			public ObservableValue<Integer> call(CellDataFeatures<FornecedorEntity, Integer> c) {
+				return new ReadOnlyObjectWrapper<Integer>(c.getValue().getEnderecoVO().getNumero());
+			}
+		});
+                
+                //Adciona a Coluna Cep
+                TableColumn<FornecedorEntity, String> tbcCep = new TableColumn<FornecedorEntity, String>("CEP");
+		tbcCep.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getCEP());
+			}
+		});
+                
+                //Adciona a Coluna Bairro
+                TableColumn<FornecedorEntity, String> tbcBairro = new TableColumn<FornecedorEntity, String>("Bairro");
+		tbcBairro.setCellValueFactory(new Callback<CellDataFeatures<FornecedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<FornecedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getBairroVO().getNome());
+			}
+		});
+                          
                 tableViewFornecedor.getColumns().add(tbcNome);
                 tableViewFornecedor.getColumns().add(tbcCnpj);
+                tableViewFornecedor.getColumns().add(tbcInscricao);
+                tableViewFornecedor.getColumns().add(tbcLogradouro);
+                tableViewFornecedor.getColumns().add(tbcNumero);
+                tableViewFornecedor.getColumns().add(tbcCep);
+                tableViewFornecedor.getColumns().add(tbcBairro);
                 atualiza_Fornecedor();
                 
     }
@@ -125,7 +171,7 @@ public class FrmFornecedor {
     }
     
     
-
+    //Método para Alterar
     @FXML
     void botao_editar_fornecedor(ActionEvent event) {
         if (tableViewFornecedor.getSelectionModel().getSelectedIndex() >= 0) {
@@ -139,6 +185,7 @@ public class FrmFornecedor {
         }
     }
 
+    //Método para Excluir    
     @FXML
     void botao_remover_fornecedor(ActionEvent event) {
          if (tableViewFornecedor.getSelectionModel().getSelectedIndex() >= 0) {
@@ -147,6 +194,7 @@ public class FrmFornecedor {
         }
     }
 
+    //Método para Cadastrar    
     @FXML
     void Salvar_Dados(ActionEvent event) {
         FornecedorEntity ent;
@@ -157,12 +205,14 @@ public class FrmFornecedor {
         atualiza_Fornecedor();
     }
 
+    //Método para Limpar os Campos    
     @FXML
     void Limpar_Dados(ActionEvent event) {
         txtFantasia.setText("");
         txtCnpj.setText("");
     }
 
+    //Método para Pesquisar Por Nome
     @FXML
     void Pesquisa(ActionEvent event) {
         atualiza_Fornecedor();

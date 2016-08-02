@@ -89,15 +89,81 @@ public class FrmCliente {
     //Inicializa os elementos da TableViewCliente
     @FXML
     void initialize() {
-                //Adciona a Coluna Nome
-		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome");
+                //Adciona a Coluna Razão Social
+		TableColumn<ClienteEntity, String> tbcRazaoSocial = new TableColumn<ClienteEntity, String>("Razão Social");
+		tbcRazaoSocial.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
+			}
+		});
+                
+                //Adciona a Coluna Nome Fantasia
+		TableColumn<ClienteEntity, String> tbcNome = new TableColumn<ClienteEntity, String>("Nome Fantasia");
 		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getFantasia());
 			}
 		});
                 
+                //Adciona a Coluna CNPJ
+		TableColumn<ClienteEntity, String> tbcCnpj = new TableColumn<ClienteEntity, String>("CNPJ");
+		tbcCnpj.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getCNPJ());
+			}
+		});
+                
+                //Adciona a Coluna Inscrição Estadual
+		TableColumn<ClienteEntity, String> tbcInscrição = new TableColumn<ClienteEntity, String>("Inscrição Estadual");
+		tbcInscrição.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getInscricao());
+			}
+		});
+                
+                //Adciona a Coluna Logradouro
+		TableColumn<ClienteEntity, String> tbcLogradouro = new TableColumn<ClienteEntity, String>("Logradouro");
+		tbcLogradouro.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getLogradouro());
+			}
+		});
+                
+                //Adciona a Coluna Número
+		TableColumn<ClienteEntity, Integer> tbcNumero = new TableColumn<ClienteEntity, Integer>("Número");
+		tbcNumero.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, Integer>, ObservableValue<Integer>>() {
+			public ObservableValue<Integer> call(CellDataFeatures<ClienteEntity, Integer> c) {
+				return new ReadOnlyObjectWrapper<Integer>(c.getValue().getEnderecoVO().getNumero());
+			}
+		});
+                
+                //Adciona a Coluna CEP
+		TableColumn<ClienteEntity, String> tbcCEP = new TableColumn<ClienteEntity, String>("CEP");
+		tbcCEP.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getCEP());
+			}
+		});
+                
+                //Adciona a Coluna Bairro
+		TableColumn<ClienteEntity, String> tbcBairro = new TableColumn<ClienteEntity, String>("Bairro");
+		tbcBairro.setCellValueFactory(new Callback<CellDataFeatures<ClienteEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<ClienteEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getEnderecoVO().getBairroVO().getNome());
+			}
+		});
+                
+
+                //tbcRazaoSocial.setMinWidth(40);
+                //tbcNome.setMinWidth(40);
+                tableViewCliente.getColumns().add(tbcRazaoSocial);
                 tableViewCliente.getColumns().add(tbcNome);
+                tableViewCliente.getColumns().add(tbcCnpj);
+                tableViewCliente.getColumns().add(tbcInscrição);
+                tableViewCliente.getColumns().add(tbcLogradouro);
+                tableViewCliente.getColumns().add(tbcNumero);
+                tableViewCliente.getColumns().add(tbcCEP);
+                tableViewCliente.getColumns().add(tbcBairro);
                 atualiza_Cliente();
     } 
     
@@ -112,7 +178,14 @@ public class FrmCliente {
         //Deleta a informação anterior e adiciona a nova informação no TextField
 		if (ent != null) {
                     cliente.delete(tableViewCliente.getSelectionModel().getSelectedItem());
-                    txtClienteFantasia.setText(ent.getInscricao());
+                    txtClienteRazaoSocial.setText(ent.getNome());
+                    txtClienteFantasia.setText(ent.getFantasia());
+                    txtClienteCnpj.setText(ent.getCNPJ());
+                    txtClienteInscricao.setText(ent.getInscricao());
+                    txtClienteLogradouro.setText(ent.getEnderecoVO().getLogradouro());
+                    txtClienteNumero.setText(String.valueOf(ent.getEnderecoVO().getNumero()));
+                    txtClienteCep.setText(ent.getEnderecoVO().getLogradouro());
+                    txtClienteBairro.setText(ent.getEnderecoVO().getBairroVO().getNome());
 		}
     }
 
@@ -134,7 +207,16 @@ public class FrmCliente {
 
     @FXML
     void limpar_dados(ActionEvent event) {
+        txtClienteRazaoSocial.setText("");
         txtClienteFantasia.setText("");
+        txtClienteCnpj.setText("");
+        txtClienteInscricao.setText("");
+        txtClienteLogradouro.setText("");
+        txtClienteNumero.setText("");
+        txtClienteCep.setText("");
+        txtClienteBairro.setText("");
+        txtClienteMunicipio.setText("");
+        txtClienteEstado.setText("");
     }
 
     @FXML
