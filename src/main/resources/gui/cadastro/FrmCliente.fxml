@@ -56,11 +56,6 @@
                               </TableView>
                               <Group AnchorPane.bottomAnchor="30.0">
                                  <children>
-                                    <Button fx:id="buttonCadastrar" layoutX="320.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnCadastrar" text="%button.novo">
-                                       <tooltip>
-                                          <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
-                                       </tooltip>
-                                    </Button>
                                     <Button fx:id="buttonEditar" layoutX="400.0" layoutY="432.0" mnemonicParsing="false" onAction="#btnAlterar" text="%button.editar">
                                        <tooltip>
                                           <Tooltip text="Abre o formulário para cadastrar um novo cliente." wrapText="true" />
@@ -90,13 +85,13 @@
                                     </Label>
                                     <GridPane layoutX="20.0" layoutY="34.0" prefHeight="120.0" prefWidth="718.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0">
                                        <children>
-                                          <Label fx:id="razaoSocial" text="%label.razaoSocial" />
+                                          <Label text="%label.razaoSocial" />
                                           <TextField fx:id="txtClienteRazaoSocial" prefHeight="25.0" prefWidth="436.0" promptText="Forneça a Razão Social" GridPane.columnIndex="1" />
-                                          <Label fx:id="nomeFantasia" text="%label.fantasia" GridPane.rowIndex="1" />
+                                          <Label text="%label.fantasia" GridPane.rowIndex="1" />
                                           <TextField fx:id="txtClienteFantasia" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o Nome Fantasia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label fx:id="nomeFantasia1" text="%label.cnpj" GridPane.rowIndex="2" />
+                                          <Label text="%label.cnpj" GridPane.rowIndex="2" />
                                           <TextField fx:id="txtClienteCnpj" prefHeight="25.0" prefWidth="306.0" promptText="Forneça o CNPJ" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label fx:id="nomeFantasia11" text="%label.inscricao_estadual" GridPane.rowIndex="3" />
+                                          <Label text="%label.inscricao_estadual" GridPane.rowIndex="3" />
                                           <TextField fx:id="txtClienteInscricao" prefHeight="25.0" prefWidth="306.0" promptText="Forneça a Inscrição Estadual" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                        </children>
                                        <columnConstraints>
@@ -171,7 +166,6 @@
                                     </GridPane>
                                     <Group AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="185.0">
                                        <children>
-                                          <Button fx:id="botao_cancelar" layoutX="200.0" layoutY="105.0" mnemonicParsing="false" onAction="#botao_cancelar" text="%button.cancelar" />
                                           <Button fx:id="botao_salvar" layoutX="350.0" layoutY="105.0" mnemonicParsing="false" onAction="#button_salvar" prefHeight="25.0" prefWidth="108.0" text="%button.salvar" />
                                           <Button fx:id="botao_limpar" layoutX="500.0" layoutY="105.0" mnemonicParsing="false" onAction="#limpar_dados" prefHeight="25.0" prefWidth="108.0" text="%button.limpar" />
                                        </children>
