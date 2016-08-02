@@ -1,5 +1,6 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes;
 
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
 import br.com.compdevbooks.alphacosmetics.business.Categoria;
 import br.com.compdevbooks.alphacosmetics.business.Fornecedor;
 import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
@@ -18,8 +19,8 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.CompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ItemCompraEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoCompraEnum;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.GerarEmailCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompra;
-import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +32,6 @@ import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -45,6 +45,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeView;
@@ -223,9 +224,11 @@ public class FrmCompra {
     @FXML
     private TextField txtProduto2;
 
-    final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.C,KeyCombination.SHIFT_DOWN);
-    final KeyCombination keyComb2 = new KeyCodeCombination(KeyCode.L,KeyCombination.SHIFT_DOWN);
-    final KeyCombination keyComb3 = new KeyCodeCombination(KeyCode.P,KeyCombination.SHIFT_DOWN);
+    final KeyCombination keyComb1 = new KeyCodeCombination(KeyCode.C, KeyCombination.SHIFT_DOWN,KeyCodeCombination.CONTROL_DOWN);
+    final KeyCombination keyComb2 = new KeyCodeCombination(KeyCode.L, KeyCombination.SHIFT_DOWN,KeyCodeCombination.CONTROL_DOWN);
+    final KeyCombination keyComb3 = new KeyCodeCombination(KeyCode.P, KeyCombination.SHIFT_DOWN,KeyCodeCombination.CONTROL_DOWN);
+    final KeyCombination keyComb4 = new KeyCodeCombination(KeyCode.F, KeyCombination.SHIFT_DOWN,KeyCodeCombination.CONTROL_DOWN);
+    
 
     //ID
     int id_global = 100;
@@ -336,6 +339,8 @@ public class FrmCompra {
         completarFormaPagamento(matAux.get(0));
     }
 
+    boolean f = false;
+
     void completarFormaPagamento(List<ItemCompraEntity> li) {
 
         this.clmItemCompra.setCellValueFactory(new PropertyValueFactory<>("NomeProduto"));
@@ -357,7 +362,7 @@ public class FrmCompra {
         this.lblNumeroDocumento.setText(Long.toString((long) this.getId()));
         this.lblNomeFornecedor.setText(li.get(0).getNomeFornecedor());
         this.lblBanco.setText("Banco do Brasil"); //li.get(0).getProdutoVO().getFornecedorVO().getNomeBanco()
-        this.lblBancoAgencia.setText("44423-5"); //li.get(0).getProdutoVO().getFornecedorVO().getNumeroAgencia()
+        this.lblBancoAgencia.setText("12345-6"); //li.get(0).getProdutoVO().getFornecedorVO().getNumeroAgencia()
         this.lblCodigoBarras.setText(UUID.randomUUID().toString());
 
         Calendar cal = Calendar.getInstance();
@@ -387,6 +392,7 @@ public class FrmCompra {
             caixa.showAndWait().ifPresent(p -> {
                 if (p == sim) {
                     finalizarCompra();
+                    caixa.close();
                     getPai(this.bdnPrincipal);
                 }
                 if (p == nao) {
@@ -409,6 +415,35 @@ public class FrmCompra {
         for (CompraEntity c : listaCompras) {
             compraFinalizada.save(c);
 
+        }
+
+        GerarEmailCompra Emails = new GerarEmailCompra(listaCompras);
+        int x = 0;
+        for (CompraEntity c : listaCompras) {
+            Alert caixa = new Alert(Alert.AlertType.INFORMATION);
+            TextArea txt = new TextArea(Emails.getSaidaCompras(x));
+            txt.setPrefSize(600, 600);
+            txt.setEditable(false);
+            txt.setFocusTraversable(false);
+            ButtonType fechar = new ButtonType("Fechar");
+            ButtonType proximo = new ButtonType("Próximo");
+            caixa.setTitle("AlphaComesticos");
+            caixa.getButtonTypes().setAll(fechar, proximo);
+            caixa.setGraphic(txt);
+
+            caixa.showAndWait().ifPresent(p -> {
+                if (p == proximo) {
+                    caixa.close();
+                }
+                if (p == fechar) {
+                    caixa.close();
+                    f = true;
+                }
+            });
+            if (f == true) {
+                break;
+            }
+            x++;
         }
     }
 
@@ -626,6 +661,7 @@ public class FrmCompra {
     private Categoria categoria = new Categoria(DAOFactory.getDAOFactory().getCategoriaDAO());
     private Fornecedor fornecedor = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
     private List<TabelaTelaCompraCarrinho> listaCarrinho = FXCollections.observableArrayList();
+    int linhadobotao = 0;
 
     @FXML
     private void initialize() {
@@ -651,15 +687,26 @@ public class FrmCompra {
                 }
                 if (keyComb2.match(event)) {
                     boolean passou = false;
-                    if(paneProduto1.isVisible()){
+                    if (paneProduto1.isVisible()) {
                         btnLayout.fire();
                         passou = true;
                     }
-                    if(paneProduto2.isVisible() && !passou)btnLayout2.fire();
+                    if (paneProduto2.isVisible() && !passou) {
+                        btnLayout2.fire();
+                    }
                 }
                 if (keyComb3.match(event)) {
-                    if(paneProduto1.isVisible())txtProduto.requestFocus();
-                    if(paneProduto2.isVisible())txtProduto2.requestFocus();
+                    if (paneProduto1.isVisible()) {
+                        txtProduto.requestFocus();
+                    }
+                    if (paneProduto2.isVisible()) {
+                        txtProduto2.requestFocus();
+                    }
+                }
+                if (keyComb4.match(event)) {
+                    if (paneCarrinho.isVisible()) {
+                        if(listaCarrinho.size() > 0)btnFormadePagamento.fire();
+                    }
                 }
             }
         }
@@ -708,11 +755,12 @@ public class FrmCompra {
         this.clmCarrinhoQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
         this.clmCarrinhoValorUni.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
         this.clmCarrinhoValorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
-
+        linhadobotao = -3;
         this.clmCarrinhoQuantidade.setCellFactory((TableColumn<TabelaTelaCompraCarrinho, Integer> column) -> {
             return new TableCell<TabelaTelaCompraCarrinho, Integer>() {
                 @Override
                 protected void updateItem(Integer item, boolean empty) {
+
                     super.updateItem(item, empty);
                     if (!empty) {
                         final HBox hbox = new HBox(5);
@@ -724,28 +772,36 @@ public class FrmCompra {
                         btnMais.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
+                                //TabelaTelaCompraCarrinho tbl2 = (TabelaTelaCompraCarrinho) ((ParameterizedType)c.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+                                //tblProdutoCarrinho.getSelectionModel().setSelectedItem(tbl2);
+                                TabelaTelaCompraCarrinho row = tblProdutoCarrinho.getItems().get(getIndex());
+                                tblProdutoCarrinho.getSelectionModel().select(row);
                                 tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() + 1);
                                 tblProdutoCarrinho.refresh();
                             }
                         });
-                        Button btnMenos = new Button("-", null);
+                        final Button btnMenos = new Button("-");
                         btnMenos.setMinSize(25, 25);
                         final TableCell<TabelaTelaCompraCarrinho, Integer> d = this;
                         btnMenos.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
                                 if (getItem() > 1) {
+                                    TabelaTelaCompraCarrinho row = tblProdutoCarrinho.getItems().get(getIndex());
+                                    tblProdutoCarrinho.getSelectionModel().select(row);
                                     tblProdutoCarrinho.getSelectionModel().getSelectedItem().setQuantidade(tblProdutoCarrinho.getSelectionModel().getSelectedItem().getQuantidade() - 1);
                                     tblProdutoCarrinho.refresh();
                                 }
                             }
                         });
-                        Button btnRemover = new Button("Remover", null);
+                        final Button btnRemover = new Button("Remover");
                         btnRemover.setFont(new Font(8));
                         final TableCell<TabelaTelaCompraCarrinho, Integer> e = this;
                         btnRemover.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
+                                TabelaTelaCompraCarrinho row = tblProdutoCarrinho.getItems().get(getIndex());
+                                tblProdutoCarrinho.getSelectionModel().select(row);
                                 String nomeProduto = tblProdutoCarrinho.getSelectionModel().getSelectedItem().getNome();
                                 listaCarrinho.remove(tblProdutoCarrinho.getSelectionModel().getSelectedItem());
                                 atualizarTabela();
@@ -760,6 +816,7 @@ public class FrmCompra {
                         hbox.setAlignment(Pos.CENTER);
                         vbox.setAlignment(Pos.CENTER);
                         setGraphic(vbox);
+                        linhadobotao++;
                     } else {
                         setGraphic(null);
                     }

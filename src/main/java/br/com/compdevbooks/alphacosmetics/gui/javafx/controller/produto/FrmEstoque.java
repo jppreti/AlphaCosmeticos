@@ -15,13 +15,16 @@ import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.CategoriaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaEstoque;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmCompra;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,7 +39,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import org.hibernate.persister.collection.CollectionPropertyNames;
 
 public class FrmEstoque {
     
@@ -176,24 +178,32 @@ public class FrmEstoque {
     
     @FXML
     void btnCompra_onAction(ActionEvent event) {
-
+        BorderPane frmCompra=null;
+        try{
+            frmCompra= FXMLLoader.load(FrmCompra.class.getClassLoader().getResource("gui/operacoes/compra_final.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            this.getPai(bdpPrincipal).setCenter(frmCompra);
+        }catch (Exception ioe){
+            System.out.println(ioe.getMessage());
+            ioe.printStackTrace();
+        }
     }
 
     @FXML
     void btnCompra_onKeyPressed(KeyEvent event) {
-
+        this.btnCompra.fire();
     }
 
     @FXML
     void btnSair_onAction(ActionEvent event) {
         getPai(this.bdpPrincipal);
     }
-    private void getPai(Node node){
+    private BorderPane getPai(Node node){
         Node aux = node.getParent();
         while(!(aux instanceof BorderPane)){
             aux=node.getParent();
         }
         ((BorderPane)aux).setCenter(null);
+        return (BorderPane) aux;
     }
     
     @FXML
