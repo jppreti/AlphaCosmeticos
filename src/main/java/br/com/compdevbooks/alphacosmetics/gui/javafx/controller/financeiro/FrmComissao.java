@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -319,6 +321,28 @@ public class FrmComissao {
             cont = 0;
 
         }
+         Comparator<TabelaTelaComissao> cmp = new Comparator<TabelaTelaComissao>() {
+            @Override
+            public int compare(TabelaTelaComissao o1, TabelaTelaComissao o2) {
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate primeira = LocalDate.parse(o1.getDataPrevista(), dtf);
+                LocalDate segunda = LocalDate.parse(o2.getDataPrevista(), dtf);
+
+                if (primeira.isBefore(segunda)) {
+                    return -1;
+                }
+                if (primeira.isAfter(segunda)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+
+            }
+
+        };
+
+        Collections.sort(listaFinal, cmp);
 
         this.tblComissao.setItems(listaFinal);
 
