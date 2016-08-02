@@ -19,11 +19,23 @@ public class ArvoreCategoriaInicial {
         TreeItem perfumaria = new TreeItem(categorias.getByNome("Perfumaria").getNome());
         perfumaria.getChildren().addAll(getPerfumaria());
         
-        TreeItem maquiagem = new TreeItem(categorias.getByNome("Maquiagem").getNome());
+        TreeItem maquiagem = new TreeItem(categorias.getByNome("Maquiagem e Esmalte").getNome());
         maquiagem.getChildren().addAll(getMaquiagem());
+        
+        TreeItem cabelos = new TreeItem(categorias.getByNome("Cabelos").getNome());
+        cabelos.getChildren().addAll(getCabelos());
+        
+        TreeItem corpo = new TreeItem(categorias.getByNome("Corpo e Banho").getNome());
+        corpo.getChildren().addAll(getCorpoBanho());
+        
+        TreeItem rosto = new TreeItem(categorias.getByNome("Rosto").getNome());
+        rosto.getChildren().addAll(getRosto());
         
         categoriaLista.add(maquiagem);
         categoriaLista.add(perfumaria);
+        categoriaLista.add(cabelos);
+        categoriaLista.add(corpo);
+        categoriaLista.add(rosto);
         
         return categoriaLista;
     }
@@ -33,60 +45,53 @@ public class ArvoreCategoriaInicial {
         
         ArrayList<TreeItem> perfumariaLista = new ArrayList<>();
         
-        TreeItem masculino = new TreeItem(categorias.getByNome("Masculino").getNome());
-        masculino.getChildren().addAll(getMasculino());
+        TreeItem homens = new TreeItem(categorias.getByNome("Homens").getNome());
+        
         
         TreeItem intanfil = new TreeItem(categorias.getByNome("Infantil").getNome());
         intanfil.getChildren().addAll(getInfantil());
         
-        TreeItem feminina = new TreeItem(categorias.getByNome("Feminina").getNome());
-        feminina.getChildren().addAll(getFeminina());
+        TreeItem mulheres = new TreeItem(categorias.getByNome("Mulheres").getNome());
+        mulheres.getChildren().addAll(getMulheres());
         
-        perfumariaLista.add(masculino);
+        perfumariaLista.add(homens);
         perfumariaLista.add(intanfil);
-        perfumariaLista.add(feminina);
+        perfumariaLista.add(mulheres);
         
         return perfumariaLista;
     }
     
-    //Nivel 2
-    private ArrayList<TreeItem> getMasculino() {
-        
-        ArrayList<TreeItem> masculinoLista = new ArrayList<>();
-        
-        TreeItem fragrancias = new TreeItem(categorias.getByNome("Fragrancias").getNome());
-        TreeItem barbear = new TreeItem (categorias.getByNome("Barbear").getNome());
-        
-        masculinoLista.add(fragrancias);
-        masculinoLista.add(barbear);
-        
-        return masculinoLista;
-    }
+   
+    
     
     //Nivel 2
     private ArrayList<TreeItem> getInfantil() {
     
-        ArrayList<TreeItem> intantilLista = new ArrayList<>();
+        ArrayList<TreeItem> infantilLista = new ArrayList<>();
         
-        TreeItem colonia = new TreeItem(categorias.getByNome("Colonia").getNome());
+        TreeItem bebe = new TreeItem(categorias.getByNome("Bebês").getNome());
+        TreeItem menino = new TreeItem(categorias.getByNome("Meninos").getNome());
+        TreeItem menina = new TreeItem(categorias.getByNome("Meninas").getNome());
         
-        intantilLista.add(colonia);
+        infantilLista.add(bebe);
+        infantilLista.add(menino);
+        infantilLista.add(menina);
         
-        return intantilLista;
+        return infantilLista;
     }
     
     //Nivel 2
-    private ArrayList<TreeItem> getFeminina() {
+    private ArrayList<TreeItem> getMulheres() {
         
-        ArrayList<TreeItem> femininaLista = new ArrayList<>();
+        ArrayList<TreeItem> mulheresLista = new ArrayList<>();
         
-        TreeItem fragrancias = new TreeItem(categorias.getByNome("Fragrancias").getNome());
-        TreeItem locaoPerfumada = new TreeItem(categorias.getByNome("Locao Perfumada").getNome());
+        TreeItem fragrancias = new TreeItem(categorias.getByNome("Perfume").getNome());
+        TreeItem locaoPerfumada = new TreeItem(categorias.getByNome("Loção Perfumada").getNome());
         
-        femininaLista.add(fragrancias);
-        femininaLista.add(locaoPerfumada);
+        mulheresLista.add(fragrancias);
+        mulheresLista.add(locaoPerfumada);
         
-        return femininaLista;
+        return mulheresLista;
     }
     
     //Nivel 1
@@ -100,20 +105,15 @@ public class ArvoreCategoriaInicial {
         TreeItem labios = new TreeItem(categorias.getByNome("Labios").getNome());
         labios.getChildren().addAll(getLabios());
         
-        TreeItem rosto = new TreeItem(categorias.getByNome("Rosto").getNome());
-        rosto.getChildren().addAll(getRosto());
+        TreeItem esmaltes = new TreeItem(categorias.getByNome("Esmaltes").getNome());
         
-        TreeItem unhas = new TreeItem(categorias.getByNome("Unhas").getNome());
-        unhas.getChildren().addAll(getUnhas());
         
-        TreeItem acessorios = new TreeItem(categorias.getByNome("Acessorios").getNome());
-        acessorios.getChildren().addAll(getAcessorios());
-        
+                
         maquiagemLista.add(olhos);
         maquiagemLista.add(labios);
-        maquiagemLista.add(rosto);
-        maquiagemLista.add(unhas);
-        maquiagemLista.add(acessorios);
+        maquiagemLista.add(esmaltes);
+        
+        
         
         return maquiagemLista;
     }
@@ -126,13 +126,21 @@ public class ArvoreCategoriaInicial {
         TreeItem sombra = new TreeItem(categorias.getByNome("Sombra").getNome());
         TreeItem delineador = new TreeItem(categorias.getByNome("Delineador").getNome());
         TreeItem mascara = new TreeItem(categorias.getByNome("Mascara").getNome());
-        TreeItem outros = new TreeItem(categorias.getByNome("Outros").getNome());
+        TreeItem lapisOlhos = new TreeItem(categorias.getByNome("Lapis para olhos").getNome());
+        TreeItem lapisSombra = new TreeItem(categorias.getByNome("Lapis para sombrancelhas").getNome());
+        TreeItem demaquilante = new TreeItem(categorias.getByNome("Demaquilantes").getNome());
+        TreeItem poCompacto = new TreeItem(categorias.getByNome("Pó Compacto").getNome());
+        
 
         
         olhosLista.add(sombra);
         olhosLista.add(delineador);
         olhosLista.add(mascara);
-        olhosLista.add(outros);
+        olhosLista.add(lapisOlhos);
+        olhosLista.add(lapisSombra);
+        olhosLista.add(demaquilante);
+        olhosLista.add(poCompacto);
+        
         
         return olhosLista;
     }
@@ -161,44 +169,70 @@ public class ArvoreCategoriaInicial {
     
         ArrayList<TreeItem> rostoLista = new ArrayList<>();
         
-        TreeItem base = new TreeItem(categorias.getByNome("Base").getNome());
-        TreeItem blush = new TreeItem(categorias.getByNome("Blush").getNome());
-        TreeItem corretivo = new TreeItem(categorias.getByNome("Corretivo").getNome());
-        TreeItem outros = new TreeItem(categorias.getByNome("Outros").getNome());
-        TreeItem poCompacto = new TreeItem(categorias.getByNome("Po Compacto").getNome());
+        TreeItem base = new TreeItem(categorias.getByNome("Esfoliante e Máscara").getNome());
+        TreeItem blush = new TreeItem(categorias.getByNome("Hidratante e Creme").getNome());
+        TreeItem corretivo = new TreeItem(categorias.getByNome("Limpeza de pele").getNome());
+        
+        TreeItem preBarba = new TreeItem(categorias.getByNome("Pré-barba").getNome());
+        TreeItem posBarba = new TreeItem(categorias.getByNome("Pós-barba").getNome());
 
         
         rostoLista.add(base);
         rostoLista.add(blush);
         rostoLista.add(corretivo);
-        rostoLista.add(outros);
-        rostoLista.add(poCompacto);
+        rostoLista.add(preBarba);
+        rostoLista.add(posBarba);
         return rostoLista;
     }
     
     //Nivel 2
-    private ArrayList<TreeItem> getUnhas() {
+    private ArrayList<TreeItem> getCabelos() {
         
-        ArrayList<TreeItem> unhasLista = new ArrayList<>();
+        ArrayList<TreeItem> cabeloLista = new ArrayList<>();
         
-        TreeItem esmalte = new TreeItem(categorias.getByNome("Esmalte").getNome());
-        TreeItem tratamento = new TreeItem(categorias.getByNome("Tratamento").getNome());
+        TreeItem gel = new TreeItem(categorias.getByNome("Gel Fixador").getNome());
+        TreeItem shampooM = new TreeItem(categorias.getByNome("Shampoo Masculino").getNome());
+        TreeItem shampooF = new TreeItem(categorias.getByNome("Shampoo Feminino").getNome());
+        TreeItem condicionador = new TreeItem(categorias.getByNome("Condicionador").getNome());
+        TreeItem creme = new TreeItem(categorias.getByNome("Creme sem enxague").getNome());
+        TreeItem finalizador = new TreeItem(categorias.getByNome("Finalizador").getNome());
+        TreeItem tratamento = new TreeItem(categorias.getByNome("Tratamento Capilar").getNome());
         
-        unhasLista.add(esmalte);
-        unhasLista.add(tratamento);
+        cabeloLista.add(gel);
+        cabeloLista.add(tratamento);
+        cabeloLista.add(condicionador);
+        cabeloLista.add(creme);
+        cabeloLista.add(finalizador);
+        cabeloLista.add(shampooM);
+        cabeloLista.add(shampooF);
         
-        return unhasLista;    
+        return cabeloLista;    
     }
     
-    //Nivel 1
-    private ArrayList<TreeItem> getAcessorios() {
+    private ArrayList<TreeItem> getCorpoBanho() {
         
-        ArrayList<TreeItem> acessoriosLista = new ArrayList<>();
+        ArrayList<TreeItem> corpoBanhoLista = new ArrayList<>();
         
-        TreeItem acessorios = new TreeItem(); //Unico
+        TreeItem desodoranteF = new TreeItem(categorias.getByNome("Desodorantes Feminino").getNome());
+        TreeItem sabonteF = new TreeItem(categorias.getByNome("Sabonetes Feminino").getNome());
+        TreeItem sabonteM = new TreeItem(categorias.getByNome("Desodorantes Masculino").getNome());
+        TreeItem desodoranteM = new TreeItem(categorias.getByNome("Sabonetes Masculino").getNome());
+        TreeItem linhaSolar = new TreeItem(categorias.getByNome("Linha Solar").getNome());
+        TreeItem oleos = new TreeItem(categorias.getByNome("Óleos").getNome());
+        TreeItem hidratante = new TreeItem(categorias.getByNome("Hidratantes").getNome());
         
-        acessoriosLista.add(acessorios);
+        corpoBanhoLista.add(desodoranteF);
+        corpoBanhoLista.add(sabonteF);
+        corpoBanhoLista.add(sabonteM);
+        corpoBanhoLista.add(desodoranteM);
+        corpoBanhoLista.add(linhaSolar);
+        corpoBanhoLista.add(oleos);
+        corpoBanhoLista.add(hidratante);
         
-        return acessoriosLista;
+        return corpoBanhoLista;
     }
+    
+    
+    
+    
 }

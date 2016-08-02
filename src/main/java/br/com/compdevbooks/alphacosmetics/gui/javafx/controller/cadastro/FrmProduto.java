@@ -290,11 +290,55 @@ public class FrmProduto implements Initializable{
                     pai = item.getParent().getValue().toString();
                     avo = null;
                     System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                    ProdutoEntity produ = new ProdutoEntity();
+                    FornecedorEntity fornecedor = new FornecedorEntity();
+                    produ.setFornecedor(fornecedor);
+                    TabelaTelaProdutos aux;
+                    produ.setNome("");
+                
+                
+                    btnNovoProduto.setDisable(false);        
+                
+                    produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                    produ.getFornecedor().setFantasia("");
+                
+                    List<ProdutoEntity> listaP = null;
+                    listaP = produto.buscarProdutos(produ);
+                
+                    List<TabelaTelaProdutos> listaProdutos = new ArrayList<>();
+                
+                    for(ProdutoEntity vo : listaP){
+                        aux = new TabelaTelaProdutos(vo);
+                        listaProdutos.add(aux);
+                    }
+                    this.completarProdutos(listaProdutos);
                 }else {
                     categoriaSelecionada = (String) item.getValue();
                     pai = item.getParent().getValue().toString();
                     avo = null;
                     System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                    ProdutoEntity produ = new ProdutoEntity();
+                    FornecedorEntity fornecedor = new FornecedorEntity();
+                    produ.setFornecedor(fornecedor);
+                    TabelaTelaProdutos aux;
+                    produ.setNome("");
+                
+                
+                    btnNovoProduto.setDisable(false);        
+                
+                    produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                    produ.getFornecedor().setFantasia("");
+                
+                    List<ProdutoEntity> listaP = null;
+                    listaP = produto.buscarProdutos(produ);
+                
+                    List<TabelaTelaProdutos> listaProdutos = new ArrayList<>();
+                
+                    for(ProdutoEntity vo : listaP){
+                        aux = new TabelaTelaProdutos(vo);
+                        listaProdutos.add(aux);
+                    }
+                    this.completarProdutos(listaProdutos);
                 }
             }
             
@@ -326,6 +370,8 @@ public class FrmProduto implements Initializable{
     @FXML
     void btnGerenciar_onAction(ActionEvent evento){
         tbpCentroPrincipal.getSelectionModel().select(tabArvore);
+        tabArvore.setDisable(false);
+        tabProduto.setDisable(true);
         modificarArvore();
     }
     
@@ -494,6 +540,8 @@ public class FrmProduto implements Initializable{
     void btnVoltarArvore_onAction(ActionEvent evento) {
         tbpCentroPrincipal.getSelectionModel().select(tabProduto);
         this.treeCategoria.setEditable(false);
+        tabProduto.setDisable(false);
+        tabArvore.setDisable(true);
         this.treeCategoria.getSelectionModel().selectFirst();
     }    
 //Fim Evento
