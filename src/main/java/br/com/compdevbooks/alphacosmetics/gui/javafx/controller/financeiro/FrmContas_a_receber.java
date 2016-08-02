@@ -354,7 +354,6 @@ public class FrmContas_a_receber {
         vencidos = 0;
         vencidos30 = 0;
         for (VendaEntity vo : lista) {
-
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
                 if (parcPg.getDataPagamento() == null) {
 
