@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="bdnPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="743.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmCompra">
+<BorderPane fx:id="bdnPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.compdevbooks.alphacosmetics.gui.javafx.controller.operacoes.FrmCompra">
    <center>
       <StackPane prefHeight="629.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +20,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/layout.png" />
+                                    <Image url="@../../imagem/layout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -142,7 +142,7 @@
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/layout.png" />
+                                    <Image url="@../../imagem/layout.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -476,7 +476,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../Users/André/Desktop/Compra%20V2/cart.png" />
+                        <Image url="@../../imagem/cart.png" />
                      </image>
                   </ImageView>
                </graphic>

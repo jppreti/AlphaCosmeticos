@@ -323,22 +323,24 @@ public class FrmContas_a_pagar {
         vencidos30 = 0;
         for (CompraEntity vo : lista) {
             for (ParcelaPagamentoEntity parcPg : vo.getPagamentoVO().getListaParcelas()) {
-                if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
-                    aberto += (float) parcPg.getValorOriginal();
-                }
-                if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
+                if (parcPg.getDataPagamento() == null) {
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 0) {
+                        aberto += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(referencia) == 1) {
+                        aberto += (float) parcPg.getValorOriginal();
+                    }
+                    if (parcPg.getDataVencimento().compareTo(referencia) == -1) {
 
-                    if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
-                        vencidos30 += (float) parcPg.getValorOriginal();
-                    }
-                    if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
-                        vencidos += (float) parcPg.getValorOriginal();
+                        if (parcPg.getDataVencimento().compareTo(refAux) == -1) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 0) {
+                            vencidos30 += (float) parcPg.getValorOriginal();
+                        }
+                        if (parcPg.getDataVencimento().compareTo(refAux) == 1) {
+                            vencidos += (float) parcPg.getValorOriginal();
+                        }
                     }
                 }
             }
@@ -1295,7 +1297,8 @@ public class FrmContas_a_pagar {
     }
 
     @FXML
-    void btnBaixarDivida_onAction(ActionEvent event) {
+    void btnBaixarDivida_onAction(ActionEvent event
+    ) {
 
         TabelaTelaContasAPagar teste = null;
         teste = tblContas_a_pagar.getSelectionModel().getSelectedItem();
@@ -1354,26 +1357,30 @@ public class FrmContas_a_pagar {
     }
 
     @FXML
-    void cmbOpcaoPesquisa_onAction(ActionEvent event) {
+    void cmbOpcaoPesquisa_onAction(ActionEvent event
+    ) {
         btnProcurar_onAction(event);
     }
 
     @FXML
-    void btnSair_onAction(ActionEvent event) {
+    void btnSair_onAction(ActionEvent event
+    ) {
 
         getPai(frmContasPagar);
 
     }
 
     @FXML
-    void btnSair_onKeyPressed(KeyEvent event) {
+    void btnSair_onKeyPressed(KeyEvent event
+    ) {
         if (event.getCode() == KeyCode.ENTER) {
             getPai(frmContasPagar);
         }
     }
 
     @FXML
-    void dtpInicial_onKeyPressed(KeyEvent event) {
+    void dtpInicial_onKeyPressed(KeyEvent event
+    ) {
         btnProcurar_onKeyPressed(event);
     }
 
