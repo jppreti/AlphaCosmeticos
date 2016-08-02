@@ -123,6 +123,8 @@ public class FrmVendedor {
 		if (ent != null) {
                     vendedor.delete(tableViewVendedor.getSelectionModel().getSelectedItem());
                     txtNome.setText(ent.getNome());
+                    txtCpf.setText(ent.getCPF());
+                    txtRg.setText(ent.getRG());
 		}
     }
 
