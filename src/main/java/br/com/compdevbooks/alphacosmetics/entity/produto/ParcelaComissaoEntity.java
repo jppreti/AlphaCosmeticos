@@ -25,9 +25,11 @@ public class ParcelaComissaoEntity implements IEntity {
     @Column(nullable = false)
     private Date dataVencimento;
 
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = true)
     private Date dataPagamento;
+    
     
     @Column(nullable = false)
     private float valorParcela;

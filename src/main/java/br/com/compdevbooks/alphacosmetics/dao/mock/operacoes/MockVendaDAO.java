@@ -57,8 +57,7 @@ public class MockVendaDAO implements IVendaDAO {
             listaItem.add(ItemVenda.getById((long) 1));
             listaItem.add(ItemVenda.getById((long) 2));
             VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.APROVADA, listaItem, cliente.nomeEspecifico(4l));
-          
-              
+                        
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             PagamentoEntity pagamento = new PagamentoEntity();
             parcela.setDataVencimento(data, 1);
@@ -109,6 +108,7 @@ public class MockVendaDAO implements IVendaDAO {
             pagamento.setId((long) 1);
 
             temp.setPagamentoVO(pagamento);
+            temp.setDataAprovacao(data);
            
             vendas.add(temp);
             
@@ -119,6 +119,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             temp = new VendaEntity((long) 2, data, SituacaoVendaEnum.PEDIDA, listaItem, cliente.nomeEspecifico(2l));
             //temp.setClienteVO(clienteDao.getById((long) 2));
+             temp.setDataAprovacao(data);
 
 
 

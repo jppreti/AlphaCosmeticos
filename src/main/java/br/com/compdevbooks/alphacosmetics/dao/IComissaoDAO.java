@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface IComissaoDAO extends IDAO<ComissaoEntity>{
     public List<ComissaoEntity> BuscarTodasComissoes();
+     public void carregar();
     
 }

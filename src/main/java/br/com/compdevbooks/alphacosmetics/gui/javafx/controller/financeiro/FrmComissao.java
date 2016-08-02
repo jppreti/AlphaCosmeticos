@@ -150,6 +150,7 @@ public class FrmComissao {
     private String path;
     private String pathToReportPackage;
     List<ComissaoEntity> listaComissoes;
+    Date dataPagamento = new Date();
 
     @FXML
     void initialize() {
@@ -447,12 +448,11 @@ public class FrmComissao {
                     for (ParcelaComissaoEntity parc : com.getListaParcelaComissao()) {
                         System.out.println(telaComissao.getId());
                         if (parc.getId().equals(telaComissao.getId())) {
-                            aux = parc;
+                            parc.setDataPagamento(dataPagamento);
+                            System.out.println("Data da comissao paga " + dataPagamento.toString());
                         }
 
                     }
-
-                    com.getListaParcelaComissao().remove(aux);
 
                 }
                 busca();

@@ -16,9 +16,15 @@ public class Comissao extends ABusiness<ComissaoEntity,Exception, IComissaoDAO>{
     
     public Comissao(IDAO<ComissaoEntity> dao) {
         super(dao);
+        
     }
     
     public List<ComissaoEntity> buscarTodasComissoes(){
+        carregarComissao();
         return ((IComissaoDAO)dao).BuscarTodasComissoes();
+    }
+    
+    public void carregarComissao(){
+        ((IComissaoDAO)dao).carregar();
     }
 }
