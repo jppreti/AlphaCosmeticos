@@ -1,50 +1,51 @@
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 
+import br.com.compdevbooks.alphacosmetics.business.Vendedor;
+import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.VendedorEntity;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 public class FrmVendedor {
-
-    @FXML
-    private MenuItem mniEditar;
-
-    @FXML
-    private Button btnNovo1;
 
     @FXML
     private TextField txtPesqNome;
 
     @FXML
-    private Label lblPesqNome;
+    private HBox hbxEditButtons1;
 
     @FXML
     private HBox hbxEditButtons;
 
     @FXML
-    private Tab tabClientes;
+    private Tab tabCliente;
+
+    @FXML
+    private TextField txtNome;
 
     @FXML
     private VBox vbxBottom;
 
     @FXML
-    private Label lblStatus;
+    private TextField txtCpf;
 
     @FXML
     private StackPane stkDialog;
-
-    @FXML
-    private TableView<?> tblFornecedores;
 
     @FXML
     private Button btnProcurar;
@@ -53,58 +54,86 @@ public class FrmVendedor {
     private TabPane tbpFornecedores;
 
     @FXML
-    private Button btnAlterar1;
+    private Button buttonExcluir;
 
     @FXML
-    private MenuItem mniExcluir;
+    private Tab tabEditar;
 
     @FXML
-    private Button btnExcluir1;
+    private TableView<VendedorEntity> tableViewVendedor;
 
     @FXML
-    private Tab tabClientes1;
+    private TextField txtCidade;
 
     @FXML
-    private ContextMenu ctxMenu;
+    private Button buttonEditar;
 
     @FXML
-    void tblClientes_mouseClicked(ActionEvent event) {
+    private TextField txtRegiao;
 
+    @FXML
+    private TextField txtRg;
+    
+    Vendedor vendedor = new Vendedor(DAOFactory.getDAOFactory().getVendedorDAO());
+
+    //Inicializa os elementos da TableViewCliente
+    @FXML
+    void initialize() {
+		TableColumn<VendedorEntity, String> tbcNome = new TableColumn<VendedorEntity, String>("Nome");
+		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<VendedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<VendedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
+			}
+		});
+                tableViewVendedor.getColumns().add(tbcNome);
+                atualiza_Cliente();
+    } 
+    
+    void atualiza_Cliente(){
+        final ObservableList<VendedorEntity> produtos = FXCollections.observableArrayList(vendedor.getByNome(txtPesqNome.getText()));
+        tableViewVendedor.setItems(produtos);
+    }
+    
+    //Método para Alterar
+    @FXML
+    void Editar(ActionEvent event) {
+        VendedorEntity ent = tableViewVendedor.getSelectionModel().getSelectedItem();
+        //Deleta a informação anterior e adiciona a nova informação no TextField
+		if (ent != null) {
+                    vendedor.delete(tableViewVendedor.getSelectionModel().getSelectedItem());
+                    txtNome.setText(ent.getNome());
+		}
     }
 
+    //Método para Excluir
     @FXML
-    void mniEditar_onAction(ActionEvent event) {
-
+    void Excluir(ActionEvent event) {
+        if (tableViewVendedor.getSelectionModel().getSelectedIndex() >= 0) {
+            vendedor.delete(tableViewVendedor.getSelectionModel().getSelectedItem());
+            atualiza_Cliente();
+        }
     }
 
+    //Método para Cadastrar
     @FXML
-    void mniExcluir_onAction(ActionEvent event) {
-
+    void Salvar_Dados(ActionEvent event) {
+        VendedorEntity ent;
+        ent = new VendedorEntity();
+	ent.setNome(txtNome.getText());
+	vendedor.save(ent);
+        atualiza_Cliente();
     }
 
+    //Método para Limpar os Campos
     @FXML
-    void btnNovo_onAction(ActionEvent event) {
-
-    }
-
+    void Limpar_Dados(){
+        txtNome.setText("");
+    }	
+    
+    //Método para Pesquisar Por Nome
     @FXML
-    void btnAlterar_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnExcluir_onAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void txtPesqNome_onKeyPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnProcurar_onAction(ActionEvent event) {
-
+    void Pesquisa_Nome(ActionEvent event) {
+        atualiza_Cliente();
     }
 
 }
