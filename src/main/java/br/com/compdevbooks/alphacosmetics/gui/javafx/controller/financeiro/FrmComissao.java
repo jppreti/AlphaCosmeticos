@@ -450,6 +450,7 @@ public class FrmComissao {
                         if (parc.getId().equals(telaComissao.getId())) {
                             parc.setDataPagamento(dataPagamento);
                             System.out.println("Data da comissao paga " + dataPagamento.toString());
+                      
                         }
 
                     }
