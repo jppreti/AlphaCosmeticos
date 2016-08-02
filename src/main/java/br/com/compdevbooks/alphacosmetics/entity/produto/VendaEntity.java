@@ -20,9 +20,11 @@ import javax.persistence.TemporalType;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.VendedorEntity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,14 +60,17 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
     //alterar depois;
     @ManyToOne(fetch = FetchType.EAGER)
     private ClienteEntity clienteVO;
-
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private VendedorEntity vendedorVO;
+    
     @OneToOne(fetch = FetchType.EAGER)
-    private PagamentoEntity pagamentoVO;
+    private PagamentoVendaEntity pagamentoVO;
 
     public VendaEntity() {
         this.listaItens = new HashSet();
     }
-
+    
     public VendaEntity(Long id, Date lancamento, SituacaoVendaEnum sit, Set<ItemVendaEntity> lista, ClienteEntity cliente) {
         super();
         this.Id = id;
@@ -74,9 +79,16 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
         this.listaItens = lista;
         this.clienteVO = cliente;
     }
-
-    public VendaEntity(long l, Date date, FornecedorEntity fornecedor, PagamentoEntity paga, SituacaoVendaEnum situacaoVendaEnum, HashSet<ItemVendaEntity> hashSet) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public VendaEntity(Long id, Date lancamento, PagamentoVendaEntity pagamento, SituacaoVendaEnum situacao, Set<ItemVendaEntity> lista, ClienteEntity cliente, VendedorEntity vendedor) {
+        super();
+        this.Id = id;
+        this.dataLancamento = lancamento;
+        this.pagamentoVO = pagamento;
+        this.situacao = situacao;
+        this.listaItens = lista;
+        this.clienteVO = cliente;
+        this.vendedorVO = vendedor;
     }
 
     public Long getId() {
@@ -157,14 +169,6 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
 
     public void setClienteVO(ClienteEntity clienteVO) {
         this.clienteVO = clienteVO;
-    }
-
-    public PagamentoEntity getPagamentoVO() {
-        return pagamentoVO;
-    }
-
-    public void setPagamentoVO(PagamentoEntity pagamentoVO) {
-        this.pagamentoVO = pagamentoVO;
     }
 
     public List<Date> getDataVencimento() {
@@ -248,4 +252,19 @@ public class VendaEntity implements IEntity, Comparable<VendaEntity> {
         return retorno;
     }
 
+    public VendedorEntity getVendedorVO() {
+        return vendedorVO;
+    }
+
+    public void setVendedorVO(VendedorEntity vendedorVO) {
+        this.vendedorVO = vendedorVO;
+    }
+
+    public PagamentoVendaEntity getPagamentoVO() {
+        return pagamentoVO;
+    }
+
+    public void setPagamentoVO(PagamentoVendaEntity pagamentoVO) {
+        this.pagamentoVO = pagamentoVO;
+    }
 }

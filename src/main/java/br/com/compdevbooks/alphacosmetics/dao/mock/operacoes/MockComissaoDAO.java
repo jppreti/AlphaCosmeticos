@@ -49,6 +49,9 @@ public class MockComissaoDAO implements IComissaoDAO {
             System.out.println(vendaEntity.getId());
             System.out.println("---------------------------------------");
 
+    
+    
+    
             for (VendedorEntity vendedor : MockVendedorDAO.getLista()) {
 
                 System.out.println(vendedor.getNome());
@@ -64,6 +67,9 @@ public class MockComissaoDAO implements IComissaoDAO {
                 }
 
             }
+    
+    
+    
 
             if (vendedorVO == null) {
                 System.out.println("Não encontrou o cliente, classe MockCOmissaoDAO");

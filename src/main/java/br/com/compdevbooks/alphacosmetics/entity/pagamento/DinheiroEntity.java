@@ -5,15 +5,12 @@
  */
 package br.com.compdevbooks.alphacosmetics.entity.pagamento;
 
- public enum FormaPagamentoEnum {
+/**
+ *
+ * @author Mattheus Nunes
+ */
+public class DinheiroEntity extends DocumentoPagamentoEntity{
     
-     BOLETO,
-     CARTÃO_CRÉDITO,
-     CHEQUE,
-     CARTÃO_DEBITO,
-     DINHEIRO,
-     TODOS
-     
     
     
 }

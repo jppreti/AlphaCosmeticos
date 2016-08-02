@@ -17,6 +17,7 @@ import br.com.compdevbooks.alphacosmetics.entity.pessoa.ClienteEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ChequeEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.DocumentoPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.SituacaoPagamentoEnum;
 import static br.com.compdevbooks.alphacosmetics.entity.pagamento.SituacaoPagamentoEnum.ATRASADO;
@@ -59,7 +60,7 @@ public class MockVendaDAO implements IVendaDAO {
             VendaEntity temp = new VendaEntity((long) 1, data, SituacaoVendaEnum.APROVADA, listaItem, cliente.nomeEspecifico(4l));
                         
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
-            PagamentoEntity pagamento = new PagamentoEntity();
+            PagamentoVendaEntity pagamento = new PagamentoVendaEntity();
             parcela.setDataVencimento(data, 1);
             CartaoCreditoEntity cartaoCredito = new CartaoCreditoEntity();
             cartaoCredito.setId((long) 1);
@@ -125,7 +126,7 @@ public class MockVendaDAO implements IVendaDAO {
 
             boleto = new BoletoBancarioEntity();
             listaParcela = new HashSet();
-            pagamento = new PagamentoEntity();
+            pagamento = new PagamentoVendaEntity();
             parcela = new ParcelaPagamentoEntity();
              parcela.setId(4L);
             boleto.setBancoEmissorVO(ABanco.getBancos("Banco do Brasil S.A."));

@@ -19,6 +19,9 @@ public class TabelaTelaProdutos {
     public TabelaTelaProdutos(ProdutoEntity pro) {
         produto = pro;
     }
+    public ProdutoEntity pegarProduto(){
+        return produto;
+    }
 
     public ProdutoEntity getProduto() {
         return produto;
@@ -36,7 +39,7 @@ public class TabelaTelaProdutos {
         return produto.getDescricao();
     }
     
-    public float getQuantidade() {
+    public Long getQuantidade() {
         return produto.getQuantidade();
     }
     public float getValorVenda() {

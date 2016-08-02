@@ -79,13 +79,34 @@ public class FrmVendedor {
     //Inicializa os elementos da TableViewCliente
     @FXML
     void initialize() {
+                //Adciona a Coluna Nome
 		TableColumn<VendedorEntity, String> tbcNome = new TableColumn<VendedorEntity, String>("Nome");
 		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<VendedorEntity, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<VendedorEntity, String> c) {
 				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
 			}
 		});
+                
+                //Adciona a Coluna CPF
+                TableColumn<VendedorEntity, String> tbcCPF = new TableColumn<VendedorEntity, String>("CPF");
+		tbcCPF.setCellValueFactory(new Callback<CellDataFeatures<VendedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<VendedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getCPF());
+			}
+		});
+                
+                //Adciona a Coluna RG
+                TableColumn<VendedorEntity, String> tbcRg = new TableColumn<VendedorEntity, String>("RG");
+		tbcRg.setCellValueFactory(new Callback<CellDataFeatures<VendedorEntity, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<VendedorEntity, String> c) {
+				return new ReadOnlyObjectWrapper<String>(c.getValue().getRG());
+			}
+		});
+                
+
                 tableViewVendedor.getColumns().add(tbcNome);
+                tableViewVendedor.getColumns().add(tbcCPF);
+                tableViewVendedor.getColumns().add(tbcRg);
                 atualiza_Cliente();
     } 
     
@@ -120,6 +141,8 @@ public class FrmVendedor {
         VendedorEntity ent;
         ent = new VendedorEntity();
 	ent.setNome(txtNome.getText());
+        ent.setCPF(txtCpf.getText());
+        ent.setRG(txtRg.getText());
 	vendedor.save(ent);
         atualiza_Cliente();
     }
@@ -128,6 +151,8 @@ public class FrmVendedor {
     @FXML
     void Limpar_Dados(){
         txtNome.setText("");
+        txtCpf.setText("");
+        txtRg.setText("");
     }	
     
     //Método para Pesquisar Por Nome

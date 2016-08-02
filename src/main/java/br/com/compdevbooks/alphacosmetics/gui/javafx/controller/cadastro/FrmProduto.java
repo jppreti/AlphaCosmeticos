@@ -389,9 +389,11 @@ public class FrmProduto implements Initializable{
 //            novo = true;
     }
     //Botao Alterar -> Produto -> Inferior
+    ProdutoEntity proTemp;
     @FXML
     void btnAlterarProduto_onAction (ActionEvent evento) {
         if(tblCentroProduto.getSelectionModel().getSelectedIndex() >= 0){
+            proTemp= this.tblCentroProduto.getSelectionModel().getSelectedItem().pegarProduto();
             tbpCentroPrincipal.getSelectionModel().select(tabEdicao);
             tabEdicao.setDisable(false);
             tabProduto.setDisable(true);
@@ -401,11 +403,12 @@ public class FrmProduto implements Initializable{
     //Botao Excluir -> Produto -> Inferior
     @FXML
     void btnExcluirProduto_onAction (ActionEvent evento) {
-        
+        ProdutoEntity pro = proTemp;
         if (tblCentroProduto.getSelectionModel().getSelectedIndex() >= 0) {
-            TabelaTelaProdutos ent = tblCentroProduto.getSelectionModel().getSelectedItem();
-//            produto.delete(ent);
+            pro = tblCentroProduto.getSelectionModel().getSelectedItem().pegarProduto();
+            produto.delete(pro);
             System.out.println("Excluido com sucesso");
+            btnProcurar.fire();
         }
     }
     
@@ -445,7 +448,7 @@ public class FrmProduto implements Initializable{
         if (exc == null) {
             System.out.println("Cliente salvo com sucesso.");
         }
-
+        btnProcurar.fire();
         //Habilitar
         tbpCentroPrincipal.getSelectionModel().select(tabProduto);
         tabRegistro.setDisable(true);
@@ -471,9 +474,9 @@ public class FrmProduto implements Initializable{
     //Botao Salvar -> Edicao -> Inferior
     @FXML
     void btnSalvarEdicao_onAction (ActionEvent evento) {
-        ProdutoEntity pro = null;
+        ProdutoEntity pro=proTemp;
         //Dados
-        pro.setId(Long.parseLong(txtCodigoEdicao.getText()));
+        //pro.setId(Long.parseLong(txtCodigoEdicao.getText()));
         pro.setNome(txtNomeEdicao.getText());
         pro.setDescricao(txtDescricaoEdicao.getText());
         pro.setMarca(txtMarcaEdicao.getText());
@@ -497,11 +500,12 @@ public class FrmProduto implements Initializable{
         if (exc == null) {
             System.out.println("Cliente Alterado com sucesso.");
         }
-
+        btnProcurar.fire();
         //Habilitar
         tbpCentroPrincipal.getSelectionModel().select(tabProduto);
         tabEdicao.setDisable(true);
         tabProduto.setDisable(false);
+        
     }
     //Botao Voltar -> Edicao -> Inferior
     @FXML

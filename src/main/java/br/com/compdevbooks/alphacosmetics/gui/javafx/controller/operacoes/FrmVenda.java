@@ -10,7 +10,9 @@ import br.com.compdevbooks.alphacosmetics.business.operacoes.Venda;
 import br.com.compdevbooks.alphacosmetics.business.pagamento.Banco;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.BoletoBancarioEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.FormaPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoEntity;
+import br.com.compdevbooks.alphacosmetics.entity.pagamento.PagamentoVendaEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.ParcelaPagamentoEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.SituacaoPagamentoEnum;
 import br.com.compdevbooks.alphacosmetics.entity.pagamento.TipoPagamentoEnum;
@@ -26,6 +28,8 @@ import br.com.compdevbooks.alphacosmetics.entity.produto.SituacaoVendaEnum;
 import br.com.compdevbooks.alphacosmetics.entity.produto.VendaEntity;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompra;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaCompraCarrinho;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaContasReceber;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaPagamentos;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaVenda;
 import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaVendaCarrinho;
 import java.text.DecimalFormat;
@@ -61,6 +65,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import org.jboss.weld.util.collections.ArraySet;
 
 public class FrmVenda {
     
@@ -209,7 +214,7 @@ public class FrmVenda {
     private TableColumn<ItemVendaEntity, String> clmItemVenda;
 
     @FXML
-    private ComboBox<TipoPagamentoEnum> cmbFormaPagamento;
+    private ComboBox<FormaPagamentoEnum> cmbFormaPagamento;
 
     @FXML
     private TextField txtNumeroParcelas;
@@ -222,11 +227,30 @@ public class FrmVenda {
     
     @FXML 
     private TreeView<String> treeCategoria;
+    
+    @FXML 
+    private TableView tblFormaPagamento;
+    
+    @FXML 
+    private TableColumn clmFormaPagamento;
+    
+    @FXML
+    private TableColumn clmQtdPrcelas;
+    
+    @FXML
+    private TableColumn cmlValorParcela;
+    
+    @FXML
+    private TableColumn cmlValorTotal;
 
     
     private String categoriaSelecionada;
     private ArvoreCategoria arvore;
     private TreeItem root = new TreeItem();
+    
+    private String pai;
+    private String avo;
+    
     //ID
     
     int id_global = 100;
@@ -259,10 +283,38 @@ public class FrmVenda {
     }
     
     private int numeroFornecedor = 0;
+    private Set<ParcelaPagamentoEntity> listaparcelapagamento = new ArraySet();
     
+    public void completarTabela(){
+         ObservableList<TabelaTelaPagamentos> dado = FXCollections.observableArrayList();
+        for(ParcelaPagamentoEntity parc: listaparcelapagamento){
+            TabelaTelaPagamentos tabela = new TabelaTelaPagamentos();
+            
+            
+            
+            dado.add(tabela);
+            
+        }
+        
+        
+    }
     @FXML
     void btnProximo_onAction(ActionEvent event) {
-        if (true) // ADICIONAR ERROS.
+        
+       
+        
+        for (int i =0 ; i< Integer.parseInt(txtNumeroParcelas.getText());i++){
+             ParcelaPagamentoEntity parc = new ParcelaPagamentoEntity();
+        parc.setValorOriginal(valorParcelas);
+        
+        listaparcelapagamento.add(parc);
+        }
+        
+        
+        
+        completarTabela();
+        
+        /*if (true) // ADICIONAR ERROS.
         {
             completarVenda();
             numeroFornecedor++;
@@ -274,7 +326,8 @@ public class FrmVenda {
             List<ItemVendaEntity> li = new ArrayList();
             li = matAux.get(numeroFornecedor);
             this.completarFormaPagamento(li);
-        }
+        }*/
+        completarVenda();
     }
 
     float valorParcelas = 0;
@@ -309,13 +362,15 @@ public class FrmVenda {
         this.tabCatalogo.setDisable(true);
         this.tabCarrinho.setDisable(true);
 
-        ObservableList<TipoPagamentoEnum> ob = FXCollections.observableArrayList();
-        ob.add(TipoPagamentoEnum.VISTA);
-        ob.add(TipoPagamentoEnum.PRAZO);
-        ob.add(TipoPagamentoEnum.MIXTO);
+        ObservableList<FormaPagamentoEnum> ob = FXCollections.observableArrayList();
+        ob.add(FormaPagamentoEnum.CARTÃO_CRÉDITO);
+        ob.add(FormaPagamentoEnum.CARTÃO_DEBITO);
+        ob.add(FormaPagamentoEnum.CHEQUE);
+        ob.add(FormaPagamentoEnum.DINHEIRO);
 
         this.cmbFormaPagamento.setItems(ob);
-
+        
+        /*
         boolean i = false;
         matAux.add(new ArrayList<>());
 
@@ -336,8 +391,8 @@ public class FrmVenda {
                 }
             }
             i = false;
-        }
-        completarFormaPagamento(matAux.get(0));
+        }*/
+        completarFormaPagamento(listaCarrinho);
     }
 
     void completarFormaPagamento(List<ItemVendaEntity> li) {
@@ -347,7 +402,7 @@ public class FrmVenda {
 
         float x = 0;
         for (ItemVendaEntity ic : li) {
-            x = (ic.getProdutoVO().getValorCompra()) * (ic.getQuantidade());
+            x = x + (ic.getProdutoVO().getValorCompra()) * (ic.getQuantidade());
         }
         this.lblValorTotal.setText(Float.toString(x));
 
@@ -358,11 +413,7 @@ public class FrmVenda {
         this.btnMenos_Parcelas.setDisable(true);
 
         this.lblValorParcela.setText(this.lblValorTotal.getText());
-        this.lblNumeroDocumento.setText(Long.toString((long) this.getId()));
-        this.lblNomeFornecedor.setText(li.get(0).getNomeFornecedor());
-        this.lblBanco.setText("Banco do Brasil"); //li.get(0).getProdutoVO().getFornecedorVO().getNomeBanco()
-        this.lblBancoAgencia.setText("44423-5"); //li.get(0).getProdutoVO().getFornecedorVO().getNumeroAgencia()
-        this.lblCodigoBarras.setText(UUID.randomUUID().toString());
+        
         
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, diasdepoisdhoje);
@@ -435,62 +486,46 @@ public class FrmVenda {
     private int diasdepoisdhoje = 10;
 
     void completarVenda() {
-        
-        TipoPagamentoEnum e = this.cmbFormaPagamento.getValue();
-        PagamentoEntity paga = new PagamentoEntity();
+        double valorTotalFormaPagamento = 0;
+        FormaPagamentoEnum e = this.cmbFormaPagamento.getValue();
+        PagamentoVendaEntity paga = new PagamentoVendaEntity();
         paga.setId((long) this.getId());
         paga.setSituPagamento(SituacaoPagamentoEnum.NORMAL);
-        paga.setTipoPagamento(e);
+        paga.setFormaPagamento(e);
 
         Set<ParcelaPagamentoEntity> listaParcelas = new HashSet<>();
-
-        BoletoBancarioEntity boleto = new BoletoBancarioEntity();
-        boleto.setBancoEmissorVO(ABanco.getBancos("Banco Bradesco S.A.")); //Arrumar
-        boleto.setAgencia("5423-5");
-        boleto.setCarteira("Registrada");
         
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, diasdepoisdhoje);
 
-        if (e == TipoPagamentoEnum.VISTA) {
-
-            boleto.setId(Long.parseLong(this.lblNumeroDocumento.getText()));
-            boleto.setCodigoBarra(this.lblCodigoBarras.getText());
-            
+        if (e == FormaPagamentoEnum.DINHEIRO || e == FormaPagamentoEnum.CARTÃO_DEBITO) {            
             ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
             parcela.setId((long) this.getId());
             parcela.setDataVencimento(cal.getTime());
             parcela.setValorOriginal(Float.parseFloat(this.lblValorTotal.getText()));
             parcela.setValorTotalPago(0.00);
-            parcela.setDocumentoPagamento(boleto);
             listaParcelas.add(parcela);
             paga.setListaParcelas(listaParcelas);
         } else {
             int numeroParcelas = Integer.parseInt(this.txtNumeroParcelas.getText());
 
             for (int x = 0; x < numeroParcelas; x++) {
-
-                boleto.setId((long) this.getId());
-                if(x == 0)boleto.setCodigoBarra(this.lblCodigoBarras.getText());
-                else boleto.setCodigoBarra(UUID.randomUUID().toString());
-                
                 ParcelaPagamentoEntity parcela = new ParcelaPagamentoEntity();
                 parcela.setId((long) this.getId());
                 parcela.setDataVencimento(cal.getTime());
                 parcela.setValorOriginal(valorParcelas);
                 parcela.setValorTotalPago(0.00);
-                parcela.setDocumentoPagamento(boleto);
-
                 listaParcelas.add(parcela);
+                valorTotalFormaPagamento = valorTotalFormaPagamento + parcela.getValorTotalPago();
             }
-
             paga.setListaParcelas(listaParcelas);
 
         }
 
         List<ItemVendaEntity> l = matAux.get(numeroFornecedor);
-        this.listaVendas.add(new VendaEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoVendaEnum.ENVIADA, new HashSet<ItemVendaEntity>(l))); 
-        this.progressBar.setProgress((double) (numeroFornecedor + 1)/matAux.size());
+        //this.listaVendas.add(new VendaEntity((long) this.getId(), new Date(), l.get(0).getProdutoVO().getFornecedor(), paga, SituacaoVendaEnum.ENVIADA, new HashSet<ItemVendaEntity>(l))); 
+        //this.progressBar.setProgress((double) (numeroFornecedor + 1)/matAux.size());
+        System.out.println(" " + valorTotalFormaPagamento);
     }
 
     @FXML
@@ -603,7 +638,11 @@ public class FrmVenda {
 
     @FXML
     void btnNovoProduto_onAction(ActionEvent event) {
-        //Chamar tela de Cadastro de Produto
+        if (this.tblProduto.getSelectionModel().getSelectedItem() == null) {
+            this.lblMensagem.setText("Por Favor, selecione um item para Adcionar ao carrinho.");
+        }else{
+            this.adicionaraocarrinho();
+        }
     }
 
     @FXML
@@ -860,6 +899,115 @@ public class FrmVenda {
             }
         }
         return buscado;
+    }
+    
+    @FXML
+    public void treeCategoria_onMouseClicked(MouseEvent mouseEvent) {
+        //Para ativar o evento do mouse necessita dar 2 clicks
+        if(mouseEvent.getClickCount() == 2){
+            
+            //captura da TreeItem que sofreu a acao
+            TreeItem item = (TreeItem) treeCategoria.getSelectionModel().getSelectedItem();
+            
+            //Nivel 3 - TreeView(treeCategoria)
+            if (treeCategoria.getTreeItemLevel(item) == 3){
+                categoriaSelecionada =  item.getValue().toString();
+                pai = item.getParent().getValue().toString();
+                avo = item.getParent().getParent().getValue().toString();
+                System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                
+                ProdutoEntity produ = new ProdutoEntity();
+                FornecedorEntity fornecedor = new FornecedorEntity();
+                produ.setFornecedor(fornecedor);
+                TabelaTelaVenda aux;
+                produ.setNome("");
+                
+                
+                //btnNovoProduto.setDisable(false);        
+                
+                produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                produ.getFornecedor().setFantasia("");
+                
+                List<ProdutoEntity> listaP = null;
+                listaP = produto.buscarProdutos(produ);
+                
+                List<TabelaTelaVenda> listaProdutos = new ArrayList<>();
+                
+                for(ProdutoEntity vo : listaP){
+                    aux = new TabelaTelaVenda(vo);
+                    listaProdutos.add(aux);
+                }
+                this.completarProdutos(listaProdutos);
+                
+            }
+            
+            //Nivel 2 - TreeView(treeCategoria) 
+            else if (treeCategoria.getTreeItemLevel(item) == 2){
+                if(item.getValue().toString().compareTo("Acessorios") == 0){ //caso especial
+                    categoriaSelecionada = (String) item.getValue(); 
+                    pai = item.getParent().getValue().toString();
+                    avo = null;
+                    System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                    ProdutoEntity produ = new ProdutoEntity();
+                    FornecedorEntity fornecedor = new FornecedorEntity();
+                    produ.setFornecedor(fornecedor);
+                    TabelaTelaVenda aux;
+                    produ.setNome("");
+                
+                
+                    //btnNovoProduto.setDisable(false);        
+                
+                    produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                    produ.getFornecedor().setFantasia("");
+                
+                    List<ProdutoEntity> listaP = null;
+                    listaP = produto.buscarProdutos(produ);
+                
+                    List<TabelaTelaVenda> listaProdutos = new ArrayList<>();
+                
+                    for(ProdutoEntity vo : listaP){
+                        aux = new TabelaTelaVenda(vo);
+                        listaProdutos.add(aux);
+                    }
+                    this.completarProdutos(listaProdutos);
+                }else {
+                    categoriaSelecionada = (String) item.getValue();
+                    pai = item.getParent().getValue().toString();
+                    avo = null;
+                    System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                    ProdutoEntity produ = new ProdutoEntity();
+                    FornecedorEntity fornecedor = new FornecedorEntity();
+                    produ.setFornecedor(fornecedor);
+                    TabelaTelaVenda aux;
+                    produ.setNome("");
+                
+                
+                    //btnNovoProduto.setDisable(false);        
+                
+                    produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                    produ.getFornecedor().setFantasia("");
+                
+                    List<ProdutoEntity> listaP = null;
+                    listaP = produto.buscarProdutos(produ);
+                
+                    List<TabelaTelaVenda> listaProdutos = new ArrayList<>();
+                
+                    for(ProdutoEntity vo : listaP){
+                        aux = new TabelaTelaVenda(vo);
+                        listaProdutos.add(aux);
+                    }
+                    this.completarProdutos(listaProdutos);
+                }
+            }
+            
+            //Nivel 1 - TreeView(treeCategoria)
+            else if (treeCategoria.getTreeItemLevel(item) == 1){
+                categoriaSelecionada = (String) item.getValue();
+                pai = null;
+                avo = null;
+                System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+            }
+        }
     }
 
 }
