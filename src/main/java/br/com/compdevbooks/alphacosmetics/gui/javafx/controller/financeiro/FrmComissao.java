@@ -457,7 +457,8 @@ public class FrmComissao {
 
                 }
                 busca();
-            } else {
+            } 
+        }else {
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                 alert2.setTitle("Pagamento de comissão");
                 alert2.setHeaderText(null);
@@ -465,7 +466,6 @@ public class FrmComissao {
                 alert2.showAndWait();
                 System.out.println("não pode pagar");
             }
-        }
         //
     }
 
