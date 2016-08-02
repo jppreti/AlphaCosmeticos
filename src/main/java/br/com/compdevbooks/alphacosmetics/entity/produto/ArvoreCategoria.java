@@ -6,18 +6,19 @@ import javafx.scene.control.TreeView;
 
 public class ArvoreCategoria {
 
-    private TreeView<String> treeCategoria;
+    private TreeView treeCategoria;
     private int cont;
     
     public ArvoreCategoria(){       }
             
-    public ArvoreCategoria(TreeView<String> treeCategoria, TreeItem root) {
+    public ArvoreCategoria(TreeView treeCategoria, TreeItem root) {
         //Formacao da arvore estatica de categorias
         ArvoreCategoriaInicial arvoreInicial = new ArvoreCategoriaInicial();
-        ArrayList<TreeItem<String>> categoriaLista = arvoreInicial.getCategoria();
+        ArrayList<TreeItem> categoriaLista = arvoreInicial.getCategoria();
                 
         //Apontamento do da raiz e criacao da arvore apartir da raiz
 //        root = new TreeItem<>();
+        
         root.getChildren().addAll(categoriaLista);
         treeCategoria.setShowRoot(false); //ocultar raiz
         treeCategoria.setRoot(root);

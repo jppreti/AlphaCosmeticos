@@ -13,8 +13,8 @@ public class ArvoreCategoriaInicial {
     }
 
     //Raiz
-    public ArrayList<TreeItem<String>> getCategoria() {
-        ArrayList<TreeItem<String>> categoriaLista = new ArrayList<>();
+    public ArrayList<TreeItem> getCategoria() {
+        ArrayList<TreeItem> categoriaLista = new ArrayList<>();
         
         TreeItem perfumaria = new TreeItem(categorias.getByNome("Perfumaria").getNome());
         perfumaria.getChildren().addAll(getPerfumaria());
@@ -29,9 +29,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 1
-    private ArrayList<TreeItem<String>> getPerfumaria() {
+    private ArrayList<TreeItem> getPerfumaria() {
         
-        ArrayList<TreeItem<String>> perfumariaLista = new ArrayList<>();
+        ArrayList<TreeItem> perfumariaLista = new ArrayList<>();
         
         TreeItem masculino = new TreeItem(categorias.getByNome("Masculino").getNome());
         masculino.getChildren().addAll(getMasculino());
@@ -50,9 +50,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getMasculino() {
+    private ArrayList<TreeItem> getMasculino() {
         
-        ArrayList<TreeItem<String>> masculinoLista = new ArrayList<>();
+        ArrayList<TreeItem> masculinoLista = new ArrayList<>();
         
         TreeItem fragrancias = new TreeItem(categorias.getByNome("Fragrancias").getNome());
         TreeItem barbear = new TreeItem (categorias.getByNome("Barbear").getNome());
@@ -64,9 +64,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getInfantil() {
+    private ArrayList<TreeItem> getInfantil() {
     
-        ArrayList<TreeItem<String>> intantilLista = new ArrayList<>();
+        ArrayList<TreeItem> intantilLista = new ArrayList<>();
         
         TreeItem colonia = new TreeItem(categorias.getByNome("Colonia").getNome());
         
@@ -76,9 +76,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getFeminina() {
+    private ArrayList<TreeItem> getFeminina() {
         
-        ArrayList<TreeItem<String>> femininaLista = new ArrayList<>();
+        ArrayList<TreeItem> femininaLista = new ArrayList<>();
         
         TreeItem fragrancias = new TreeItem(categorias.getByNome("Fragrancias").getNome());
         TreeItem locaoPerfumada = new TreeItem(categorias.getByNome("Locao Perfumada").getNome());
@@ -90,9 +90,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 1
-    private ArrayList<TreeItem<String>> getMaquiagem() {
+    private ArrayList<TreeItem> getMaquiagem() {
     
-        ArrayList<TreeItem<String>> maquiagemLista = new ArrayList<>();
+        ArrayList<TreeItem> maquiagemLista = new ArrayList<>();
         
         TreeItem olhos = new TreeItem(categorias.getByNome("Olhos").getNome());
         olhos.getChildren().addAll(getOlhos());
@@ -119,9 +119,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getOlhos() {
+    private ArrayList<TreeItem> getOlhos() {
     
-        ArrayList<TreeItem<String>> olhosLista = new ArrayList<>();
+        ArrayList<TreeItem> olhosLista = new ArrayList<>();
         
         TreeItem sombra = new TreeItem(categorias.getByNome("Sombra").getNome());
         TreeItem delineador = new TreeItem(categorias.getByNome("Delineador").getNome());
@@ -138,9 +138,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getLabios() {
+    private ArrayList<TreeItem> getLabios() {
     
-        ArrayList<TreeItem<String>> labiosLista = new ArrayList<>();
+        ArrayList<TreeItem> labiosLista = new ArrayList<>();
         
         TreeItem batom = new TreeItem(categorias.getByNome("Batom").getNome());
         TreeItem brilhoLabial = new TreeItem(categorias.getByNome("Brilho Labial").getNome());
@@ -157,9 +157,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getRosto() {
+    private ArrayList<TreeItem> getRosto() {
     
-        ArrayList<TreeItem<String>> rostoLista = new ArrayList<>();
+        ArrayList<TreeItem> rostoLista = new ArrayList<>();
         
         TreeItem base = new TreeItem(categorias.getByNome("Base").getNome());
         TreeItem blush = new TreeItem(categorias.getByNome("Blush").getNome());
@@ -177,9 +177,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 2
-    private ArrayList<TreeItem<String>> getUnhas() {
+    private ArrayList<TreeItem> getUnhas() {
         
-        ArrayList<TreeItem<String>> unhasLista = new ArrayList<>();
+        ArrayList<TreeItem> unhasLista = new ArrayList<>();
         
         TreeItem esmalte = new TreeItem(categorias.getByNome("Esmalte").getNome());
         TreeItem tratamento = new TreeItem(categorias.getByNome("Tratamento").getNome());
@@ -191,9 +191,9 @@ public class ArvoreCategoriaInicial {
     }
     
     //Nivel 1
-    private ArrayList<TreeItem<String>> getAcessorios() {
+    private ArrayList<TreeItem> getAcessorios() {
         
-        ArrayList<TreeItem<String>> acessoriosLista = new ArrayList<>();
+        ArrayList<TreeItem> acessoriosLista = new ArrayList<>();
         
         TreeItem acessorios = new TreeItem(); //Unico
         

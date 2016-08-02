@@ -1,14 +1,20 @@
 
 package br.com.compdevbooks.alphacosmetics.gui.javafx.controller.cadastro;
 
+import br.com.compdevbooks.alphacosmetics.business.Categoria;
+import br.com.compdevbooks.alphacosmetics.business.Fornecedor;
 import br.com.compdevbooks.alphacosmetics.business.cadastro.Produto;
 import br.com.compdevbooks.alphacosmetics.dao.DAOFactory;
+import br.com.compdevbooks.alphacosmetics.entity.exception.ProdutoException;
+import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ArvoreCategoria;
 import br.com.compdevbooks.alphacosmetics.entity.produto.ProdutoEntity;
+import br.com.compdevbooks.alphacosmetics.gui.javafx.ClassesAuxiliares.TabelaTelaProdutos;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,16 +22,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -34,7 +41,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 public class FrmProduto implements Initializable{
     
@@ -48,14 +54,19 @@ public class FrmProduto implements Initializable{
         //Esquerda
         @FXML private FlowPane flpEsquerdaPrincipal;
             @FXML private Label lblCategoria;
-            @FXML private TreeView<String> treeCategoria;
+            @FXML private TreeView treeCategoria;
             @FXML private Button btnGerenciar;
         //Centro
         @FXML private TabPane tbpCentroPrincipal;
             @FXML private Tab tabProduto;
                 @FXML private BorderPane bdpProduto;
                     //Centro
-                    @FXML private TableView tblCentroProduto;
+                    @FXML private TableView<TabelaTelaProdutos> tblCentroProduto;
+                        @FXML private TableColumn<TabelaTelaProdutos, String> tblColunaNomeProduto;
+                        @FXML private TableColumn<TabelaTelaProdutos, String> tblColunaDescricaoProduto;
+                        @FXML private TableColumn<TabelaTelaProdutos, String> tblColunaMarcaProduto;
+                        @FXML private TableColumn<TabelaTelaProdutos, Integer> tblColunaQuantidadeProduto;
+                        @FXML private TableColumn<TabelaTelaProdutos, Float> tblColunaValorProduto;
                     //Inferior
                     @FXML private FlowPane flpInferiorProduto;
                         @FXML private Button btnNovoProduto;
@@ -107,9 +118,10 @@ public class FrmProduto implements Initializable{
                             @FXML private TextField txtLocalProdutoRegistro;
                             @FXML private Button btnAddProdutoRegistro;
                         @FXML private Label lblFornecedorRegistro;
-                        @FXML private TableView tblFornecedorRegistro;
-                            @FXML private TableColumn tblColunaSelecaoRegistro;
-                            @FXML private TableColumn tblColunaFornecedorRegistro;
+                        @FXML private ComboBox <String> cmbFornecedorRegistro;
+//                        @FXML private TableView tblFornecedorRegistro;
+//                            @FXML private TableColumn tblColunaSelecaoRegistro;
+//                            @FXML private TableColumn tblColunaFornecedorRegistro;
                     //Inferior
                     @FXML private FlowPane flpInferiorRegistro;
                         @FXML private Button btnSalvarRegistro;
@@ -164,9 +176,10 @@ public class FrmProduto implements Initializable{
                             @FXML private TextField txtLocalProdutoEdicao;
                             @FXML private Button btnAddProdutoEdicao;
                         @FXML private Label lblFornecedorEdicao;
-                        @FXML private TableView tblFornecedorEdicao;
-                            @FXML private TableColumn tblColunaSelecaoEdicao;
-                            @FXML private TableColumn tblColunaFornecedorEdicao;
+                        @FXML private ComboBox <String> cmbFornecedorEdicao;
+//                        @FXML private TableView tblFornecedorEdicao;
+//                            @FXML private TableColumn tblColunaSelecaoEdicao;
+//                            @FXML private TableColumn tblColunaFornecedorEdicao;
                     //Inferior
                     @FXML private FlowPane flpInferiorEdicao;
                         @FXML private Button btnSalvarEdicao;
@@ -186,10 +199,16 @@ public class FrmProduto implements Initializable{
 //Fim BorderPane Principal
     
     private String categoriaSelecionada;
-    private ArvoreCategoria arvore;
-    private TreeItem root = new TreeItem();
+    private String pai;
+    private String avo;
     
-    Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
+    private Categoria categoria = new Categoria(DAOFactory.getDAOFactory().getCategoriaDAO());
+    private Produto produto = new Produto(DAOFactory.getDAOFactory().getProdutoDAO());
+    public Fornecedor fornecedor = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
+    
+    private ArvoreCategoria arvore;
+    private TreeItem root = new TreeItem("Categoria");
+    
     private boolean novo = true;
     
     public FrmProduto() {
@@ -199,14 +218,25 @@ public class FrmProduto implements Initializable{
     //Botao Procurar -> Principal -> Superior
     @FXML
     void btnProcurar_onAction (ActionEvent evento) {
-        final ObservableList<ProdutoEntity> produtos = FXCollections
-				.observableArrayList(produto.getByNome(txtProduto.getText()));
-
-		tblCentroProduto.setItems(produtos);
-
-		//lblStatus.setText("Foram encontrados " + produtos.size() + " clientes.");
-
-		//tbpCliente.getSelectionModel().select(tabClientes);
+        ProdutoEntity produ = new ProdutoEntity();
+        FornecedorEntity fornecedor = new FornecedorEntity();
+        produ.setFornecedor(fornecedor);
+        TabelaTelaProdutos aux;
+        produ.setNome(txtProduto.getText());
+        produ.setCategoria(null);                
+        produ.getFornecedor().setFantasia("");
+                
+        List<ProdutoEntity> listaP = null;
+        listaP = produto.buscarProdutos(produ);
+              
+        List<TabelaTelaProdutos> listaProdutos = new ArrayList<>();
+                
+        for(ProdutoEntity vo : listaP){
+            aux = new TabelaTelaProdutos(vo);
+            listaProdutos.add(aux);
+        }
+        this.completarProdutos(listaProdutos); 
+	txtProduto.requestFocus();
     }
     //Texto Produto -> Principal -> Superior
         //Se possivel fazer a filtragem conforme o digitar do nome
@@ -217,9 +247,64 @@ public class FrmProduto implements Initializable{
     public void treeCategoria_onMouseClicked(MouseEvent mouseEvent) {
         //Para ativar o evento do mouse necessita dar 2 clicks
         if(mouseEvent.getClickCount() == 2){
-            TreeItem<String> item = treeCategoria.getSelectionModel().getSelectedItem();
-            categoriaSelecionada = item.getValue();
-            System.out.println(categoriaSelecionada);
+            
+            //captura da TreeItem que sofreu a acao
+            TreeItem item = (TreeItem) treeCategoria.getSelectionModel().getSelectedItem();
+            
+            //Nivel 3 - TreeView(treeCategoria)
+            if (treeCategoria.getTreeItemLevel(item) == 3){
+                categoriaSelecionada =  item.getValue().toString();
+                pai = item.getParent().getValue().toString();
+                avo = item.getParent().getParent().getValue().toString();
+                System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                
+                ProdutoEntity produ = new ProdutoEntity();
+                FornecedorEntity fornecedor = new FornecedorEntity();
+                produ.setFornecedor(fornecedor);
+                TabelaTelaProdutos aux;
+                produ.setNome("");
+                
+                
+                btnNovoProduto.setDisable(false);        
+                
+                produ.setCategoria(categoria.getByNome(categoriaSelecionada));                
+                produ.getFornecedor().setFantasia("");
+                
+                List<ProdutoEntity> listaP = null;
+                listaP = produto.buscarProdutos(produ);
+                
+                List<TabelaTelaProdutos> listaProdutos = new ArrayList<>();
+                
+                for(ProdutoEntity vo : listaP){
+                    aux = new TabelaTelaProdutos(vo);
+                    listaProdutos.add(aux);
+                }
+                this.completarProdutos(listaProdutos);
+                
+            }
+            
+            //Nivel 2 - TreeView(treeCategoria) 
+            else if (treeCategoria.getTreeItemLevel(item) == 2){
+                if(item.getValue().toString().compareTo("Acessorios") == 0){ //caso especial
+                    categoriaSelecionada = (String) item.getValue(); 
+                    pai = item.getParent().getValue().toString();
+                    avo = null;
+                    System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                }else {
+                    categoriaSelecionada = (String) item.getValue();
+                    pai = item.getParent().getValue().toString();
+                    avo = null;
+                    System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+                }
+            }
+            
+            //Nivel 1 - TreeView(treeCategoria)
+            else if (treeCategoria.getTreeItemLevel(item) == 1){
+                categoriaSelecionada = (String) item.getValue();
+                pai = null;
+                avo = null;
+                System.out.println(categoriaSelecionada+" <----- "+avo+"/"+pai);
+            }
         }
     }
     
@@ -249,17 +334,33 @@ public class FrmProduto implements Initializable{
     //Botao Novo -> Produto -> Inferior
     @FXML
     void btnNovoProduto_onAction (ActionEvent evento) {
-    
+        tabRegistro.setDisable(false);
+        tbpCentroPrincipal.getSelectionModel().select(tabRegistro);
+        tabProduto.setDisable(true);
+//            habilitarEdicao(true);
+//            tbpCliente.getSelectionModel().select(tabEdicao);
+//            limparFormulario();
+//            novo = true;
     }
     //Botao Alterar -> Produto -> Inferior
     @FXML
     void btnAlterarProduto_onAction (ActionEvent evento) {
-    
+        if(tblCentroProduto.getSelectionModel().getSelectedIndex() >= 0){
+            tbpCentroPrincipal.getSelectionModel().select(tabEdicao);
+            tabEdicao.setDisable(false);
+            tabProduto.setDisable(true);
+            btnExcluirProduto.setDisable(true);
+        }
     }
     //Botao Excluir -> Produto -> Inferior
     @FXML
     void btnExcluirProduto_onAction (ActionEvent evento) {
-    
+        
+        if (tblCentroProduto.getSelectionModel().getSelectedIndex() >= 0) {
+            TabelaTelaProdutos ent = tblCentroProduto.getSelectionModel().getSelectedItem();
+//            produto.delete(ent);
+            System.out.println("Excluido com sucesso");
+        }
     }
     
     //Botao Add -> Registro -> Direita
@@ -272,12 +373,44 @@ public class FrmProduto implements Initializable{
     //Botao Salvar -> Registro -> Inferior
     @FXML
     void btnSalvarRegistro_onAction (ActionEvent evento) {
-    
+        ProdutoEntity pro = new ProdutoEntity();
+        //Dados
+        //pro.setId(Long.parseLong(txtCodigoRegistro.getText()));
+        pro.setNome(txtNomeRegistro.getText());
+        pro.setDescricao(txtDescricaoRegistro.getText());
+        pro.setMarca(txtMarcaRegistro.getText());
+        //Percentual
+        pro.setMargemLucro(Float.parseFloat(txtMargemLucroRegistro.getText()));
+        pro.setPercPromocao(Float.parseFloat(txtPromocaoRegistro.getText()));
+        pro.setPercComissao(Float.parseFloat(txtComissaoRegistro.getText()));
+        //Custo
+        pro.setValorVenda(Float.parseFloat(txtValorVendaRegistro.getText()));
+        pro.setValorCompra(Float.parseFloat(txtValorCompraRegistro.getText()));
+        //Estoque
+        pro.setQuantidade(Long.parseLong(txtQuantidadeAtualRegistro.getText()));
+        pro.setQtdMin(Long.parseLong(txtQuantidadeMinimaRegistro.getText()));
+        pro.setQtdMax(Long.parseLong(txtQuantidadeMaximaRegistro.getText()));
+        //Categoria
+        pro.setCategoria(categoria.getByNome(categoriaSelecionada));
+        //Fornecedor
+
+        pro.setFornecedor(fornecedor.getByNome(cmbFornecedorRegistro.getValue()));
+        ProdutoException exc = produto.save(pro);
+        if (exc == null) {
+            System.out.println("Cliente salvo com sucesso.");
+        }
+
+        //Habilitar
+        tbpCentroPrincipal.getSelectionModel().select(tabProduto);
+        tabRegistro.setDisable(true);
+        tabProduto.setDisable(false);
     }
     //Botao Voltar -> Registro -> Inferior
     @FXML
     void btnVoltarRegistro_onAction (ActionEvent evento) {
-    
+        tbpCentroPrincipal.getSelectionModel().select(tabProduto);
+        tabProduto.setDisable(false);
+        tabRegistro.setDisable(true);
     }
     
     //Texto Categoria Seleciona -> Edicao -> Esquerda
@@ -292,18 +425,52 @@ public class FrmProduto implements Initializable{
     //Botao Salvar -> Edicao -> Inferior
     @FXML
     void btnSalvarEdicao_onAction (ActionEvent evento) {
-    
+        ProdutoEntity pro = null;
+        //Dados
+        pro.setId(Long.parseLong(txtCodigoEdicao.getText()));
+        pro.setNome(txtNomeEdicao.getText());
+        pro.setDescricao(txtDescricaoEdicao.getText());
+        pro.setMarca(txtMarcaEdicao.getText());
+        //Percentual
+        pro.setMargemLucro(Float.parseFloat(txtMargemLucroEdicao.getText()));
+        pro.setPercPromocao(Float.parseFloat(txtPromocaoEdicao.getText()));
+        pro.setPercComissao(Float.parseFloat(txtComissaoEdicao.getText()));
+        //Custo
+        pro.setValorVenda(Float.parseFloat(txtValorVendaEdicao.getText()));
+        pro.setValorCompra(Float.parseFloat(txtValorCompraEdicao.getText()));
+        //Estoque
+        pro.setQuantidade(Long.parseLong(txtQuantidadeAtualEdicao.getText()));
+        pro.setQtdMin(Long.parseLong(txtQuantidadeMinimaEdicao.getText()));
+        pro.setQtdMax(Long.parseLong(txtQuantidadeMaximaEdicao.getText()));
+        //Categoria
+        pro.setCategoria(categoria.getByNome(txtSelecionadaEdicao.getText()));
+        //Fornecedor
+
+        pro.setFornecedor(fornecedor.getByNome(cmbFornecedorEdicao.getValue()));
+        ProdutoException exc = produto.save(pro);
+        if (exc == null) {
+            System.out.println("Cliente Alterado com sucesso.");
+        }
+
+        //Habilitar
+        tbpCentroPrincipal.getSelectionModel().select(tabProduto);
+        tabEdicao.setDisable(true);
+        tabProduto.setDisable(false);
     }
     //Botao Voltar -> Edicao -> Inferior
     @FXML
     void btnVoltarEdicao_onAction (ActionEvent evento) {
-    
+        tbpCentroPrincipal.getSelectionModel().select(tabProduto);
+        tabEdicao.setDisable(true);
+        tabProduto.setDisable(false);
+        btnAlterarProduto.setDisable(true);
+        txtProduto.requestFocus();
     }
     
-    //Arvore
+    //Arvore  
     //Botao Adicionar -> Arvore -> VBox -> HBox -> VBox
-    public void eventoBotaoAdicionarCategoria(){
-        btnAdicionarCategoria = new Button();
+    @FXML
+    void btnAdicionarCategoria_onAction(ActionEvent evento) {
         btnAdicionarCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -311,26 +478,15 @@ public class FrmProduto implements Initializable{
             }
         });
     }
-    
     //Botao Remover -> Arvore -> VBox -> HBox -> VBox
-    public void eventoBotaoRemoverCategoria(){
-        btnRemoverCategoria = new Button();
+    @FXML
+    void btnRemoverCategoria_onAction(ActionEvent evento) {
         btnRemoverCategoria.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 removeItem();
             }
         });
-    }
-    
-    @FXML
-    void btnAdicionarCategoria_onAction(ActionEvent evento) {
-    
-    }
-    
-    @FXML
-    void btnRemoverCategoria_onAction(ActionEvent evento) {
-    
     }
     
     //Botao Voltar -> Arvore -> VBox
@@ -343,7 +499,6 @@ public class FrmProduto implements Initializable{
 //Fim Evento
 
 //Outros Metodos
-
     /**
      * Metodos Abstratos (conf)
      */
@@ -354,77 +509,56 @@ public class FrmProduto implements Initializable{
         this.treeCategoria.setCellFactory(TextFieldTreeCell.forTreeView());
         this.treeCategoria.getSelectionModel().selectFirst();
         
-        // Set editing related event handlers (OnEditStart)
-        this.treeCategoria.setOnEditStart(new EventHandler<TreeView.EditEvent<String>>() {
+        
+        this.treeCategoria.setOnEditStart(new EventHandler<TreeView.EditEvent>() {
         @Override
-            public void handle(TreeView.EditEvent<String> event) {
+            public void handle(TreeView.EditEvent event) {
                 editStart(event);
             }
         });
         
-        // Set editing related event handlers (OnEditCommit)
-        this.treeCategoria.setOnEditCommit(new EventHandler<TreeView.EditEvent<String>>() {
+        
+        this.treeCategoria.setOnEditCommit(new EventHandler<TreeView.EditEvent>() {
             @Override
-            public void handle(TreeView.EditEvent<String> event) {
+            public void handle(TreeView.EditEvent event) {
                 editCommit(event);
             }
         });
         
-        // Set editing related event handlers (OnEditCancel)
-        this.treeCategoria.setOnEditCancel(new EventHandler<TreeView.EditEvent<String>>()
+        
+        this.treeCategoria.setOnEditCancel(new EventHandler<TreeView.EditEvent>()
         {
             @Override
-            public void handle(TreeView.EditEvent<String> event) {
+            public void handle(TreeView.EditEvent event) {
                 editCancel(event);
             }
         });
         
-        // Set tree modification related event handlers (branchExpandedEvent)
-	this.root.addEventHandler(TreeItem.<String>branchExpandedEvent(),new EventHandler<TreeItem.TreeModificationEvent<String>>()
+        
+	this.root.addEventHandler(TreeItem.branchExpandedEvent(),new EventHandler<TreeItem.TreeModificationEvent>()
 	{
             @Override
-            public void handle(TreeItem.TreeModificationEvent<String> event) {
+            public void handle(TreeItem.TreeModificationEvent event) {
                 branchExpended(event);
             }
         });
         
-        // Set tree modification related event handlers (branchCollapsedEvent)
-        this.root.addEventHandler(TreeItem.<String>branchCollapsedEvent(),new EventHandler<TreeItem.TreeModificationEvent<String>>()
+        
+        this.root.addEventHandler(TreeItem.branchCollapsedEvent(),new EventHandler<TreeItem.TreeModificationEvent>()
         {
             @Override
-            public void handle(TreeItem.TreeModificationEvent<String> event) {
+            public void handle(TreeItem.TreeModificationEvent event) {
                 branchCollapsed(event);
             }
 	});
 
-        // Set tree modification related event handlers (childrenModificationEvent)
-	this.root.addEventHandler(TreeItem.<String>childrenModificationEvent(),new EventHandler<TreeItem.TreeModificationEvent<String>>() {
+        
+	this.root.addEventHandler(TreeItem.childrenModificationEvent(),new EventHandler<TreeItem.TreeModificationEvent>() {
             @Override
-            public void handle(TreeItem.TreeModificationEvent<String> event) {
+            public void handle(TreeItem.TreeModificationEvent event) {
                 childrenModification(event);
             }
         });
-        
-        //Habilitando os evento de adicionar e remover
-        eventoBotaoAdicionarCategoria();
-        eventoBotaoRemoverCategoria();
-/*
-        btnAdicionarCategoria = new Button();
-        btnAdicionarCategoria.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-                addItem(txtItem.getText());
-            }
-        });
-
-        btnRemoverCategoria = new Button();
-        btnRemoverCategoria.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                removeItem();
-            }
-        });
-*/
 
         //Define o numero de texto nas linhas e colunas para a area de texto
         txtareaInformacoes.setPrefRowCount(15);
@@ -437,26 +571,26 @@ public class FrmProduto implements Initializable{
     private void addItem(String value) {
         
         if (value == null || value.trim().equals("")) {
-            writeMessage("O item n�o pode ser vazio.");
+            writeMessage("A nova categoria não pode ser vazio.");
             return;
         }
 
-        TreeItem<String> parent = treeCategoria.getSelectionModel().getSelectedItem();
+        TreeItem parent =  (TreeItem) treeCategoria.getSelectionModel().getSelectedItem();
 
         if (parent == null) {
-            writeMessage("Selecione um n� para adicionar este item.");
+            writeMessage("Selecione um categoria para adicionar sua nova subcategoria.");
             return;
         }
 
-        // Check for duplicate
-        for (TreeItem<String> child : parent.getChildren()) {
+        for (Iterator it = parent.getChildren().iterator(); it.hasNext();) {
+            TreeItem child = (TreeItem) it.next();
             if (child.getValue().equals(value)) {
-                writeMessage(value + " j� existe em baixo " + parent.getValue());
+                writeMessage("A categoria "+ value + " já existe em baixo (" + parent.getValue() + ")");
                 return;
             }
         }
 
-        TreeItem<String> newItem = new TreeItem<String>(value);
+        TreeItem newItem = new TreeItem(value);
         parent.getChildren().add(newItem);
 
         if (!parent.isExpanded()) {
@@ -464,67 +598,119 @@ public class FrmProduto implements Initializable{
         }
     }
 
-    // Helper Method for Removing an Item
     private void removeItem() {
         
-        TreeItem<String> item = treeCategoria.getSelectionModel().getSelectedItem();
+        TreeItem item = (TreeItem) treeCategoria.getSelectionModel().getSelectedItem();
 
         if (item == null) {
-            writeMessage("Selecione um n� para remover.");
+            writeMessage("Selecione um nó para remover.");
             return;
         }
 
-        TreeItem<String> parent = item.getParent();
-        if (parent == null) {
-            writeMessage("N�o � poss�vel remover o n� raiz.");
+        TreeItem parent = item.getParent();
+        if (parent == null || treeCategoria.getTreeItemLevel(item) != 3) {
+            writeMessage("Não é possivel remover uma supercategoria");
         } else {
             parent.getChildren().remove(item);
         }
     }
     
     
-    public void branchExpended(TreeItem.TreeModificationEvent<String> event) {
+    public void branchExpended(TreeItem.TreeModificationEvent event) {
         String nodeValue = event.getSource().getValue().toString();
-        writeMessage("N� " + nodeValue + " expandido.");
+        writeMessage("A categoria " + nodeValue + " foi expandida.");
     }
 
-    public void branchCollapsed(TreeItem.TreeModificationEvent<String> event) {
+    public void branchCollapsed(TreeItem.TreeModificationEvent event) {
         String nodeValue = event.getSource().getValue().toString();
-        writeMessage("N� " + nodeValue + " se acabou.");
+        writeMessage("A categoria " + nodeValue + " foi compactada.");
     }
 
-    public void childrenModification(TreeItem.TreeModificationEvent<String> event) {
+    public void childrenModification(TreeItem.TreeModificationEvent event) {
         if (event.wasAdded()) {
-            for (TreeItem<String> item : event.getAddedChildren()) {
-                writeMessage("N� " + item.getValue() + " foi adicionado.");
+            
+            for (Iterator it = event.getAddedChildren().iterator(); it.hasNext();) {
+                TreeItem item = (TreeItem) it.next();
+                writeMessage("A nova categoria (" + item.getValue() + "), foi adicionada.");
             }
         }
 
         if (event.wasRemoved()) {
-            for (TreeItem<String> item : event.getRemovedChildren()) {
-                writeMessage("N� " + item.getValue() + " foi removido.");
+            
+            for (Iterator it = event.getRemovedChildren().iterator(); it.hasNext();) {
+                TreeItem item = (TreeItem) it.next();
+                writeMessage("A categoria (" + item.getValue() + "), foi removido.");
             }
         }
     }
 
-    public void editStart(TreeView.EditEvent<String> event) {
-        writeMessage("Edi��o iniciada: " + event.getTreeItem());
+    public void editStart(TreeView.EditEvent event) {
+        writeMessage("Edição iniciada: " + event.getTreeItem());
     }
 
-    public void editCommit(TreeView.EditEvent<String> event) {
-        writeMessage(event.getTreeItem() + " mudou."
-                + " antigo = " + event.getOldValue()
-                + ", novo = " + event.getNewValue());
+    public void editCommit(TreeView.EditEvent event) {
+        writeMessage(event.getTreeItem() + " mudou:"
+                + " (antigo = " + event.getOldValue()
+                + ", novo = " + event.getNewValue() + ")");
     }
 
-    public void editCancel(TreeView.EditEvent<String> e) {
-        writeMessage("Edi��o finalizada: " + e.getTreeItem());
+    public void editCancel(TreeView.EditEvent e) {
+        writeMessage("Edição finalizada: " + e.getTreeItem());
     }    
     
-    // Method for Logging
+    
     public void writeMessage(String msg) {
         this.txtareaInformacoes.appendText(msg + "\n");
-    } 
+    }	
+    
+    private void completarProdutos(List<TabelaTelaProdutos> lista){
+        this.tblColunaNomeProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        this.tblColunaDescricaoProduto.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        this.tblColunaMarcaProduto.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        this.tblColunaQuantidadeProduto.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        this.tblColunaValorProduto.setCellValueFactory(new PropertyValueFactory<>("valorVenda"));
+        
+        this.tblCentroProduto.setItems(FXCollections.observableArrayList(lista));
+    }
+    
+    
+    @FXML
+	void tblCentroProduto_mouseClicked(MouseEvent event) {
+		TabelaTelaProdutos ent = tblCentroProduto.getSelectionModel().getSelectedItem();
+		if (ent != null) {
+                        //Dados
+                        txtCodigoEdicao.setText(ent.getId().toString());
+			txtNomeEdicao.setText(ent.getNome());
+			txtDescricaoEdicao.setText(ent.getDescricao());
+			txtMarcaEdicao.setText(ent.getMarca());
+                        //Percentual
+                        txtMargemLucroEdicao.setText(String.valueOf(ent.getMargemLucro()));
+                        txtPromocaoEdicao.setText(String.valueOf(ent.getPercPromocao()));
+                        txtComissaoEdicao.setText(String.valueOf(ent.getPercComissao()));
+                        //Custo
+                        txtValorVendaEdicao.setText(String.valueOf(ent.getValorVenda()));
+                        txtValorCompraEdicao.setText(String.valueOf(ent.getValorCompra()));
+                        //Estoque
+                        txtQuantidadeAtualEdicao.setText(String.valueOf(ent.getQuantidade()));
+                        txtQuantidadeMinimaEdicao.setText(String.valueOf(ent.getQtdMin()));
+                        txtQuantidadeMaximaEdicao.setText(String.valueOf(ent.getQtdMax()));                        
+                        //Categoria
+                        txtSelecionadaEdicao.setText(ent.getNomeCategoria().toString());
+                        //Fornecedor
+                        cmbFornecedorEdicao.setValue(ent.getFornecedor());
+                        
+                        //Habilitar botão alterar e excluir
+                        btnAlterarProduto.setDisable(false);
+                        btnExcluirProduto.setDisable(false);
+                        
+		}
+		if (event.getClickCount() > 2){
+			tbpCentroPrincipal.getSelectionModel().select(tabEdicao);
+                        tabEdicao.setDisable(false);
+                        tabProduto.setDisable(true);
+                        btnExcluirProduto.setDisable(true);
+                }
+	}
 
     /**
      * Metodos Abstratos (conf)
@@ -532,43 +718,36 @@ public class FrmProduto implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        ArvoreCategoria arvore = new ArvoreCategoria(treeCategoria);
-//        arvore.carregarTreeView();
         arvore = new ArvoreCategoria(this.treeCategoria, this.root);
+        Fornecedor fornecedor1 = new Fornecedor(DAOFactory.getDAOFactory().getFornecedorDAO());
         
-        TableColumn<ProdutoEntity, String> tbcNome = new TableColumn<ProdutoEntity, String>("Nome");
-		tbcNome.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
-				return new ReadOnlyObjectWrapper<String>(c.getValue().getNome());
-			}
-		});
-                tbcNome.setMinWidth(300);
-                tblCentroProduto.getColumns().add(tbcNome);
+        
+        //Funcao para completar a tabela com todos os produtos
+        ProdutoEntity produ = new ProdutoEntity();
+        FornecedorEntity fornecedor = new FornecedorEntity();
+        produ.setFornecedor(fornecedor);
+        TabelaTelaProdutos aux;
+        produ.setNome("");
+        produ.setCategoria(null);                
+        produ.getFornecedor().setFantasia("");
                 
-		TableColumn<ProdutoEntity, String> tbcDescricao = new TableColumn<ProdutoEntity, String>("Descrição");
-		tbcDescricao.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
-				return new ReadOnlyObjectWrapper<String>(c.getValue().getDescricao());
-			}
-		});
-                tbcDescricao.setMinWidth(300);
-                tblCentroProduto.getColumns().add(tbcDescricao);
+        List<ProdutoEntity> listaP = null;
+        listaP = produto.buscarProdutos(produ);
+              
+        List<TabelaTelaProdutos> listaProdutos = new ArrayList<>();
                 
-		TableColumn<ProdutoEntity, String> tbcMarca = new TableColumn<ProdutoEntity, String>("Marca");
-		tbcMarca.setCellValueFactory(new Callback<CellDataFeatures<ProdutoEntity, String>, ObservableValue<String>>() {
-					public ObservableValue<String> call(CellDataFeatures<ProdutoEntity, String> c) {
-						return new ReadOnlyObjectWrapper<String>(c.getValue().getMarca());
-					}
-				});
-		tbcMarca.setMinWidth(150);
-                tblCentroProduto.getColumns().add(tbcMarca);
-
-		//stkDialog.getChildren().remove(vbxDialog);
-
-		//dlgMensagem.getDialogPane().getButtonTypes().add(bttOk);
-		//dlgConfirmacao.getDialogPane().getButtonTypes().add(bttSim);
-		//dlgConfirmacao.getDialogPane().getButtonTypes().add(bttNao);
-
-		txtProduto.requestFocus();
+        for(ProdutoEntity vo : listaP){
+            aux = new TabelaTelaProdutos(vo);
+            listaProdutos.add(aux);
+        }
+        this.completarProdutos(listaProdutos);  
+    
+        ObservableList<String> ob = FXCollections.observableArrayList();
+        for(FornecedorEntity fo:fornecedor1.buscarTodosFornecedores()) {
+            ob.add(fo.getFantasia());            
+        }
+        this.cmbFornecedorRegistro.setItems(ob);
+        this.cmbFornecedorEdicao.setItems(ob);
     }
 
 }

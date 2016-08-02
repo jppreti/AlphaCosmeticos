@@ -1,6 +1,5 @@
 package br.com.compdevbooks.alphacosmetics.entity.produto;
 
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,16 +7,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.compdevbooks.alphacosmetics.entity.IEntity;
 import br.com.compdevbooks.alphacosmetics.entity.pessoa.FornecedorEntity;
-import java.util.HashSet;
 
 @Entity
 @Table(name = "produto")
@@ -43,25 +38,25 @@ public class ProdutoEntity implements IEntity {
     private float percPromocao;
 
     @Column(precision = 5, scale = 2, nullable = false)
-    private float percComissao;
+    public float percComissao;
 
     @Column(precision = 5, scale = 2, nullable = false)
-    private float valorCompra;
+    public float valorCompra;
 
     @Column(nullable=false)
-    private long quantidade;
+    public long quantidade;
     
     @Column(nullable=false)
-    private long qtdMin;
+    public long qtdMin;
     
     @Column(nullable=false)
-    private long qtdMax;
+    public long qtdMax;
     
     @Transient
     private float valorVenda;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH})
-    private CategoriaEntity categoriaVO;
+    public CategoriaEntity categoriaVO;
 /*
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "fornecido", 
@@ -150,10 +145,11 @@ public class ProdutoEntity implements IEntity {
     public CategoriaEntity getCategoria() {
         return getCategoriaVO();
     }
+
     public String getNomeCategoria(){
         return getCategoriaVO().getNome();
     }
-
+    
     public void setCategoria(CategoriaEntity categoriaVO) {
         this.setCategoriaVO(categoriaVO);
     }
