@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javax.swing.JOptionPane;
 
 public class FrmVendedor {
 
@@ -132,8 +133,13 @@ public class FrmVendedor {
     @FXML
     void Excluir(ActionEvent event) {
         if (tableViewVendedor.getSelectionModel().getSelectedIndex() >= 0) {
-            vendedor.delete(tableViewVendedor.getSelectionModel().getSelectedItem());
-            atualiza_Cliente();
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir o Item Selecionado?", 
+            "Excluir Item", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+              vendedor.delete(tableViewVendedor.getSelectionModel().getSelectedItem());
+              atualiza_Cliente();  
+              JOptionPane.showMessageDialog(null, "Item Excluído com Sucesso!!");
+            }
         }
     }
 
@@ -142,11 +148,19 @@ public class FrmVendedor {
     void Salvar_Dados(ActionEvent event) {
         VendedorEntity ent;
         ent = new VendedorEntity();
+        
+        if(txtNome.getText().equals("")||
+           txtCpf.getText().equals("")|| 
+           txtRg.getText().equals("")){  
+           JOptionPane.showMessageDialog(null,"Os Campos Nome, CPF e RG devem ser informados!");
+        }else{
 	ent.setNome(txtNome.getText());
         ent.setCPF(txtCpf.getText());
         ent.setRG(txtRg.getText());
 	vendedor.save(ent);
         atualiza_Cliente();
+        JOptionPane.showMessageDialog(null,"Cliente Cadastrado com Sucesso!!");
+        }
     }
 
     //Método para Limpar os Campos
@@ -155,6 +169,7 @@ public class FrmVendedor {
         txtNome.setText("");
         txtCpf.setText("");
         txtRg.setText("");
+        JOptionPane.showMessageDialog(null, "Todos os campos foram limpos");
     }	
     
     //Método para Pesquisar Por Nome
@@ -162,5 +177,6 @@ public class FrmVendedor {
     void Pesquisa_Nome(ActionEvent event) {
         atualiza_Cliente();
     }
-
+    
+    
 }
