@@ -215,7 +215,7 @@ public class MockVendaDAO implements IVendaDAO {
         int x=0;
         for(VendaEntity vo : vendas){
             x=0;
-            if(vo.getSituacao().equals(SituacaoVendaEnum.PEDIDA))
+            if(vo.getSituacao().equals(SituacaoVendaEnum.ANALISE))
                 x++;
             if(vo.getClienteVO().getNome().toUpperCase().contains(cliente.getNome().toUpperCase()))
                 x++;

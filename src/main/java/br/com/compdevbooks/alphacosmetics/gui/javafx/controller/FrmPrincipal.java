@@ -194,11 +194,10 @@ public class FrmPrincipal {
                 ioe.printStackTrace();
             }    	
         }//Add fim
-    
+        
     @FXML
-    void mniPedidoVenda_onAction(ActionEvent event) {
-      /*
-        BorderPane frmPedidoVendaGerenteVenda= null;
+    void mniPedidoVendaGerenteVenda_onAction(ActionEvent event) {
+            BorderPane frmPedidoVendaGerenteVenda= null;
         try{
             frmPedidoVendaGerenteVenda= FXMLLoader.load(FrmPedidoVendaGerenteVendas.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteVendas.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
             bdpPrincipal.setCenter(frmPedidoVendaGerenteVenda);
@@ -206,10 +205,9 @@ public class FrmPrincipal {
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
-        //controle de acesso
-        */
-     
-        
+    }
+        @FXML
+    void mniPedidoVendaGerenteEstoque_onAction(ActionEvent event) {
         BorderPane frmPedidoVendaGerenteEstoque=null;
         try{
             frmPedidoVendaGerenteEstoque= FXMLLoader.load(FrmPedidoVendaGerenteEstoque.class.getClassLoader().getResource("gui\\analisedepedidos\\pedidoVendaGerenteEstoque.fxml"),ResourceBundle.getBundle("gui/i18N_pt_BR"));
@@ -218,6 +216,12 @@ public class FrmPrincipal {
             System.out.println(ioe.getMessage());
             ioe.printStackTrace();
         }
+    }
+    @FXML
+    void mniPedidoVenda_onAction(ActionEvent event) {
+     
+        
+        
         
                 
 

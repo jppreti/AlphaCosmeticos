@@ -40,7 +40,12 @@
                     <items>
                       <MenuItem fx:id="mniPedCompra" mnemonicParsing="false" onAction="#mniPedCompra_onAction" text="%analisePedido.compra" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="mniPedVenda" mnemonicParsing="false" onAction="#mniPedidoVenda_onAction" text="%analisePedido.venda" />
+                        <Menu mnemonicParsing="false" text="%analisePedido.venda">
+                          <items>
+                            <MenuItem fx:id="mniPedVendaGerenteVenda" mnemonicParsing="false" onAction="#mniPedidoVendaGerenteVenda_onAction" text="%analisePedido.GerenteVenda" />
+                              <MenuItem fx:id="mniPedVendaGerenteEstoque" mnemonicParsing="false" onAction="#mniPedidoVendaGerenteEstoque_onAction" text="%analisePedido.GerenteEstoque" />
+                          </items>
+                        </Menu>
                     </items>
                   </Menu>
                   <Menu fx:id="mnuFinanceiro" mnemonicParsing="false" text="%menu.financeiro">
