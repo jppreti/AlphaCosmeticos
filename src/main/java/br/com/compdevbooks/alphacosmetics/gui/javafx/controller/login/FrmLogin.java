@@ -126,7 +126,12 @@ public class FrmLogin {
     
     @FXML
     void button_sair(ActionEvent event) {
-        System.exit(0);
+        int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente Sair do Sistema?", 
+            "Sair do Sistema", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) { 
+              System.exit(0);
+            }
+        
     }
 
 }
