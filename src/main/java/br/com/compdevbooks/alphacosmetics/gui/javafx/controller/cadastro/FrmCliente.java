@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
+import javax.swing.JOptionPane;
 
 public class FrmCliente {
 
@@ -192,8 +193,13 @@ public class FrmCliente {
     @FXML
     void btnExcluir(ActionEvent event) {
         if (tableViewCliente.getSelectionModel().getSelectedIndex() >= 0) {
-            cliente.delete(tableViewCliente.getSelectionModel().getSelectedItem());
-            atualiza_Cliente();
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir o Item Selecionado?", 
+            "Excluir Item", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+              cliente.delete(tableViewCliente.getSelectionModel().getSelectedItem());
+              atualiza_Cliente();
+              JOptionPane.showMessageDialog(null, "Item Excluído com Sucesso!!");
+            }
         }
     }
 
@@ -217,6 +223,7 @@ public class FrmCliente {
         txtClienteBairro.setText("");
         txtClienteMunicipio.setText("");
         txtClienteEstado.setText("");
+        JOptionPane.showMessageDialog(null, "Todos os campos foram limpos");
     }
 
     @FXML

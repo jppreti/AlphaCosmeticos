@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javax.swing.JOptionPane;
 
 public class FrmFornecedor {
 
@@ -207,8 +208,13 @@ public class FrmFornecedor {
     @FXML
     void botao_remover_fornecedor(ActionEvent event) {
          if (tableViewFornecedor.getSelectionModel().getSelectedIndex() >= 0) {
-            fornecedor.delete(tableViewFornecedor.getSelectionModel().getSelectedItem());
-            atualiza_Fornecedor();
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja Realmente Excluir o Item Selecionado?", 
+            "Excluir Item", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+              fornecedor.delete(tableViewFornecedor.getSelectionModel().getSelectedItem());
+              atualiza_Fornecedor();  
+              JOptionPane.showMessageDialog(null, "Item Excluído com Sucesso!!");
+            }
         }
     }
 
@@ -236,6 +242,7 @@ public class FrmFornecedor {
         txtNumero.setText("");
         txtCep.setText("");
         txtBairro.setText("");
+        JOptionPane.showMessageDialog(null, "Todos os campos foram limpos");
     }
 
     //Método para Pesquisar Por Nome
