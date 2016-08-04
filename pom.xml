@@ -41,12 +41,13 @@
 					<mainClass>br.com.compdevbooks.alphacosmetics.gui.javafx.Main</mainClass>
 				</configuration>
 			</plugin>
-
+ 
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<!-- <version>0.7.7-SNAPSHOT</version> -->
-				<executions>
+				<!-- jacoco:report para gerar os relatorios de completude de teste -->
+  				<executions>
 					<execution>
 						<id>default-prepare-agent</id>
 						<goals>

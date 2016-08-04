@@ -39,7 +39,7 @@ public class FrmLogin {
         BorderPane frmPrincipal = null;
         Stage primaryStage = new Stage();
         try {
-            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui\\FrmPrincipal.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
+            frmPrincipal = FXMLLoader.load(FrmPrincipal.class.getClassLoader().getResource("gui/FrmPrincipal.fxml"), ResourceBundle.getBundle("gui/i18N_pt_BR"));
         } catch (Exception ex) {
             System.out.println("Exception on FXMLLoader.load()");
             System.out.println(ex.getMessage());   
